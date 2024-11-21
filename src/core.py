@@ -46,29 +46,17 @@ class RA_PST():
         """ 
         This method calls the allocation of each task in the process
         """
-        self.ns = {"cpee1": list(self.process.nsmap.values())[
-            0], "ra_pst": "http://cpee.org/ns/ra_rpst"}
-        tasks = self.process.xpath(
-            "//cpee1:call|//cpee1:manipulate", namespaces=self.ns)
-        allocations = []
         threads = []
 
-        for task in tasks:
+        self.ns = {"cpee1": list(self.process.nsmap.values())[
+            0], "ra_pst": "http://cpee.org/ns/ra_rpst"}
+
+        tasks = self.process.xpath(
+            "//cpee1:call|//cpee1:manipulate", namespaces=self.ns)
+        for task in tasks: 
             allocation = TaskAllocation(self, etree.tostring(task))
-            x = threading.Thread(target=self.add_allocation, args=(
-                task, allocation.allocate_task(None, self.resource_url),))
+            allocation.allocate_task(None, self.resource_url)
             self.allocations[task.xpath("@id")[0]] = (allocation)
-            threads.append(x)
-            x.start()
-
-        for thread in threads:
-            thread.join()
-
-        # for allocation in list(self.allocations.values()):
-        #     allocation.set_branches()
-
-        #self.get_ra_pst()
-        return self.allocations
 
     def add_allocation(self, task, output):
         # task.xpath("cpee1:allocation", namespaces=self.ns)[0].append(output)
@@ -90,13 +78,9 @@ class RA_PST():
         for key, value in self.allocations.items():
             node = process.xpath(
                 f"//*[@id='{str(key)}'][not(ancestor::cpee1:children)]", namespaces=self.ns)[0]
-            ra_tree = value.intermediate_trees[0].xpath(
-                "cpee1:children", namespaces=self.ns)[0]
-
-            node.append(ra_tree)  # add allocation tree
-
+            node.append(value.intermediate_trees[0].xpath(
+                "cpee1:children", namespaces=self.ns)[0])  # add allocation tree of task to process
         self.ra_rpst = etree.tostring(process)
-
 
     def print_node_structure(self, node=None, level=0):
         """
@@ -142,7 +126,7 @@ class TaskAllocation(RA_PST):
 
         if root is None:
             root = etree.fromstring(self.task)
-            new_element = etree.SubElement(root, f"{{{self.ns['cpee1']}}}children")
+            etree.SubElement(root, f"{{{self.ns['cpee1']}}}children")
             self.intermediate_trees.append(copy.deepcopy(
                 self.allocate_task(root, resource_url=resource_url, excluded=[root])))
             return self.intermediate_trees[0]
@@ -157,8 +141,7 @@ class TaskAllocation(RA_PST):
 
             # Delete non fitting profiles
             for profile in resource.xpath("resprofile"):
-                children = etree.SubElement(profile, f"{{{self.ns['cpee1']}}}children")
-
+                etree.SubElement(profile, f"{{{self.ns['cpee1']}}}children")
                 if not (utils.get_label(etree.tostring(root).lower()) == profile.attrib["task"].lower() and (profile.attrib["role"] in utils.get_allowed_roles(etree.tostring(root)) if len(utils.get_allowed_roles(etree.tostring(root))) > 0 else True)):
                     resource.remove(profile)
 
@@ -166,8 +149,6 @@ class TaskAllocation(RA_PST):
             if len(resource.xpath("resprofile", namespaces=self.ns)) > 0:
                 root.xpath("cpee1:children", namespaces=self.ns)[
                     0].append(resource)
-
-
 
         # End condition for recursive call
         if len(root.xpath("cpee1:children", namespaces=self.ns)) == 0:  # no task parents exist
@@ -198,7 +179,6 @@ class TaskAllocation(RA_PST):
                 ex_tasks = [utils.get_label(
                     etree.tostring(task)).lower() for task in ex_branch]
 
-                # TODO excluded tasks
                 if any(x in ex_tasks or x == utils.get_label(etree.tostring(root)) for x in cp_task_labels):
                     #print(f"Break reached, task {\
                     #      [x for x in cp_task_labels if x in ex_tasks]} in excluded")
@@ -221,8 +201,6 @@ class TaskAllocation(RA_PST):
                         task = copy.deepcopy(task.xpath(
                             "/*", namespaces=self.ns)[0]).xpath(path, namespaces=self.ns)[0]
                         ex_branch.append(task)
-                        # if change_pattern.xpath("@type")[0].lower() in ["replace"]:
-                        # print("stop")
                         profile.xpath("cpee1:children", namespaces=self.ns)[0].append(
                             self.allocate_task(task, resource_url, excluded=ex_branch))
 
@@ -234,8 +212,7 @@ class TaskAllocation(RA_PST):
                         # Branch ends here
 
                     else:
-                        raise (
-                            "Changepattern type not in ['insert', 'replace', 'delete']")
+                        raise ValueError("Changepattern type not in ['insert', 'replace', 'delete']")
 
         return root
 

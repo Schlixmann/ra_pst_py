@@ -1,0 +1,123 @@
+<description xmlns="http://cpee.org/ns/description/1.0">
+	<call id="a1" endpoint="">
+		<parameters>
+			<label>receive order</label>
+			<method>:post</method>
+			<arguments/>
+		</parameters>
+		<annotations>
+			<_timing>
+				<_timing_weight/>
+				<_timing_avg/>
+				<explanations/>
+			</_timing>
+			<_shifting>
+				<_shifting_type>Duration</_shifting_type>
+			</_shifting>
+			<_context_data_analysis>
+				<probes/>
+				<ips/>
+			</_context_data_analysis>
+			<report>
+				<url/>
+			</report>
+			<_notes>
+				<_notes_general/>
+			</_notes>
+		</annotations>
+		<documentation>
+			<input/>
+			<output/>
+			<implementation>
+				<description/>
+			</implementation>
+		</documentation>
+		<resources allocated_to="not_allocated"/>
+		<resource>role_0</resource>
+		<expectedready/>
+		<plannedstart/>
+		<plannedend/>
+		<children>
+			<resource id="res_0" name="res_0">
+				<resprofile id="role_0" name="role_0" role="role_0" task="receive order">
+					<measures>
+						<cost>3</cost>
+					</measures>
+					<children/>
+				</resprofile>
+				<resprofile id="role_0" name="role_0" role="role_0" task="receive order">
+					<measures>
+						<cost>4</cost>
+					</measures>
+					<changepattern type="delete">
+						<parameters>
+							<direction>any</direction>
+						</parameters>
+						<description>
+					</description>
+					</changepattern>
+					<children>
+						<manipulate id="delete_5" label="wait" type="delete" direction="any">
+							<resources allocated_to="not_allocated">
+								<resource>role_9</resource>
+							</resources>
+						</manipulate>
+					</children>
+				</resprofile>
+				<resprofile id="role_0" name="role_0" role="role_0" task="receive order">
+					<measures>
+						<cost>3</cost>
+					</measures>
+					<changepattern type="insert">
+						<parameters>
+							<direction>before</direction>
+						</parameters>
+						<description>
+							<manipulate id="insert_b1" label="insert_b1" type="insert" direction="before">
+								<resources allocated_to="not_allocated">
+									<resource>role_1</resource>
+								</resources>
+							</manipulate>
+						</description>
+					</changepattern>
+					<children>
+						<manipulate id="insert_b1" label="insert_b1" type="insert" direction="before">
+							<resources allocated_to="not_allocated">
+								<resource>role_1</resource>
+							</resources>
+							<children>
+								<resource>
+									<resprofile id="role_1" name="role_1" role="role_1" task="insert_b1">
+										<measures>
+											<cost>5</cost>
+										</measures>
+										<changepattern type="insert">
+											<parameters>
+												<direction>after</direction>
+											</parameters>
+											<description>
+												<manipulate id="insert_a2" label="insert_a2" type="insert" direction="after">
+													<resources allocated_to="not_allocated">
+														<resource>role_6</resource>
+													</resources>
+												</manipulate>
+											</description>
+										</changepattern>
+										<children>
+											<manipulate id="insert_a2" label="insert_a2" type="insert" direction="after">
+												<resources allocated_to="not_allocated">
+													<resource>role_6</resource>
+												</resources>
+												<children/>
+											</manipulate>
+										</children>
+									</resprofile>
+								</resource>
+							</children>
+						</manipulate>
+					</children>
+				</resprofile>
+			</resource>
+		</children>
+	</call>
+</description>

@@ -1,0 +1,79 @@
+<resources>
+	<resource id="res_0" name="res_0">
+		<resprofile id="role_0" name="role_0" role="role_0" task="receive order">
+			<measures>
+				<cost>3</cost>
+			</measures>
+		</resprofile>
+		<resprofile id="role_0" name="role_0" role="role_0" task="receive order">
+			<measures>
+				<cost>4</cost>
+			</measures>
+			<changepattern type="delete">
+				<parameters>
+					<direction>any</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="delete_5" label="wait">
+						<resources allocated_to="not_allocated">
+							<resource>role_9</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+		<resprofile id="role_0" name="role_0" role="role_0" task="receive order">
+			<measures>
+				<cost>3</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>before</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="insert_b1" label="insert_b1">
+						<resources allocated_to="not_allocated">
+							<resource>role_1</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+	</resource>
+	<resource>
+		<resprofile id="role_1" name="role_1" role="role_1" task="insert_b1">
+			<measures>
+				<cost>5</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>after</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="insert_a2" label="insert_a2">
+						<resources allocated_to="not_allocated">
+							<resource>role_6</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+		<resprofile id="role_6" name="role_6" role="role_6" task="insert_b0">
+			<measures>
+				<cost>5</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>after</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="insert_a2" label="insert_a2">
+						<resources allocated_to="not_allocated">
+							<resource>role_6</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+	</resource>
+</resources>
