@@ -1,4 +1,4 @@
-from utils import get_label
+from .utils import get_label
 
 from lxml import etree
 import uuid
