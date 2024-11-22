@@ -38,7 +38,7 @@ class TreeGraph:
         self.dot_content += f'\t"{element.attrib["unid"]}" [label = "{element.attrib["id"]}: {element.attrib["name"]} \n time: \n {time}"]  \t; \n '
 
     def add_visualization_resprofile(self, element, measure="cost"):
-        value = element.xpath("cpee1:measures/cpee1:{measure}", namespaces=self.ns)
+        value = element.xpath(f"cpee1:measures/cpee1:{measure}", namespaces=self.ns)
         if value:
             value = value[0].text
 
