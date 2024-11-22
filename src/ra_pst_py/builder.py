@@ -1,5 +1,5 @@
-from src.ra_pst_py.core import RA_PST
-from src.ra_pst_py.graphix import TreeGraph
+from .core import RA_PST
+from .graphix import TreeGraph
 from .file_parser import parse_process_file, parse_resource_file
 
 from lxml import etree
