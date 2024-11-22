@@ -1,4 +1,4 @@
-import utils
+from utils import get_label
 
 from lxml import etree
 import uuid
@@ -52,7 +52,7 @@ class TreeGraph:
         self.dot_content += f'\t"{element.attrib["unid"]}" [label = "{element.attrib["id"]}: {element.attrib["role"]} \n {element.attrib["name"]} \n {measure} : {value} \n time: {time}" shape=polygon sides=6]\t; \n'
 
     def add_visualization_task(self, element):
-        name = utils.get_label(etree.tostring(element))
+        name = get_label(etree.tostring(element))
         try:
             task_type = element.attrib["type"]
         except:

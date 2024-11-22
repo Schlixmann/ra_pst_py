@@ -1,5 +1,5 @@
 # Import modules
-import utils
+from .utils import get_allowed_roles, get_label
 
 # Import external packages
 from lxml import etree
@@ -151,12 +151,12 @@ class TaskAllocation(RA_PST):
             for profile in resource.xpath("resprofile"):
                 etree.SubElement(profile, f"{{{self.ns['cpee1']}}}children")
                 if not (
-                    utils.get_label(etree.tostring(root).lower())
+                    get_label(etree.tostring(root).lower())
                     == profile.attrib["task"].lower()
                     and (
                         profile.attrib["role"]
-                        in utils.get_allowed_roles(etree.tostring(root))
-                        if len(utils.get_allowed_roles(etree.tostring(root))) > 0
+                        in get_allowed_roles(etree.tostring(root))
+                        if len(get_allowed_roles(etree.tostring(root))) > 0
                         else True
                     )
                 ):
@@ -214,14 +214,14 @@ class TaskAllocation(RA_PST):
                     if element.tag in self.task_elements
                 ]
                 cp_task_labels = [
-                    utils.get_label(etree.tostring(task)).lower() for task in cp_tasks
+                    get_label(etree.tostring(task)).lower() for task in cp_tasks
                 ]
                 ex_tasks = [
-                    utils.get_label(etree.tostring(task)).lower() for task in ex_branch
+                    get_label(etree.tostring(task)).lower() for task in ex_branch
                 ]
 
                 if any(
-                    x in ex_tasks or x == utils.get_label(etree.tostring(root))
+                    x in ex_tasks or x == get_label(etree.tostring(root))
                     for x in cp_task_labels
                 ):
                     # print(f"Break reached, task {\
@@ -294,7 +294,7 @@ class ResourceError(Exception):
         message="{} No valid resource allocation can be found for the given set of available resources",
     ):
         self.task = task
-        self.message = message.format(utils.get_label(etree.tostring(self.task)))
+        self.message = message.format(get_label(etree.tostring(self.task)))
         super().__init__(self.message)
 
 
