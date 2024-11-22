@@ -1,5 +1,6 @@
 rapst.xml
 graphs/*
+test.xml
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

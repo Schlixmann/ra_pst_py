@@ -1,7 +1,7 @@
 from lxml import etree
 import os
 
-def parse_process_file(process_file):
+def parse_process_file(process_file) -> etree._Element:
     if isinstance(process_file, etree._Element):
         process = process_file
     elif os.path.isfile(process_file):
@@ -15,7 +15,7 @@ def parse_process_file(process_file):
     process = process.xpath("//cpee1:description", namespaces = proc_ns)[0]
     return process
 
-def parse_resource_file(resource_file):
+def parse_resource_file(resource_file) -> etree._Element:
     if isinstance(resource_file, etree._Element):
         resource =  resource_file
     elif os.path.isfile(resource_file):

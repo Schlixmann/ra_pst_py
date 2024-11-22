@@ -228,7 +228,7 @@ class TreeGraph:
 
     def show(
         self,
-        root,
+        root:etree._Element,
         format="png",
         output_file="graphs/output_graph",
         view=True,
