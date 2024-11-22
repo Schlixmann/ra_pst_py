@@ -1,5 +1,5 @@
 # Import modules
-from src import utils
+from src.ra_pst_py import utils
 
 # Import external packages
 from lxml import etree

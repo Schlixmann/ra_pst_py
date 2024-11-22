@@ -1,4 +1,4 @@
-from src import utils
+from src.ra_pst_py import utils
 
 from lxml import etree
 import uuid

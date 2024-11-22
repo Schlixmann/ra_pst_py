@@ -1,4 +1,4 @@
-from src.builder import build_rapst, get_rapst_etree, get_rapst_str, show_tree_as_graph
+from src.ra_pst_py.builder import build_rapst, get_rapst_etree, get_rapst_str, show_tree_as_graph
 
 # Build RA-PST
 ra_pst = build_rapst(process_file="example_data/test_process_cpee.xml", resource_file="example_data/test_resource.xml")

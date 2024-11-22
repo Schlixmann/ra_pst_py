@@ -1,5 +1,5 @@
-from src.core import RA_PST
-from src.file_parser import parse_process_file, parse_resource_file
+from src.ra_pst_py.core import RA_PST
+from src.ra_pst_py.file_parser import parse_process_file, parse_resource_file
 
 import unittest
 from lxml import etree

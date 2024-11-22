@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "ra_pst_py"
+name = "RA_PST_PY"
 version = "0.0.1"
 authors = [
   { name="Felix Schumann", email="felixschumann95@gmx.de" },
@@ -30,4 +30,4 @@ Paper = "https://link.springer.com/chapter/10.1007/978-3-031-70396-6_1"
 
 [tool.setuptools]
 packages = ["ra_pst_py"]
-package-dir = { "": "src" }
+package-dir = { "" = "src" }
