@@ -2,8 +2,6 @@ from .core import RA_PST
 from .graphix import TreeGraph
 from .file_parser import parse_process_file, parse_resource_file
 
-from lxml import etree
-
 def build_rapst(process_file, resource_file) -> RA_PST: 
     """Build an RA_PST object from file (str, etree._Element)"""
     process_data = parse_process_file(process_file)

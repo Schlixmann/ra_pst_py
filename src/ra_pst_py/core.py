@@ -139,7 +139,7 @@ class RA_PST:
                 self.branches[node.attrib["id"]].append(branch)
                 node = branch.node
 
-            if node.tag == f"{{{self.ns['cpee1']}}}resprofile" or (node.tag == f"resprofile"):
+            if node.tag == f"{{{self.ns['cpee1']}}}resprofile" or (node.tag == "resprofile"):
                 # Delete other resource profiles from branch
                 parent = node.xpath("parent::node()", namespaces=self.ns)[0]
 
@@ -154,7 +154,7 @@ class RA_PST:
 
                 set(map(self.get_branches_for_task, *branches))
 
-            elif node.tag == f"{{{self.ns['cpee1']}}}resource" or (node.tag == f"resource"):
+            elif node.tag == f"{{{self.ns['cpee1']}}}resource" or (node.tag == "resource"):
                 # Delete other Resources from branch
                 parent = node.xpath("parent::node()", namespaces=self.ns)[0]
 
