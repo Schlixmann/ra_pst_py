@@ -3,6 +3,7 @@ graphs/*
 test.xml
 tests/outcome/*
 branches.xml
+.vscode
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
