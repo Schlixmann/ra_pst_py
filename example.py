@@ -16,4 +16,11 @@ ra_pst.save_ra_pst("rapst.xml")
 
 show_tree_as_graph(ra_pst)
 
+# Get a dict which is available for an ilp representation of the RA-PST
+# the current shape is: 
+# { 
+#   tasks: list of tasks,
+#   resources: list of resources, 
+#   branches: dict(task : [branch1[(job1),(job2),...], branch2]))
+#    }
 ilp_dict = get_ilp_rep(ra_pst)
