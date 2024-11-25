@@ -50,15 +50,20 @@ class RA_PST:
     def get_resourcelist(self) -> list:
         "Returns list of all Resource-IDs in self.resource_url"
         tree = self.resource_url
-        resources = tree.xpath("//resource")
+        resources = tree.xpath("//resource[not(descendant::cpee1:changepattern)]", namespaces=self.ns)
         return [resource.attrib["id"] for resource in resources]
     
     def get_branches_ilp(self) -> dict:
+        """
+        returns a dict of all valid branches serialized to represent jobs in an OR
+        way.
+        """
         ilp_branches = defaultdict(list)
         for key, values in self.branches.items():
             for branch in values:
                 #TODO branch.serialize_jobs
-                ilp_branches[key].append(branch.get_serialized_jobs())
+                if branch.is_valid:
+                    ilp_branches[key].append(branch.get_serialized_jobs(attribute="id"))
         return ilp_branches
 
     def save_ra_pst(self, path: str):
@@ -114,9 +119,9 @@ class RA_PST:
     def set_branches(self):
         tasklist = self.get_tasklist()
         for task in tasklist:
-            self.get_branches_for_task(task)
+            self.set_branches_for_task(task)
         
-    def get_branches_for_task(self, node, branch=None):  
+    def set_branches_for_task(self, node, branch=None):  
             # node = anchor_task
             # if possible, cache in object?!
             """ 
@@ -145,14 +150,14 @@ class RA_PST:
 
                 if len(parent.xpath("*", namespaces=self.ns)) > 1:
                     to_remove = [elem for elem in parent.xpath(
-                        "child::resprofile", namespaces=self.ns) if elem != node]
+                        "child::cpee1:resprofile", namespaces=self.ns) if elem != node]
                     set(map(parent.remove, to_remove))
 
                 # Iter through children
                 children = node.xpath("cpee1:children/*", namespaces=self.ns)
                 branches = children, [branch for _ in children]
 
-                set(map(self.get_branches_for_task, *branches))
+                set(map(self.set_branches_for_task, *branches))
 
             elif node.tag == f"{{{self.ns['cpee1']}}}resource" or (node.tag == "resource"):
                 # Delete other Resources from branch
@@ -173,14 +178,14 @@ class RA_PST:
                     if i > 0:
                         new_branch = Branch(copy.deepcopy(
                             child.xpath("/*", namespaces=self.ns)[0]))
-                        self.branches[node.attrib["id"]].append(new_branch)
+                        self.branches[new_branch.node.attrib["id"]].append(new_branch)
+                        branches[0].append(new_branch.node.xpath(path)[0])                        
                         branches[1].append(new_branch)
-                        branches[0].append(new_branch.node.xpath(path)[0])
                     else:
                         branches[0].append(child)
                         branches[1].append(branch)
 
-                set(map(self.get_branches_for_task, *branches))
+                set(map(self.set_branches_for_task, *branches))
 
             elif node.tag == f"{{{self.ns['cpee1']}}}call" or node.tag == f"{{{self.ns['cpee1']}}}manipulate":
                 # Create new branch for each resource
@@ -210,14 +215,15 @@ class RA_PST:
                     if i > 0:
                         new_branch = Branch(copy.deepcopy(
                             child.xpath("/*", namespaces=self.ns)[0]))
-                        self.branches[node.attrib["id"]].append(new_branch)
+                        # node exchanged for new_branch.node
+                        self.branches[new_branch.node.attrib["id"]].append(new_branch)
                         branches[1].append(new_branch)
                         branches[0].append(new_branch.node.xpath(
                             path, namespaces=self.ns)[0])
                     else:
                         branches[0].append(child)
                         branches[1].append(branch)
-                set(map(self.get_branches_for_task, *branches))
+                set(map(self.set_branches_for_task, *branches))
 
             else:
                 raise ValueError("cpee_allocation_set_branches: Wrong node Type")
@@ -414,22 +420,33 @@ class Branch():
         # TODO: How to deal with deletes? -> do we need to deal with deletes?
         # TODO: Does currently not deal with change fragments/ multiple tasks
         # WARN: ("Not fully implemented. \n Please only use with single change patterns. \n Does not deal with multiple change patterns or change fragments")
-        tasklist = self.get_tasklist()
-        jobs = [tasklist.pop(0)]
-        current_position = 0
-        for task in tasklist:
-            if task.attrib["type"] == 'delete':
-                continue
+        
+        try:
+            tasklist = self.get_tasklist()
+            task = tasklist.pop(0)
             resource = task.xpath("descendant::cpee1:resource[not(parent::cpee1:resources)][1]", namespaces=self.ns)[0]
             cost = resource.xpath("descendant::cpee1:cost[1]", namespaces=self.ns)[0].text
-            if task.attrib["direction"] == "before":
-                jobs.insert(current_position, (resource.attrib["id"], cost))
             
-            elif task.attrib["direction"] == "after":
-                new_position = current_position + 1
-                jobs.insert(new_position, (resource.attrib["id"], cost))
-            else:
-                raise NotImplementedError("This direction has not been implemented")
+
+            jobs = [(resource.attrib["id"], cost)]
+            current_position = 0
+            for task in tasklist:
+                if task.attrib["type"] == 'delete':
+                    continue
+                resource = task.xpath("descendant::cpee1:resource[not(parent::cpee1:resources)][1]", namespaces=self.ns)[0]
+                cost = resource.xpath("descendant::cpee1:cost[1]", namespaces=self.ns)[0].text
+                if task.attrib["direction"] == "before":
+                    jobs.insert(current_position, (resource.attrib["id"], cost))
+                
+                elif task.attrib["direction"] == "after":
+                    new_position = current_position + 1
+                    jobs.insert(new_position, (resource.attrib["id"], cost))
+                else:
+                    raise NotImplementedError("This direction has not been implemented")
+        except IndexError as e:
+            raise IndexError(f"{e}. Hint: The branch you're trying to serialize is probably invalid")
+
+        
         return jobs
 
 

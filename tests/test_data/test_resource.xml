@@ -40,7 +40,7 @@
 			</changepattern>
 		</resprofile>
 	</resource>
-	<resource>
+	<resource id="res_1" name="res_1">
 		<resprofile id="role_1" name="role_1" role="role_1" task="insert_b1">
 			<measures>
 				<cost>5</cost>
