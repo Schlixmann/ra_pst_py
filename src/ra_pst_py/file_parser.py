@@ -10,7 +10,7 @@ def parse_process_file(process_file) -> etree._Element:
     elif type(process_file) is str:
         process = etree.fromstring(process_file)
     else:
-        raise TypeError(" 'process_file' must be of type path to a file, xml-str, or etree._Element")
+        raise TypeError(" 'process_file' must be a path to a file, an xml-str, or etree._Element")
     proc_ns = {'cpee1':'http://cpee.org/ns/description/1.0'}
     process = process.xpath("//cpee1:description", namespaces = proc_ns)[0]
     return process

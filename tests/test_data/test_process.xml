@@ -33,8 +33,9 @@
         <description/>
       </implementation>
     </documentation>
-    <resources allocated_to="not_allocated"/>
+    <resources allocated_to="not_allocated">
       <resource>role_0</resource>
+    </resources>
     <expectedready/>
     <plannedstart/>
     <plannedend/>

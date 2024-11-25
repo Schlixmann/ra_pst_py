@@ -1,6 +1,8 @@
 rapst.xml
 graphs/*
 test.xml
+tests/outcome/*
+branches.xml
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

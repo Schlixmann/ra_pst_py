@@ -32,8 +32,9 @@
 				<description/>
 			</implementation>
 		</documentation>
-		<resources allocated_to="not_allocated"/>
-		<resource>role_0</resource>
+		<resources allocated_to="not_allocated">
+			<resource>role_0</resource>
+		</resources>
 		<expectedready/>
 		<plannedstart/>
 		<plannedend/>
@@ -86,7 +87,7 @@
 								<resource>role_1</resource>
 							</resources>
 							<children>
-								<resource>
+								<resource id="res_1" name="res_1">
 									<resprofile id="role_1" name="role_1" role="role_1" task="insert_b1">
 										<measures>
 											<cost>5</cost>
