@@ -18,14 +18,14 @@ class CoreTest(unittest.TestCase):
 
         self.assertEqual(etree.tostring(created), etree.tostring(target))
 
-    def test_get_branches_for_task(self):
+    def test_set_branches_for_task(self):
         target = etree.parse("tests/test_comparison_data/allocation.xml")
         process = parse_process_file("tests/test_data/test_process.xml")
         resources = parse_resource_file("tests/test_data/test_resource.xml")
         ra_pst = RA_PST(process, resources)
         ra_pst.branches = defaultdict(list)
         task = ra_pst.get_tasklist()[0]
-        ra_pst.get_branches_for_task(task)
+        ra_pst.set_branches_for_task(task)
         ra_pst.save_ra_pst("branches.xml")
         self.assertEqual(len(ra_pst.branches["a1"]), 3)
 
@@ -46,7 +46,6 @@ class CoreTest(unittest.TestCase):
 
         self.assertEqual(ser_jobs[0][0], "res_0")
         self.assertEqual(ser_jobs[0][1], "4")
-        
 
     def test_get_branches_ilp(self):
         process = parse_process_file("example_data/test_process_cpee.xml")
@@ -62,4 +61,4 @@ class CoreTest(unittest.TestCase):
         # Get banches in shape
         ilp_branches = ra_pst.get_branches_ilp()
         ra_pst.save_ra_pst("branches.xml")
-        #print(ilp_branches)
+        # print(ilp_branches)
