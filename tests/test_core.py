@@ -42,10 +42,11 @@ class CoreTest(unittest.TestCase):
 
         # Get banches in shape of jobs precedence from left to right
         branch = ra_pst.branches["a1"][1]
-        ser_jobs = branch.get_serialized_jobs()
+        ser_jobs, deletes = branch.get_serialized_jobs()
 
         self.assertEqual(ser_jobs[0][0], "res_0")
         self.assertEqual(ser_jobs[0][1], "4")
+        self.assertEqual(deletes[0], "wait")
 
     def test_get_branches_ilp(self):
         process = parse_process_file("example_data/test_process_cpee.xml")
@@ -59,6 +60,8 @@ class CoreTest(unittest.TestCase):
         resourcelist = ra_pst.get_resourcelist()
 
         # Get banches in shape
-        ilp_branches = ra_pst.get_branches_ilp()
-        ra_pst.save_ra_pst("branches.xml")
-        # print(ilp_branches)
+        ilp_branches = ra_pst.get_ilp_rep()
+        #ra_pst.save_ra_pst("branches.xml")
+        print(ilp_branches["tasks"])
+        print(ilp_branches["resources"])
+        print(ilp_branches["branches"])

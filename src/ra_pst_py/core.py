@@ -52,19 +52,42 @@ class RA_PST:
         tree = self.resource_url
         resources = tree.xpath("//resource[not(descendant::cpee1:changepattern)]", namespaces=self.ns)
         return [resource.attrib["id"] for resource in resources]
-    
-    def get_branches_ilp(self) -> dict:
+
+    def get_ilp_rep(self) -> dict:
         """
-        returns a dict of all valid branches serialized to represent jobs in an OR
-        way.
+        Transforms information from RA-PST into a dictionary format suitable for an ILP model.
+        Returns:
+        dict: {
+            "tasks":list of tasks,
+            "resources":list of resources,
+            "branches": dict of branches for each tasks and deletes
+        }
         """
-        ilp_branches = defaultdict(list)
+        # Get tasklist from RA_PST
+        tasklist = self.get_tasklist(attribute="id")
+
+        # Get resourcelist from RA_PST
+        resourcelist = self.get_resourcelist()
+
+        # Creates defaultdict(lists) for the allocation branches.
+        # allocations represented as jobs, precedence inside the branch is from left to right:
+        # One task = {task1: [{jobs: [(resource, cost),...], deletes:["id"] }, {jobs:[...], deletes:[]}]}
+        branches = defaultdict(list)
         for key, values in self.branches.items():
             for branch in values:
                 #TODO branch.serialize_jobs
                 if branch.is_valid:
-                    ilp_branches[key].append(branch.get_serialized_jobs(attribute="id"))
-        return ilp_branches
+                    jobs, deletes = branch.get_serialized_jobs(attribute="id")
+
+                    # find task id by label for deletes: 
+                    tasklist = self.get_tasklist()
+                    deletes = list({task.attrib["id"] for task in tasklist if utils.get_label(task) in deletes})
+                    branches[key].append({"jobs":jobs, "deletes": deletes})
+        return {
+            "tasks": tasklist,
+            "resources": resourcelist,
+            "branches": branches
+        }
 
     def save_ra_pst(self, path: str):
         """
@@ -416,7 +439,10 @@ class Branch():
                 0], "allo": "http://cpee.org/ns/allocation"}
 
     def get_serialized_jobs(self, attribute:str=None) -> list:
-        """Returns the tasks in a branch as jobs (resource, cost) pair"""
+        """
+        Returns the tasks in a branch as jobs (resource, cost) pair. 
+        Returns a list of tasklabels which will be deleted
+        """
         # TODO: How to deal with deletes? -> do we need to deal with deletes?
         # TODO: Does currently not deal with change fragments/ multiple tasks
         # WARN: ("Not fully implemented. \n Please only use with single change patterns. \n Does not deal with multiple change patterns or change fragments")
@@ -427,11 +453,12 @@ class Branch():
             resource = task.xpath("descendant::cpee1:resource[not(parent::cpee1:resources)][1]", namespaces=self.ns)[0]
             cost = resource.xpath("descendant::cpee1:cost[1]", namespaces=self.ns)[0].text
             
-
             jobs = [(resource.attrib["id"], cost)]
+            deletes = []
             current_position = 0
             for task in tasklist:
                 if task.attrib["type"] == 'delete':
+                    deletes.append(task.attrib["label"])
                     continue
                 resource = task.xpath("descendant::cpee1:resource[not(parent::cpee1:resources)][1]", namespaces=self.ns)[0]
                 cost = resource.xpath("descendant::cpee1:cost[1]", namespaces=self.ns)[0].text
@@ -447,7 +474,7 @@ class Branch():
             raise IndexError(f"{e}. Hint: The branch you're trying to serialize is probably invalid")
 
         
-        return jobs
+        return jobs, deletes
 
 
     
