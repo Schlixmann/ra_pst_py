@@ -63,8 +63,6 @@ class RA_PST:
             "branches": dict of branches for each tasks and deletes
         }
         """
-        # Get tasklist from RA_PST
-        tasklist = self.get_tasklist(attribute="id")
 
         # Get resourcelist from RA_PST
         resourcelist = self.get_resourcelist()
@@ -83,6 +81,9 @@ class RA_PST:
                     tasklist = self.get_tasklist()
                     deletes = list({task.attrib["id"] for task in tasklist if utils.get_label(task) in deletes})
                     branches[key].append({"jobs":jobs, "deletes": deletes})
+        # Get tasklist from RA_PST
+        tasklist = self.get_tasklist(attribute="id")
+        
         return {
             "tasks": tasklist,
             "resources": resourcelist,
