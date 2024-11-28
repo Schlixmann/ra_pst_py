@@ -31,7 +31,15 @@ ilp_rep = ra_pst.get_ilp_rep()
 
 # Same with processes from paper
 ra_pst2 = build_rapst(process_file="test_instances/paper_process_short.xml",
-                     resource_file="test_instances/resources_paper_process.xml")
-
+                     resource_file="test_instances/resources_paper_process_short.xml")
 show_tree_as_graph(ra_pst2)
+
+ra_pst3 = build_rapst(process_file="test_instances/instance_generator_process.xml",
+                     resource_file="test_instances/instance_generator_resources.xml")
+show_tree_as_graph(ra_pst3, output_file="graphs/ra_pst3")
+
+ra_pst4 = build_rapst(process_file="test_instances/paper_process.xml",
+                     resource_file="test_instances/resources_paper_process_long.xml")
+show_tree_as_graph(ra_pst4, output_file="graphs/ra_pst4")
+
 print(ra_pst2.get_ilp_rep)
