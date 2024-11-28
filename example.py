@@ -18,7 +18,7 @@ print(f"RA-PST element: {ra_pst_et}")
 ra_pst.save_ra_pst("rapst.xml")
 
 # Prints tree as graphviz graph
-show_tree_as_graph(ra_pst)
+#show_tree_as_graph(ra_pst)
 
 # Get a dict which is available for an ilp representation of the RA-PST
 # the current shape is:
@@ -28,3 +28,10 @@ show_tree_as_graph(ra_pst)
 #   branches: dict(task : [branch1[(job1),(job2),...], branch2]))
 #    }
 ilp_rep = ra_pst.get_ilp_rep()
+
+# Same with processes from paper
+ra_pst2 = build_rapst(process_file="test_instances/paper_process_short.xml",
+                     resource_file="test_instances/resources_paper_process.xml")
+
+show_tree_as_graph(ra_pst2)
+print(ra_pst2.get_ilp_rep)

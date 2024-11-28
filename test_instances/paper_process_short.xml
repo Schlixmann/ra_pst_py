@@ -1,0 +1,18 @@
+<description xmlns="http://cpee.org/ns/description/1.0">
+  <manipulate id="a3" label="evaluate_risk">Must be checked by level3 if executed by 1 or 2<resources allocated_to="not_allocated">
+    <resource>level1</resource>
+    <resource>level2</resource>
+    <resource>level3</resource>
+  </resources>
+</manipulate>
+<manipulate id="a4" label="create_proposal">level3<resources allocated_to="not_allocated">
+  <resource>level3</resource>
+  <resource>level2</resource>
+</resources>
+</manipulate>
+<manipulate id="a10" label="decide_on_proposal">
+<resources allocated_to="not_allocated">
+  <resource>level3</resource>
+</resources>
+</manipulate>
+</description>

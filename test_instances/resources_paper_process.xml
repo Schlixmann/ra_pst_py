@@ -1,0 +1,84 @@
+<resources>
+    <resource id="r_1" name="Associate">
+        <resprofile id="rp_1" name="Evaluate Risk" role="level1" task="evaluate_risk">
+            <measures>
+                <cost>10</cost>
+            </measures>
+            <changepattern type="insert">
+                <parameters>
+                    <direction>after</direction>
+                </parameters>
+                <description xmlns="http://cpee.org/ns/description/1.0">
+                    <manipulate id="r1" label="confirm_risk">
+                        <resources allocated_to="not_allocated">
+                            <resource>level2</resource>
+                            <resource>level3</resource>
+                        </resources>
+                    </manipulate>
+                </description>
+            </changepattern>
+        </resprofile>
+        <resprofile id="rp_2" name="Create Proposal" role="level2" task="create_proposal">
+            <measures>
+                <cost>20</cost>
+            </measures>
+        </resprofile>
+    </resource>
+    <resource id="r_2" name="Trainee">
+        <resprofile id="rp_1" name="Decide on Proposal" role="level3" task="decide_on_proposal">
+            <measures>
+                <cost>20</cost>
+            </measures>
+            <changepattern type="insert">
+                <parameters>
+                    <direction>after</direction>
+                </parameters>
+                <description xmlns="http://cpee.org/ns/description/1.0">
+                    <manipulate id="r2" label="supervise_decide_on_proposal">
+                        <resources allocated_to="not_allocated">
+                            <resource>level3</resource>
+                        </resources>
+                    </manipulate>
+                </description>
+            </changepattern>
+        </resprofile>
+        <resprofile id="rp_2" name="Confirm Risk" role="level2" task="confirm_risk">
+            <measures>
+                <cost>15</cost>
+            </measures>
+        </resprofile>
+    </resource>
+    <resource id="r_3" name="Manager">
+        <resprofile id="rp_1" name="Create Proposal" role="level3" task="create_proposal">
+            <measures>
+                <cost>40</cost>
+            </measures>
+            <changepattern type="delete">
+                <parameters>
+                    <direction>any</direction>
+                </parameters>
+                <description xmlns="http://cpee.org/ns/description/1.0">
+                    <manipulate id="r2" label="decide_on_proposal">
+                        <resources allocated_to="not_allocated">
+                        </resources>
+                    </manipulate>
+                </description>
+            </changepattern>
+        </resprofile>
+        <resprofile id="rp_2" name="Evaluate Risk" role="level3" task="evaluate_risk">
+            <measures>
+                <cost>30</cost>
+            </measures>
+        </resprofile>
+        <resprofile id="rp_3" name="Decide on Proposal" role="level3" task="decide_on_proposal">
+            <measures>
+                <cost>30</cost>
+            </measures>
+        </resprofile>
+        <resprofile id="rp_4" name="Confirm Risk" role="level3" task="confirm_risk">
+            <measures>
+                <cost>20</cost>
+            </measures>
+        </resprofile>
+    </resource>
+</resources>
