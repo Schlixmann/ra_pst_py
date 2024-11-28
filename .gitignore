@@ -4,6 +4,7 @@ test.xml
 tests/outcome/*
 branches.xml
 .vscode
+ilp_rep.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

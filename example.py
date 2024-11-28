@@ -1,5 +1,7 @@
 from src.ra_pst_py.builder import build_rapst, get_rapst_etree, get_rapst_str, show_tree_as_graph, get_ilp_rep
 
+import json
+
 # Build RA-PST
 ra_pst = build_rapst(process_file="example_data/test_process_cpee.xml",
                      resource_file="example_data/test_resource.xml")
@@ -42,4 +44,7 @@ ra_pst4 = build_rapst(process_file="test_instances/paper_process.xml",
                      resource_file="test_instances/resources_paper_process_long.xml")
 show_tree_as_graph(ra_pst4, output_file="graphs/ra_pst4")
 
-print(ra_pst2.get_ilp_rep)
+ilp_rep2 = ra_pst2.get_ilp_rep()
+
+with open("ilp_rep.json", "w") as f:
+    json.dump(ilp_rep2, f, indent=2)
