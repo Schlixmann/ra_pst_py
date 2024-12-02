@@ -32,7 +32,7 @@ class TreeGraph:
     def add_visualization_res(self, element):
         time = element.xpath("cpee1:timeslots/cpee1:slot/*", namespaces=self.ns)
         if time:
-            time = [f"{value.xpath("name()")}: {value.text}" for value in time]
+            time = [f'{value.xpath("name()")}: {value.text}' for value in time]
         else:
             time = "free"
         self.dot_content += f'\t"{element.attrib["unid"]}" [label = "{element.attrib["id"]}: {element.attrib["name"]} \n time: \n {time}"]  \t; \n '
@@ -46,7 +46,7 @@ class TreeGraph:
             "parent::*/cpee1:timeslots/cpee1:slot/*", namespaces=self.ns
         )
         if time:
-            time = [f"{value.xpath("name()")}: {value.text}" for value in time]
+            time = [f'{value.xpath("name()")}: {value.text}' for value in time]
         else:
             time = "free"
         self.dot_content += f'\t"{element.attrib["unid"]}" [label = "{element.attrib["id"]}: {element.attrib["role"]} \n {element.attrib["name"]} \n {measure} : {value} \n time: {time}" shape=polygon sides=6]\t; \n'
