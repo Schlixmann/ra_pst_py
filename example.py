@@ -54,3 +54,7 @@ with open("ilp_rep.json", "w") as f:
     f.close()
 
 conf_ilp = combined_ilp("ilp_rep.json")
+
+with open("ilp_result.json", "w") as f:
+    json.dump(conf_ilp, f, indent=2)
+    f.close()
