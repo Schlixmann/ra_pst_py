@@ -50,11 +50,11 @@ ilp_rep3 = ra_pst3.get_ilp_rep()
 # ilp_rep4 = ra_pst4.get_ilp_rep()
 
 with open("ilp_rep.json", "w") as f:
-    json.dump(ilp_rep3, f, indent=2)
+    json.dump(ilp_rep2, f, indent=2)
     f.close()
 
 conf_ilp = combined_ilp("ilp_rep.json")
 
-with open("ilp_result.json", "w") as f:
+with open("out/ilp_result.json", "w") as f:
     json.dump(conf_ilp, f, indent=2)
     f.close()
