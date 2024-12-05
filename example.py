@@ -1,5 +1,5 @@
 from src.ra_pst_py.builder import build_rapst, get_rapst_etree, get_rapst_str, show_tree_as_graph, get_ilp_rep
-from src.ra_pst_py.ilp import configuration_ilp, scheduling_ilp
+from src.ra_pst_py.ilp import configuration_ilp, scheduling_ilp, combined_ilp
 
 import json
 
@@ -50,7 +50,7 @@ ilp_rep3 = ra_pst3.get_ilp_rep()
 # ilp_rep4 = ra_pst4.get_ilp_rep()
 
 with open("ilp_rep.json", "w") as f:
-    json.dump(ilp_rep2, f, indent=2)
+    json.dump(ilp_rep3, f, indent=2)
     f.close()
 
-conf_ilp = scheduling_ilp("ilp_rep.json")
+conf_ilp = combined_ilp("ilp_rep.json")
