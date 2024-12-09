@@ -38,6 +38,8 @@ class BruteForceSearch():
         results = {1:[]}
         num_parts = mp.cpu_count()
         part_size = len(solutions) // num_parts
+        if part_size == 0:
+            part_size = 1
         list_parts = []
         
         folder_name = 'tmp'
@@ -67,7 +69,11 @@ class BruteForceSearch():
         return results
     
     def get_all_branch_combinations(self):
-        branchlist = [list(range(len(values))) for values in self.ra_pst.branches.values()]
+        valid_branches = {
+            key: [branches.index(branch) for branch in branches if branch.is_valid == True]
+            for key, branches in self.ra_pst.branches.items()
+        }
+        branchlist = [list(values) for values in valid_branches.values()]
         brute_solutions = [solution for solution in itertools.product(*branchlist)]
         self.solution_space_size = len(brute_solutions)
         tasklist = self.ra_pst.get_tasklist(attribute="id")
@@ -123,15 +129,16 @@ def find_best_solution(solutions): # branches ,measure, n):
                 best_solutions = sorted(best_solutions, key=lambda d: d[measure], reverse=True) 
                 if len(best_solutions) > 25:
                     best_solutions.pop(0)
-
+        else: 
+            print("invalid")
         if i%1000 == 0:
             end1 = time.time()
-            print(f"{i}/{len(solution_branches)}, Time: {(end1-start1):.2f}")
+            print(f"{i}/{len(solution_branches)}, Time: {(end1-start1):.2f}, AVG: {sum(timetrack)/len(timetrack)}")
             start1 = time.time()
-        elif i%100 == 0:
-            end = time.time()
-            print(f"{i}/{len(solution_branches)}, Time: {(end-start):.2f}, AVG: {sum(timetrack)/len(timetrack)}")
-            start = time.time()
+        #elif i%100 == 0:
+        #    end = time.time()
+            #print(f"{i}/{len(solution_branches)}, Time: {(end-start):.2f}, AVG: {sum(timetrack)/len(timetrack)}")
+        #    start = time.time()
     
     print("Best solutions: ", best_solutions)
     if best_solutions:

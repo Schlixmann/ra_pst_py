@@ -1,24 +1,14 @@
-<manipulate xmlns="http://cpee.org/ns/description/1.0" id="a4" label="create_proposal">level3<resources allocated_to="not_allocated">
-			<resource>level3</resource>
+<manipulate xmlns="http://cpee.org/ns/description/1.0" id="a3" label="evaluate_risk">Must be checked by level3 if executed by 1 or 2<resources allocated_to="not_allocated">
+			<resource>level1</resource>
 			<resource>level2</resource>
+			<resource>level3</resource>
 		</resources>
-	<children><resource id="r_5" name="level3">
-		<resprofile id="rp_15" name="create_proposal" role="level3" task="create_proposal">
+	<children><resource id="r_3" name="level3">
+		<resprofile id="rp_14" name="evaluate_risk" role="level3" task="evaluate_risk">
 			<measures>
-				<cost>30</cost>
+				<cost>100</cost>
 			</measures>
-			<changepattern type="delete">
-				<parameters>
-					<direction>any</direction>
-				</parameters>
-				<description>
-					</description>
-			</changepattern>
-		<children><manipulate id="a15" label="decide_on_proposal" type="delete" direction="any">
-						<resources allocated_to="not_allocated">
-                        </resources>
-					<expectedready/></manipulate>
-				</children></resprofile>
+		<children/></resprofile>
 		</resource>
-</children><expectedready>2024-01-01T00:00</expectedready></manipulate>
+	</children></manipulate>
 	
