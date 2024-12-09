@@ -1,0 +1,509 @@
+<?xml version="1.0"?>
+<resources>
+    <resource id="r_1" name="level1">
+        <resprofile id="rp_1" name="new_tender" role="level1" task="new_tender">
+            <measures>
+                <cost>10</cost>
+            </measures>
+        </resprofile>
+        <resprofile id="rp_2" name="data_gathering" role="level1" task="data_gathering">
+            <measures>
+                <cost>10</cost>
+            </measures>
+            <changepattern type="insert">
+                <parameters>
+                    <direction>before</direction>
+                </parameters>
+                <description xmlns="http://cpee.org/ns/description/1.0">
+                    <manipulate id="r1" label="data_support">
+                        <resources allocated_to="not_allocated">
+                            <resource>level2</resource>
+                        </resources>
+                    </manipulate>
+                </description>
+            </changepattern>
+        </resprofile>
+        <resprofile id="rp_16" name="handover_to_engineering" role="level3" task="handover_to_engineering">
+            <measures>
+                <cost>15</cost>
+            </measures>
+        </resprofile>
+        <resprofile id="rp_3" name="evaluate_risk" role="level1" task="evaluate_risk">
+            <measures>
+                <cost>10</cost>
+            </measures>
+            <changepattern type="insert">
+                <parameters>
+                    <direction>before</direction>
+                </parameters>
+                <description xmlns="http://cpee.org/ns/description/1.0">
+                    <manipulate id="r2" label="head_confirmation">
+                        <resources allocated_to="not_allocated">
+                            <resource>level3</resource>
+                        </resources>
+                    </manipulate>
+                </description>
+            </changepattern>
+        </resprofile>
+        <resprofile id="rp_4" name="design_offer" role="level1" task="design_offer">
+            <measures>
+                <cost>20</cost>
+            </measures>
+            <changepattern type="insert">
+                <parameters>
+                    <direction>parallel</direction>
+                </parameters>
+                <description xmlns="http://cpee.org/ns/description/1.0">
+                    <manipulate id="r10" label="four_eyes_principle">
+                        <resources allocated_to="not_allocated">
+                            <resource>level3</resource>
+                        </resources>
+                    </manipulate>
+                </description>
+            </changepattern>
+        </resprofile>
+        <resprofile id="rp_5" name="send_offer" role="level1" task="send_offer">
+            <measures>
+                <cost>70</cost>
+            </measures>
+        </resprofile>
+    </resource>
+    <resource id="r_6" name="level1">
+        <resprofile id="rp_1" name="new_tender" role="level1" task="new_tender">
+            <measures>
+                <cost>10</cost>
+            </measures>
+        </resprofile>
+        <resprofile id="rp_2" name="data_gathering" role="level1" task="data_gathering">
+            <measures>
+                <cost>10</cost>
+            </measures>
+            <changepattern type="insert">
+                <parameters>
+                    <direction>before</direction>
+                </parameters>
+                <description xmlns="http://cpee.org/ns/description/1.0">
+                    <manipulate id="r1" label="data_support">
+                        <resources allocated_to="not_allocated">
+                            <resource>level2</resource>
+                        </resources>
+                    </manipulate>
+                </description>
+            </changepattern>
+        </resprofile>
+        <resprofile id="rp_16" name="handover_to_engineering" role="level3" task="handover_to_engineering">
+            <measures>
+                <cost>15</cost>
+            </measures>
+        </resprofile>
+        <resprofile id="rp_3" name="evaluate_risk" role="level1" task="evaluate_risk">
+            <measures>
+                <cost>10</cost>
+            </measures>
+            <changepattern type="insert">
+                <parameters>
+                    <direction>before</direction>
+                </parameters>
+                <description xmlns="http://cpee.org/ns/description/1.0">
+                    <manipulate id="r2" label="head_confirmation">
+                        <resources allocated_to="not_allocated">
+                            <resource>level3</resource>
+                        </resources>
+                    </manipulate>
+                </description>
+            </changepattern>
+        </resprofile>
+        <resprofile id="rp_4" name="design_offer" role="level1" task="design_offer">
+            <measures>
+                <cost>20</cost>
+            </measures>
+            <changepattern type="insert">
+                <parameters>
+                    <direction>parallel</direction>
+                </parameters>
+                <description xmlns="http://cpee.org/ns/description/1.0">
+                    <manipulate id="r10" label="four_eyes_principle">
+                        <resources allocated_to="not_allocated">
+                            <resource>level3</resource>
+                        </resources>
+                    </manipulate>
+                </description>
+            </changepattern>
+        </resprofile>
+        <resprofile id="rp_5" name="send_offer" role="level1" task="send_offer">
+            <measures>
+                <cost>40</cost>
+            </measures>
+            <changepattern type="insert">
+                <parameters>
+                    <direction>after</direction>
+                </parameters>
+                <description xmlns="http://cpee.org/ns/description/1.0">
+                    <manipulate id="r10" label="invalidity">
+                        <resources allocated_to="not_allocated">
+                            <resource>level2</resource>
+                        </resources>
+                    </manipulate>
+                </description>
+            </changepattern>
+        </resprofile>
+    </resource>
+    <resource id="r_2" name="level2">
+        <resprofile id="rp_6" name="new_tender" role="level2" task="new_tender">
+            <measures>
+                <cost>15</cost>
+            </measures>
+        </resprofile>
+        <resprofile id="rp_8" name="evaluate_risk" role="level2" task="evaluate_risk">
+            <measures>
+                <cost>25</cost>
+            </measures>
+            <changepattern type="insert">
+                <parameters>
+                    <direction>before</direction>
+                </parameters>
+                <description xmlns="http://cpee.org/ns/description/1.0">
+                    <manipulate id="r3" label="head_confirmation">
+                        <resources allocated_to="not_allocated">
+                            <resource>level3</resource>
+                        </resources>
+                    </manipulate>
+                </description>
+            </changepattern>
+        </resprofile>
+        <resprofile id="rp_15" name="create_proposal" role="level3" task="create_proposal">
+            <measures>
+                <cost>25</cost>
+            </measures>
+        </resprofile>
+        <resprofile id="rp_89" name="design_offer" role="level2" task="design_offer">
+            <measures>
+                <cost>20</cost>
+            </measures>
+        </resprofile>
+        <resprofile id="rp_10" name="send_offer" role="level2" task="send_offer">
+            <measures>
+                <cost>30</cost>
+            </measures>
+            <changepattern type="insert">
+                <parameters>
+                    <direction>after</direction>
+                </parameters>
+                <description xmlns="http://cpee.org/ns/description/1.0">
+                    <manipulate id="r10" label="invalidity">
+                        <resources allocated_to="not_allocated">
+                            <resource>level2</resource>
+                        </resources>
+                    </manipulate>
+                </description>
+            </changepattern>
+        </resprofile>
+        <resprofile id="rp_11" name="initiate_next_process" role="level2" task="initiate_next_process">
+            <measures>
+                <cost>10</cost>
+            </measures>
+        </resprofile>
+        <resprofile id="rp_12" name="close_project" role="level2" task="close_project">
+            <measures>
+                <cost>10</cost>
+            </measures>
+            <changepattern type="insert">
+                <parameters>
+                    <direction>after</direction>
+                </parameters>
+                <description xmlns="http://cpee.org/ns/description/1.0">
+                    <manipulate id="r4" label="inform_head">
+                        <resources allocated_to="not_allocated">
+                            <resource>level2</resource>
+                        </resources>
+                    </manipulate>
+                </description>
+            </changepattern>
+        </resprofile>
+        <resprofile id="rp_20" name="data_support" role="level2" task="data_support">
+            <measures>
+                <cost>9</cost>
+            </measures>
+        </resprofile>
+        <resprofile id="rp_22" name="inform_head" role="level2" task="inform_head">
+            <measures>
+                <cost>15</cost>
+            </measures>
+        </resprofile>
+    </resource>
+    <resource id="r_4" name="level2">
+        <resprofile id="rp_6" name="new_tender" role="level2" task="new_tender">
+            <measures>
+                <cost>15</cost>
+            </measures>
+        </resprofile>
+        <resprofile id="rp_8" name="evaluate_risk" role="level2" task="evaluate_risk">
+            <measures>
+                <cost>25</cost>
+            </measures>
+            <changepattern type="insert">
+                <parameters>
+                    <direction>after</direction>
+                </parameters>
+                <description xmlns="http://cpee.org/ns/description/1.0">
+                    <manipulate id="r6" label="head_confirmation">
+                        <resources allocated_to="not_allocated">
+                            <resource>level3</resource>
+                        </resources>
+                    </manipulate>
+                </description>
+            </changepattern>
+        </resprofile>
+        
+        <resprofile id="rp_15" name="create_proposal" role="level2" task="create_proposal">
+            <measures>
+                <cost>25</cost>
+            </measures>
+        </resprofile>
+        
+        <resprofile id="rp_99" name="design_offer" role="level2" task="design_offer">
+            <measures>
+                <cost>20</cost>
+            </measures>
+        </resprofile>
+        <resprofile id="rp_10" name="send_offer" role="level2" task="send_offer">
+            <measures>
+                <cost>20</cost>
+            </measures>
+            <changepattern type="insert">
+                <parameters>
+                    <direction>before</direction>
+                </parameters>
+                <description xmlns="http://cpee.org/ns/description/1.0">
+                    <manipulate id="r10" label="invalidity">
+                        <resources allocated_to="not_allocated">
+                            <resource>level2</resource>
+                        </resources>
+                    </manipulate>
+                </description>
+            </changepattern>
+        </resprofile>
+        <resprofile id="rp_11" name="initiate_next_process" role="level2" task="initiate_next_process">
+            <measures>
+                <cost>10</cost>
+            </measures>
+        </resprofile>
+        <resprofile id="rp_12" name="close_project" role="level2" task="close_project">
+            <measures>
+                <cost>15</cost>
+            </measures>
+            <changepattern type="insert">
+                <parameters>
+                    <direction>after</direction>
+                </parameters>
+                <description xmlns="http://cpee.org/ns/description/1.0">
+                    <manipulate id="r7" label="inform_head">
+                        <resources allocated_to="not_allocated">
+                            <resource>level2</resource>
+                        </resources>
+                    </manipulate>
+                </description>
+            </changepattern>
+        </resprofile>
+        <resprofile id="rp_20" name="data_support" role="level2" task="data_support">
+            <measures>
+                <cost>8</cost>
+            </measures>
+        </resprofile>
+        <resprofile id="rp_22" name="inform_head" role="level2" task="inform_head">
+            <measures>
+                <cost>15</cost>
+            </measures>
+        </resprofile>
+        <resprofile id="rp_24" name="four_eyes_principle" role="level3" task="four_eyes_principle">
+            <measures>
+                <cost>10</cost>
+            </measures>
+        </resprofile>
+    </resource>
+    <resource id="r_3" name="level3">
+        <resprofile id="rp_13" name="new_tender" role="level3" task="new_tender">
+            <measures>
+                <cost>10</cost>
+            </measures>
+        </resprofile>
+        <resprofile id="rp_14" name="evaluate_risk" role="level3" task="evaluate_risk">
+            <measures>
+                <cost>30</cost>
+            </measures>
+        </resprofile>
+        <resprofile id="rp_15" name="create_proposal" role="level3" task="create_proposal">
+            <measures>
+                <cost>29</cost>
+            </measures>
+            <changepattern type="delete">
+                <parameters>
+                    <direction>any</direction>
+                </parameters>
+                <description xmlns="http://cpee.org/ns/description/1.0">
+                    <manipulate id="a15" label="decide_on_proposal">
+                        <resources allocated_to="not_allocated">
+                        </resources>
+                    </manipulate>
+                </description>
+            </changepattern>
+        </resprofile>
+        <resprofile id="rp_16" name="contact_suppliers" role="level3" task="contact_suppliers">
+            <measures>
+                <cost>15</cost>
+            </measures>
+        </resprofile>
+        <resprofile id="rp_17" name="send_offer" role="level3" task="send_offer">
+            <measures>
+                <cost>50</cost>
+            </measures>
+            <changepattern type="insert">
+                <parameters>
+                    <direction>after</direction>
+                </parameters>
+                <description xmlns="http://cpee.org/ns/description/1.0">
+                    <manipulate id="r10" label="invalidity">
+                        <resources allocated_to="not_allocated">
+                            <resource>level2</resource>
+                        </resources>
+                    </manipulate>
+                </description>
+            </changepattern>
+        </resprofile>
+        <resprofile id="rp_18" name="initiate_next_process" role="level3" task="initiate_next_process">
+            <measures>
+                <cost>30</cost>
+            </measures>
+        </resprofile>
+        <resprofile id="rp_19" name="close_project" role="level3" task="close_project">
+            <measures>
+                <cost>20</cost>
+            </measures>
+        </resprofile>
+        <resprofile id="rp_9" name="design_offer" role="level3" task="design_offer">
+            <measures>
+                <cost>50</cost>
+            </measures>
+            <changepattern type="delete">
+                <parameters>
+                    <direction>any</direction>
+                </parameters>
+                <description xmlns="http://cpee.org/ns/description/1.0">
+                    <manipulate id="a8" label="send_offer">
+                        <resources allocated_to="not_allocated">
+                        </resources>
+                    </manipulate>
+                </description>
+            </changepattern>
+        </resprofile>
+        <resprofile id="rp_24" name="four_eyes_principle" role="level3" task="four_eyes_principle">
+            <measures>
+                <cost>10</cost>
+            </measures>
+        </resprofile>
+        <resprofile id="rp_25" name="decide_on_proposal" role="level3" task="decide_on_proposal">
+            <measures>
+                <cost>50</cost>
+            </measures>
+            <changepattern type="delete">
+                <parameters>
+                    <direction>any</direction>
+                </parameters>
+                <description xmlns="http://cpee.org/ns/description/1.0">
+                    <manipulate id="r2" label="head_confirmation">
+                        <resources allocated_to="not_allocated">
+                            <resource>level3</resource>
+                        </resources>
+                    </manipulate>
+                </description>
+            </changepattern>
+        </resprofile>
+    </resource>
+    <resource id="r_5" name="level3">
+        <resprofile id="rp_13" name="new_tender" role="level3" task="new_tender">
+            <measures>
+                <cost>10</cost>
+            </measures>
+        </resprofile>
+        <resprofile id="rp_14" name="evaluate_risk" role="level3" task="evaluate_risk">
+            <measures>
+                <cost>30</cost>
+            </measures>
+        </resprofile>
+        <resprofile id="rp_15" name="create_proposal" role="level3" task="create_proposal">
+            <measures>
+                <cost>30</cost>
+            </measures>
+            <changepattern type="delete">
+                <parameters>
+                    <direction>any</direction>
+                </parameters>
+                <description xmlns="http://cpee.org/ns/description/1.0">
+                    <manipulate id="a15" label="decide_on_proposal">
+                        <resources allocated_to="not_allocated">
+                        </resources>
+                    </manipulate>
+                </description>
+            </changepattern>
+        </resprofile>
+        <resprofile id="rp_16" name="contact_suppliers" role="level3" task="contact_suppliers">
+            <measures>
+                <cost>15</cost>
+            </measures>
+        </resprofile>
+        <resprofile id="rp_17" name="send_offer" role="level3" task="send_offer">
+            <measures>
+                <cost>60</cost>
+            </measures>
+            <changepattern type="insert">
+                <parameters>
+                    <direction>before</direction>
+                </parameters>
+                <description xmlns="http://cpee.org/ns/description/1.0">
+                    <manipulate id="r10" label="invalidity">
+                        <resources allocated_to="not_allocated">
+                            <resource>level2</resource>
+                        </resources>
+                    </manipulate>
+                </description>
+            </changepattern>
+        </resprofile>
+        <resprofile id="rp_18" name="initiate_next_process" role="level3" task="initiate_next_process">
+            <measures>
+                <cost>30</cost>
+            </measures>
+        </resprofile>
+        <resprofile id="rp_19" name="close_project" role="level3" task="close_project">
+            <measures>
+                <cost>25</cost>
+            </measures>
+        </resprofile>
+
+        <resprofile id="rp_9" name="design_offer" role="level3" task="design_offer">
+            <measures>
+                <cost>50</cost>
+            </measures>
+            <changepattern type="delete">
+                <parameters>
+                    <direction>any</direction>
+                </parameters>
+                <description xmlns="http://cpee.org/ns/description/1.0">
+                    <manipulate id="a8" label="send_offer">
+                        <resources allocated_to="not_allocated">
+                        </resources>
+                    </manipulate>
+                </description>
+            </changepattern>
+        </resprofile>
+        <resprofile id="rp_24" name="four_eyes_principle" role="level3" task="four_eyes_principle">
+            <measures>
+                <cost>10</cost>
+            </measures>
+        </resprofile>
+        <resprofile id="rp_25" name="decide_on_proposal" role="level3" task="decide_on_proposal">
+            <measures>
+                <cost>15</cost>
+            </measures>
+        </resprofile>
+    </resource>
+</resources>

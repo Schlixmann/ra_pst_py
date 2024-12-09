@@ -1,5 +1,6 @@
 # Import modules
 from . import utils 
+from src.ra_pst_py.change_operations import ChangeOperationError
 
 # Import external packages
 from lxml import etree
@@ -18,7 +19,8 @@ class RA_PST:
 
     def __init__(self, process: etree._Element, resource: etree._Element):
         self.id = str(uuid.uuid1())
-        self.process = process
+        self.process = process # The ra_pst process xml
+        self.raw_process = copy.copy(process)
         self.resource_url = resource
         self.allocations = {}
         self.solutions = []
@@ -89,6 +91,9 @@ class RA_PST:
             "resources": resourcelist,
             "branches": branches
         }
+    
+    def get_optimized_instance(self, branch_list):
+        pass
 
     def save_ra_pst(self, path: str):
         """
@@ -469,15 +474,97 @@ class Branch():
                 elif task.attrib["direction"] == "after":
                     new_position = current_position + 1
                     jobs.insert(new_position, (resource.attrib["id"], cost))
+                elif task.attrib["direction"] == "parallel":
+                    jobs.insert(current_position, (resource.attrib["id"], cost))
                 else:
-                    raise NotImplementedError("This direction has not been implemented")
+                    raise NotImplementedError(f"This direction has not been implemented {task.attrib["direction"]}")
         except IndexError as e:
             raise IndexError(f"{e}. Hint: The branch you're trying to serialize is probably invalid")
-
-        
         return jobs, deletes
 
+    def check_validity(self):
+        self.is_valid = True
+        empty_children = self.node.xpath("descendant::cpee1:children[not(*)]", namespaces=self.ns)
+        for child in empty_children:
+            if child.xpath("preceding-sibling::cpee1:changepattern[not(@type='delete')]", namespaces=self.ns):
+                self.is_valid = False
+                continue
 
+    def apply_to_process(self, ra_pst, solution=None, next_task=None, earliest_possible_start=None, change_op = None, delete:bool=False) -> etree:
+            """
+            -> Find task to allocate in process
+            -> apply change operations
+            """
+            ns = {"cpee1" : list(ra_pst.nsmap.values())[0]}
+            with open("branch_raw.xml", "wb") as f:
+                f.write(etree.tostring(self.node))
+
+            #if not change_op:
+            #    change_op = ChangeOperation(ra_pst)
+            new_node = copy.deepcopy(self.node)
+            self.check_validity()
+
+            # Add expectedready to each manipulate / call task, that is in a children node 
+            if not new_node.xpath("cpee1:expectedready", namespaces=self.ns):
+                        exp_ready_element = etree.SubElement(new_node, f"{{{self.ns["cpee1"]}}}expectedready")
+                        exp_ready_element.text = str(earliest_possible_start)
+            
+            for element in new_node.xpath("(//cpee1:manipulate | //cpee1:call)[parent::cpee1:children]", namespaces=self.ns):
+                exp_ready_element = etree.SubElement(element, f"{{{self.ns["cpee1"]}}}expectedready")
+
+            #change_op.propagate_internal_times(new_node, min_exp_ready=earliest_possible_start)
+            self.node=new_node
+
+            # check if all manipulates have planned starts and ends:
+            #for element in new_node.xpath("(//cpee1:manipulate | //cpee1:call)[parent::cpee1:children and @type!='delete'][not(//cpee1:to_delete)]", namespaces=self.ns):
+            #    TODO deal with deletes!
+            #    try:
+            #        el = element.xpath("child::cpee1:plannedend", namespaces=self.ns)[0]
+            #    except:
+            #        raise ValueError(f"{element.tag} Should have a plannedend but doesn't")
+        
+
+            tasks = copy.deepcopy(self.node).xpath("//*[self::cpee1:call or self::cpee1:manipulate][not(ancestor::changepattern) and not(ancestor::cpee1:changepattern)and not(ancestor::cpee1:allocation)]", namespaces=ns)[1:]
+            task = change_op.get_proc_task(ra_pst, self.node)
+            
+
+            if delete:
+                return ra_pst
+
+            # Allocate resource to anchor task
+            if self.node.xpath("cpee1:children/*", namespaces=ns):
+                poop = copy.deepcopy(self.node.xpath("cpee1:children/*", namespaces=ns)[0])
+                poop.xpath("cpee1:resource/cpee1:resprofile/cpee1:children", namespaces=ns)
+                
+                change_op.add_res_allocation(task, self.node)
+
+            
+            delay_deletes = []
+            for task in tasks:
+                try:
+                    if task.xpath("@type = 'delete'"):
+                        delay_deletes.append(task)
+                    else:
+                        anchor = task.xpath("ancestor::cpee1:manipulate | ancestor::cpee1:call", namespaces=ns)[-1]
+                        ra_pst, solution.invalid_branches = change_op.ChangeOperationFactory(ra_pst, anchor, task, self.node, cptype= task.attrib["type"], earliest_possible_start=earliest_possible_start)
+
+                except ChangeOperationError:
+                    solution.invalid_branches = True
+                    #print(inst.__str__())
+                    #print("Solution invalid_branches = True")
+
+            for task in delay_deletes:
+                try:
+                    anchor = task.xpath("ancestor::cpee1:manipulate | ancestor::cpee1:call", namespaces=ns)[-1]
+                    ra_pst, solution.invalid_branches = change_op.ChangeOperationFactory(ra_pst, anchor, task, self.node, cptype= task.attrib["type"], earliest_possible_start=earliest_possible_start)
+
+                except ChangeOperationError:
+                    solution.invalid_branches = True
+                
+            with open("process.xml", "wb") as f: 
+                f.write(etree.tostring(ra_pst))
+            #print("Checkpoint for application")
+            return ra_pst
     
     def get_tasklist(self, attribute=None):
         "Returns list of all Task-Ids in self.ra_pst"

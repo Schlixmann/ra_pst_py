@@ -1,0 +1,133 @@
+<description xmlns="http://cpee.org/ns/description/1.0">
+	<manipulate id="a3" label="evaluate_risk">Must be checked by level3 if executed by 1 or 2<resources allocated_to="Associate role: level1rp_1 resource r_1">
+			<resource>level1</resource>
+			<resource>level2</resource>
+			<resource>level3</resource>
+		</resources>
+		<allocation>
+			<resource id="r_1" name="Associate">
+				<resprofile id="rp_1" name="Evaluate Risk" role="level1" task="evaluate_risk">
+					<measures>
+						<cost>10</cost>
+					</measures>
+					<changepattern type="insert">
+						<parameters>
+							<direction>after</direction>
+						</parameters>
+						<description>
+							<manipulate id="r1" label="confirm_risk" type="insert" direction="after">
+								<resources allocated_to="not_allocated">
+									<resource>level2</resource>
+									<resource>level3</resource>
+								</resources>
+							</manipulate>
+						</description>
+					</changepattern>
+					<children>
+						<manipulate id="r1" label="confirm_risk" type="insert" direction="after">
+							<resources allocated_to="not_allocated">
+								<resource>level2</resource>
+								<resource>level3</resource>
+							</resources>
+							<children>
+								<resource id="r_2" name="Trainee">
+									<resprofile id="rp_2" name="Confirm Risk" role="level2" task="confirm_risk">
+										<measures>
+											<cost>15</cost>
+										</measures>
+										<children/>
+									</resprofile>
+								</resource>
+							</children>
+							<expectedready/>
+						</manipulate>
+					</children>
+				</resprofile>
+			</resource>
+		</allocation>
+	</manipulate>
+	<manipulate id="r2" label="confirm_risk" type="insert" direction="after">
+		<resources allocated_to="Trainee role: level2rp_2 resource r_2">
+			<resource>level2</resource>
+			<resource>level3</resource>
+		</resources>
+		<children>
+			<resource id="r_2" name="Trainee">
+				<resprofile id="rp_2" name="Confirm Risk" role="level2" task="confirm_risk">
+					<measures>
+						<cost>15</cost>
+					</measures>
+					<children/>
+				</resprofile>
+			</resource>
+		</children>
+		<expectedready/>
+		<allocation>
+			<resource id="r_2" name="Trainee">
+				<resprofile id="rp_2" name="Confirm Risk" role="level2" task="confirm_risk">
+					<measures>
+						<cost>15</cost>
+					</measures>
+					<children/>
+				</resprofile>
+			</resource>
+		</allocation>
+	</manipulate>
+	<manipulate id="a4" label="create_proposal">level3<resources allocated_to="Associate role: level2rp_2 resource r_1">
+			<resource>level3</resource>
+			<resource>level2</resource>
+		</resources>
+		<allocation>
+			<resource id="r_1" name="Associate">
+				<resprofile id="rp_2" name="Create Proposal" role="level2" task="create_proposal">
+					<measures>
+						<cost>20</cost>
+					</measures>
+					<children/>
+				</resprofile>
+			</resource>
+		</allocation>
+	</manipulate>
+	<manipulate id="a10" label="decide_on_proposal">
+		<resources allocated_to="Trainee role: level3rp_1 resource r_2">
+			<resource>level3</resource>
+		</resources>
+		<allocation>
+			<resource id="r_2" name="Trainee">
+				<resprofile id="rp_1" name="Decide on Proposal" role="level3" task="decide_on_proposal">
+					<measures>
+						<cost>20</cost>
+					</measures>
+					<changepattern type="insert">
+						<parameters>
+							<direction>after</direction>
+						</parameters>
+						<description>
+							<manipulate id="r2" label="supervise_decide_on_proposal" type="insert" direction="after">
+								<resources allocated_to="not_allocated">
+									<resource>level3</resource>
+								</resources>
+							</manipulate>
+						</description>
+					</changepattern>
+					<children>
+						<manipulate id="r2" label="supervise_decide_on_proposal" type="insert" direction="after">
+							<resources allocated_to="not_allocated">
+								<resource>level3</resource>
+							</resources>
+							<children/>
+							<expectedready/>
+						</manipulate>
+					</children>
+				</resprofile>
+			</resource>
+		</allocation>
+	</manipulate>
+	<manipulate id="r3" label="supervise_decide_on_proposal" type="insert" direction="after">
+		<resources allocated_to="not_allocated">
+			<resource>level3</resource>
+		</resources>
+		<children/>
+		<expectedready/>
+	</manipulate>
+</description>

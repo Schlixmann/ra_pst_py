@@ -1,0 +1,603 @@
+{
+  "objective": 60.0,
+  "jobs": [
+    {
+      "resource": "r_1",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 0
+    },
+    {
+      "resource": "r_6",
+      "cost": 10.0,
+      "selected": 1.0,
+      "start": 18.0,
+      "branch": 1
+    },
+    {
+      "resource": "r_2",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 2
+    },
+    {
+      "resource": "r_4",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 3
+    },
+    {
+      "resource": "r_3",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 4
+    },
+    {
+      "resource": "r_5",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 45.0,
+      "branch": 5
+    },
+    {
+      "resource": "r_2",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 6
+    },
+    {
+      "resource": "r_1",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 6
+    },
+    {
+      "resource": "r_2",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 7
+    },
+    {
+      "resource": "r_6",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 7
+    },
+    {
+      "resource": "r_4",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 8
+    },
+    {
+      "resource": "r_1",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 8
+    },
+    {
+      "resource": "r_4",
+      "cost": 8.0,
+      "selected": 1.0,
+      "start": 0.0,
+      "branch": 9
+    },
+    {
+      "resource": "r_6",
+      "cost": 10.0,
+      "selected": 1.0,
+      "start": 8.0,
+      "branch": 9
+    },
+    {
+      "resource": "r_3",
+      "cost": 0.0,
+      "selected": 0.0,
+      "start": 0.0,
+      "branch": 10
+    },
+    {
+      "resource": "r_5",
+      "cost": 30.0,
+      "selected": 1.0,
+      "start": 15.0,
+      "branch": 11
+    },
+    {
+      "resource": "r_2",
+      "cost": 25.0,
+      "selected": 1.0,
+      "start": 10.0,
+      "branch": 12
+    },
+    {
+      "resource": "r_4",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 13
+    },
+    {
+      "resource": "r_3",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 14
+    },
+    {
+      "resource": "r_5",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 15.0,
+      "branch": 15
+    },
+    {
+      "resource": "r_5",
+      "cost": 15.0,
+      "selected": 1.0,
+      "start": 45.0,
+      "branch": 16
+    },
+    {
+      "resource": "r_4",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 17
+    },
+    {
+      "resource": "r_1",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 15.0,
+      "branch": 17
+    },
+    {
+      "resource": "r_4",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 18
+    },
+    {
+      "resource": "r_6",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 18
+    },
+    {
+      "resource": "r_2",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 19
+    },
+    {
+      "resource": "r_4",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 20
+    },
+    {
+      "resource": "r_3",
+      "cost": 50.0,
+      "selected": 1.0,
+      "start": 10.0,
+      "branch": 21
+    },
+    {
+      "resource": "r_5",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 22
+    },
+    {
+      "resource": "r_3",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 23
+    },
+    {
+      "resource": "r_1",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 23
+    },
+    {
+      "resource": "r_5",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 24
+    },
+    {
+      "resource": "r_1",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 24
+    },
+    {
+      "resource": "r_3",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 25
+    },
+    {
+      "resource": "r_6",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 25
+    },
+    {
+      "resource": "r_5",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 26
+    },
+    {
+      "resource": "r_6",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 26
+    },
+    {
+      "resource": "r_3",
+      "cost": 0.0,
+      "selected": 0.0,
+      "start": 0.0,
+      "branch": 27
+    },
+    {
+      "resource": "r_5",
+      "cost": 15.0,
+      "selected": 1.0,
+      "start": 0.0,
+      "branch": 28
+    },
+    {
+      "resource": "r_1",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 29
+    },
+    {
+      "resource": "r_1",
+      "cost": 15.0,
+      "selected": 1.0,
+      "start": 0.0,
+      "branch": 30
+    },
+    {
+      "resource": "r_6",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 31
+    },
+    {
+      "resource": "r_2",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 32
+    },
+    {
+      "resource": "r_2",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 32
+    },
+    {
+      "resource": "r_4",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 33
+    },
+    {
+      "resource": "r_2",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 33
+    },
+    {
+      "resource": "r_3",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 34
+    },
+    {
+      "resource": "r_5",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 35
+    },
+    {
+      "resource": "r_2",
+      "cost": 10.0,
+      "selected": 1.0,
+      "start": 0.0,
+      "branch": 36
+    },
+    {
+      "resource": "r_4",
+      "cost": 15.0,
+      "selected": 1.0,
+      "start": 10.0,
+      "branch": 36
+    },
+    {
+      "resource": "r_4",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 37
+    },
+    {
+      "resource": "r_4",
+      "cost": -0.0,
+      "selected": -0.0,
+      "start": 0.0,
+      "branch": 37
+    }
+  ],
+  "branches": [
+    {
+      "id": 0,
+      "selected": -0.0,
+      "task": "a1"
+    },
+    {
+      "id": 1,
+      "selected": 1.0,
+      "task": "a1"
+    },
+    {
+      "id": 2,
+      "selected": -0.0,
+      "task": "a1"
+    },
+    {
+      "id": 3,
+      "selected": -0.0,
+      "task": "a1"
+    },
+    {
+      "id": 4,
+      "selected": -0.0,
+      "task": "a1"
+    },
+    {
+      "id": 5,
+      "selected": -0.0,
+      "task": "a1"
+    },
+    {
+      "id": 6,
+      "selected": -0.0,
+      "task": "a2"
+    },
+    {
+      "id": 7,
+      "selected": -0.0,
+      "task": "a2"
+    },
+    {
+      "id": 8,
+      "selected": -0.0,
+      "task": "a2"
+    },
+    {
+      "id": 9,
+      "selected": 1.0,
+      "task": "a2"
+    },
+    {
+      "id": 10,
+      "selected": 0.0,
+      "task": "a3"
+    },
+    {
+      "id": 11,
+      "selected": 1.0,
+      "task": "a3"
+    },
+    {
+      "id": 12,
+      "selected": 1.0,
+      "task": "a4"
+    },
+    {
+      "id": 13,
+      "selected": -0.0,
+      "task": "a4"
+    },
+    {
+      "id": 14,
+      "selected": -0.0,
+      "task": "a4"
+    },
+    {
+      "id": 15,
+      "selected": -0.0,
+      "task": "a4"
+    },
+    {
+      "id": 16,
+      "selected": 1.0,
+      "task": "a10"
+    },
+    {
+      "id": 17,
+      "selected": -0.0,
+      "task": "a7"
+    },
+    {
+      "id": 18,
+      "selected": -0.0,
+      "task": "a7"
+    },
+    {
+      "id": 19,
+      "selected": -0.0,
+      "task": "a7"
+    },
+    {
+      "id": 20,
+      "selected": -0.0,
+      "task": "a7"
+    },
+    {
+      "id": 21,
+      "selected": 1.0,
+      "task": "a7"
+    },
+    {
+      "id": 22,
+      "selected": -0.0,
+      "task": "a7"
+    },
+    {
+      "id": 23,
+      "selected": -0.0,
+      "task": "a7"
+    },
+    {
+      "id": 24,
+      "selected": -0.0,
+      "task": "a7"
+    },
+    {
+      "id": 25,
+      "selected": -0.0,
+      "task": "a7"
+    },
+    {
+      "id": 26,
+      "selected": -0.0,
+      "task": "a7"
+    },
+    {
+      "id": 27,
+      "selected": 0.0,
+      "task": "a8"
+    },
+    {
+      "id": 28,
+      "selected": 1.0,
+      "task": "a8"
+    },
+    {
+      "id": 29,
+      "selected": -0.0,
+      "task": "a5"
+    },
+    {
+      "id": 30,
+      "selected": 1.0,
+      "task": "a6"
+    },
+    {
+      "id": 31,
+      "selected": -0.0,
+      "task": "a6"
+    },
+    {
+      "id": 32,
+      "selected": -0.0,
+      "task": "a9"
+    },
+    {
+      "id": 33,
+      "selected": -0.0,
+      "task": "a9"
+    },
+    {
+      "id": 34,
+      "selected": -0.0,
+      "task": "a9"
+    },
+    {
+      "id": 35,
+      "selected": -0.0,
+      "task": "a9"
+    },
+    {
+      "id": 36,
+      "selected": 1.0,
+      "task": "a9"
+    },
+    {
+      "id": 37,
+      "selected": -0.0,
+      "task": "a9"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "a1",
+      "deleted": 0.0
+    },
+    {
+      "id": "a2",
+      "deleted": 0.0
+    },
+    {
+      "id": "a3",
+      "deleted": 0.0
+    },
+    {
+      "id": "a4",
+      "deleted": 0.0
+    },
+    {
+      "id": "a10",
+      "deleted": 0.0
+    },
+    {
+      "id": "a7",
+      "deleted": 0.0
+    },
+    {
+      "id": "a8",
+      "deleted": 0.0
+    },
+    {
+      "id": "a5",
+      "deleted": 1.0
+    },
+    {
+      "id": "a6",
+      "deleted": 0.0
+    },
+    {
+      "id": "a9",
+      "deleted": 0.0
+    }
+  ]
+}

@@ -1,4 +1,3 @@
-from .builder import build_rapst
 import gurobipy as gp
 from gurobipy import GRB
 import json
