@@ -74,7 +74,7 @@ class RA_PST:
         # One task = {task1: [{jobs: [(resource, cost),...], deletes:["id"] }, {jobs:[...], deletes:[]}]}
         branches = defaultdict(list)
         for key, values in self.branches.items():
-            for branch in values:
+            for i, branch in enumerate(values):
                 #TODO branch.serialize_jobs
                 if branch.is_valid:
                     jobs, deletes = branch.get_serialized_jobs(attribute="id")
@@ -82,7 +82,7 @@ class RA_PST:
                     # find task id by label for deletes: 
                     tasklist = self.get_tasklist()
                     deletes = list({task.attrib["id"] for task in tasklist if utils.get_label(task) in deletes})
-                    branches[key].append({"jobs":jobs, "deletes": deletes})
+                    branches[key].append({"jobs":jobs, "deletes": deletes, "branch_no": i})
         # Get tasklist from RA_PST
         tasklist = self.get_tasklist(attribute="id")
         

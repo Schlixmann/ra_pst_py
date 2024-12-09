@@ -50,6 +50,7 @@ def transform_json(ra_pst_json):
                     "task": task,
                     "jobs": [],
                     "deletes": branch["deletes"],
+                    "branch_no":branch["branch_no"],
                     "branchCost": 0
                 }
                 first_job = True
@@ -217,7 +218,8 @@ def combined_ilp(ra_pst_json):
         result["branches"].append({
             "id": b,
             "selected": x[b].x,
-            "task": ra_pst["branches"][b]["task"]
+            "task": ra_pst["branches"][b]["task"],
+            "branch_no": ra_pst["branches"][b]["branch_no"]
         })
     for task in range(len(ra_pst["tasks"])):
         result["tasks"].append({

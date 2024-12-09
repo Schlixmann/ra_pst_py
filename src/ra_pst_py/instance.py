@@ -23,6 +23,7 @@ class Instance():
 
     def get_optimal_instance(self):
         self.apply_branches()
+        self.ra_pst.process = etree.fromstring(etree.tostring(self.ra_pst.process))
         self.optimal_process = self.ra_pst.process
 
     def save_optimal_process(self, path):
@@ -126,7 +127,7 @@ def transform_ilp_to_branches(ra_pst:RA_PST, ilp_rep):
         if len(choosen_branch) > 1:
             raise ValueError(f"More than one branch choosen for task {task}")
         
-        branch_no = taskbranches.index(choosen_branch[0])
-        branch_map[task] = branch_no
+        #branch_no = taskbranches[choosen_branch[0]["branch_no"]]
+        branch_map[task] = choosen_branch[0]["branch_no"]
     return branch_map
     

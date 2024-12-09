@@ -458,75 +458,19 @@
 				<description/>
 			</implementation>
 		</documentation>
-		<resources allocated_to="res_1 role: role_2role_2 resource res_1"/>
+		<resources allocated_to="res_2 role: role_2role_2 resource res_2"/>
 		<expectedready/>
 		<plannedstart/>
 		<plannedend/>
 		<allocation>
-			<resource id="res_1" name="res_1">
+			<resource id="res_2" name="res_2">
 				<resprofile id="role_2" name="role_2" role="role_2" task="wait">
 					<measures>
 						<cost>1</cost>
 					</measures>
-					<changepattern type="insert">
-						<parameters>
-							<direction>after</direction>
-						</parameters>
-						<description>
-							<manipulate id="insert_a0" label="insert_a0" type="insert" direction="after">
-								<resources allocated_to="not_allocated">
-									<resource>role_1</resource>
-								</resources>
-							</manipulate>
-						</description>
-					</changepattern>
-					<children>
-						<manipulate id="insert_a0" label="insert_a0" type="insert" direction="after">
-							<resources allocated_to="not_allocated">
-								<resource>role_1</resource>
-							</resources>
-							<children>
-								<resource id="res_2" name="res_2">
-									<resprofile id="role_1" name="role_1" role="role_1" task="insert_a0">
-										<measures>
-											<cost>1</cost>
-										</measures>
-										<children/>
-									</resprofile>
-								</resource>
-							</children>
-							<expectedready/>
-						</manipulate>
-					</children>
+					<children/>
 				</resprofile>
 			</resource>
 		</allocation>
 	</call>
-	<manipulate id="r9" label="insert_a0" type="insert" direction="after">
-		<resources allocated_to="res_2 role: role_1role_1 resource res_2">
-			<resource>role_1</resource>
-		</resources>
-		<children>
-			<resource id="res_2" name="res_2">
-				<resprofile id="role_1" name="role_1" role="role_1" task="insert_a0">
-					<measures>
-						<cost>1</cost>
-					</measures>
-					<children/>
-				</resprofile>
-			</resource>
-		</children>
-		<expectedready/>
-		<allocation>
-			<resource id="res_2" name="res_2">
-				<resprofile id="role_1" name="role_1" role="role_1" task="insert_a0">
-					<measures>
-						<cost>1</cost>
-					</measures>
-					<children/>
-				</resprofile>
-			</resource>
-		</allocation>
-	</manipulate>
 </description>
-  

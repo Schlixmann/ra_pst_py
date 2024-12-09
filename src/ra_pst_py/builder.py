@@ -75,11 +75,11 @@ def get_ilp_rep(ra_pst: RA_PST):
 
 def build_optimized_instance(ra_pst:RA_PST):
     ilp_rep = ra_pst.get_ilp_rep() 
-    pathlib.Path("/tmp").mkdir(parents=True, exist_ok=True)
-    with open("/tmp/ilp_rep.json", "w") as f:
+    pathlib.Path("tmp").mkdir(parents=True, exist_ok=True)
+    with open("tmp/ilp_rep.json", "w") as f:
         json.dump(ilp_rep, f, indent=2)
         f.close()
-    conf_ilp = combined_ilp("/tmp/ilp_rep.json")
+    conf_ilp = combined_ilp("tmp/ilp_rep.json")
     branches_to_apply = transform_ilp_to_branches(ra_pst, conf_ilp)
     instance = Instance(ra_pst, branches_to_apply)
     instance.get_optimal_instance()

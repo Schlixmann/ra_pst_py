@@ -17,7 +17,7 @@
 		<children><manipulate id="a15" label="decide_on_proposal" type="delete" direction="any">
 						<resources allocated_to="not_allocated">
                         </resources>
-					<expectedready/><expectedready/><expectedready/></manipulate>
+					<expectedready/></manipulate>
 				</children></resprofile>
 		</resource>
 </children><expectedready>2024-01-01T00:00</expectedready></manipulate>

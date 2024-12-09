@@ -38,9 +38,9 @@ ra_pst2 = build_rapst(process_file="test_instances/paper_process_short.xml",
 ra_psts["short_paper"] = ra_pst2
 #show_tree_as_graph(ra_pst2)
 
-ra_pst3 = build_rapst(process_file="test_instances/instance_generator_process.xml",
-                     resource_file="test_instances/instance_generator_resources.xml")
-ra_psts["generated_process"] = ra_pst3
+#ra_pst3 = build_rapst(process_file="test_instances/instance_generator_process.xml",
+#                     resource_file="test_instances/instance_generator_resources.xml")
+#ra_psts["generated_process"] = ra_pst3
 #show_tree_as_graph(ra_pst3, output_file="graphs/ra_pst3")
 
 ra_pst4 = build_rapst(process_file="test_instances/paper_process.xml",

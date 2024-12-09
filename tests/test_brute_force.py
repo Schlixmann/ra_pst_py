@@ -1,6 +1,6 @@
 from src.ra_pst_py.builder import build_rapst
 from src.ra_pst_py.instance import transform_ilp_to_branches, Instance
-from src.ra_pst_py.brute_force import BruteForceSearch, combine_pickles
+from src.ra_pst_py.brute_force import BruteForceSearch
 
 from lxml import etree
 import unittest
@@ -26,8 +26,9 @@ class BruteForceTest(unittest.TestCase):
 
     def test_find_solutions(self):
         all_options = self.search.get_all_branch_combinations()
-        self.search.find_solutions(all_options)
-        results = combine_pickles()
-        print(results)
-
+        results = self.search.find_solutions(all_options)
+        print(results[-1])
+        self.search.save_best_solution_process(top_n = 1)
         #TODO saving and combining pickles
+
+

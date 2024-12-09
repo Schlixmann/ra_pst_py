@@ -1,12 +1,12 @@
 <description xmlns="http://cpee.org/ns/description/1.0">
-	<manipulate id="a1" label="new_tender">level1level2level3<resources allocated_to="level1 role: level1rp_1 resource r_6">
+	<manipulate id="a1" label="new_tender">level1level2level3<resources allocated_to="level3 role: level3rp_13 resource r_3">
 			<resource>level1</resource>
 			<resource>level2</resource>
 			<resource>level3</resource>
 		</resources>
 		<allocation>
-			<resource id="r_6" name="level1">
-				<resprofile id="rp_1" name="new_tender" role="level1" task="new_tender">
+			<resource id="r_3" name="level3">
+				<resprofile id="rp_13" name="new_tender" role="level3" task="new_tender">
 					<measures>
 						<cost>10</cost>
 					</measures>
@@ -101,32 +101,31 @@
 			</resource>
 		</allocation>
 	</manipulate>
-	<manipulate id="a4" label="create_proposal">level3<resources allocated_to="level2 role: level3rp_15 resource r_2">
+	<manipulate id="a4" label="create_proposal">level3<resources allocated_to="level3 role: level3rp_15 resource r_3">
 			<resource>level3</resource>
 			<resource>level2</resource>
 		</resources>
 		<allocation>
-			<resource id="r_2" name="level2">
+			<resource id="r_3" name="level3">
 				<resprofile id="rp_15" name="create_proposal" role="level3" task="create_proposal">
 					<measures>
-						<cost>25</cost>
+						<cost>29</cost>
 					</measures>
-					<children/>
-				</resprofile>
-			</resource>
-		</allocation>
-	</manipulate>
-	<manipulate id="a10" label="decide_on_proposal">
-		<resources allocated_to="level3 role: level3rp_25 resource r_5">
-			<resource>level3</resource>
-		</resources>
-		<allocation>
-			<resource id="r_5" name="level3">
-				<resprofile id="rp_25" name="decide_on_proposal" role="level3" task="decide_on_proposal">
-					<measures>
-						<cost>15</cost>
-					</measures>
-					<children/>
+					<changepattern type="delete">
+						<parameters>
+							<direction>any</direction>
+						</parameters>
+						<description>
+					</description>
+					</changepattern>
+					<children>
+						<manipulate id="a15" label="decide_on_proposal" type="delete" direction="any">
+							<resources allocated_to="not_allocated">
+                        </resources>
+							<expectedready/>
+							<expectedready/>
+						</manipulate>
+					</children>
 				</resprofile>
 			</resource>
 		</allocation>
@@ -193,7 +192,7 @@
 											<direction>any</direction>
 										</parameters>
 										<description>
-                    </description>
+					</description>
 									</changepattern>
 									<children>
 										<manipulate id="a8" label="send_offer" type="delete" direction="any">
@@ -242,11 +241,11 @@
 								<description/>
 							</implementation>
 						</documentation>
-						<resources allocated_to="level3 role: level3rp_16 resource r_5">
+						<resources allocated_to="level3 role: level3rp_16 resource r_3">
 							<resource>level3</resource>
 						</resources>
 						<allocation>
-							<resource id="r_5" name="level3">
+							<resource id="r_3" name="level3">
 								<resprofile id="rp_16" name="contact_suppliers" role="level3" task="contact_suppliers">
 									<measures>
 										<cost>15</cost>
@@ -258,186 +257,6 @@
 					</call>
 				</parallel_branch>
 			</parallel>
-			<choose mode="exclusive">
-				<alternative condition="positive">
-					<_probability>
-						<_probability_min/>
-						<_probability_max/>
-						<_probability_avg/>
-					</_probability>
-					<call id="a6" endpoint="">
-						<parameters>
-							<label>handover_to_engineering</label>
-							<method>:post</method>
-							<arguments/>
-						</parameters>
-						<code>
-							<prepare/>
-							<finalize output="result"/>
-							<update output="result"/>
-							<rescue output="result"/>
-						</code>
-						<annotations>
-							<_timing>
-								<_timing_weight/>
-								<_timing_avg/>
-								<explanations/>
-							</_timing>
-							<_shifting>
-								<_shifting_type>Duration</_shifting_type>
-							</_shifting>
-							<_context_data_analysis>
-								<probes/>
-								<ips/>
-							</_context_data_analysis>
-							<report>
-								<url/>
-							</report>
-							<_notes>
-								<_notes_general/>
-							</_notes>
-						</annotations>
-						<documentation>
-							<input/>
-							<output/>
-							<implementation>
-								<description/>
-							</implementation>
-							<code>
-								<description/>
-							</code>
-						</documentation>
-						<resources allocated_to="level1 role: level3rp_16 resource r_1">
-							<resource>level2</resource>
-							<resource>level3</resource>
-						</resources>
-						<allocation>
-							<resource id="r_1" name="level1">
-								<resprofile id="rp_16" name="handover_to_engineering" role="level3" task="handover_to_engineering">
-									<measures>
-										<cost>15</cost>
-									</measures>
-									<children/>
-								</resprofile>
-							</resource>
-						</allocation>
-					</call>
-				</alternative>
-				<otherwise>
-					<call id="a9" endpoint="">
-						<parameters>
-							<label>close_project</label>
-							<method>:post</method>
-							<arguments/>
-						</parameters>
-						<code>
-							<prepare/>
-							<finalize output="result"/>
-							<update output="result"/>
-							<rescue output="result"/>
-						</code>
-						<annotations>
-							<_timing>
-								<_timing_weight/>
-								<_timing_avg/>
-								<explanations/>
-							</_timing>
-							<_shifting>
-								<_shifting_type>Duration</_shifting_type>
-							</_shifting>
-							<_context_data_analysis>
-								<probes/>
-								<ips/>
-							</_context_data_analysis>
-							<report>
-								<url/>
-							</report>
-							<_notes>
-								<_notes_general/>
-							</_notes>
-						</annotations>
-						<documentation>
-							<input/>
-							<output/>
-							<implementation>
-								<description/>
-							</implementation>
-							<code>
-								<description/>
-							</code>
-						</documentation>
-						<resources allocated_to="level2 role: level2rp_12 resource r_2">
-							<resource>level3</resource>
-							<resource>level2</resource>
-						</resources>
-						<allocation>
-							<resource id="r_2" name="level2">
-								<resprofile id="rp_12" name="close_project" role="level2" task="close_project">
-									<measures>
-										<cost>10</cost>
-									</measures>
-									<changepattern type="insert">
-										<parameters>
-											<direction>after</direction>
-										</parameters>
-										<description>
-											<manipulate id="r4" label="inform_head" type="insert" direction="after">
-												<resources allocated_to="not_allocated">
-													<resource>level2</resource>
-												</resources>
-											</manipulate>
-										</description>
-									</changepattern>
-									<children>
-										<manipulate id="r4" label="inform_head" type="insert" direction="after">
-											<resources allocated_to="not_allocated">
-												<resource>level2</resource>
-											</resources>
-											<children>
-												<resource id="r_4" name="level2">
-													<resprofile id="rp_22" name="inform_head" role="level2" task="inform_head">
-														<measures>
-															<cost>15</cost>
-														</measures>
-														<children/>
-													</resprofile>
-												</resource>
-											</children>
-											<expectedready/>
-										</manipulate>
-									</children>
-								</resprofile>
-							</resource>
-						</allocation>
-					</call>
-					<manipulate id="r5" label="inform_head" type="insert" direction="after">
-						<resources allocated_to="level2 role: level2rp_22 resource r_4">
-							<resource>level2</resource>
-						</resources>
-						<children>
-							<resource id="r_4" name="level2">
-								<resprofile id="rp_22" name="inform_head" role="level2" task="inform_head">
-									<measures>
-										<cost>15</cost>
-									</measures>
-									<children/>
-								</resprofile>
-							</resource>
-						</children>
-						<expectedready/>
-						<allocation>
-							<resource id="r_4" name="level2">
-								<resprofile id="rp_22" name="inform_head" role="level2" task="inform_head">
-									<measures>
-										<cost>15</cost>
-									</measures>
-									<children/>
-								</resprofile>
-							</resource>
-						</allocation>
-					</manipulate>
-				</otherwise>
-			</choose>
 		</alternative>
 		<otherwise/>
 	</choose>

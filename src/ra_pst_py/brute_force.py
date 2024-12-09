@@ -10,6 +10,7 @@ import os
 import time
 import copy
 import uuid
+import pathlib
 from lxml import etree
 
 class BruteForceSearch():
@@ -18,7 +19,19 @@ class BruteForceSearch():
         self.solutions = []
         self.ns = {"cpee1" : list(self.ra_pst.process.nsmap.values())[0]}
         self.pickle_writer = 0
+        self.best_solutions = None
         #self.num_brute_solutions = self.get_num_brute_solutions()
+
+    def save_best_solution_process(self, top_n = 1, out_path="out/processes/brute_force/", measure="cost"):
+        if not self.best_solutions:
+            raise ValueError("self.best_solutions not set. Rund 'find_solutions' first")
+        pathlib.Path(out_path).mkdir(parents=True, exist_ok=True)
+        for i, solution in enumerate(sorted(self.best_solutions, key=lambda d: d[measure])[:top_n]):
+            instance = solution["solution"]
+            path = out_path + f"brute_solution_{1}"
+            instance.optimal_process = etree.fromstring(instance.optimal_process)
+            instance.save_optimal_process(path)
+                
     
     def find_solutions(self, solutions, measure="cost"):
         pool = mp.Pool()
@@ -50,6 +63,8 @@ class BruteForceSearch():
         pool.close()
         pool.join()
         print(results [1])
+        results = self.combine_pickles()
+        return results
     
     def get_all_branch_combinations(self):
         branchlist = [list(range(len(values))) for values in self.ra_pst.branches.values()]
@@ -59,20 +74,46 @@ class BruteForceSearch():
         brute_solutions = [dict(zip(tasklist, solution)) for solution in brute_solutions]
         return brute_solutions
 
+    def combine_pickles(self, folder_path="tmp/results", measure="cost"):
+        print("combine_pickles")
+        files = os.listdir(folder_path) # Get all Pickle files
+        best_solutions = []
+        for file in files:
+            file_path = os.path.join(folder_path, file)
+            if os.path.isdir(file_path):
+                continue
+            
+            with open(file_path, "rb") as f:        
+                ra_psts = pickle.load(f)
+            for solution_dict in ra_psts:
+                if best_solutions:
+                    if solution_dict[measure] < best_solutions[0][measure] or np.isnan(best_solutions[0][measure]): 
+                        best_solutions.append(solution_dict) 
+                    best_solutions = sorted(best_solutions, key=lambda d: d[measure], reverse=True) 
+                    if len(best_solutions) > 10: 
+                        best_solutions.pop(0)
+                else:
+                    best_solutions.append(solution_dict)
+        self.best_solutions = best_solutions
+        return best_solutions
+
 def find_best_solution(solutions): # branches ,measure, n):
     solution_branches, measure, n = solutions
 
     dummy_ra_pst = build_rapst("tmp/process.xml", "tmp/resources.xml")
     best_solutions = [] 
-    start = time.time()
+    start, start1 = time.time(), time.time()
+    timetrack = []
     for i, individual in enumerate(solution_branches):
         
-        new_solution = Instance(copy.copy(dummy_ra_pst), individual) #create solution
+        start2 = time.time()
+        new_solution = Instance(copy.deepcopy(dummy_ra_pst), individual) #create solution
         #new_solution.branches_to_apply = list(individual)
         created_instance = new_solution.get_optimal_instance()
         #new_solution.check_validity()
         value = new_solution.get_measure(measure, flag=False)   # calc. fitness of solution
-        
+        end2 = time.time()
+        timetrack.append(end2-start2)
 
         if not np.isnan(value) :
             if not best_solutions:
@@ -82,10 +123,14 @@ def find_best_solution(solutions): # branches ,measure, n):
                 best_solutions = sorted(best_solutions, key=lambda d: d[measure], reverse=True) 
                 if len(best_solutions) > 25:
                     best_solutions.pop(0)
-    
+
         if i%1000 == 0:
+            end1 = time.time()
+            print(f"{i}/{len(solution_branches)}, Time: {(end1-start1):.2f}")
+            start1 = time.time()
+        elif i%100 == 0:
             end = time.time()
-            print(f"{i}/{len(solution_branches)}, Time: {(end-start):.2f}")
+            print(f"{i}/{len(solution_branches)}, Time: {(end-start):.2f}, AVG: {sum(timetrack)/len(timetrack)}")
             start = time.time()
     
     print("Best solutions: ", best_solutions)
@@ -101,7 +146,7 @@ def dump_to_pickle(best_solutions, i):
     solution = instance_to_pickle(solution["solution"])
     solution = {"solution": solution, "cost": best_solutions[-1]["cost"]}
     with open(f"tmp/results/results_{i}.pkl", "wb") as f:
-        pickle.dump(solution, f)
+        pickle.dump([solution], f)
 
 def instance_to_pickle(solution):
     solution = copy.deepcopy(solution)
@@ -120,24 +165,4 @@ def instance_to_pickle(solution):
 
     return solution
 
-def combine_pickles(folder_path="tmp/results", measure="cost"):
-    print("combine_pickles")
-    files = os.listdir(folder_path)
-    best_solutions = []
-    for file in files:
-        file_path = folder_path + "/" + file
-        if os.path.isdir(file_path):
-            continue
-        
-        with open(file_path, "rb") as f:        
-            dd = pickle.load(f)
-        for d in dd:
-            if best_solutions:
-                if d.get("cost") < best_solutions[0].get(measure) or np.isnan(best_solutions[0].get(measure)): 
-                    best_solutions.append(d) 
-                best_solutions = sorted(best_solutions, key=lambda d: d[measure], reverse=True) 
-                if len(best_solutions) > 10: 
-                    best_solutions.pop(0)
-            else:
-                best_solutions.append(d)
-    return best_solutions
+
