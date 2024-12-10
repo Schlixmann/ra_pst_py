@@ -2,12 +2,12 @@
 	<resource id="r_1" name="level1">
 		<resprofile id="rp_1" name="new_tender" role="level1" task="new_tender">
 			<measures>
-				<cost>47</cost>
+				<cost>10</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_2" name="data_gathering" role="level1" task="data_gathering">
 			<measures>
-				<cost>61</cost>
+				<cost>10</cost>
 			</measures>
 			<changepattern type="insert">
 				<parameters>
@@ -24,12 +24,12 @@
 		</resprofile>
 		<resprofile id="rp_16" name="handover_to_engineering" role="level3" task="handover_to_engineering">
 			<measures>
-				<cost>73</cost>
+				<cost>15</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_3" name="evaluate_risk" role="level1" task="evaluate_risk">
 			<measures>
-				<cost>11</cost>
+				<cost>10</cost>
 			</measures>
 			<changepattern type="insert">
 				<parameters>
@@ -46,7 +46,7 @@
 		</resprofile>
 		<resprofile id="rp_4" name="design_offer" role="level1" task="design_offer">
 			<measures>
-				<cost>110</cost>
+				<cost>20</cost>
 			</measures>
 			<changepattern type="insert">
 				<parameters>
@@ -63,24 +63,92 @@
 		</resprofile>
 		<resprofile id="rp_5" name="send_offer" role="level1" task="send_offer">
 			<measures>
-				<cost>18</cost>
+				<cost>40</cost>
+			</measures>
+		</resprofile>
+	</resource>
+	<resource id="r_6" name="level1">
+		<resprofile id="rp_1" name="new_tender" role="level1" task="new_tender">
+			<measures>
+				<cost>10</cost>
+			</measures>
+		</resprofile>
+		<resprofile id="rp_2" name="data_gathering" role="level1" task="data_gathering">
+			<measures>
+				<cost>10</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>before</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="r1" label="data_support">
+						<resources allocated_to="not_allocated">
+							<resource>level2</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+		<resprofile id="rp_16" name="handover_to_engineering" role="level3" task="handover_to_engineering">
+			<measures>
+				<cost>15</cost>
+			</measures>
+		</resprofile>
+		<resprofile id="rp_3" name="evaluate_risk" role="level1" task="evaluate_risk">
+			<measures>
+				<cost>10</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>before</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="r2" label="head_confirmation">
+						<resources allocated_to="not_allocated">
+							<resource>level3</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+		<resprofile id="rp_4" name="design_offer" role="level1" task="design_offer">
+			<measures>
+				<cost>20</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>parallel</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="r10" label="four_eyes_principle">
+						<resources allocated_to="not_allocated">
+							<resource>level3</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+		<resprofile id="rp_5" name="send_offer" role="level1" task="send_offer">
+			<measures>
+				<cost>40</cost>
 			</measures>
 		</resprofile>
 	</resource>
 	<resource id="r_2" name="level2">
 		<resprofile id="rp_6" name="new_tender" role="level2" task="new_tender">
 			<measures>
-				<cost>105</cost>
+				<cost>15</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_7" name="data_gathering" role="level2" task="data_gathering">
 			<measures>
-				<cost>100</cost>
+				<cost>20</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_8" name="evaluate_risk" role="level2" task="evaluate_risk">
 			<measures>
-				<cost>36</cost>
+				<cost>25</cost>
 			</measures>
 			<changepattern type="insert">
 				<parameters>
@@ -97,27 +165,27 @@
 		</resprofile>
 		<resprofile id="rp_15" name="create_proposal" role="level3" task="create_proposal">
 			<measures>
-				<cost>35</cost>
+				<cost>25</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_89" name="design_offer" role="level2" task="design_offer">
 			<measures>
-				<cost>43</cost>
+				<cost>20</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_10" name="send_offer" role="level2" task="send_offer">
 			<measures>
-				<cost>84</cost>
+				<cost>40</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_11" name="initiate_next_process" role="level2" task="initiate_next_process">
 			<measures>
-				<cost>118</cost>
+				<cost>10</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_12" name="close_project" role="level2" task="close_project">
 			<measures>
-				<cost>40</cost>
+				<cost>10</cost>
 			</measures>
 			<changepattern type="insert">
 				<parameters>
@@ -134,29 +202,29 @@
 		</resprofile>
 		<resprofile id="rp_20" name="data_support" role="level2" task="data_support">
 			<measures>
-				<cost>42</cost>
+				<cost>9</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_22" name="inform_head" role="level2" task="inform_head">
 			<measures>
-				<cost>125</cost>
+				<cost>15</cost>
 			</measures>
 		</resprofile>
 	</resource>
 	<resource id="r_4" name="level2">
 		<resprofile id="rp_6" name="new_tender" role="level2" task="new_tender">
 			<measures>
-				<cost>121</cost>
+				<cost>15</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_7" name="data_gathering" role="level2" task="data_gathering">
 			<measures>
-				<cost>39</cost>
+				<cost>20</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_8" name="evaluate_risk" role="level2" task="evaluate_risk">
 			<measures>
-				<cost>146</cost>
+				<cost>25</cost>
 			</measures>
 			<changepattern type="insert">
 				<parameters>
@@ -173,27 +241,27 @@
 		</resprofile>
 		<resprofile id="rp_15" name="create_proposal" role="level2" task="create_proposal">
 			<measures>
-				<cost>146</cost>
+				<cost>25</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_99" name="design_offer" role="level2" task="design_offer">
 			<measures>
-				<cost>55</cost>
+				<cost>20</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_10" name="send_offer" role="level2" task="send_offer">
 			<measures>
-				<cost>119</cost>
+				<cost>50</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_11" name="initiate_next_process" role="level2" task="initiate_next_process">
 			<measures>
-				<cost>65</cost>
+				<cost>10</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_12" name="close_project" role="level2" task="close_project">
 			<measures>
-				<cost>77</cost>
+				<cost>15</cost>
 			</measures>
 			<changepattern type="insert">
 				<parameters>
@@ -210,34 +278,34 @@
 		</resprofile>
 		<resprofile id="rp_20" name="data_support" role="level2" task="data_support">
 			<measures>
-				<cost>57</cost>
+				<cost>8</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_22" name="inform_head" role="level2" task="inform_head">
 			<measures>
-				<cost>31</cost>
+				<cost>15</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_24" name="four_eyes_principle" role="level3" task="four_eyes_principle">
 			<measures>
-				<cost>123</cost>
+				<cost>10</cost>
 			</measures>
 		</resprofile>
 	</resource>
 	<resource id="r_3" name="level3">
 		<resprofile id="rp_13" name="new_tender" role="level3" task="new_tender">
 			<measures>
-				<cost>52</cost>
+				<cost>10</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_14" name="evaluate_risk" role="level3" task="evaluate_risk">
 			<measures>
-				<cost>100</cost>
+				<cost>30</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_15" name="create_proposal" role="level3" task="create_proposal">
 			<measures>
-				<cost>93</cost>
+				<cost>29</cost>
 			</measures>
 			<changepattern type="delete">
 				<parameters>
@@ -253,32 +321,32 @@
 		</resprofile>
 		<resprofile id="rp_16" name="contact_suppliers" role="level3" task="contact_suppliers">
 			<measures>
-				<cost>89</cost>
+				<cost>15</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_17" name="send_offer" role="level3" task="send_offer">
 			<measures>
-				<cost>45</cost>
+				<cost>50</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_18" name="initiate_next_process" role="level3" task="initiate_next_process">
 			<measures>
-				<cost>16</cost>
+				<cost>30</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_19" name="close_project" role="level3" task="close_project">
 			<measures>
-				<cost>122</cost>
+				<cost>20</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_23" name="head_confirmation" role="level3" task="head_confirmation">
 			<measures>
-				<cost>108</cost>
+				<cost>5</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_9" name="design_offer" role="level3" task="design_offer">
 			<measures>
-				<cost>80</cost>
+				<cost>50</cost>
 			</measures>
 			<changepattern type="delete">
 				<parameters>
@@ -294,29 +362,29 @@
 		</resprofile>
 		<resprofile id="rp_24" name="four_eyes_principle" role="level3" task="four_eyes_principle">
 			<measures>
-				<cost>84</cost>
+				<cost>10</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_25" name="decide_on_proposal" role="level3" task="decide_on_proposal">
 			<measures>
-				<cost>96</cost>
+				<cost>5</cost>
 			</measures>
 		</resprofile>
 	</resource>
 	<resource id="r_5" name="level3">
 		<resprofile id="rp_13" name="new_tender" role="level3" task="new_tender">
 			<measures>
-				<cost>120</cost>
+				<cost>10</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_14" name="evaluate_risk" role="level3" task="evaluate_risk">
 			<measures>
-				<cost>100</cost>
+				<cost>30</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_15" name="create_proposal" role="level3" task="create_proposal">
 			<measures>
-				<cost>125</cost>
+				<cost>30</cost>
 			</measures>
 			<changepattern type="delete">
 				<parameters>
@@ -332,32 +400,32 @@
 		</resprofile>
 		<resprofile id="rp_16" name="contact_suppliers" role="level3" task="contact_suppliers">
 			<measures>
-				<cost>148</cost>
+				<cost>15</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_17" name="send_offer" role="level3" task="send_offer">
 			<measures>
-				<cost>106</cost>
+				<cost>50</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_18" name="initiate_next_process" role="level3" task="initiate_next_process">
 			<measures>
-				<cost>65</cost>
+				<cost>30</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_19" name="close_project" role="level3" task="close_project">
 			<measures>
-				<cost>2</cost>
+				<cost>25</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_23" name="head_confirmation" role="level3" task="head_confirmation">
 			<measures>
-				<cost>76</cost>
+				<cost>5</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_9" name="design_offer" role="level3" task="design_offer">
 			<measures>
-				<cost>107</cost>
+				<cost>50</cost>
 			</measures>
 			<changepattern type="delete">
 				<parameters>
@@ -373,12 +441,12 @@
 		</resprofile>
 		<resprofile id="rp_24" name="four_eyes_principle" role="level3" task="four_eyes_principle">
 			<measures>
-				<cost>29</cost>
+				<cost>10</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_25" name="decide_on_proposal" role="level3" task="decide_on_proposal">
 			<measures>
-				<cost>59</cost>
+				<cost>5</cost>
 			</measures>
 		</resprofile>
 	</resource>

@@ -41,12 +41,12 @@
 			</resource>
 		</allocation>
 	</manipulate>
-	<manipulate id="a2" label="data_gathering">level1level2<resources allocated_to="level1 role: level1rp_2 resource r_6">
+	<manipulate id="a2" label="data_gathering">level1level2<resources allocated_to="level1 role: level1rp_2 resource r_1">
 			<resource>level1</resource>
 			<resource>level2</resource>
 		</resources>
 		<allocation>
-			<resource id="r_6" name="level1">
+			<resource id="r_1" name="level1">
 				<resprofile id="rp_2" name="data_gathering" role="level1" task="data_gathering">
 					<measures>
 						<cost>10</cost>
@@ -85,18 +85,73 @@
 			</resource>
 		</allocation>
 	</manipulate>
-	<manipulate id="a3" label="evaluate_risk">Must be checked by level3 if executed by 1 or 2<resources allocated_to="level3 role: level3rp_14 resource r_5">
+	<manipulate id="r3" label="head_confirmation" type="insert" direction="before">
+		<resources allocated_to="level3 role: level3rp_23 resource r_3">
+			<resource>level3</resource>
+		</resources>
+		<children>
+			<resource id="r_3" name="level3">
+				<resprofile id="rp_23" name="head_confirmation" role="level3" task="head_confirmation">
+					<measures>
+						<cost>5</cost>
+					</measures>
+					<children/>
+				</resprofile>
+			</resource>
+		</children>
+		<expectedready/>
+		<allocation>
+			<resource id="r_3" name="level3">
+				<resprofile id="rp_23" name="head_confirmation" role="level3" task="head_confirmation">
+					<measures>
+						<cost>5</cost>
+					</measures>
+					<children/>
+				</resprofile>
+			</resource>
+		</allocation>
+	</manipulate>
+	<manipulate id="a3" label="evaluate_risk">Must be checked by level3 if executed by 1 or 2<resources allocated_to="level1 role: level1rp_3 resource r_1">
 			<resource>level1</resource>
 			<resource>level2</resource>
 			<resource>level3</resource>
 		</resources>
 		<allocation>
-			<resource id="r_5" name="level3">
-				<resprofile id="rp_14" name="evaluate_risk" role="level3" task="evaluate_risk">
+			<resource id="r_1" name="level1">
+				<resprofile id="rp_3" name="evaluate_risk" role="level1" task="evaluate_risk">
 					<measures>
-						<cost>30</cost>
+						<cost>10</cost>
 					</measures>
-					<children/>
+					<changepattern type="insert">
+						<parameters>
+							<direction>before</direction>
+						</parameters>
+						<description>
+							<manipulate id="r2" label="head_confirmation" type="insert" direction="before">
+								<resources allocated_to="not_allocated">
+									<resource>level3</resource>
+								</resources>
+							</manipulate>
+						</description>
+					</changepattern>
+					<children>
+						<manipulate id="r2" label="head_confirmation" type="insert" direction="before">
+							<resources allocated_to="not_allocated">
+								<resource>level3</resource>
+							</resources>
+							<children>
+								<resource id="r_3" name="level3">
+									<resprofile id="rp_23" name="head_confirmation" role="level3" task="head_confirmation">
+										<measures>
+											<cost>5</cost>
+										</measures>
+										<children/>
+									</resprofile>
+								</resource>
+							</children>
+							<expectedready/>
+						</manipulate>
+					</children>
 				</resprofile>
 			</resource>
 		</allocation>
@@ -241,11 +296,11 @@
 								<description/>
 							</implementation>
 						</documentation>
-						<resources allocated_to="level3 role: level3rp_16 resource r_5">
+						<resources allocated_to="level3 role: level3rp_16 resource r_3">
 							<resource>level3</resource>
 						</resources>
 						<allocation>
-							<resource id="r_5" name="level3">
+							<resource id="r_3" name="level3">
 								<resprofile id="rp_16" name="contact_suppliers" role="level3" task="contact_suppliers">
 									<measures>
 										<cost>15</cost>
@@ -257,6 +312,131 @@
 					</call>
 				</parallel_branch>
 			</parallel>
+			<choose mode="exclusive">
+				<alternative condition="positive">
+					<_probability>
+						<_probability_min/>
+						<_probability_max/>
+						<_probability_avg/>
+					</_probability>
+					<call id="a6" endpoint="">
+						<parameters>
+							<label>handover_to_engineering</label>
+							<method>:post</method>
+							<arguments/>
+						</parameters>
+						<code>
+							<prepare/>
+							<finalize output="result"/>
+							<update output="result"/>
+							<rescue output="result"/>
+						</code>
+						<annotations>
+							<_timing>
+								<_timing_weight/>
+								<_timing_avg/>
+								<explanations/>
+							</_timing>
+							<_shifting>
+								<_shifting_type>Duration</_shifting_type>
+							</_shifting>
+							<_context_data_analysis>
+								<probes/>
+								<ips/>
+							</_context_data_analysis>
+							<report>
+								<url/>
+							</report>
+							<_notes>
+								<_notes_general/>
+							</_notes>
+						</annotations>
+						<documentation>
+							<input/>
+							<output/>
+							<implementation>
+								<description/>
+							</implementation>
+							<code>
+								<description/>
+							</code>
+						</documentation>
+						<resources allocated_to="level1 role: level3rp_16 resource r_1">
+							<resource>level2</resource>
+							<resource>level3</resource>
+						</resources>
+						<allocation>
+							<resource id="r_1" name="level1">
+								<resprofile id="rp_16" name="handover_to_engineering" role="level3" task="handover_to_engineering">
+									<measures>
+										<cost>15</cost>
+									</measures>
+									<children/>
+								</resprofile>
+							</resource>
+						</allocation>
+					</call>
+				</alternative>
+				<otherwise>
+					<call id="a9" endpoint="">
+						<parameters>
+							<label>close_project</label>
+							<method>:post</method>
+							<arguments/>
+						</parameters>
+						<code>
+							<prepare/>
+							<finalize output="result"/>
+							<update output="result"/>
+							<rescue output="result"/>
+						</code>
+						<annotations>
+							<_timing>
+								<_timing_weight/>
+								<_timing_avg/>
+								<explanations/>
+							</_timing>
+							<_shifting>
+								<_shifting_type>Duration</_shifting_type>
+							</_shifting>
+							<_context_data_analysis>
+								<probes/>
+								<ips/>
+							</_context_data_analysis>
+							<report>
+								<url/>
+							</report>
+							<_notes>
+								<_notes_general/>
+							</_notes>
+						</annotations>
+						<documentation>
+							<input/>
+							<output/>
+							<implementation>
+								<description/>
+							</implementation>
+							<code>
+								<description/>
+							</code>
+						</documentation>
+						<resources allocated_to="level3 role: level3rp_19 resource r_3">
+							<resource>level3</resource>
+							<resource>level2</resource>
+						</resources>
+						<allocation>
+							<resource id="r_3" name="level3">
+								<resprofile id="rp_19" name="close_project" role="level3" task="close_project">
+									<measures>
+										<cost>20</cost>
+									</measures>
+									<children/>
+								</resprofile>
+							</resource>
+						</allocation>
+					</call>
+				</otherwise>
+			</choose>
 		</alternative>
 		<otherwise/>
 	</choose>

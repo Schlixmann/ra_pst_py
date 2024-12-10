@@ -22,13 +22,13 @@ class BruteForceSearch():
         self.best_solutions = None
         #self.num_brute_solutions = self.get_num_brute_solutions()
 
-    def save_best_solution_process(self, top_n = 1, out_path="out/processes/brute_force/", measure="cost"):
+    def save_best_solution_process(self, top_n = 1, out_file="out/processes/brute_force/brute_solutionl.xml", measure="cost"):
         if not self.best_solutions:
             raise ValueError("self.best_solutions not set. Rund 'find_solutions' first")
-        pathlib.Path(out_path).mkdir(parents=True, exist_ok=True)
+        pathlib.Path(out_file).parent.mkdir(parents=True, exist_ok=True)
         for i, solution in enumerate(sorted(self.best_solutions, key=lambda d: d[measure])[:top_n]):
             instance = solution["solution"]
-            path = out_path + f"brute_solution_{1}"
+            path = out_file
             instance.optimal_process = etree.fromstring(instance.optimal_process)
             instance.save_optimal_process(path)
                 

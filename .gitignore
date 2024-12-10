@@ -6,6 +6,7 @@ branches.xml
 .vscode
 ilp_rep.json
 ilp_result.json
+tmp/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
