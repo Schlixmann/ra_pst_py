@@ -359,7 +359,6 @@ class TaskAllocation(RA_PST):
                     ResourceWarning,
                 )
                 raise (ResourceError(task_parent))
-
             return root
 
         # Add next tasks to the tree
@@ -434,7 +433,6 @@ class TaskAllocation(RA_PST):
                         raise ValueError(
                             "Changepattern type not in ['insert', 'replace', 'delete']"
                         )
-
         return root
     
 class Branch():
@@ -498,9 +496,6 @@ class Branch():
             ns = {"cpee1" : list(ra_pst.nsmap.values())[0]}
             with open("branch_raw.xml", "wb") as f:
                 f.write(etree.tostring(self.node))
-
-            #if not change_op:
-            #    change_op = ChangeOperation(ra_pst)
             new_node = copy.deepcopy(self.node)
             self.check_validity()
 
@@ -522,12 +517,8 @@ class Branch():
             #        el = element.xpath("child::cpee1:plannedend", namespaces=self.ns)[0]
             #    except:
             #        raise ValueError(f"{element.tag} Should have a plannedend but doesn't")
-        
-
             tasks = copy.deepcopy(self.node).xpath("//*[self::cpee1:call or self::cpee1:manipulate][not(ancestor::changepattern) and not(ancestor::cpee1:changepattern)and not(ancestor::cpee1:allocation)]", namespaces=ns)[1:]
             task = change_op.get_proc_task(ra_pst, self.node)
-            
-
             if delete:
                 return ra_pst
 
@@ -573,7 +564,6 @@ class Branch():
             return tasklist
         else:
             return [task.attrib[f"{attribute}"] for task in tasklist]
-
 
 
 class ResourceError(Exception):

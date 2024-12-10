@@ -63,7 +63,7 @@
 		</resprofile>
 		<resprofile id="rp_5" name="send_offer" role="level1" task="send_offer">
 			<measures>
-				<cost>40</cost>
+				<cost>70</cost>
 			</measures>
 		</resprofile>
 	</resource>
@@ -133,17 +133,24 @@
 			<measures>
 				<cost>40</cost>
 			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>after</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="r10" label="invalidity">
+						<resources allocated_to="not_allocated">
+							<resource>level2</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
 		</resprofile>
 	</resource>
 	<resource id="r_2" name="level2">
 		<resprofile id="rp_6" name="new_tender" role="level2" task="new_tender">
 			<measures>
 				<cost>15</cost>
-			</measures>
-		</resprofile>
-		<resprofile id="rp_7" name="data_gathering" role="level2" task="data_gathering">
-			<measures>
-				<cost>20</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_8" name="evaluate_risk" role="level2" task="evaluate_risk">
@@ -175,8 +182,20 @@
 		</resprofile>
 		<resprofile id="rp_10" name="send_offer" role="level2" task="send_offer">
 			<measures>
-				<cost>40</cost>
+				<cost>30</cost>
 			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>after</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="r10" label="invalidity">
+						<resources allocated_to="not_allocated">
+							<resource>level2</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
 		</resprofile>
 		<resprofile id="rp_11" name="initiate_next_process" role="level2" task="initiate_next_process">
 			<measures>
@@ -217,11 +236,6 @@
 				<cost>15</cost>
 			</measures>
 		</resprofile>
-		<resprofile id="rp_7" name="data_gathering" role="level2" task="data_gathering">
-			<measures>
-				<cost>20</cost>
-			</measures>
-		</resprofile>
 		<resprofile id="rp_8" name="evaluate_risk" role="level2" task="evaluate_risk">
 			<measures>
 				<cost>25</cost>
@@ -251,8 +265,20 @@
 		</resprofile>
 		<resprofile id="rp_10" name="send_offer" role="level2" task="send_offer">
 			<measures>
-				<cost>50</cost>
+				<cost>20</cost>
 			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>before</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="r10" label="invalidity">
+						<resources allocated_to="not_allocated">
+							<resource>level2</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
 		</resprofile>
 		<resprofile id="rp_11" name="initiate_next_process" role="level2" task="initiate_next_process">
 			<measures>
@@ -328,6 +354,18 @@
 			<measures>
 				<cost>50</cost>
 			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>after</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="r10" label="invalidity">
+						<resources allocated_to="not_allocated">
+							<resource>level2</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
 		</resprofile>
 		<resprofile id="rp_18" name="initiate_next_process" role="level3" task="initiate_next_process">
 			<measures>
@@ -337,11 +375,6 @@
 		<resprofile id="rp_19" name="close_project" role="level3" task="close_project">
 			<measures>
 				<cost>20</cost>
-			</measures>
-		</resprofile>
-		<resprofile id="rp_23" name="head_confirmation" role="level3" task="head_confirmation">
-			<measures>
-				<cost>5</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_9" name="design_offer" role="level3" task="design_offer">
@@ -367,8 +400,20 @@
 		</resprofile>
 		<resprofile id="rp_25" name="decide_on_proposal" role="level3" task="decide_on_proposal">
 			<measures>
-				<cost>5</cost>
+				<cost>50</cost>
 			</measures>
+			<changepattern type="delete">
+				<parameters>
+					<direction>any</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="r2" label="head_confirmation">
+						<resources allocated_to="not_allocated">
+							<resource>level3</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
 		</resprofile>
 	</resource>
 	<resource id="r_5" name="level3">
@@ -405,8 +450,20 @@
 		</resprofile>
 		<resprofile id="rp_17" name="send_offer" role="level3" task="send_offer">
 			<measures>
-				<cost>50</cost>
+				<cost>60</cost>
 			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>before</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="r10" label="invalidity">
+						<resources allocated_to="not_allocated">
+							<resource>level2</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
 		</resprofile>
 		<resprofile id="rp_18" name="initiate_next_process" role="level3" task="initiate_next_process">
 			<measures>
@@ -416,11 +473,6 @@
 		<resprofile id="rp_19" name="close_project" role="level3" task="close_project">
 			<measures>
 				<cost>25</cost>
-			</measures>
-		</resprofile>
-		<resprofile id="rp_23" name="head_confirmation" role="level3" task="head_confirmation">
-			<measures>
-				<cost>5</cost>
 			</measures>
 		</resprofile>
 		<resprofile id="rp_9" name="design_offer" role="level3" task="design_offer">
@@ -446,7 +498,7 @@
 		</resprofile>
 		<resprofile id="rp_25" name="decide_on_proposal" role="level3" task="decide_on_proposal">
 			<measures>
-				<cost>5</cost>
+				<cost>15</cost>
 			</measures>
 		</resprofile>
 	</resource>

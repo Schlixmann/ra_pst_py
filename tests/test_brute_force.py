@@ -30,5 +30,3 @@ class BruteForceTest(unittest.TestCase):
         print(results[-1])
         self.search.save_best_solution_process(top_n = 1)
         #TODO saving and combining pickles
-
-

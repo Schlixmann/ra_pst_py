@@ -198,7 +198,6 @@ class ChangeOperation():
             timeslots_element.append(slot_element)
 
         self.set_times_for_following_tasks(task, planned_start_time, duration)
-
         return (planned_start_element, planned_end_element)
 
     def set_times_for_following_tasks(self, task, planned_start_time, duration):
@@ -503,12 +502,12 @@ class Insert(ChangeOperation):
                 self.add_res_allocation(
                     task, branchtask)
             else:
-                raise ChangeOperationError(
-                    "No Resource available. Invalid Allocation")
+                invalid = True
+                #raise ChangeOperationError(
+                #    "No Resource available. Invalid Allocation")
         except ChangeOperationError:
             # print(inst.__str__())
             invalid = True
-
         return process, invalid
 
 
@@ -573,9 +572,10 @@ class Delete(ChangeOperation):
                     if pos_deletes:
                         to_del_id = pos_deletes[0]
                     else:
+                        invalid = True
+                        return process, invalid
                         raise ChangeOperationError(
                             "No matching task to delete found in Process Model")
-
                 except ChangeOperationError:
                     invalid = True
                     return process, invalid
@@ -623,7 +623,6 @@ class Replace(ChangeOperation):
 
         except ChangeOperationError:
             invalid = True
-
         return process, invalid
 
 class CpeeElements():

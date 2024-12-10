@@ -73,7 +73,7 @@ def get_ilp_rep(ra_pst: RA_PST):
         "branches": branches
     }
 
-def build_optimized_instance(ra_pst:RA_PST):
+def build_optimized_instance(ra_pst:RA_PST) -> Instance:
     ilp_rep = ra_pst.get_ilp_rep() 
     pathlib.Path("tmp").mkdir(parents=True, exist_ok=True)
     with open("tmp/ilp_rep.json", "w") as f:
@@ -85,5 +85,14 @@ def build_optimized_instance(ra_pst:RA_PST):
     instance.get_optimal_instance()
     return instance
 
-    
+def build_optimal_instance_brute(ra_pst:RA_PST):
+    search = BruteForceSearch(ra_pst)
+    all_options = search.get_all_branch_combinations()
+    print(len(all_options))
+    results = search.find_solutions(all_options)
+    search.save_best_solution_process(top_n=1, out_file="out/processes/brute_force/brute_heterogen.xml")    
+    # TODO: should return instance including the applied branches. 
+    # Instance must be somehow buidl from results. 
+    # Maybe etree transform needed.
+        
 

@@ -6,7 +6,6 @@ from collections import defaultdict
 
 cost_dict = defaultdict(list)
 
-"""
 ra_pst = build_rapst(
             process_file="test_instances/paper_process_short.xml",
             resource_file="test_instances/offer_resources_many_invalid_branches.xml"
@@ -74,6 +73,7 @@ cost_dict["brute"].append(results[-1]['cost'])
 print(f"Brute force costs = {results[-1]['cost']}, ilp cost = {cost_dict["ilp"][-1]}")
 print(cost_dict)
 
+"""
 ra_pst = build_rapst(
             process_file="test_instances/paper_process.xml",
             resource_file="test_instances/offer_resources_plain_fully_synthetic_small.xml"

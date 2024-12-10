@@ -72,9 +72,6 @@ def transform_json(ra_pst_json):
 
         return result
 
-
-
-
 def configuration_ilp(ra_pst_json):
     """
     Construct the ILP fromulation from a JSON object to the Gurobi model

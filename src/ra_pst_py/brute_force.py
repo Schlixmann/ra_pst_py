@@ -31,7 +31,6 @@ class BruteForceSearch():
             path = out_file
             instance.optimal_process = etree.fromstring(instance.optimal_process)
             instance.save_optimal_process(path)
-                
     
     def find_solutions(self, solutions, measure="cost"):
         pool = mp.Pool()
@@ -111,7 +110,6 @@ def find_best_solution(solutions): # branches ,measure, n):
     start, start1 = time.time(), time.time()
     timetrack = []
     for i, individual in enumerate(solution_branches):
-        
         start2 = time.time()
         new_solution = Instance(copy.deepcopy(dummy_ra_pst), individual) #create solution
         #new_solution.branches_to_apply = list(individual)
@@ -139,7 +137,6 @@ def find_best_solution(solutions): # branches ,measure, n):
         #    end = time.time()
             #print(f"{i}/{len(solution_branches)}, Time: {(end-start):.2f}, AVG: {sum(timetrack)/len(timetrack)}")
         #    start = time.time()
-    
     print("Best solutions: ", best_solutions)
     if best_solutions:
         dump_to_pickle(best_solutions, n)
@@ -163,13 +160,11 @@ def instance_to_pickle(solution):
     solution.optimal_process = etree.tostring(solution.optimal_process)
     solution.change_op = None
     solution.tasks_iter = None
-    solution.current_task = None
-
-    solution.branches_to_apply = {}
-    solution.applied_branches = {}
+    #solution.current_task = None
+    #solution.branches_to_apply = {}
+    #solution.applied_branches = {}
     solution.delayed_deletes = []
-    solution.invalid = False
-
+    #solution.invalid = False
     return solution
 
 
