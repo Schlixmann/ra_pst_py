@@ -24,7 +24,8 @@ class CPTest(unittest.TestCase):
     
     def test_cp(self):
         result = conf_cp("tests/test_data/ilp_rep.json")
-        
-        print(result)
-        show_tree_as_graph(self.ra_pst)
+        print([branch for branch in result["branches"] if branch["selected"] == 1])
+        print(result["objective"])
+        self.assertEqual(result["objective"], 59)
+        #show_tree_as_graph(self.ra_pst)
 

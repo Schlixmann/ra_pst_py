@@ -30,6 +30,7 @@ class RA_PST:
         self.branches = defaultdict(list)
         self.build_ra_pst()
         self.set_branches()
+        self.transformed_items = []
 
     def get_ra_pst_str(self) -> str:
         if not self.ra_pst:

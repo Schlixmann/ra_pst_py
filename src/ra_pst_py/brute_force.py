@@ -13,6 +13,15 @@ import uuid
 import pathlib
 from lxml import etree
 
+def build_optimized_instance_brute(ra_pst:RA_PST):
+    search = BruteForceSearch(ra_pst)
+    all_options = search.get_all_branch_combinations()
+    print(len(all_options))
+    results = search.find_solutions(all_options)
+    search.save_best_solution_process(out_file="tmp/brute_process.xml")
+    instance = search.get_best_instance()
+    return instance
+
 class BruteForceSearch():
     def __init__(self, ra_pst:RA_PST, measure="cost"):
         self.ra_pst = ra_pst
@@ -22,15 +31,24 @@ class BruteForceSearch():
         self.best_solutions = None
         #self.num_brute_solutions = self.get_num_brute_solutions()
 
-    def save_best_solution_process(self, top_n = 1, out_file="out/processes/brute_force/brute_solutionl.xml", measure="cost"):
+    def save_best_solution_process(self, out_file="out/processes/brute_force/brute_solutionl.xml", measure="cost"):
         if not self.best_solutions:
             raise ValueError("self.best_solutions not set. Rund 'find_solutions' first")
         pathlib.Path(out_file).parent.mkdir(parents=True, exist_ok=True)
-        for i, solution in enumerate(sorted(self.best_solutions, key=lambda d: d[measure])[:top_n]):
+        for i, solution in enumerate(sorted(self.best_solutions, key=lambda d: d[measure])[:1]):
             instance = solution["solution"]
             path = out_file
             instance.optimal_process = etree.fromstring(instance.optimal_process)
             instance.save_optimal_process(path)
+    
+    def get_best_instance(self, measure="cost"):
+        if not self.best_solutions:
+            raise ValueError("self.best_solutions not set. Rund 'find_solutions' first")
+        best_solution = sorted(self.best_solutions, key=lambda d: d[measure])[0]
+        instance = Instance(self.ra_pst, best_solution["solution"].applied_branches)
+        instance.applied_branches = best_solution["solution"].applied_branches
+        instance.optimal_process = best_solution["solution"].optimal_process
+        return instance
     
     def find_solutions(self, solutions, measure="cost"):
         pool = mp.Pool()
@@ -55,10 +73,6 @@ class BruteForceSearch():
         etree.indent(tree, space="\t", level=0)
         tree.write("tmp/resources.xml")
         list_parts = [solutions[part_size * i : part_size * (i + 1)] for i in range(num_parts)]
-
-        #for i, lst in enumerate(list_parts):
-        #    for test in lst:
-        #        find_best_solution((lst, measure, i))
 
         results[1] = pool.map(find_best_solution, [(part, measure, i) for i, part in enumerate(list_parts)])
         pool.close()
@@ -137,7 +151,7 @@ def find_best_solution(solutions): # branches ,measure, n):
         #    end = time.time()
             #print(f"{i}/{len(solution_branches)}, Time: {(end-start):.2f}, AVG: {sum(timetrack)/len(timetrack)}")
         #    start = time.time()
-    print("Best solutions: ", best_solutions)
+    #print("Best solutions: ", best_solutions)
     if best_solutions:
         dump_to_pickle(best_solutions, n)
     return (f"done_{n}")

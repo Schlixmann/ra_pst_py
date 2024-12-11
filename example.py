@@ -1,5 +1,6 @@
 from src.ra_pst_py.builder import build_rapst, get_rapst_etree, get_rapst_str, build_optimized_instance, show_tree_as_graph, get_ilp_rep
 from src.ra_pst_py.ilp import configuration_ilp, scheduling_ilp, combined_ilp
+from src.ra_pst_py.brute_force import build_optimized_instance_brute
 
 # Build RA-PST
 ra_pst = build_rapst(process_file="example_data/test_process_cpee.xml",
@@ -54,6 +55,17 @@ ra_psts["paper_invalids"] = ra_pst5
 #show_tree_as_graph(ra_pst4, output_file="graphs/ra_pst4")
 
 for key, ra_pst in ra_psts.items():
-    instance = build_optimized_instance(ra_pst=ra_pst)
+    instance = build_optimized_instance(ra_pst=ra_pst, solver = "ilp") # you can specify solver "ilp" or "cp"
     instance.save_optimal_process(f"out/processes/{key}.xml")
+
+# find optimal instance with brute force approach
+# Beware: only useful for smaller sets 
+ra_pst = build_rapst(
+            process_file="test_instances/paper_process_short.xml",
+            resource_file="test_instances/offer_resources_many_invalid_branches.xml"
+        )
+instance = build_optimized_instance_brute(ra_pst=ra_pst)
+instance.save_optimal_process(f"out/process/brute_heterogen.xml")
+print(f"Value of best BruteForce instance: {instance.get_measure(measure="cost")}") 
+
 
