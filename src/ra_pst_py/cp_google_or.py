@@ -72,12 +72,15 @@ def transform_json(ra_pst_json):
         return result
     
 def conf_cp(ra_pst_json):
+
     ra_pst = transform_json(ra_pst_json)
     model = cp_model.CpModel()
 
     task_num = len(ra_pst["tasks"])
     task_branch_list = defaultdict(list)
     [task_branch_list[branch["task"]].append(branch) for branch in ra_pst["branches"]]
+    
+    
     task_vars = [model.NewBoolVar(f"{task}_task") for task in ra_pst["tasks"]]
     
     # create branch variables for each task and set number of chosen branches == 1 if task is not deleted
@@ -149,3 +152,65 @@ def result_to_dict(solver, ra_pst, flat_branch_vars, task_vars  ):
         })
     return result
     
+def conf_cp_scheduling(ra_pst_json):
+    # create multiple sequences:
+    sequences = {}
+    for i in range(5):
+        ra_pst = transform_json(ra_pst_json)
+        sequences[i] = ra_pst
+    model = cp_model.CpModel()
+
+    task_num = len(ra_pst["tasks"])
+    task_branch_list = {defaultdict(list)}
+    task_vars ={}
+    branch_vars = {}
+
+    for sequence, ra_pst in sequence.items():
+        task_branch_list[sequence] = [task_branch_list[sequence][branch["task"]].append(branch) for branch in ra_pst["branches"]]
+        
+        # create task_vars
+        task_vars[sequence] = [model.NewBoolVar(f"{task}_task") for task in ra_pst["tasks"]]
+    
+    # create branch variables for each task and set number of chosen branches == 1 if task is not deleted
+    for sequence, ra_pst in sequences.items():
+        for task, taskId in enumerate(ra_pst["tasks"]):
+            branch_vars[sequence][taskId] = [model.NewBoolVar(f"{ra_pst["tasks"][task]}_branch{i}") for i in range(len(task_branch_list[taskId]))]
+            # Set the number of chosen branches equal to 1 if the task is not deleted
+            model.Add(sum(branch_vars[sequence][taskId]) == 1 - task_vars[sequence][task])
+
+        flat_branch_vars = sum(list(branch_vars[sequence].values()), [])
+        # If a branch is selected that deletes a task, the task is not chosen
+        for t in range(len(ra_pst["tasks"])):
+            for i,var in enumerate(flat_branch_vars):
+                if ra_pst["tasks"][t] in ra_pst["branches"][i]["deletes"]:
+                    model.Add(task_vars[sequence][t] >= flat_branch_vars[i])
+    
+        # If none of the branches that deletes the task is chosen, the task can not be set to deleted                 
+        for t in range(len(ra_pst["tasks"])):
+            model.Add(sum([flat_branch_vars[i] for i in range(len(ra_pst["branches"])) if ra_pst["tasks"][t] in ra_pst["branches"][i]["deletes"]]) >= task_vars[sequence][t])
+
+    # Scheduling constraints
+
+    # Makespan variable
+    horizon = 5000 #TODO calc. actually useful horizon
+    obj_var = model.NewIntVar(0, 500, "makespan")
+    model.add_max_equality(
+        obj_var,
+        # TODO highest value of all interval variables
+    )
+    model.Minimize(obj_var)
+    
+    # Solve the model
+    solver = cp_model.CpSolver()
+    status = solver.Solve(model)
+
+    if status == cp_model.OPTIMAL or status == cp_model.FEASIBLE:
+        # Extract the solution
+        print(solver.ObjectiveValue())
+        solution = {
+            task: [branch_vars[task].index(var) for var in branch_vars[task]
+                   if solver.value(var) == 1] for task in ra_pst["tasks"]}
+        return result_to_dict(solver, ra_pst, flat_branch_vars, task_vars)
+        
+    else:
+        raise ValueError({'error': 'No solution found'})

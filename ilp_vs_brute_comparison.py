@@ -1,4 +1,4 @@
-from src.ra_pst_py.builder import build_rapst, get_rapst_etree, get_rapst_str, build_optimized_instance
+from src.ra_pst_py.builder import build_rapst, get_rapst_etree, get_rapst_str, build_optimized_instance, show_tree_as_graph
 from src.ra_pst_py.ilp import configuration_ilp, scheduling_ilp, combined_ilp
 from src.ra_pst_py.brute_force import BruteForceSearch, build_optimized_instance_brute
 
@@ -10,6 +10,7 @@ ra_pst = build_rapst(
             process_file="test_instances/paper_process_short.xml",
             resource_file="test_instances/offer_resources_many_invalid_branches.xml"
         )
+show_tree_as_graph(ra_pst)
 instance = build_optimized_instance(ra_pst=ra_pst, solver="ilp")
 instance.save_optimal_process(f"out/processes/ilp_short.xml")
 cost_dict["ilp"].append(instance.get_measure(measure="cost"))

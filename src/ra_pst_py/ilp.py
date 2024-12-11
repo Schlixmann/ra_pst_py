@@ -191,6 +191,7 @@ def combined_ilp(ra_pst_json):
 
     # Precedence constraints between individual jobs
     model.addConstrs((t[i] + ra_pst["jobs"][i]["cost"]*x[ra_pst["jobs"][i]["branch"]] <= t[j] for j in range(len(ra_pst["jobs"])) for i in ra_pst["jobs"][j]["after"]) )
+    
 
     # Optimize
     model.optimize()
