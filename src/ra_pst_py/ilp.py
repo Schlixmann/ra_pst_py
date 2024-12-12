@@ -53,7 +53,7 @@ def transform_json(ra_pst_json):
                     "branch_no":branch["branch_no"],
                     "branchCost": 0
                 }
-                first_job = True
+                # first_job = True
                 for job in branch["jobs"]:
                     newJob = {
                         "branch": len(result["branches"]),
@@ -61,10 +61,12 @@ def transform_json(ra_pst_json):
                         "cost": float(job[1]),
                         "after": []
                     }
-                    if first_job:
-                        first_job = False
-                    else:
-                        newJob["after"].append(len(result["jobs"])-1)
+                    # if first_job:
+                    #     first_job = False
+                    # else:
+                    #     newJob["after"].append(len(result["jobs"])-1)
+                    for j in range(len(result["jobs"])):
+                        newJob["after"].append(j)
                     newBranch["branchCost"] += float(job[1])
                     newBranch["jobs"].append(len(result["jobs"]))
                     result["jobs"].append(newJob)
