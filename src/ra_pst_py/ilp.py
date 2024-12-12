@@ -65,8 +65,8 @@ def transform_json(ra_pst_json):
                     #     first_job = False
                     # else:
                     #     newJob["after"].append(len(result["jobs"])-1)
-                    for j in range(len(result["jobs"])):
-                        newJob["after"].append(j)
+                    if len(result["jobs"]) > 0:
+                        newJob["after"].append(len(result["jobs"])-1)
                     newBranch["branchCost"] += float(job[1])
                     newBranch["jobs"].append(len(result["jobs"]))
                     result["jobs"].append(newJob)
