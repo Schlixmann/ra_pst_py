@@ -3,7 +3,7 @@ import matplotlib.cm as cm
 import json
 
 
-with open("out/ilp_result_ra_pst3.json", "r") as f:
+with open("out/ilp_result.json", "r") as f:
     ilp_result = json.load(f)
     jobs = ilp_result["jobs"]
 

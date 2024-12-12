@@ -129,5 +129,6 @@ def transform_ilp_to_branches(ra_pst:RA_PST, ilp_rep):
         
         #branch_no = taskbranches[choosen_branch[0]["branch_no"]]
         branch_map[task] = choosen_branch[0]["branch_no"]
+    
     return branch_map
     
