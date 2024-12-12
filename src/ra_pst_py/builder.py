@@ -82,6 +82,8 @@ def build_optimized_instance(ra_pst:RA_PST, solver:str = "ilp") -> Instance:
         f.close()
     if solver == "ilp":
         conf_ilp = combined_ilp("tmp/ilp_rep.json")
+        with open("out/ilp_result.json", "w") as f:
+            json.dump(conf_ilp, f)
     elif solver == "cp":
         conf_ilp = conf_cp("tmp/ilp_rep.json")
     else:

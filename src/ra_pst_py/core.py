@@ -7,6 +7,7 @@ from lxml import etree
 import uuid
 import warnings
 import copy
+import math
 from collections import defaultdict
 
 class RA_PST:
@@ -31,6 +32,7 @@ class RA_PST:
         self.build_ra_pst()
         self.set_branches()
         self.transformed_items = []
+        self.problem_size = math.prod([len([value for value in values if value.is_valid]) for key, values in self.branches.items()])
 
     def get_ra_pst_str(self) -> str:
         if not self.ra_pst:

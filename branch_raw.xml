@@ -1,38 +1,24 @@
-<manipulate xmlns="http://cpee.org/ns/description/1.0" id="a3" label="evaluate_risk">Must be checked by level3 if executed by 1 or 2<resources allocated_to="not_allocated">
-			<resource>level1</resource>
-			<resource>level2</resource>
+<manipulate xmlns="http://cpee.org/ns/description/1.0" id="a4" label="create_proposal">level3<resources allocated_to="not_allocated">
 			<resource>level3</resource>
+			<resource>level2</resource>
 		</resources>
-	<children><resource id="r_1" name="level1">
-		<resprofile id="rp_3" name="evaluate_risk" role="level1" task="evaluate_risk">
+	<children><resource id="r_5" name="level3">
+		<resprofile id="rp_15" name="create_proposal" role="level3" task="create_proposal">
 			<measures>
-				<cost>11</cost>
+				<cost>30</cost>
 			</measures>
-			<changepattern type="insert">
+			<changepattern type="delete">
 				<parameters>
-					<direction>before</direction>
+					<direction>any</direction>
 				</parameters>
 				<description>
-					<manipulate id="r2" label="head_confirmation" type="insert" direction="before">
-						<resources allocated_to="not_allocated">
-							<resource>level3</resource>
-						</resources>
-					</manipulate>
-				</description>
+					</description>
 			</changepattern>
-		<children><manipulate id="r2" label="head_confirmation" type="insert" direction="before">
+		<children><manipulate id="a15" label="decide_on_proposal" type="delete" direction="any">
 						<resources allocated_to="not_allocated">
-							<resource>level3</resource>
-						</resources>
-					<children><resource id="r_3" name="level3">
-		<resprofile id="rp_23" name="head_confirmation" role="level3" task="head_confirmation">
-			<measures>
-				<cost>108</cost>
-			</measures>
-		<children/></resprofile>
-		</resource>
-	</children></manipulate>
+                        </resources>
+					<expectedready/></manipulate>
 				</children></resprofile>
 		</resource>
-	</children></manipulate>
+</children><expectedready>2024-01-01T00:00</expectedready></manipulate>
 	
