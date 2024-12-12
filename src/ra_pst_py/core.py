@@ -476,7 +476,7 @@ class Branch():
                 elif task.attrib["direction"] == "parallel":
                     jobs.insert(current_position, (resource.attrib["id"], cost))
                 else:
-                    raise NotImplementedError(f"This direction has not been implemented {task.attrib["direction"]}")
+                    raise NotImplementedError(f"This direction has not been implemented {task.attrib['direction']}")
         except IndexError as e:
             raise IndexError(f"{e}. Hint: The branch you're trying to serialize is probably invalid")
         return jobs, deletes
@@ -502,11 +502,11 @@ class Branch():
 
             # Add expectedready to each manipulate / call task, that is in a children node 
             if not new_node.xpath("cpee1:expectedready", namespaces=self.ns):
-                        exp_ready_element = etree.SubElement(new_node, f"{{{self.ns["cpee1"]}}}expectedready")
+                        exp_ready_element = etree.SubElement(new_node, f"{{{self.ns['cpee1']}}}expectedready")
                         exp_ready_element.text = str(earliest_possible_start)
             
             for element in new_node.xpath("(//cpee1:manipulate | //cpee1:call)[parent::cpee1:children]", namespaces=self.ns):
-                exp_ready_element = etree.SubElement(element, f"{{{self.ns["cpee1"]}}}expectedready")
+                exp_ready_element = etree.SubElement(element, f"{{{self.ns['cpee1']}}}expectedready")
 
             #change_op.propagate_internal_times(new_node, min_exp_ready=earliest_possible_start)
             self.node=new_node

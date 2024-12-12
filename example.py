@@ -66,6 +66,6 @@ ra_pst = build_rapst(
         )
 instance = build_optimized_instance_brute(ra_pst=ra_pst)
 instance.save_optimal_process(f"out/process/brute_heterogen.xml")
-print(f"Value of best BruteForce instance: {instance.get_measure(measure="cost")}") 
+print(f"Value of best BruteForce instance: {instance.get_measure(measure='cost')}") 
 
 
