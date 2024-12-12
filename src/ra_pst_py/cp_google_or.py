@@ -177,6 +177,7 @@ def conf_cp_scheduling(ra_pst_json):
             branch_vars[sequence][taskId] = [model.NewBoolVar(f"{ra_pst["tasks"][task]}_branch{i}") for i in range(len(task_branch_list[taskId]))]
             # Set the number of chosen branches equal to 1 if the task is not deleted
             model.Add(sum(branch_vars[sequence][taskId]) == 1 - task_vars[sequence][task])
+            # TODO needs intervals?!
 
         flat_branch_vars = sum(list(branch_vars[sequence].values()), [])
         # If a branch is selected that deletes a task, the task is not chosen
@@ -184,7 +185,7 @@ def conf_cp_scheduling(ra_pst_json):
             for i,var in enumerate(flat_branch_vars):
                 if ra_pst["tasks"][t] in ra_pst["branches"][i]["deletes"]:
                     model.Add(task_vars[sequence][t] >= flat_branch_vars[i])
-    
+                    # TODO chosen or not chosen with task
         # If none of the branches that deletes the task is chosen, the task can not be set to deleted                 
         for t in range(len(ra_pst["tasks"])):
             model.Add(sum([flat_branch_vars[i] for i in range(len(ra_pst["branches"])) if ra_pst["tasks"][t] in ra_pst["branches"][i]["deletes"]]) >= task_vars[sequence][t])
