@@ -83,7 +83,7 @@ def conf_cp(ra_pst_json):
     # create branch variables for each task and set number of chosen branches == 1 if task is not deleted
     branch_vars = {}
     for task, taskId in enumerate(ra_pst["tasks"]):
-        branch_vars[taskId] = [model.NewBoolVar(f"{ra_pst["tasks"][task]}_branch{i}") for i in range(len(task_branch_list[taskId]))]
+        branch_vars[taskId] = [model.NewBoolVar(f"{ra_pst['tasks'][task]}_branch{i}") for i in range(len(task_branch_list[taskId]))]
         # Set the number of chosen branches equal to 1 if the task is not deleted
         model.Add(sum(branch_vars[taskId]) == 1 - task_vars[task])
 

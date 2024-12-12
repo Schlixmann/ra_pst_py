@@ -13,7 +13,7 @@ class ChangeOperation():
 
     def __init__(self, ra_pst):
         self.ra_pst = ra_pst
-        self.ns = {"cpee1": list(ra_pst.nsmap.values())[0]}
+        self.ns = {'cpee1': list(ra_pst.nsmap.values())[0]}
         self.to_del_label=[]
 
     def ChangeOperationFactory(self,process, core_task, task, branch, cptype, earliest_possible_start=None):
@@ -38,11 +38,12 @@ class ChangeOperation():
             proc_tasks = list(filter(lambda x: utils.get_label(etree.tostring(
                 core_task)) == utils.get_label(etree.tostring(x)), proc_tasks))
             if len(proc_tasks) > 1:
-                raise ProcessError(f"Task identifier + label is not unique for task {
-                                   utils.get_label(etree.tostring(core_task)), core_task.attrib}")
+                raise ProcessError(f"Task identifier + label is not unique for task \
+                                   {utils.get_label(etree.tostring(core_task)), core_task.attrib}")
             elif len(proc_tasks) == 0:
-                raise ProcessError(f"Task identifier + label do not exist {utils.get_label(
-                    etree.tostring(core_task)), core_task.attrib}. Are you trying to allocate a deleted resource?")
+                raise ProcessError(f"Task identifier + label do not exist \
+                                   {utils.get_label(etree.tostring(core_task)), core_task.attrib}. \
+                                    Are you trying to allocate a deleted resource?")
         if all: 
             return proc_tasks
         else:
@@ -59,12 +60,12 @@ class ChangeOperation():
         directly applies to RA-PST
         """
 
-        self.ns = {"cpee1": list(task.nsmap.values())[
+        self.ns = {'cpee1': list(task.nsmap.values())[
             0], "allo": "http://cpee.org/ns/allocation"}
 
         branch = copy.deepcopy(branch)
         if not task.xpath("cpee1:allocation", namespaces=self.ns):
-            allocation_element = etree.SubElement(task, f"{{{self.ns["cpee1"]}}}allocation")
+            allocation_element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}allocation")
         else:
             allocation_element=task.xpath("cpee1:allocation", namespaces=self.ns)[0]
 
@@ -89,7 +90,7 @@ class ChangeOperation():
         # Set expectedready according to branch
         #if branch.xpath("cpee1:expectedready", namespaces = self.ns):
         #    if not task.xpath("cpee1:expectedready", namespaces=self.ns):
-        #        element = etree.SubElement(task, f"{{{self.ns["cpee1"]}}}expectedready")
+        #        element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expectedready")
         #    task.xpath("cpee1:expectedready", namespaces=self.ns)[
         #        0].text = branch.xpath("cpee1:expectedready", namespaces=self.ns)[0].text
 
@@ -168,17 +169,17 @@ class ChangeOperation():
 
         # apply times to task objects:
         planned_start_element = etree.Element(
-            f"{{{self.ns["cpee1"]}}}plannedstart")
+            f"{{{self.ns['cpee1']}}}plannedstart")
         planned_start_element.text = planned_start_time.strftime('%Y-%m-%dT%H:%M:%S')
         planned_end_element = etree.Element(
-            f"{{{self.ns["cpee1"]}}}plannedend")
+            f"{{{self.ns['cpee1']}}}plannedend")
         planned_end_element.text = (planned_start_time+duration).strftime('%Y-%m-%dT%H:%M:%S')
         if len(planned_end_element.text) == 0:
             raise ValueError
         
         # apply times to resource objects
-        slot_element, start_element, end_element = etree.Element(f"{{{self.ns["cpee1"]}}}slot"), etree.Element(
-            f"{{{self.ns["cpee1"]}}}start"), etree.Element(f"{{{self.ns["cpee1"]}}}end")
+        slot_element, start_element, end_element = etree.Element(f"{{{self.ns['cpee1']}}}slot"), etree.Element(
+            f"{{{self.ns['cpee1']}}}start"), etree.Element(f"{{{self.ns['cpee1']}}}end")
         start_element.text, end_element.text = str(
             planned_start_time), str(planned_start_time+duration)
         slot_element.append(start_element)
@@ -192,7 +193,7 @@ class ChangeOperation():
         else:
             resource_element = resource
             resource_element.append(etree.Element(
-                f"{{{self.ns["cpee1"]}}}timeslots"))
+                f"{{{self.ns['cpee1']}}}timeslots"))
             timeslots_element = resource.xpath(
                 "cpee1:timeslots", namespaces=self.ns)
             timeslots_element.append(slot_element)
@@ -228,7 +229,7 @@ class ChangeOperation():
             task.xpath("cpee1:expectedready", namespaces=self.ns)[
                 0].text = str(planned_start_time+duration)
         else:
-            element = etree.Element(f"{{{self.ns["cpee1"]}}}expectedready")
+            element = etree.Element(f"{{{self.ns['cpee1']}}}expectedready")
             element.text = str(planned_start_time+duration)
             task.append(element)
 
@@ -356,7 +357,7 @@ class ChangeOperation():
                         anchor = tree_node.xpath("cpee1:expectedready", namespaces=self.ns)[0]
                         if not child.xpath("cpee1:expectedready", namespaces=self.ns):
                             child_exp_ready_element = etree.Element(
-                                f"{{{self.ns["cpee1"]}}}expectedready")
+                                f"{{{self.ns['cpee1']}}}expectedready")
                             child_exp_ready_element.text = str(anchor.text)
                             child.append(child_exp_ready_element)
 
@@ -618,8 +619,8 @@ class Replace(ChangeOperation):
                     "cpee1:children/*", namespaces=self.ns)[0])
                 self.add_res_allocation(task, resource_info)
             else:
-                raise ChangeOperationError(f"No Resource available for replaced {
-                                           utils.get_label(etree.tostring(task))}. Invalid Allocation")
+                raise ChangeOperationError(f"No Resource available for replaced \
+                                           {utils.get_label(etree.tostring(task))}. Invalid Allocation")
 
         except ChangeOperationError:
             invalid = True
@@ -632,8 +633,8 @@ class CpeeElements():
         self.elem_file = os.path.join(os.path.dirname(__file__), "process_descriptions/cpee_elements.xml")
         with open(self.elem_file) as f:
             self.elems_et = etree.fromstring(f.read())
-        self.ns = {"cpee1" : list(self.elems_et.nsmap.values())[0]}
-        ns = {"cpee1" : list(self.elems_et.nsmap.values())[0]}
+        self.ns = {'cpee1' : list(self.elems_et.nsmap.values())[0]}
+        ns = {'cpee1' : list(self.elems_et.nsmap.values())[0]}
 
         self.task_elements = [f"{{{ns['cpee1']}}}manipulate", f"{{{ns['cpee1']}}}call"]
 
@@ -651,7 +652,7 @@ class CpeeElements():
     
 def get_allowed_roles(element):
     elem_et = etree.fromstring(element)
-    ns = {"cpee1" : list(elem_et.nsmap.values())[0]}
+    ns = {'cpee1' : list(elem_et.nsmap.values())[0]}
     to_ret = [role.text for role in elem_et.xpath("cpee1:resources/cpee1:resource", namespaces=ns)]
     return to_ret
 
