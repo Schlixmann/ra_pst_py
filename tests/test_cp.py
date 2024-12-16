@@ -18,20 +18,22 @@ class CPTest(unittest.TestCase):
             resource_file="test_instances/offer_resources_many_invalid_branches_sched.xml"
         )
         ilp_rep = self.ra_pst.get_ilp_rep()
-        with open("tests/test_data/ilp_rep.json", "w") as f:
+        with open("tests/test_data/ilp_rep2.json", "w") as f:
             json.dump(ilp_rep, f, indent=2)
             f.close()
     
     def test_cp(self):
-        result = conf_cp("tests/test_data/ilp_rep.json")
+        result = conf_cp("tests/test_data/ilp_rep2.json")
         print([branch for branch in result["branches"] if branch["selected"] == 1])
         print(result["objective"])
         self.assertEqual(result["objective"], 59)
         #show_tree_as_graph(self.ra_pst)
     
     def test_cp_sched(self):
-        #show_tree_as_graph(self.ra_pst)
+        show_tree_as_graph(self.ra_pst)
         result = conf_cp_scheduling("tests/test_data/ilp_rep.json")
+        with open("out/cp_result.json", "w") as f:
+            json.dump(result, f, indent=2)
         #print([branch for branch in result["branches"] if branch["selected"] == 1])
         #print(result["objective"])
         #self.assertEqual(result["objective"], 59)

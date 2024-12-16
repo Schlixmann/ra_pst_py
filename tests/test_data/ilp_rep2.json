@@ -1,0 +1,105 @@
+{
+  "tasks": [
+    "a3",
+    "a4",
+    "a10"
+  ],
+  "resources": [
+    "r_1",
+    "r_6",
+    "r_2",
+    "r_4",
+    "r_3",
+    "r_5"
+  ],
+  "branches": {
+    "a3": [
+      {
+        "jobs": [
+          [
+            "r_3",
+            "15"
+          ]
+        ],
+        "deletes": [],
+        "branch_no": 4
+      },
+      {
+        "jobs": [
+          [
+            "r_5",
+            "30"
+          ]
+        ],
+        "deletes": [],
+        "branch_no": 5
+      }
+    ],
+    "a4": [
+      {
+        "jobs": [
+          [
+            "r_1",
+            "2"
+          ]
+        ],
+        "deletes": [],
+        "branch_no": 0
+      },
+      {
+        "jobs": [
+          [
+            "r_2",
+            "25"
+          ]
+        ],
+        "deletes": [],
+        "branch_no": 1
+      },
+      {
+        "jobs": [
+          [
+            "r_4",
+            "25"
+          ]
+        ],
+        "deletes": [],
+        "branch_no": 2
+      },
+      {
+        "jobs": [
+          [
+            "r_5",
+            "30"
+          ]
+        ],
+        "deletes": [
+          "a10"
+        ],
+        "branch_no": 3
+      }
+    ],
+    "a10": [
+      {
+        "jobs": [
+          [
+            "r_1",
+            "1"
+          ]
+        ],
+        "deletes": [],
+        "branch_no": 0
+      },
+      {
+        "jobs": [
+          [
+            "r_5",
+            "15"
+          ]
+        ],
+        "deletes": [],
+        "branch_no": 2
+      }
+    ]
+  }
+}
