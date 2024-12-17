@@ -3,12 +3,12 @@
     <resource id="r_1" name="level1">
         <resprofile id="rp_25" name="decide_on_proposal" role="level3" task="decide_on_proposal">
             <measures>
-                <cost>1</cost>
+                <cost>10</cost>
             </measures>
         </resprofile>
         <resprofile id="rp_15" name="create_proposal" role="level3" task="create_proposal">
             <measures>
-                <cost>2</cost>
+                <cost>20</cost>
             </measures>
         </resprofile>
         <resprofile id="rp_1" name="new_tender" role="level1" task="new_tender">
@@ -426,7 +426,7 @@
         </resprofile>
         <resprofile id="rp_15" name="create_proposal" role="level3" task="create_proposal">
             <measures>
-                <cost>30</cost>
+                <cost>25</cost>
             </measures>
             <changepattern type="delete">
                 <parameters>

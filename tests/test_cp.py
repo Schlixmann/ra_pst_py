@@ -18,7 +18,7 @@ class CPTest(unittest.TestCase):
             resource_file="test_instances/offer_resources_many_invalid_branches_sched.xml"
         )
         ilp_rep = self.ra_pst.get_ilp_rep()
-        with open("tests/test_data/ilp_rep2.json", "w") as f:
+        with open("tests/test_data/ilp_rep.json", "w") as f:
             json.dump(ilp_rep, f, indent=2)
             f.close()
     

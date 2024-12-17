@@ -176,7 +176,7 @@ def conf_cp_scheduling(ra_pst_json):
         "assigned_task_type", "start job index duration presence"
     )
     task_resource_type = namedtuple(
-        "task_resource_type", "interval presence task_id sequence"
+        "task_resource_type", "interval presence task_id sequence branch"
     )
 
     for sequence, ra_pst in sequences.items():
@@ -209,7 +209,7 @@ def conf_cp_scheduling(ra_pst_json):
 
     # Scheduling constraints
     horizon = 5000 #TODO calc. actually useful horizon
-    machine_to_intervals = defaultdict(list)
+    machine_to_intervals = defaultdict(dict)
     all_tasks = {}
     for sequence, ra_pst in sequences.items():
         for task_id, task in enumerate(ra_pst["tasks"]):
@@ -221,38 +221,50 @@ def conf_cp_scheduling(ra_pst_json):
 
                     not_task_var = model.NewBoolVar(f"not_task_{task_id}")
                     model.Add(not_task_var == 1 - task_vars[sequence][task_id])
-                    model.AddImplication(not_task_var, presence)
-                    model.AddImplication(flat_branch_vars[sequence][branch_id], presence)
-                    
+                    model.AddBoolAnd([not_task_var, flat_branch_vars[sequence][branch_id]]).only_enforce_if(presence)
+                    model.AddBoolOr([not_task_var.Not(), flat_branch_vars[sequence][branch_id].Not()]).only_enforce_if(presence.Not())
+
                     start_var = model.NewIntVar(0, horizon, "start" + suffix)
                     end_var = model.NewIntVar(0, horizon, "end" + suffix)
                     task_interval = model.NewOptionalIntervalVar(start_var, int(duration), end_var, presence ,"interval" + suffix)
                     all_tasks[sequence, task, branch_id] = task_type(
                         start = start_var, end=end_var, interval=task_interval, duration=int(duration), presence=presence, task_id=task, sequence=sequence
                     )
-                    machine_to_intervals[resource].append(task_resource_type(interval=task_interval, presence=presence, task_id=task, sequence=sequence))
+                    machine_to_intervals[resource][sequence, task, branch_id] = task_resource_type(interval=task_interval, presence=presence, task_id=task, sequence=sequence, branch=branch_id)
 
     for resource in ra_pst["resources"]:
-        machine_intervals = [interval.interval for interval in machine_to_intervals[resource]]
+        machine_intervals = [interval.interval for interval in machine_to_intervals[resource].values()]
         model.add_no_overlap(machine_intervals)
 
     # Precedence inside a sequence:
     # TODO bring on branch level
-    for sequence, ra_pst in sequences.items():
-        for task_id, task in enumerate(ra_pst["tasks"]):
-            if task_id < len(ra_pst["tasks"])-1:
-                model.add(all_tasks[sequence, ra_pst["tasks"][task_id +1]].start >= all_tasks[sequence, ra_pst["tasks"][task_id]].end)
+    #for sequence, ra_pst in sequences.items():
+    #    for task_id, task in enumerate(ra_pst["tasks"]):
+    #        if task_id < len(ra_pst["tasks"])-1:
+    #            model.add(all_tasks[sequence, ra_pst["tasks"][task_id +1]].start >= all_tasks[sequence, ra_pst["tasks"][task_id]].end)
 
     # TODO Group by sequ, task and branches
     groups = {}
+    for sequence in sequences.keys():
+        groups[sequence] = defaultdict(list)
     for (sequence, task, branch), values in all_tasks.items():
-        groups[sequence] = []
+        groups[sequence][task].append(branch)
+    
+    for sequence, group in groups.items():
+        for task, branches in list(group.items())[:-1]:
+            for branch1 in branches:
+                task_id = list(group.keys()).index(task)
+                if task_id + 1 < len(list(group.keys())):
+                    next_task, next_branches = list(group.keys())[task_id + 1], list(group.values())[task_id + 1]
+                    for branch2 in next_branches:
+                        model.add(all_tasks[sequence, next_task, branch2].start >= all_tasks[sequence,task,branch1].end)
+
 
     # Makespan variable
     obj_var = model.NewIntVar(0, horizon, "makespan")
     model.add_max_equality(
         obj_var,
-        [task.end for task in all_tasks],
+        [task.end for task in all_tasks.values()],
     )
     model.Minimize(obj_var)
     
@@ -261,15 +273,19 @@ def conf_cp_scheduling(ra_pst_json):
     status = solver.Solve(model)
 
     if status == cp_model.OPTIMAL or status == cp_model.FEASIBLE:
-        print("Solution:")
+        if status == cp_model.OPTIMAL:
+            status = "Optimal"
+        elif status == cp_model.FEASIBLE:
+            status = "Feasible"
+        print(f"Solution: {status}")
         # Create one list of assigned tasks per machine.
         assigned_jobs = defaultdict(list)
         for sequence, ra_pst in sequences.items(): 
             for resource, values in machine_to_intervals.items():
-                for task_resource in values:
+                for key, task_resource in values.items():
                     if solver.value(task_resource.presence):
                         machine = resource
-                        task_tuple = (task_resource.sequence, task_resource.task_id)
+                        task_tuple = (task_resource.sequence, task_resource.task_id, task_resource.branch)
                         assigned_jobs[machine].append(
                             assigned_task_type(
                                 start=solver.value(all_tasks[task_tuple].start),
@@ -306,19 +322,20 @@ def conf_cp_scheduling(ra_pst_json):
             output += sol_line
 
         # Finally print the solution found.
-        print(f"Optimal Schedule Length: {solver.objective_value}")
-        print(output)
+        print(f"{status} Schedule Length: {solver.objective_value}")
+        #print(output)
         for sequence, flat_branch_var in flat_branch_vars.items():
             print([solver.value(branch) for branch in flat_branch_var])
-        print([(solver.value(all_tasks[task].start), solver.value(all_tasks[task].end)) for task in all_tasks])
-        print("done")
-        result = result_to_dict_sched(solver, sequences, flat_branch_vars, task_vars, list(branch_vars.keys()), all_tasks)
+        sol = [{(solver.value(all_tasks[task].start), solver.value(all_tasks[task].end), solver.value(all_tasks[task].presence))} for task in all_tasks if solver.value(all_tasks[task].presence) == 1]
+        print([{(solver.value(all_tasks[task].start), solver.value(all_tasks[task].end), solver.value(all_tasks[task].presence))} for task in all_tasks])
+        print(len(sol))
+        result = result_to_dict_sched(solver, sequences, flat_branch_vars, task_vars, list(branch_vars.keys()), all_tasks, machine_to_intervals)
         return result
     else:
         print("No solution found.")
 
 
-def result_to_dict_sched(solver, ra_pst, flat_branch_vars, task_vars, sequences, all_tasks):
+def result_to_dict_sched(solver, ra_pst, flat_branch_vars, task_vars, sequences, all_tasks, machine_to_intervals):
     # Store result in a result dict
     result = {}
     for sequence in sequences:
@@ -328,18 +345,18 @@ def result_to_dict_sched(solver, ra_pst, flat_branch_vars, task_vars, sequences,
             "branches": [],
             "tasks": []
         }
-
-        for job in range(len(ra_pst[sequence]["jobs"])):
-            task_id = ra_pst[sequence]["branches"][job]["task"]
-            result[sequence]["jobs"].append({
-                "resource": ra_pst[sequence]["jobs"][job]["resource"],
-                "cost": ra_pst[sequence]["jobs"][job]["cost"] * solver.value(flat_branch_vars[sequence][job]),
-                "selected": solver.value(flat_branch_vars[sequence][job]),
-                "start": solver.value(all_tasks[(sequence, task_id)].start),
-                "branch": ra_pst[sequence]["jobs"][job]["branch"]
-            })
-
-        
+    for key, job in all_tasks.items():
+        sequence, task_id, branch = key
+        result[sequence]["jobs"].append({
+            "task" : task_id,
+            "resource": [resource for resource in machine_to_intervals if key in machine_to_intervals[resource].keys()],
+            "cost": solver.value(all_tasks[(sequence, task_id, branch)].duration) * solver.value(all_tasks[(sequence, task_id, branch)].presence),
+            "selected": solver.value(all_tasks[(sequence, task_id, branch)].presence),
+            "start": solver.value(all_tasks[(sequence, task_id, branch)].start),
+            "branch": branch
+        })
+    
+    for sequence in sequences:       
         for b in range(len(ra_pst[sequence]["branches"])):
             result[sequence]["branches"].append({
                 "id": b,
@@ -352,5 +369,7 @@ def result_to_dict_sched(solver, ra_pst, flat_branch_vars, task_vars, sequences,
                 "id": ra_pst[sequence]["tasks"][task],
                 "deleted": solver.value(task_vars[sequence][task])
             })
+
+
 
     return result
