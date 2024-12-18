@@ -157,7 +157,11 @@ def combined_ilp(ra_pst_json):
     Construct the ILP fromulation from a JSON object to the Gurobi model
     ra_pst_json input format:
     {
-        "tasks": [taskId],
+        "tasks": { 
+            taskId: {
+                "branches": [branchId]
+            }
+        },
         "resources": [resourceId],
         "branches": {
             branchId: {

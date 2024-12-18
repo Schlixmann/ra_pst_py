@@ -4,7 +4,7 @@ import json
 import random
 
 
-with open("out/ilp_result.json", "r") as f:
+with open("out/cp_result.json", "r") as f:
     ilp_result = json.load(f)
     jobs = ilp_result["jobs"]
 

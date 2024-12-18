@@ -153,7 +153,6 @@ class RA_PST:
                     result["jobs"][jobId] = newJob
                     previousJob = jobId
                 result["branches"][branchId] = newBranch
-        print(result)
         return result
     
     def get_optimized_instance(self, branch_list):
