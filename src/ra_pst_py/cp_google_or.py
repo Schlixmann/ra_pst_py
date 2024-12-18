@@ -2,77 +2,37 @@ from ortools.sat.python import cp_model
 from collections import defaultdict
 import json
 
-
-def transform_json(ra_pst_json):
+    
+def conf_cp(ra_pst_json):
     """
-    Transform the JSON object from the shape:
-    {
-      tasks: list of tasks,
-      resources: list of resources,
-      branches: {
-        task : [
-          {
-            "jobs": [[resource, cost], ...],
-            "deletes": [task]
-          }
-        ]
-      }
-    }
-    to: 
+    Input ra_pst_json format:
     {
         "tasks": [taskId],
         "resources": [resourceId],
-        "branches": [{
-            "task": taskId,
-            "jobs": [jobId],
-            "deletes": [taskId],
-            "branchCost": cost
-        }],
-        "jobs": [{
-            "branch": branchId,
-            "resource": resourceId,
-            "cost": cost,
-            "after": [jobId]
-        }]
+        "branches": {
+            branchId: {
+                "task": taskId,
+                "jobs": [jobId],
+                "deletes": [taskId],
+                "branchCost": cost
+            }
+        },
+        "jobs": {
+            jobId: {
+                "branch": branchId,
+                "resource": resourceId,
+                "cost": cost,
+                "after": [jobId],
+                "instance": instanceId
+            }
+        }
     }
     """
-    with open(ra_pst_json, "r") as f:
+    # ra_pst = transform_json(ra_pst_json)
+    with open(ra_pst_json) as f:
         ra_pst = json.load(f)
-        result = {
-            "tasks": ra_pst["tasks"],
-            "resources": ra_pst["resources"],
-            "branches": [],
-            "jobs": []
-        }
-        for task in result["tasks"]:
-            for branch in ra_pst["branches"][task]:
-                newBranch = {
-                    "task": task,
-                    "jobs": [],
-                    "deletes": branch["deletes"],
-                    "branch_no":branch["branch_no"],
-                    "branchCost": 0
-                }
-                first_job = True
-                for job in branch["jobs"]:
-                    newJob = {
-                        "branch": len(result["branches"]),
-                        "resource": job[0],
-                        "cost": float(job[1]),
-                        "after": []
-                    }
-                    if first_job:
-                        first_job = False
-                    else:
-                        newJob["after"].append(len(result["jobs"])-1)
-                    newBranch["branchCost"] += float(job[1])
-                    newBranch["jobs"].append(len(result["jobs"]))
-                    result["jobs"].append(newJob)
-                result["branches"].append(newBranch)
-        return result
-    
-def conf_cp(ra_pst_json):
-    ra_pst = transform_json(ra_pst_json)
+    # TODO: refactor with the new JSON format
+
     model = cp_model.CpModel()
 
     task_num = len(ra_pst["tasks"])
