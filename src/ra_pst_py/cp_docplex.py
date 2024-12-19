@@ -52,7 +52,12 @@ def cp_solver(ra_pst_json):
             model.add(end_before_start(ra_pst["jobs"][jobId2]["interval"], ra_pst["jobs"][jobId]["interval"]))
     
     # No overlap between jobs on the same resource
-    model.add(no_overlap(job["interval"] for job in ra_pst["jobs"].values() if job["resource"] == r) for r in ra_pst["resources"])
+    for r in ra_pst["resources"]:
+        resource_intervals = [job["interval"] for job in ra_pst["jobs"].values() if job["resource"] == r]
+        if len(resource_intervals) > 0:
+            model.add(no_overlap(resource_intervals))
+    
+    # model.add(no_overlap(job["interval"] for job in ra_pst["jobs"].values() if job["resource"] == r) for r in ra_pst["resources"])
 
     # Objective
     model.add(minimize(max([end_of(job["interval"]) for job in ra_pst["jobs"].values()])))
@@ -81,11 +86,11 @@ def cp_solver(ra_pst_json):
 
     for jobId, job in ra_pst["jobs"].items():
         itv = result.get_var_solution(ra_pst["jobs"][jobId]["interval"])
-        print(f'itv: {itv}')
         job["selected"] = itv.is_present()
         job["start"] = itv.get_start()
         del job["interval"]
         del job["after"]
+    ra_pst["objective"] = result.get_objective_value()
 
     return ra_pst
 
