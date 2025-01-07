@@ -3,6 +3,7 @@ from gurobipy import GRB
 import json
 
 
+<<<<<<< HEAD
 def transform_json(ra_pst_json):
     """
     Transform the JSON object from the shape:
@@ -74,157 +75,257 @@ def transform_json(ra_pst_json):
 
         return result
 
+=======
+>>>>>>> ilp
 def configuration_ilp(ra_pst_json):
     """
     Construct the ILP fromulation from a JSON object to the Gurobi model
+    ra_pst_json input format:
+    {
+        "tasks": { 
+            taskId: {
+                "branches": [branchId]
+            }
+        },
+        "resources": [resourceId],
+        "branches": {
+            branchId: {
+                "task": taskId,
+                "jobs": [jobId],
+                "deletes": [taskId],
+                "branchCost": cost
+            }
+        },
+        "jobs": {
+            jobId: {
+                "branch": branchId,
+                "resource": resourceId,
+                "cost": cost,
+                "after": [jobId],
+                "instance": instanceId
+            }
+        }
+    }
     """
-    ra_pst = transform_json(ra_pst_json)
+    with open(ra_pst_json) as f:
+        ra_pst = json.load(f)
 
     model = gp.Model('RA-PST configuration')
 
     # Variables:
     # Define branches
-    x = model.addVars(len(ra_pst["branches"]), vtype=(GRB.BINARY), name='x')
+    for branchId, branch in ra_pst["branches"].items():
+        branch["selected"] = model.addVar(vtype=(GRB.BINARY), name=f'x_{branchId}')
     # Define tasks
-    y = model.addVars(len(ra_pst["tasks"]), vtype=(GRB.BINARY), name='y')
+    for taskId, task in ra_pst["tasks"].items():
+        task["deleted"] = model.addVar(vtype=(GRB.BINARY), name=f'y_{taskId}')
 
     # Objective:
     # Minimize the cost of the chosen branches
-    model.setObjective(gp.quicksum(ra_pst["branches"]["branchCost"] * x[i] for i in range(len(ra_pst["branches"]))), GRB.MINIMIZE)
+    model.setObjective(gp.quicksum(branch["branchCost"] * branch["selected"] for branch in ra_pst["branches"].values()), GRB.MINIMIZE)
 
     # Constraints:
     # Set the number of chosen branches equal to 1 if the task is not deleted
-    model.addConstrs(gp.quicksum(x[i] for i in range(len(ra_pst["branches"])) if ra_pst["tasks"][t] == ra_pst["branches"][i]["task"]) == 1 - y[t] for t in range(len(ra_pst["tasks"])))
+    for taskId, task in ra_pst["tasks"].items():
+        model.addConstr(gp.quicksum(branch["selected"] for branch in ra_pst["branches"].values() if taskId == branch["task"]) == 1 - task["deleted"])
 
     # If a branch is selected that deletes a task, the task is not chosen
-    for t in range(len(ra_pst["tasks"])):
-        model.addConstrs(y[t] >= x[i] for i in range(len(ra_pst["branches"])) if ra_pst["tasks"][t] in ra_pst["branches"][i]["deletes"])
+    for taskId, task in ra_pst["tasks"].items():
+        if taskId in branch["deletes"]:
+            model.addConstr(task["deleted"] >= branch["selected"] for branch in ra_pst["branches"].values())
 
     # If none of the branches that deletes the task is chosen, the task can not be set to deleted
-    model.addConstrs(gp.quicksum(x[i] for i in range(len(ra_pst["branches"])) if ra_pst["tasks"][t] in ra_pst["branches"][i]["deletes"]) >= y[t] for t in range(len(ra_pst["tasks"])))
+    for taskId, task in ra_pst["tasks"].items():
+        model.addConstr(gp.quicksum(branch["selected"] for branch in ra_pst["branches"].values() if taskId in branch["deletes"]) >= task["deleted"])
 
     model.optimize()
+    ra_pst["objective"] = model.objVal
 
-    for b in range(len(ra_pst["branches"])):
-        print(f'branch {b} ({ra_pst["branches"][b]["task"]}, {ra_pst["branches"][b]["branchCost"]}): {x[b].x}')
-    for t in range(len(ra_pst["tasks"])):
-        print(f'task {t} deleted: {y[t].x}')
+    for task in ra_pst["tasks"].values():
+        task["deleted"] = task["deleted"].x
+    for branch in ra_pst["branches"].values():
+        branch["selected"] = branch["selected"].x
+
+    return ra_pst
+
 
 def scheduling_ilp(ra_pst_json):
     """
     Construct the ILP fromulation from a JSON object to the Gurobi model
+    ra_pst_json input format:
+    {
+        "tasks": { 
+            taskId: {
+                "branches": [branchId]
+            }
+        },
+        "resources": [resourceId],
+        "branches": {
+            branchId: {
+                "task": taskId,
+                "jobs": [jobId],
+                "deletes": [taskId],
+                "branchCost": cost
+            }
+        },
+        "jobs": {
+            jobId: {
+                "branch": branchId,
+                "resource": resourceId,
+                "cost": cost,
+                "after": [jobId],
+                "instance": instanceId
+            }
+        }
+    }
     """
-    ra_pst = transform_json(ra_pst_json)
+    with open(ra_pst_json) as f:
+        ra_pst = json.load(f)
 
     model = gp.Model('RA-PST scheduling')
 
     # Add variables
     c_max = model.addVar(vtype=(GRB.CONTINUOUS), name='c_max')
-    t = model.addVars(len(ra_pst["jobs"]), vtype=(GRB.CONTINUOUS), name='t') # starting times of the jobs
     e = {}
-    for i in range(len(ra_pst["jobs"])):
-        for j in range(i+1, len(ra_pst["jobs"])):
-            e[(i,j)] = model.addVar(vtype=(GRB.BINARY), name=f'e_{i}_{j}')
-    w = sum(job["cost"] for job in ra_pst["jobs"])
+    for id1 in ra_pst["jobs"]:
+        for id2 in ra_pst["jobs"]:
+            if (id1, id2) not in e and id1 != id2:
+                e[(id1, id2)] = model.addVar(vtype=(GRB.BINARY), name=f'e_{id1}_{id2}')
+    w = sum(job["cost"] for job in ra_pst["jobs"].values())
+    for jobId, job in ra_pst["jobs"].items():
+        job["start"] = model.addVar(vtype=(GRB.CONTINUOUS), name=f't_{jobId}')
 
     # Objective
     model.setObjective(c_max, GRB.MINIMIZE)
 
     # Constraints
     # set $C_{max}$ to be at least the starting time of each job plus the processing time of the job
-    model.addConstrs(t[i] + ra_pst["jobs"][i]["cost"] <= c_max for i in range(len(ra_pst["jobs"])))
+    for job in ra_pst["jobs"].values():
+        model.addConstr(job["start"] + job["cost"] <= c_max)
 
     # For two jobs on the same resource, no overlap can occur
-    model.addConstrs((t[i] - t[j] <= -ra_pst["jobs"][i]["cost"] + w*(1-e[i,j]) for i in range(len(ra_pst["jobs"])) for j in range(i+1, len(ra_pst["jobs"])) if ra_pst["jobs"][i]["resource"] == ra_pst["jobs"][j]["resource"]))
-    model.addConstrs((t[j] - t[i] <= -ra_pst["jobs"][j]["cost"] + w*e[i,j] for i in range(len(ra_pst["jobs"])) for j in range(i+1, len(ra_pst["jobs"])) if ra_pst["jobs"][i]["resource"] == ra_pst["jobs"][j]["resource"]) )
+    for jobId1, jobId2 in e:
+        if ra_pst["jobs"][jobId1]["resource"] == ra_pst["jobs"][jobId2]["resource"]:
+            model.addConstr(ra_pst["jobs"][jobId1]["start"] - ra_pst["jobs"][jobId2]["start"] <= -ra_pst["jobs"][jobId1]["cost"] + w*(1-e[(jobId1, jobId2)]))
+            model.addConstr(ra_pst["jobs"][jobId2]["start"] - ra_pst["jobs"][jobId1]["start"] <= -ra_pst["jobs"][jobId2]["cost"] + w*e[(jobId1, jobId2)])
 
     # Precedence constraints between individual jobs
-    model.addConstrs((t[i] + ra_pst["jobs"][i]["cost"] <= t[j] for j in range(len(ra_pst["jobs"])) for i in ra_pst["jobs"][j]["after"]) )
+    for jobId1, job in ra_pst["jobs"].items():
+        for jobId2 in job["after"]:
+            model.addConstr(ra_pst["jobs"][jobId2]["start"] + ra_pst["jobs"][jobId2]["cost"] <= ra_pst["jobs"][jobId1]["start"])
 
     # Optimize
     model.optimize()
 
     print(f'c_max: {c_max.x}')
-
-    for job in range(len(ra_pst["jobs"])):
-        print(f'job {job} ({ra_pst["jobs"][job]["resource"]}, {ra_pst["jobs"][job]["cost"]}): {t[job].x}')
+    
+    ra_pst["objective"] = c_max.x
+    for jobId, job in ra_pst["jobs"].items():
+        job["start"] = job["start"].x
+    
+    return ra_pst
 
 
 def combined_ilp(ra_pst_json):
     """
     Construct the ILP fromulation from a JSON object to the Gurobi model
+    ra_pst_json input format:
+    {
+        "tasks": { 
+            taskId: {
+                "branches": [branchId]
+            }
+        },
+        "resources": [resourceId],
+        "branches": {
+            branchId: {
+                "task": taskId,
+                "jobs": [jobId],
+                "deletes": [taskId],
+                "branchCost": cost
+            }
+        },
+        "jobs": {
+            jobId: {
+                "branch": branchId,
+                "resource": resourceId,
+                "cost": cost,
+                "after": [jobId],
+                "instance": instanceId
+            }
+        }
+    }
     """
-    ra_pst = transform_json(ra_pst_json)
+    with open(ra_pst_json) as f:
+        ra_pst = json.load(f)
 
     model = gp.Model('RA-PST optimization')
 
     # Add variables
     c_max = model.addVar(vtype=(GRB.CONTINUOUS), name='c_max')
-    t = model.addVars(len(ra_pst["jobs"]), vtype=(GRB.CONTINUOUS), name='t') # starting times of the jobs
     e = {}
-    for i in range(len(ra_pst["jobs"])):
-        for j in range(i+1, len(ra_pst["jobs"])):
-            e[(i,j)] = model.addVar(vtype=(GRB.BINARY), name=f'e_{i}_{j}')
-    w = sum(job["cost"] for job in ra_pst["jobs"])
-    x = model.addVars(len(ra_pst["branches"]), vtype=(GRB.BINARY), name='x')
-    y = model.addVars(len(ra_pst["tasks"]), vtype=(GRB.BINARY), name='y')
+    for id1 in ra_pst["jobs"]:
+        for id2 in ra_pst["jobs"]:
+            if (id1, id2) not in e and id1 != id2:
+                e[(id1, id2)] = model.addVar(vtype=(GRB.BINARY), name=f'e_{id1}_{id2}')
+    w = sum(job["cost"] for job in ra_pst["jobs"].values())
+    for jobId, job in ra_pst["jobs"].items():
+        job["start"] = model.addVar(vtype=(GRB.CONTINUOUS), name=f't_{jobId}')
+    # Define branches
+    for branchId, branch in ra_pst["branches"].items():
+        branch["selected"] = model.addVar(vtype=(GRB.BINARY), name=f'x_{branchId}')
+    # Define tasks
+    for taskId, task in ra_pst["tasks"].items():
+        task["deleted"] = model.addVar(vtype=(GRB.BINARY), name=f'y_{taskId}')
 
     # Objective
     model.setObjective(c_max, GRB.MINIMIZE)
     
     # Configuration constraints
     # Set the number of chosen branches equal to 1 if the task is not deleted
-    model.addConstrs(gp.quicksum(x[i] for i in range(len(ra_pst["branches"])) if ra_pst["tasks"][t] == ra_pst["branches"][i]["task"]) == 1 - y[t] for t in range(len(ra_pst["tasks"])))
+    for taskId, task in ra_pst["tasks"].items():
+        model.addConstr(gp.quicksum(branch["selected"] for branch in ra_pst["branches"].values() if taskId == branch["task"]) == 1 - task["deleted"])
 
     # If a branch is selected that deletes a task, the task is not chosen
-    for task in range(len(ra_pst["tasks"])):
-        model.addConstrs(y[task] >= x[i] for i in range(len(ra_pst["branches"])) if ra_pst["tasks"][task] in ra_pst["branches"][i]["deletes"])
+    for taskId, task in ra_pst["tasks"].items():
+        if taskId in branch["deletes"]:
+            model.addConstr(task["deleted"] >= branch["selected"] for branch in ra_pst["branches"].values())
 
     # If none of the branches that deletes the task is chosen, the task can not be set to deleted
-    model.addConstrs(gp.quicksum(x[i] for i in range(len(ra_pst["branches"])) if ra_pst["tasks"][t] in ra_pst["branches"][i]["deletes"]) >= y[t] for t in range(len(ra_pst["tasks"])))
+    for taskId, task in ra_pst["tasks"].items():
+        model.addConstr(gp.quicksum(branch["selected"] for branch in ra_pst["branches"].values() if taskId in branch["deletes"]) >= task["deleted"])
 
     # Scheduling constraints
     # set $C_{max}$ to be at least the starting time of each job plus the processing time of the job
-    model.addConstrs(t[i] + ra_pst["jobs"][i]["cost"]*x[ra_pst["jobs"][i]["branch"]] <= c_max for i in range(len(ra_pst["jobs"])))
+    for jobId, job in ra_pst["jobs"].items():
+        model.addConstr(job["start"] + job["cost"]*ra_pst["branches"][job["branch"]]["selected"] <= c_max)
 
     # For two jobs on the same resource, no overlap can occur
-    model.addConstrs((t[i] - t[j] <= -ra_pst["jobs"][i]["cost"]*x[ra_pst["jobs"][i]["branch"]] + w*(1-e[i,j]) for i in range(len(ra_pst["jobs"])) for j in range(i+1, len(ra_pst["jobs"])) if ra_pst["jobs"][i]["resource"] == ra_pst["jobs"][j]["resource"]))
-    model.addConstrs((t[j] - t[i] <= -ra_pst["jobs"][j]["cost"]*x[ra_pst["jobs"][j]["branch"]] + w*e[i,j] for i in range(len(ra_pst["jobs"])) for j in range(i+1, len(ra_pst["jobs"])) if ra_pst["jobs"][i]["resource"] == ra_pst["jobs"][j]["resource"]) )
+    for jobId1, jobId2 in e:
+        if ra_pst["jobs"][jobId1]["resource"] == ra_pst["jobs"][jobId2]["resource"]:
+            model.addConstr(ra_pst["jobs"][jobId1]["start"] - ra_pst["jobs"][jobId2]["start"] <= -ra_pst["jobs"][jobId1]["cost"]*ra_pst["branches"][ra_pst["jobs"][jobId1]["branch"]]["selected"] + w*(1-e[(jobId1, jobId2)]))
+            model.addConstr(ra_pst["jobs"][jobId2]["start"] - ra_pst["jobs"][jobId1]["start"] <= -ra_pst["jobs"][jobId2]["cost"]*ra_pst["branches"][ra_pst["jobs"][jobId2]["branch"]]["selected"] + w*e[(jobId1, jobId2)])
 
     # Precedence constraints between individual jobs
+<<<<<<< HEAD
     model.addConstrs((t[i] + ra_pst["jobs"][i]["cost"]*x[ra_pst["jobs"][i]["branch"]] <= t[j] for j in range(len(ra_pst["jobs"])) for i in ra_pst["jobs"][j]["after"]) )
     
+=======
+    for jobId1, job in ra_pst["jobs"].items():
+        for jobId2 in job["after"]:
+            model.addConstr(ra_pst["jobs"][jobId2]["start"] + ra_pst["jobs"][jobId2]["cost"]*ra_pst["branches"][ra_pst["jobs"][jobId2]["branch"]]["selected"] <= ra_pst["jobs"][jobId1]["start"])
+>>>>>>> ilp
 
     # Optimize
     model.optimize()
 
-    # Store result in a result dict
-    result = {
-        "objective": c_max.x,
-        "jobs": [],
-        "branches": [],
-        "tasks": []
-    }
-
-    for job in range(len(ra_pst["jobs"])):
-        result["jobs"].append({
-            "resource": ra_pst["jobs"][job]["resource"],
-            "cost": ra_pst["jobs"][job]["cost"] * x[ra_pst["jobs"][job]["branch"]].x,
-            "selected": x[ra_pst["jobs"][job]["branch"]].x,
-            "start": t[job].x,
-            "branch": ra_pst["jobs"][job]["branch"]
-        })
-    for b in range(len(ra_pst["branches"])):
-        result["branches"].append({
-            "id": b,
-            "selected": x[b].x,
-            "task": ra_pst["branches"][b]["task"],
-            "branch_no": ra_pst["branches"][b]["branch_no"]
-        })
-    for task in range(len(ra_pst["tasks"])):
-        result["tasks"].append({
-            "id": ra_pst["tasks"][task],
-            "deleted": y[task].x
-        })
+    for task in ra_pst["tasks"].values():
+        task["deleted"] = task["deleted"].x
+    for job in ra_pst["jobs"].values():
+        job["start"] = job["start"].x
+        job["selected"] = ra_pst["branches"][job["branch"]]["selected"].x
+    for branch in ra_pst["branches"].values():
+        branch["selected"] = branch["selected"].x
+    ra_pst["objective"] = c_max.x
     
-    return result
+    return ra_pst

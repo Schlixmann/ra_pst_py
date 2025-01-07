@@ -62,12 +62,33 @@ class RA_PST:
         """
         Transforms information from RA-PST into a dictionary format suitable for an ILP model.
         Returns:
-        dict: {
-            "tasks":list of tasks,
-            "resources":list of resources,
-            "branches": dict of branches for each tasks and deletes
+        {
+            "tasks": { 
+                taskId: {
+                    "branches": [branchId]
+                }
+            },
+            "resources": [resourceId],
+            "branches": {
+                branchId: {
+                    "task": taskId,
+                    "jobs": [jobId],
+                    "deletes": [taskId],
+                    "branchCost": cost
+                }
+            },
+            "jobs": {
+                jobId: {
+                    "branch": branchId,
+                    "resource": resourceId,
+                    "cost": cost,
+                    "after": [jobId],
+                    "instance": instanceId
+                }
+            }
         }
         """
+        instanceId = '1'
 
         # Get resourcelist from RA_PST
         resourcelist = self.get_resourcelist()
@@ -89,11 +110,50 @@ class RA_PST:
         # Get tasklist from RA_PST
         tasklist = self.get_tasklist(attribute="id")
         
-        return {
+        temp = {
             "tasks": tasklist,
             "resources": resourcelist,
             "branches": branches
         }
+
+        # Different ilp format
+        result = {
+            "tasks": {},
+            "resources": temp["resources"],
+            "branches": {},
+            "jobs": {}
+        }
+        for task in temp["tasks"]:
+            result["tasks"][task] = {"branches": []}
+            for branch in temp["branches"][task]:
+                branchId = f'{task}-{len(result["branches"])}'
+                result["tasks"][task]["branches"].append(branchId)
+                newBranch = {
+                    "task": task,
+                    "jobs": [],
+                    "deletes": branch["deletes"],
+                    "branch_no":branch["branch_no"],
+                    "branchCost": 0
+                }
+                previousJob = None
+                for job in branch["jobs"]:
+                    newJob = {
+                        "branch": branchId,
+                        "resource": job[0],
+                        "cost": float(job[1]),
+                        "after": []
+                    }
+                    if previousJob is not None:
+                        newJob["after"].append(previousJob)
+                    for b in result["branches"].values():
+                        newJob["after"].append(b["jobs"][-1])
+                    newBranch["branchCost"] += float(job[1])
+                    jobId = f'{branchId}-{len(result["jobs"])}'
+                    newBranch["jobs"].append(jobId)
+                    result["jobs"][jobId] = newJob
+                    previousJob = jobId
+                result["branches"][branchId] = newBranch
+        return result
     
     def get_optimized_instance(self, branch_list):
         pass
