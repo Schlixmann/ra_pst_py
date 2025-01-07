@@ -3,80 +3,6 @@ from gurobipy import GRB
 import json
 
 
-<<<<<<< HEAD
-def transform_json(ra_pst_json):
-    """
-    Transform the JSON object from the shape:
-    {
-      tasks: list of tasks,
-      resources: list of resources,
-      branches: {
-        task : [
-          {
-            "jobs": [[resource, cost], ...],
-            "deletes": [task]
-          }
-        ]
-      }
-    }
-    to: 
-    {
-        "tasks": [taskId],
-        "resources": [resourceId],
-        "branches": [{
-            "task": taskId,
-            "jobs": [jobId],
-            "deletes": [taskId],
-            "branchCost": cost
-        }],
-        "jobs": [{
-            "branch": branchId,
-            "resource": resourceId,
-            "cost": cost,
-            "after": [jobId]
-        }]
-    }
-    """
-    with open(ra_pst_json, "r") as f:
-        ra_pst = json.load(f)
-        result = {
-            "tasks": ra_pst["tasks"],
-            "resources": ra_pst["resources"],
-            "branches": [],
-            "jobs": []
-        }
-        for task in result["tasks"]:
-            for branch in ra_pst["branches"][task]:
-                newBranch = {
-                    "task": task,
-                    "jobs": [],
-                    "deletes": branch["deletes"],
-                    "branch_no":branch["branch_no"],
-                    "branchCost": 0
-                }
-                # first_job = True
-                for job in branch["jobs"]:
-                    newJob = {
-                        "branch": len(result["branches"]),
-                        "resource": job[0],
-                        "cost": float(job[1]),
-                        "after": []
-                    }
-                    # if first_job:
-                    #     first_job = False
-                    # else:
-                    #     newJob["after"].append(len(result["jobs"])-1)
-                    if len(result["jobs"]) > 0:
-                        newJob["after"].append(len(result["jobs"])-1)
-                    newBranch["branchCost"] += float(job[1])
-                    newBranch["jobs"].append(len(result["jobs"]))
-                    result["jobs"].append(newJob)
-                result["branches"].append(newBranch)
-
-        return result
-
-=======
->>>>>>> ilp
 def configuration_ilp(ra_pst_json):
     """
     Construct the ILP fromulation from a JSON object to the Gurobi model
@@ -307,14 +233,9 @@ def combined_ilp(ra_pst_json):
             model.addConstr(ra_pst["jobs"][jobId2]["start"] - ra_pst["jobs"][jobId1]["start"] <= -ra_pst["jobs"][jobId2]["cost"]*ra_pst["branches"][ra_pst["jobs"][jobId2]["branch"]]["selected"] + w*e[(jobId1, jobId2)])
 
     # Precedence constraints between individual jobs
-<<<<<<< HEAD
-    model.addConstrs((t[i] + ra_pst["jobs"][i]["cost"]*x[ra_pst["jobs"][i]["branch"]] <= t[j] for j in range(len(ra_pst["jobs"])) for i in ra_pst["jobs"][j]["after"]) )
-    
-=======
     for jobId1, job in ra_pst["jobs"].items():
         for jobId2 in job["after"]:
             model.addConstr(ra_pst["jobs"][jobId2]["start"] + ra_pst["jobs"][jobId2]["cost"]*ra_pst["branches"][ra_pst["jobs"][jobId2]["branch"]]["selected"] <= ra_pst["jobs"][jobId1]["start"])
->>>>>>> ilp
 
     # Optimize
     model.optimize()
