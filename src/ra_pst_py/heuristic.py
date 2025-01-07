@@ -33,6 +33,16 @@ def find_best_resource(task:etree._Element, ns, schedule) -> None:
         raise ValueError("No slot and resource found")
     #print(f" Best start: {earliest_start}, on resource {allocated_resource}")
     return allocated_resource, earliest_start, duration
+
+
+def allocate_task(task:etree._Element, ns, schedule) -> None:
+    """
+    Allocates a task to a resource and propagate through ra_pst
+    """
+
+    
+    resource, start_time, duration = find_best_resource(task, ns, schedule)
+    schedule.add_task(task, resource, start_time, duration)
     
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm

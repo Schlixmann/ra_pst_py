@@ -131,4 +131,14 @@ def transform_ilp_to_branches(ra_pst:RA_PST, ilp_rep):
         branch_map[task] = choosen_branch[0]["branch_no"]
     
     return branch_map
+
+    # To enable online allocation, for each task a branch has to be selected and applied singularily
+    # Therefore we need to track the currently allocated task and only add and apply branches on the fly
+    # to_del tasks must also be tracked. 
+    # The RA_PST instance will be kept in memory and updated.
+    # The following functions are needed: 
+    # allocated_next_task
+    # apply_single_branch
+    # the allocation decision should be made externally by heuristic.find_best_resource
+    # the propagation through should also be done externally 
     
