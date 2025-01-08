@@ -1,38 +1,39 @@
 <description xmlns="http://cpee.org/ns/description/1.0">
-	<manipulate id="a3" label="evaluate_risk">Must be checked by level3 if executed by 1 or 2<resources allocated_to="level3 role: level3rp_14 resource r_5">
-			<resource>level1</resource>
-			<resource>level2</resource>
-			<resource>level3</resource>
-		</resources>
-	<allocation><resource id="r_5" name="level3">
-		<resprofile id="rp_14" name="evaluate_risk" role="level3" task="evaluate_risk">
-			<measures>
-				<cost>30</cost>
-			</measures>
-		<children/></resprofile>
-		</resource>
-</allocation></manipulate>
-	<manipulate id="a4" label="create_proposal">level3<resources allocated_to="level3 role: level3rp_15 resource r_5">
-			<resource>level3</resource>
-			<resource>level2</resource>
-		</resources>
-	<allocation><resource id="r_5" name="level3">
-		<resprofile id="rp_15" name="create_proposal" role="level3" task="create_proposal">
-			<measures>
-				<cost>30</cost>
-			</measures>
-			<changepattern type="delete">
-				<parameters>
-					<direction>any</direction>
-				</parameters>
-				<description>
-					</description>
-			</changepattern>
-		<children><manipulate id="a15" label="decide_on_proposal" type="delete" direction="any">
-						<resources allocated_to="not_allocated">
-                        </resources>
-					<expectedready/><expectedready/></manipulate>
-				</children></resprofile>
-		</resource>
-</allocation></manipulate>
-	</description>
+  <manipulate id="a3" label="evaluate_risk">Must be checked by level3 if executed by 1 or 2<resources allocated_to="level3 role: level3rp_14 resource r_3">
+    <resource>level1</resource>
+    <resource>level2</resource>
+    <resource>level3</resource>
+  </resources>
+<allocation><resource id="r_3" name="level3">
+        <resprofile id="rp_14" name="evaluate_risk" role="level3" task="evaluate_risk">
+            <measures>
+                <cost>15</cost>
+            </measures>
+        <children/></resprofile>
+        </resource>
+    </allocation><release_time>23</release_time><expected_start>23.0</expected_start><expected_end>38.0</expected_end></manipulate>
+<manipulate id="a4" label="create_proposal">level3<resources allocated_to="level1 role: level3rp_15 resource r_1">
+  <resource>level3</resource>
+  <resource>level2</resource>
+</resources>
+<allocation><resource id="r_1" name="level1">
+        <resprofile id="rp_15" name="create_proposal" role="level3" task="create_proposal">
+            <measures>
+                <cost>20</cost>
+            </measures>
+        <children/></resprofile>
+        </resource>
+    </allocation><release_time>38.0</release_time><expected_start>45.0</expected_start><expected_end>65.0</expected_end></manipulate>
+<manipulate id="a10" label="decide_on_proposal">
+<resources allocated_to="level1 role: level3rp_25 resource r_1">
+  <resource>level3</resource>
+</resources>
+<to_delete/><allocation><resource id="r_1" name="level1">
+        <resprofile id="rp_25" name="decide_on_proposal" role="level3" task="decide_on_proposal">
+            <measures>
+                <cost>10</cost>
+            </measures>
+        <children/></resprofile>
+        </resource>
+    </allocation><release_time>65.0</release_time><expected_start>65.0</expected_start><expected_end>75.0</expected_end></manipulate>
+</description>

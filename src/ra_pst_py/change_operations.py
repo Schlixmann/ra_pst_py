@@ -87,19 +87,19 @@ class ChangeOperation():
         task.xpath("cpee1:resources", namespaces=self.ns)[
             0].set("allocated_to", set_allocation)
 
-        # Set expectedready according to branch
-        #if branch.xpath("cpee1:expectedready", namespaces = self.ns):
-        #    if not task.xpath("cpee1:expectedready", namespaces=self.ns):
-        #        element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expectedready")
-        #    task.xpath("cpee1:expectedready", namespaces=self.ns)[
-        #        0].text = branch.xpath("cpee1:expectedready", namespaces=self.ns)[0].text
+        # Set release_time according to branch
+        if branch.xpath("cpee1:release_time", namespaces = self.ns):
+            if not task.xpath("cpee1:release_time", namespaces=self.ns):
+                element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}release_time")
+            task.xpath("cpee1:release_time", namespaces=self.ns)[
+                0].text = branch.xpath("cpee1:release_time", namespaces=self.ns)[0].text
 
             # Set "plannedstart" & "plannedend" times from branch
-        #    if not task.xpath("cpee1:plannedstart", namespaces=self.ns):
-        #        plannedstart, plannedend = branch.xpath("cpee1:plannedstart", namespaces=self.ns)[
-        #            0], branch.xpath("cpee1:plannedend", namespaces=self.ns)[0]
-        #        task.append(plannedstart)
-        #        task.append(plannedend)
+            if not task.xpath("cpee1:expected_start", namespaces=self.ns):
+                expected_start, expected_end = branch.xpath("cpee1:expected_start", namespaces=self.ns)[
+                    0], branch.xpath("cpee1:expected_end", namespaces=self.ns)[0]
+                task.append(expected_start)
+                task.append(expected_end)
 
     def get_next_task_id(self, process):
         """ 

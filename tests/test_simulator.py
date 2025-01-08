@@ -1,6 +1,8 @@
 from src.ra_pst_py.builder import build_rapst, show_tree_as_graph
-from src.ra_pst_py.simulator import Simulator, Schedule
-from src.ra_pst_py.heuristic import print_schedule
+from src.ra_pst_py.simulator import Simulator
+from src.ra_pst_py.heuristic import TaskAllocator
+from src.ra_pst_py.instance import Instance
+from src.ra_pst_py.schedule import Schedule, print_schedule
 
 from lxml import etree
 import unittest
@@ -47,7 +49,8 @@ class ScheduleTest(unittest.TestCase):
             f.close()
     
     def test_sched(self):
-        instances_to_sim = [self.ra_pst, copy.deepcopy(self.ra_pst)]
+        instances_to_sim = []
+
         release_times = [0, 23]
 
         for instance in instances_to_sim:
@@ -70,4 +73,22 @@ class ScheduleTest(unittest.TestCase):
         sim.simulate()
         print_schedule(sched.schedule)
         print(sched.schedule)
+
+    
+    def test_new_sim(self):
+        instances_to_sim = []
+        sched = Schedule()
+        sim = Simulator()
+        release_times = [0, 23]
+        for _  in range(2):
+            instance = Instance(copy.deepcopy(self.ra_pst), {}, sched)
+            task1 = instance.ra_pst.get_tasklist()[0]
+            child = etree.SubElement(task1, f"{{{instance.ns['cpee1']}}}release_time")
+            child.text = str(release_times.pop(0))
+            task1 = etree.fromstring(etree.tostring(task1))
+            instances_to_sim.append(instance)
         
+        sim.initialize(instances_to_sim, "heuristic")
+        sim.simulate()
+        print(f"Schedule:\n {sched.schedule}")
+        print_schedule(sched.schedule)

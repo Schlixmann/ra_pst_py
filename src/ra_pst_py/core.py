@@ -545,9 +545,12 @@ class Branch():
 
     def check_validity(self):
         self.is_valid = True
-        empty_children = self.node.xpath("descendant::cpee1:children[not(*)]", namespaces=self.ns)
+        empty_children = self.node.xpath("descendant::cpee1:children[not(*)][not(parent::cpee1:resprofile)]", namespaces=self.ns)
         for child in empty_children:
-            if child.xpath("preceding-sibling::cpee1:changepattern[not(@type='delete')]", namespaces=self.ns):
+            if child.xpath("preceding-sibling::cpee1:changepattern[@type='delete']", namespaces=self.ns):
+            #if child.xpath("preceding-sibling::*[not(@type='delete')]", namespaces=self.ns):
+                continue
+            else:
                 self.is_valid = False
                 continue
 
@@ -563,9 +566,9 @@ class Branch():
             self.check_validity()
 
             # Add expectedready to each manipulate / call task, that is in a children node 
-            if not new_node.xpath("cpee1:expectedready", namespaces=self.ns):
-                        exp_ready_element = etree.SubElement(new_node, f"{{{self.ns['cpee1']}}}expectedready")
-                        exp_ready_element.text = str(earliest_possible_start)
+            #if not new_node.xpath("cpee1:expectedready", namespaces=self.ns):
+            #            exp_ready_element = etree.SubElement(new_node, f"{{{self.ns['cpee1']}}}expectedready")
+            #            exp_ready_element.text = str(earliest_possible_start)
             
             for element in new_node.xpath("(//cpee1:manipulate | //cpee1:call)[parent::cpee1:children]", namespaces=self.ns):
                 exp_ready_element = etree.SubElement(element, f"{{{self.ns['cpee1']}}}expectedready")
