@@ -6,12 +6,12 @@ class Schedule():
     def __init__(self) -> None:
         self.schedule = defaultdict(list)
 
-    def add_task(self, task:tuple, resource, duration) -> None:
+    def add_task(self, task:tuple, resource, duration, branch) -> None:
         instance, task, start_time = task
         ns = {"cpee1": list(task.nsmap.values())[0]}
         #duration = task.xpath("cpee1:measures/cpee1:cost", namespaces = ns)[0].text
         #resource  = task.xpath("cpee1:resources", namespaces = ns)[0].attrib["allocated_to"]
-        self.schedule[resource].append({"task": task, "start_time": float(start_time), "duration": float(duration), "instance": instance})
+        self.schedule[resource].append({"task": task, "start_time": float(start_time), "duration": float(duration), "instance": instance, "branch": branch})
         self.schedule[resource].sort(key=lambda x: x["start_time"])
 
     def get_timeslot_matrix(self, release_time, resource) -> list:
@@ -26,7 +26,46 @@ class Schedule():
             return np.roll(np.array(matrix), 1) 
         else:
             return np.array([[release_time, np.inf]])
-        
+    
+    def schedule_as_dict(self):
+        """
+        present schedule in format: 
+
+        { 
+        "instance_no":{
+            objective: value, 
+            "jobs": [
+            {
+                "task_id": task_id,
+                "task": task,
+                "resource": ["resource_id"],
+                "cost" : duration, 
+                "selected" : 1, 
+                "start": start_time,
+                "duration": duration}]}}
+        """
+        schedule_dict = {}
+        instances = set()
+        for resource, tasks in self.schedule.items():
+            instances.update([task["instance"] for task in tasks])
+        for resource, tasks in self.schedule.items():
+            for task in tasks:
+                instance_no = list(instances).index(task["instance"])
+                if instance_no not in schedule_dict:
+                    schedule_dict[instance_no] = {"objective": 0, "jobs": []}
+                schedule_dict[instance_no]["jobs"].append({
+                    "task": task["task"].attrib["id"],
+                    "resource": [resource],
+                    "cost": task["duration"],
+                    "selected": 1,
+                    "start": task["start_time"],
+                    "duration": task["duration"],
+                    "branch": task["branch"]
+                })
+        return schedule_dict
+
+
+
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 def print_schedule(schedule):

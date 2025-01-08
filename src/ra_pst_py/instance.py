@@ -30,6 +30,8 @@ class Instance():
     def allocate_next_task(self):
         """ Allocate next task in ra_pst based on earliest finish time heuristic"""
         best_branch, times = self.allocator.allocate_task(self.current_task)
+        task_id = self.current_task.attrib["id"]
+        branch_no = self.ra_pst.branches[task_id].index(best_branch)
         self.times.append(times)
         # Add best branch to schedule
         alloc_times = []
@@ -38,7 +40,7 @@ class Instance():
             start_time = task.xpath("cpee1:expected_start", namespaces=self.ns)[0].text
             end_time = task.xpath("cpee1:expected_end", namespaces=self.ns)[0].text
             duration = float(end_time) - float(start_time)
-            self.allocator.schedule.add_task((self, task, start_time), resource, duration)
+            self.allocator.schedule.add_task((self, task, start_time), resource, duration, branch_no)
             alloc_times.append((start_time, duration))
         # Apply best branch to processmodel
         self.branches_to_apply[self.current_task.attrib["id"]] = best_branch

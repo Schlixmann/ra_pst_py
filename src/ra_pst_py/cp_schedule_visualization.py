@@ -4,7 +4,7 @@ import json
 
 jobs = {}
 resources = set()
-with open("out/cp_result.json", "r") as f:
+with open("out/schedule.json", "r") as f:
     ilp_result = json.load(f)
     for sequence, values in ilp_result.items():
         jobs[sequence] = values["jobs"]

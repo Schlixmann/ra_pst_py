@@ -91,4 +91,5 @@ class ScheduleTest(unittest.TestCase):
         sim.initialize(instances_to_sim, "heuristic")
         sim.simulate()
         print(f"Schedule:\n {sched.schedule}")
-        print_schedule(sched.schedule)
+        #print_schedule(sched.schedule)
+        json.dump(sched.schedule_as_dict(), open("out/schedule.json", "w"), indent=2)
