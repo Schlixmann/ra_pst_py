@@ -7,9 +7,7 @@ from lxml import etree
 import unittest
 import json
 import copy
-
-
-
+import os
 
 class InstanceTest(unittest.TestCase):
 
@@ -66,5 +64,56 @@ class InstanceTest(unittest.TestCase):
         print("Times: \t ", instance.times)
 
         instance.save_optimal_process("out/instance_test.xml")
+    
+    def test_allocation_options(self):
+        """build new ra_pst for all files in tests/test_data/resource_cp_tests. 
+        Test allocation on all resource files in folder"""
+
+        for file in os.listdir("tests/test_data/resource_cp_tests"):
+            if file.endswith(".xml"):
+                ra_pst = build_rapst(
+                    process_file="tests/test_data/test_process.xml",
+                    resource_file=f"tests/test_data/resource_cp_tests/{file}"
+                )
+            sched = Schedule()
+            instance = Instance(ra_pst, {}, sched)
+            task1 = instance.ra_pst.get_tasklist()[0]
+            child = etree.SubElement(task1, f"{{{instance.ns['cpee1']}}}release_time")
+            child.text = str(0)
+            task1 = etree.fromstring(etree.tostring(task1))
+            while instance.optimal_process is None:
+                instance.allocate_next_task()
+                with open(f"tests/test_comparison_data/taskwise_sched_solution/{str(file)}.json", "r") as f:
+                    d = json.loads(json.dumps(sched.schedule_as_dict()))
+                    j = json.load(f)
+                    self.assertEqual(d, j, f'Error in {str(file)}')
+            print(f"{str(file)}")
+            sched.print_to_cli()
+    
+    def  test_allocation_options_w_deletes(self):
+        """build new ra_pst for all files in tests/test_data/resource_cp_tests. 
+        Test allocation on all resource files in folder"""
+
+        for file in os.listdir("tests/test_data/resource_cp_tests_w_del"):
+            if file.endswith(".xml"):
+                ra_pst = build_rapst(
+                    process_file="tests/test_data/test_process_w_del.xml",
+                    resource_file=f"tests/test_data/resource_cp_tests_w_del/{file}"
+                )
+            sched = Schedule()
+            instance = Instance(ra_pst, {}, sched)
+            task1 = instance.ra_pst.get_tasklist()[0]
+            child = etree.SubElement(task1, f"{{{instance.ns['cpee1']}}}release_time")
+            child.text = str(0)
+            task1 = etree.fromstring(etree.tostring(task1))
+            while instance.optimal_process is None:
+                instance.allocate_next_task()
+                with open(f"tests/test_comparison_data/taskwise_sched_solution/{str(file)}.json", "w") as f:
+                    json.dump(sched.schedule_as_dict(), f)
+                    #d = json.loads(json.dumps(sched.schedule_as_dict()))
+                    #j = json.load(f)
+                    #self.assertEqual(d, j, f'Error in {str(file)}')
+            print(f"{str(file)}")
+            sched.print_to_cli()
         
     

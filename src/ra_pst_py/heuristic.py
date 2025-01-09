@@ -101,10 +101,11 @@ class TaskAllocator():
 
                         if not new_release_time:
                             raise ValueError
-                        child.xpath("cpee1:release_time", namespaces=self.ns)[
-                            0].text = str(new_release_time)
+                        for descendant in child.xpath("descendant-or-self::cpee1:release_time", namespaces=self.ns):
+                            descendant.text = str(new_release_time)
                         start_element, earliest_start, duration = self.calculate_finish_time(
                             task=child)
+
 
                         # return to branch
                         return start_element, earliest_start, duration
@@ -120,7 +121,7 @@ class TaskAllocator():
                                                     task=child)
                         child_node = child.xpath("cpee1:release_time", namespaces=self.ns)[0]
                         if float(anchor.text) < float(earliest_start):
-                            anchor.text = earliest_start
+                            anchor.text = str(earliest_start)
                         else:
                             child_node.text = anchor.text
                             earliest_start = anchor.text
@@ -187,15 +188,15 @@ class TaskAllocator():
                 inval_child = task.xpath("descendant::cpee1:children[not(child::*)]", namespaces=self.ns)[0]
                 parent = inval_child.xpath("parent::*")[0]
                 exp_ready_element = etree.SubElement(parent, f"{{{self.ns['cpee1']}}}release_time")
-                exp_ready_element.text = task.xpath("cpee1:expectedready", namespaces=self.ns)[0].text
+                exp_ready_element.text = task.xpath("cpee1:release_time", namespaces=self.ns)[0].text
                 min_exp_ready = task.xpath("cpee1:release_time", namespaces=self.ns)[0].text
                 start_element, end_element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_start"), etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_end")
                 start_element.text, end_element.text = min_exp_ready, min_exp_ready
                 start_element, end_element = etree.SubElement(parent, f"{{{self.ns['cpee1']}}}expected_start"), etree.SubElement(parent, f"{{{self.ns['cpee1']}}}expected_end")
                 start_element.text, end_element.text = min_exp_ready, min_exp_ready
                 # TODO implement to deal with invalid branches
-                raise NotImplementedError("Invalid branch, no time")    
-                #return start_element, min_exp_ready, min_exp_ready
+                #raise NotImplementedError("Invalid branch, no time")    
+                return start_element, float(min_exp_ready), float(min_exp_ready)
             pass
         return exp_ready_element, times_tuple
 

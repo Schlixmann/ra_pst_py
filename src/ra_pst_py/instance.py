@@ -36,6 +36,10 @@ class Instance():
         # Add best branch to schedule
         alloc_times = []
         for task in best_branch.get_tasklist():
+            cp_type = task.attrib["type"] if "type" in list(task.attrib.keys()) else None
+            if cp_type == "delete":
+                continue
+                
             resource = task.xpath("cpee1:children/cpee1:resource", namespaces=self.ns)[0].attrib["id"]
             start_time = task.xpath("cpee1:expected_start", namespaces=self.ns)[0].text
             end_time = task.xpath("cpee1:expected_end", namespaces=self.ns)[0].text
@@ -66,7 +70,7 @@ class Instance():
         delete=False
         if branch.node.xpath("//*[@type='delete']"):
             #self.delayed_deletes.append((branch, task, current_time))
-            delete = True
+            delete = False
         self.ra_pst.process = branch.apply_to_process(
             self.change_op.ra_pst, solution=self, earliest_possible_start=current_time, change_op=self.change_op, delete=delete)  # build branch
         self.change_op.ra_pst = self.ra_pst.process

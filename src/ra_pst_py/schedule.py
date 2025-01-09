@@ -64,7 +64,13 @@ class Schedule():
                 })
         return schedule_dict
 
-
+    def print_to_cli(self):       
+        # Print the formatted schedule
+        for resource, tasks in self.schedule.items():
+            items = []
+            for task in tasks:
+                items.append((task["start_time"], task["task"].attrib["id"], task["start_time"] + task["duration"]))
+            print(f"{resource} | {''.join(str(items))}")
 
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
