@@ -58,7 +58,7 @@ class RA_PST:
         resources = tree.xpath("//resource[not(descendant::cpee1:changepattern)]", namespaces=self.ns)
         return [resource.attrib["id"] for resource in resources]
 
-    def get_ilp_rep(self) -> dict:
+    def get_ilp_rep(self, instance_id = 'i1') -> dict:
         """
         Transforms information from RA-PST into a dictionary format suitable for an ILP model.
         Returns:
@@ -124,12 +124,12 @@ class RA_PST:
             "jobs": {}
         }
         for task in temp["tasks"]:
-            result["tasks"][task] = {"branches": []}
+            result["tasks"][f'{instance_id}-{task}'] = {"branches": []}
             for branch in temp["branches"][task]:
-                branchId = f'{task}-{len(result["branches"])}'
-                result["tasks"][task]["branches"].append(branchId)
+                branchId = f'{instance_id}-{task}-{len(result["branches"])}'
+                result["tasks"][f'{instance_id}-{task}']["branches"].append(branchId)
                 newBranch = {
-                    "task": task,
+                    "task": f'{instance_id}-{task}',
                     "jobs": [],
                     "deletes": branch["deletes"],
                     "branch_no":branch["branch_no"],
@@ -148,7 +148,7 @@ class RA_PST:
                     for b in result["branches"].values():
                         newJob["after"].append(b["jobs"][-1])
                     newBranch["branchCost"] += float(job[1])
-                    jobId = f'{branchId}-{len(result["jobs"])}'
+                    jobId = f'{instance_id}-{branchId}-{len(result["jobs"])}'
                     newBranch["jobs"].append(jobId)
                     result["jobs"][jobId] = newJob
                     previousJob = jobId

@@ -38,6 +38,10 @@ class DocplexTest(unittest.TestCase):
             process_file="test_instances/paper_process_short.xml",
             resource_file="test_instances/offer_resources_many_invalid_branches.xml"
         )
+        self.ra_pst = build_rapst(
+            process_file="test_instances/instance_generator_process.xml",
+            resource_file="test_instances/instance_generator_resources.xml"
+        )
         ilp_rep = self.ra_pst.get_ilp_rep()
         with open("tests/test_data/ilp_rep.json", "w") as f:
             json.dump(ilp_rep, f, indent=2)
@@ -47,6 +51,24 @@ class DocplexTest(unittest.TestCase):
         result = cp_solver("tests/test_data/ilp_rep.json")
         # print([branch for branch in result["branches"] if branch["selected"] == 1])
         print(result["objective"])
+        with open("tests/test_data/cp_result.json", "w") as f:
+            json.dump(result, f, indent=2)
         self.assertEqual(result["objective"], 59)
         #show_tree_as_graph(self.ra_pst)
+    
+    def test_multiple_cp(self):
+        self.setUp()
+        ra_psts = {}
+        ra_psts["instances"] = []
+        for i in range(10):
+            ilp_rep = self.ra_pst.get_ilp_rep(instance_id=f'i{i+1}')
+            ra_psts["instances"].append(ilp_rep)
+        ra_psts["resources"] = ilp_rep["resources"]
+        with open("tests/test_data/ilp_rep.json", "w") as f:
+            json.dump(ra_psts, f, indent=2)
+        result = cp_solver("tests/test_data/ilp_rep.json")
+        # print([branch for branch in result["branches"] if branch["selected"] == 1])
+        print(result["objective"])
+        with open("tests/test_data/cp_result.json", "w") as f:
+            json.dump(result, f, indent=2)
 
