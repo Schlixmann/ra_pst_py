@@ -617,6 +617,7 @@ class Replace(ChangeOperation):
             if task.xpath("cpee1:children/*", namespaces=self.ns):
                 resource_info = copy.deepcopy(task.xpath(
                     "cpee1:children/*", namespaces=self.ns)[0])
+                resource_info = copy.deepcopy(task)
                 self.add_res_allocation(task, resource_info)
             else:
                 raise ChangeOperationError(f"No Resource available for replaced \

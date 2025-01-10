@@ -165,12 +165,13 @@ class TaskAllocator():
                 elif change_pattern_type == "replace":                   
                     start_element, earliest_start, duration = self.calculate_finish_time(
                         task=child)
-                    allocated_resource, earliest_start, duration = self.find_best_resource(task)
+                    #allocated_resource, earliest_start, duration = self.find_best_resource(child)
                     start_element = etree.SubElement(task, f"{{{self.ns["cpee1"]}}}expected_start")
                     start_element.text = str(earliest_start)
                     end_element = etree.SubElement(task, f"{{{self.ns["cpee1"]}}}expected_end")
                     end_element.text = str(earliest_start + duration)
-                    new_release_time = earliest_start+duration                 
+                    new_release_time = earliest_start+duration
+
                     # return to branch
                     return start_element, earliest_start, duration
             
@@ -198,7 +199,7 @@ class TaskAllocator():
                 #raise NotImplementedError("Invalid branch, no time")    
                 return start_element, float(min_exp_ready), float(min_exp_ready)
             pass
-        return exp_ready_element, times_tuple
+        return exp_ready_element
 
 
     def find_best_resource(self, task:etree._Element) -> None:

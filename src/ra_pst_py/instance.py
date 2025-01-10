@@ -39,6 +39,9 @@ class Instance():
             cp_type = task.attrib["type"] if "type" in list(task.attrib.keys()) else None
             if cp_type == "delete":
                 continue
+            if task.xpath("cpee1:children/descendant::cpee1:changepattern", namespaces=self.ns):
+                if task.xpath("cpee1:children/descendant::cpee1:changepattern", namespaces=self.ns)[0].attrib["type"] == "replace":
+                    continue
                 
             resource = task.xpath("cpee1:children/cpee1:resource", namespaces=self.ns)[0].attrib["id"]
             start_time = task.xpath("cpee1:expected_start", namespaces=self.ns)[0].text

@@ -115,7 +115,9 @@ def conf_cp_scheduling(ra_pst_json):
     # create multiple sequences:
     sequences = {}
     for i in range(5):
-        ra_pst = transform_json(ra_pst_json)
+        # TODO fix transform json
+        ra_pst = None
+        raise NotImplementedError("See Todo needs to be fixed with merge with wessel") # to fix: transform_json(ra_pst_json)
         sequences[i] = ra_pst
     model = cp_model.CpModel()
 

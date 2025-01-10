@@ -40,7 +40,7 @@
   <children><resource id="res_0" name="res_0">
 		<resprofile id="role_0" name="role_0" role="role_0" task="receive order">
 			<measures>
-				<cost>10</cost>
+				<cost>1</cost>
 			</measures>
 			<changepattern type="insert">
 				<parameters>
@@ -61,17 +61,41 @@
 					<children><resource id="res_0" name="res_0">
 		<resprofile id="role_1" name="role_1" role="role_1" task="insert_b1">
 			<measures>
-				<cost>5</cost>
+				<cost>3</cost>
+			</measures>			
+			<changepattern type="replace">
+				<parameters>
+					<direction>before</direction>
+				</parameters>
+				<description>
+					<manipulate id="replace_c1" label="replace_c1" type="replace" direction="before">
+						<resources allocated_to="not_allocated">
+							<resource>role_1</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		<children><manipulate id="replace_c1" label="replace_c1" type="replace" direction="before">
+						<resources allocated_to="not_allocated">
+							<resource>role_1</resource>
+						</resources>
+					<children><resource id="res_0" name="res_0">
+		<resprofile id="role_1" name="role_1" role="role_1" task="replace_c1">
+			<measures>
+				<cost>2</cost>
 			</measures>			
 			<children><manipulate id="to_delete" label="to_delete" type="delete" direction="any">
 						<resources allocated_to="not_allocated">
 							<resource>role_1</resource>
 						</resources>
-					<release_time>10.0</release_time></manipulate>
+					<release_time>1.0</release_time></manipulate>
 				</children></resprofile>
 		</resource>
-</children><release_time>10.0</release_time><expected_start>10.0</expected_start><expected_end>15.0</expected_end></manipulate>
+</children><release_time>1.0</release_time><expected_start>1.0</expected_start><expected_end>3.0</expected_end></manipulate>
 				</children></resprofile>
 		</resource>
-</children><release_time>0</release_time><expected_start>0.0</expected_start><expected_end>10.0</expected_end></call>
+</children><release_time>1.0</release_time><expected_start>1.0</expected_start><expected_end>3.0</expected_end></manipulate>
+				</children></resprofile>
+		</resource>
+</children><release_time>0</release_time><expected_start>0.0</expected_start><expected_end>1.0</expected_end></call>
   

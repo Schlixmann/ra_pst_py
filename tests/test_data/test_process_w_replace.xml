@@ -1,0 +1,83 @@
+
+<description xmlns="http://cpee.org/ns/description/1.0">
+  <call id="a1" endpoint="">
+    <parameters>
+      <label>receive order</label>
+      <method>:post</method>
+      <arguments/>
+    </parameters>
+    <annotations>
+      <_timing>
+        <_timing_weight/>
+        <_timing_avg/>
+        <explanations/>
+      </_timing>
+      <_shifting>
+        <_shifting_type>Duration</_shifting_type>
+      </_shifting>
+      <_context_data_analysis>
+        <probes/>
+        <ips/>
+      </_context_data_analysis>
+      <report>
+        <url/>
+      </report>
+      <_notes>
+        <_notes_general/>
+      </_notes>
+    </annotations>
+    <documentation>
+      <input/>
+      <output/>
+      <implementation>
+        <description/>
+      </implementation>
+    </documentation>
+    <resources allocated_to="not_allocated">
+      <resource>role_0</resource>
+    </resources>
+    <expectedready/>
+    <plannedstart/>
+    <plannedend/>
+  </call>
+  <call id="a2" endpoint="">
+    <parameters>
+      <label>to_delete</label>
+      <method>:post</method>
+      <arguments/>
+    </parameters>
+    <annotations>
+      <_timing>
+        <_timing_weight/>
+        <_timing_avg/>
+        <explanations/>
+      </_timing>
+      <_shifting>
+        <_shifting_type>Duration</_shifting_type>
+      </_shifting>
+      <_context_data_analysis>
+        <probes/>
+        <ips/>
+      </_context_data_analysis>
+      <report>
+        <url/>
+      </report>
+      <_notes>
+        <_notes_general/>
+      </_notes>
+    </annotations>
+    <documentation>
+      <input/>
+      <output/>
+      <implementation>
+        <description/>
+      </implementation>
+    </documentation>
+    <resources allocated_to="not_allocated">
+      <resource>role_0</resource>
+    </resources>
+    <expectedready/>
+    <plannedstart/>
+    <plannedend/>
+  </call>
+</description>
