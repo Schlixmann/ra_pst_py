@@ -1,4 +1,3 @@
-
 <description xmlns="http://cpee.org/ns/description/1.0">
   <call id="a1" endpoint="">
     <parameters>
@@ -40,5 +39,10 @@
     <plannedstart/>
     <plannedend/>
   </call>
+  <manipulate id="a2" label="decide_on_proposal">
+    <resources allocated_to="not_allocated">
+      <resource>level3</resource>
+    </resources>
+  </manipulate>
 </description>
 
