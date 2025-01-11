@@ -336,9 +336,13 @@ class TaskAllocation(RA_PST):
         self.lock: bool = False
         self.open_delete = False
         self.ns = self.parent.ns
-        self.task_elements = [
+        self.task_elements2 = [
             f"{{{self.ns['cpee1']}}}manipulate",
             f"{{{self.ns['cpee1']}}}call",
+        ] #deprecated
+        self.task_elements = [
+            "cpee1:manipulate",
+            "cpee1:call",
         ]
 
     def allocate_task(self, root=None, resource_url: etree = None, excluded=[]):
@@ -356,20 +360,74 @@ class TaskAllocation(RA_PST):
 
         if root is None:
             root = etree.fromstring(self.task)
-            etree.SubElement(root, f"{{{self.ns['cpee1']}}}children")
             self.intermediate_trees.append(
                 copy.deepcopy(
                     self.allocate_task(root, resource_url=resource_url, excluded=[root])
                 )
             )
-            return self.intermediate_trees[0]
-        else:
-            etree.SubElement(root, f"{{{self.ns['cpee1']}}}children")
-
+            return self.intermediate_trees[0]          
+        etree.SubElement(root, f"{{{self.ns['cpee1']}}}children")        
         etree.register_namespace("ra_pst", self.ns["ra_pst"])
         res_xml = copy.deepcopy(resource_url)
+        self.add_resources_as_children(root, res_xml)
 
-        # Create Resource Children
+        # Check invalidity, raise error if a process task has no available resource
+        if len(root.xpath("cpee1:children/*", namespaces=self.ns)) == 0:  # no task parents exist
+            elements_xpath = " | ".join(f"self::{el}" for el in self.task_elements)
+            if root.xpath(f"{elements_xpath}", namespaces = self.ns):
+                elements_xpath = " | ".join(f"ancestor::{el}" for el in self.task_elements)
+                if not root.xpath(f"{elements_xpath}", namespaces=self.ns):
+                    raise ResourceError(root) # Error if a Root task has no valid allocation option
+                else:
+                    label = utils.get_label(etree.tostring(root))
+                    warnings.warn(f"No resource for task {label}, Branch is invalid")
+            return root
+
+        # Add next tasks to the tree
+        for profile in root.xpath(
+            "cpee1:children/resource/resprofile", namespaces=self.ns
+        ):
+            ex_branch = copy.copy(excluded)
+
+            for change_pattern in profile.xpath("changepattern"):
+                cp_tasks, cp_task_labels, ex_tasks = self.get_tasks_of_changepatterns(change_pattern, ex_branch)
+
+                if any(
+                    x in ex_tasks or x == utils.get_label(etree.tostring(root))
+                    for x in cp_task_labels
+                ):
+                    root.xpath(
+                        "cpee1:children/resource/resprofile", namespaces=self.ns
+                    ).remove(profile)
+                    continue
+
+                for task in cp_tasks:
+                    self.update_task_attributes(task, change_pattern)
+                    if change_pattern.xpath("@type")[0].lower() in [
+                        "insert",
+                        "replace",
+                    ]:
+                        # generate path to current task
+                        path = etree.ElementTree(task.xpath("/*")[0]).getpath(task)
+                        # Deepcopy whole tree and re-locate current task
+                        task = copy.deepcopy(task.xpath("/*", namespaces=self.ns)[0]).xpath(path, namespaces=self.ns)[0]
+                        ex_branch.append(task)
+                        profile.xpath("cpee1:children", namespaces=self.ns)[0].append(
+                            self.allocate_task(task, resource_url, excluded=ex_branch)
+                        )
+                    elif change_pattern.xpath("@type")[0].lower() == "delete":
+                        self.lock = True
+                        profile.xpath("cpee1:children", namespaces=self.ns)[0].append(task)
+                        self.open_delete = True
+                        # Branch ends here
+                    else:
+                        raise ValueError(
+                            "Changepattern type not in ['insert', 'replace', 'delete']"
+                        )
+        return root
+    
+    def add_resources_as_children(self, root, res_xml):
+        # Iterate through all resources
         for resource in res_xml.xpath("*"):
             # Delete non fitting profiles
             for profile in resource.xpath("resprofile"):
@@ -390,113 +448,24 @@ class TaskAllocation(RA_PST):
             if len(resource.xpath("resprofile", namespaces=self.ns)) > 0:
                 root.xpath("cpee1:children", namespaces=self.ns)[0].append(resource)
 
-        # End condition for recursive call
-        if (
-            len(root.xpath("cpee1:children", namespaces=self.ns)) == 0
-        ):  # no task parents exist
-            if (
-                len(
-                    [
-                        parent
-                        for parent in root.xpath(
-                            "ancestor::cpee1:*", namespaces=self.ns
-                        )
-                        if parent.tag in self.task_elements
-                    ]
-                )
-                == 0
-            ):
-                warnings.warn("No resource for a core task")
-                raise (ResourceError(root))
-            else:
-                task_parents = [
-                    parent
-                    for parent in root.xpath("ancestor::cpee1:*", namespaces=self.ns)
-                    if parent.tag in self.task_elements
-                ]
-                task_parent = task_parents[-1]
+    def get_tasks_of_changepatterns(self, changepattern, ex_branch):
+        #cp_tasks = [element for element in changepattern.xpath(".//*") if element.tag in self.task_elements]  # deprecated
+        elements_xpath = " | ".join(f".//{el}" for el in self.task_elements)
+        cp_tasks = changepattern.xpath(f".//{elements_xpath}", namespaces=self.ns)
+        cp_task_labels = [utils.get_label(etree.tostring(task)).lower() for task in cp_tasks]
+        ex_tasks = [utils.get_label(etree.tostring(task)).lower() for task in ex_branch]
+        return cp_tasks, cp_task_labels, ex_tasks
 
-            if len(task_parent.xpath("cpee1:children/*", namespaces=self.ns)) == 0:
-                warnings.warn(
-                    "The task can not be allocated due to missing resource availability",
-                    ResourceWarning,
-                )
-                raise (ResourceError(task_parent))
-            return root
-
-        # Add next tasks to the tree
-        for profile in root.xpath(
-            "cpee1:children/resource/resprofile", namespaces=self.ns
-        ):
-            ex_branch = copy.copy(excluded)
-
-            for change_pattern in profile.xpath("changepattern"):
-                cp_tasks = [
-                    element
-                    for element in change_pattern.xpath(".//*")
-                    if element.tag in self.task_elements
-                ]
-                cp_task_labels = [
-                    utils.get_label(etree.tostring(task)).lower() for task in cp_tasks
-                ]
-                ex_tasks = [
-                    utils.get_label(etree.tostring(task)).lower() for task in ex_branch
-                ]
-
-                if any(
-                    x in ex_tasks or x == utils.get_label(etree.tostring(root))
-                    for x in cp_task_labels
-                ):
-                    # print(f"Break reached, task {\
-                    #      [x for x in cp_task_labels if x in ex_tasks]} in excluded")
-                    root.xpath(
-                        "cpee1:children/resource/resprofile", namespaces=self.ns
-                    ).remove(profile)
-                    continue
-
-                for task in cp_tasks:
-                    attribs = {
-                        "type": change_pattern.xpath("@type"),
-                        "direction": change_pattern.xpath(
-                            "parameters/direction/text()"
-                        ),
-                    }
-                    task.attrib.update(
-                        {
-                            key: value[0].lower()
-                            for key, value in attribs.items()
-                            if value
-                        }
-                    )
-
-                    if change_pattern.xpath("@type")[0].lower() in [
-                        "insert",
-                        "replace",
-                    ]:
-                        # generate path to current task
-                        path = etree.ElementTree(task.xpath("/*")[0]).getpath(task)
-                        # Deepcopy whole tree and re-locate current task
-                        task = copy.deepcopy(
-                            task.xpath("/*", namespaces=self.ns)[0]
-                        ).xpath(path, namespaces=self.ns)[0]
-                        ex_branch.append(task)
-                        profile.xpath("cpee1:children", namespaces=self.ns)[0].append(
-                            self.allocate_task(task, resource_url, excluded=ex_branch)
-                        )
-
-                    elif change_pattern.xpath("@type")[0].lower() == "delete":
-                        self.lock = True
-                        profile.xpath("cpee1:children", namespaces=self.ns)[0].append(
-                            task
-                        )
-                        self.open_delete = True
-                        # Branch ends here
-
-                    else:
-                        raise ValueError(
-                            "Changepattern type not in ['insert', 'replace', 'delete']"
-                        )
-        return root
+    def update_task_attributes(self, task, changepattern):
+        attribs = {
+            "type": changepattern.xpath("@type"),
+            "direction": changepattern.xpath(
+                "parameters/direction/text()"
+            ),
+        }
+        task.attrib.update(
+            {key: value[0].lower() for key, value in attribs.items() if value}
+        )
     
 class Branch():
     def __init__(self, node:etree._Element):
@@ -638,12 +607,8 @@ class ResourceError(Exception):
     def __init__(
         self,
         task,
-        message="{} No valid resource allocation can be found for the given set of available resources",
+        message="For Task {} no valid resource allocation can be found. RA-PST cannot lead to a possible solution",
     ):
         self.task = task
         self.message = message.format(utils.get_label(etree.tostring(self.task)))
         super().__init__(self.message)
-
-
-class ResourceWarning(UserWarning):
-    pass
