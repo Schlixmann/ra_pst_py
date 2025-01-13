@@ -13,10 +13,10 @@ class InstanceTest(unittest.TestCase):
 
     def setUp(self):
         # Initialize shared variables for tests
-        #self.ra_pst = build_rapst(
+        self.ra_pst = build_rapst(
             process_file="test_instances/paper_process.xml",
             resource_file="test_instances/offer_resources_many_invalid_branches.xml"
-        #)
+        )
         #with open("out/ilp_result.json", "r") as f:
         #    self.ilp_rep = json.load(f)
 
@@ -41,11 +41,14 @@ class InstanceTest(unittest.TestCase):
         instances_to_sim = [self.ra_pst, copy.deepcopy(self.ra_pst)]
         release_times = [0, 23]
 
+        created_instances = []
         for instance in instances_to_sim:
             task1 = instance.get_tasklist()[0]
             child = etree.SubElement(task1, f"{{{instance.ns['cpee1']}}}release_time")
             child.text = str(release_times.pop(0))
             task1 = etree.fromstring(etree.tostring(task1))
+            created_instances.append([instance, "heuristic"])
+        instances_to_sim = created_instances
         sim = Simulator()
         sim.initialize(instances_to_sim, "heuristic")
         sched = Schedule()

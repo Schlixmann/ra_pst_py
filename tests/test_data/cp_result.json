@@ -3799,8 +3799,8 @@
           "branch": "i1-a1-1",
           "resource": "res_1",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 0
         },
         "i1-i1-a1-2-2": {
           "branch": "i1-a1-2",
@@ -3862,15 +3862,15 @@
           "branch": "i1-a1-7",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": true,
-          "start": 21
+          "selected": false,
+          "start": null
         },
         "i1-i1-a1-7-11": {
           "branch": "i1-a1-7",
           "resource": "res_3",
           "cost": 8.0,
-          "selected": true,
-          "start": 24
+          "selected": false,
+          "start": null
         },
         "i1-i1-a1-8-12": {
           "branch": "i1-a1-8",
@@ -3946,15 +3946,15 @@
           "branch": "i1-a2-15",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 85
         },
         "i1-i1-a2-15-23": {
           "branch": "i1-a2-15",
           "resource": "res_2",
           "cost": 1.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 88
         },
         "i1-i1-a2-16-24": {
           "branch": "i1-a2-16",
@@ -3974,15 +3974,15 @@
           "branch": "i1-a2-17",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": true,
-          "start": 32
+          "selected": false,
+          "start": null
         },
         "i1-i1-a2-17-27": {
           "branch": "i1-a2-17",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": true,
-          "start": 35
+          "selected": false,
+          "start": null
         },
         "i1-i1-a3-18-28": {
           "branch": "i1-a3-18",
@@ -3995,15 +3995,15 @@
           "branch": "i1-a3-19",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 92
         },
         "i1-i1-a3-19-30": {
           "branch": "i1-a3-19",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 127
         },
         "i1-i1-a3-20-31": {
           "branch": "i1-a3-20",
@@ -4149,22 +4149,22 @@
           "branch": "i1-a3-29",
           "resource": "res_3",
           "cost": 5.0,
-          "selected": true,
-          "start": 38
+          "selected": false,
+          "start": null
         },
         "i1-i1-a3-29-52": {
           "branch": "i1-a3-29",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": true,
-          "start": 45
+          "selected": false,
+          "start": null
         },
         "i1-i1-a3-29-53": {
           "branch": "i1-a3-29",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 46
+          "selected": false,
+          "start": null
         },
         "i1-i1-a3-30-54": {
           "branch": "i1-a3-30",
@@ -5311,36 +5311,36 @@
           "branch": "i1-a4-74",
           "resource": "res_3",
           "cost": 5.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 135
         },
         "i1-i1-a4-74-218": {
           "branch": "i1-a4-74",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 166
         },
         "i1-i1-a4-74-219": {
           "branch": "i1-a4-74",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 174
         },
         "i1-i1-a4-74-220": {
           "branch": "i1-a4-74",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 230
         },
         "i1-i1-a4-74-221": {
           "branch": "i1-a4-74",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 238
         },
         "i1-i1-a4-75-222": {
           "branch": "i1-a4-75",
@@ -5696,36 +5696,36 @@
           "branch": "i1-a4-89",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": true,
-          "start": 110
+          "selected": false,
+          "start": null
         },
         "i1-i1-a4-89-273": {
           "branch": "i1-a4-89",
           "resource": "res_2",
           "cost": 1.0,
-          "selected": true,
-          "start": 117
+          "selected": false,
+          "start": null
         },
         "i1-i1-a4-89-274": {
           "branch": "i1-a4-89",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 141
+          "selected": false,
+          "start": null
         },
         "i1-i1-a4-89-275": {
           "branch": "i1-a4-89",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 149
+          "selected": false,
+          "start": null
         },
         "i1-i1-a4-89-276": {
           "branch": "i1-a4-89",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 157
+          "selected": false,
+          "start": null
         },
         "i1-i1-a4-90-277": {
           "branch": "i1-a4-90",
@@ -6053,22 +6053,22 @@
           "branch": "i1-a5-105",
           "resource": "res_1",
           "cost": 3.0,
-          "selected": true,
-          "start": 159
+          "selected": false,
+          "start": null
         },
         "i1-i1-a5-105-324": {
           "branch": "i1-a5-105",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 233
+          "selected": false,
+          "start": null
         },
         "i1-i1-a5-105-325": {
           "branch": "i1-a5-105",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 241
+          "selected": false,
+          "start": null
         },
         "i1-i1-a5-106-326": {
           "branch": "i1-a5-106",
@@ -6263,29 +6263,29 @@
           "branch": "i1-a5-113",
           "resource": "res_1",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 242
         },
         "i1-i1-a5-113-354": {
           "branch": "i1-a5-113",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 246
         },
         "i1-i1-a5-113-355": {
           "branch": "i1-a5-113",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 317
         },
         "i1-i1-a5-113-356": {
           "branch": "i1-a5-113",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 325
         },
         "i1-i1-a5-114-357": {
           "branch": "i1-a5-114",
@@ -6753,50 +6753,50 @@
           "branch": "i1-a6-137",
           "resource": "res_4",
           "cost": 2.0,
-          "selected": true,
-          "start": 250
+          "selected": false,
+          "start": null
         },
         "i1-i1-a6-137-424": {
           "branch": "i1-a6-137",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": true,
-          "start": 252
+          "selected": false,
+          "start": null
         },
         "i1-i1-a6-137-425": {
           "branch": "i1-a6-137",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 305
+          "selected": false,
+          "start": null
         },
         "i1-i1-a6-138-426": {
           "branch": "i1-a6-138",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 379
         },
         "i1-i1-a6-138-427": {
           "branch": "i1-a6-138",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 387
         },
         "i1-i1-a6-138-428": {
           "branch": "i1-a6-138",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 395
         },
         "i1-i1-a6-138-429": {
           "branch": "i1-a6-138",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 418
         },
         "i1-i1-a6-139-430": {
           "branch": "i1-a6-139",
@@ -7061,15 +7061,15 @@
           "branch": "i1-a7-152",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 467
         },
         "i1-i1-a7-152-468": {
           "branch": "i1-a7-152",
           "resource": "res_2",
           "cost": 1.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 475
         },
         "i1-i1-a7-153-469": {
           "branch": "i1-a7-153",
@@ -8146,36 +8146,36 @@
           "branch": "i1-a7-194",
           "resource": "res_4",
           "cost": 2.0,
-          "selected": true,
-          "start": 313
+          "selected": false,
+          "start": null
         },
         "i1-i1-a7-194-623": {
           "branch": "i1-a7-194",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": true,
-          "start": 315
+          "selected": false,
+          "start": null
         },
         "i1-i1-a7-194-624": {
           "branch": "i1-a7-194",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 345
+          "selected": false,
+          "start": null
         },
         "i1-i1-a7-194-625": {
           "branch": "i1-a7-194",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 353
+          "selected": false,
+          "start": null
         },
         "i1-i1-a7-194-626": {
           "branch": "i1-a7-194",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 361
+          "selected": false,
+          "start": null
         },
         "i1-i1-a8-195-627": {
           "branch": "i1-a8-195",
@@ -8188,8 +8188,8 @@
           "branch": "i1-a8-196",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 363
+          "selected": false,
+          "start": null
         },
         "i1-i1-a8-197-629": {
           "branch": "i1-a8-197",
@@ -8202,8 +8202,8 @@
           "branch": "i1-a8-198",
           "resource": "res_3",
           "cost": 7.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 476
         },
         "i1-i1-a8-199-631": {
           "branch": "i1-a8-199",
@@ -8923,15 +8923,15 @@
           "branch": "i1-a9-232",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 486
         },
         "i1-i1-a9-232-734": {
           "branch": "i1-a9-232",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 494
         },
         "i1-i1-a9-233-735": {
           "branch": "i1-a9-233",
@@ -9245,36 +9245,36 @@
           "branch": "i1-a9-244",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": true,
-          "start": 459
+          "selected": false,
+          "start": null
         },
         "i1-i1-a9-244-780": {
           "branch": "i1-a9-244",
           "resource": "res_4",
           "cost": 6.0,
-          "selected": true,
-          "start": 466
+          "selected": false,
+          "start": null
         },
         "i1-i1-a9-244-781": {
           "branch": "i1-a9-244",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 533
+          "selected": false,
+          "start": null
         },
         "i1-i1-a9-244-782": {
           "branch": "i1-a9-244",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 542
+          "selected": false,
+          "start": null
         },
         "i1-i1-a9-244-783": {
           "branch": "i1-a9-244",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 550
+          "selected": false,
+          "start": null
         },
         "i1-i1-a9-245-784": {
           "branch": "i1-a9-245",
@@ -10176,15 +10176,15 @@
           "branch": "i1-a10-281",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 497
         },
         "i1-i1-a10-281-913": {
           "branch": "i1-a10-281",
           "resource": "res_4",
           "cost": 6.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 498
         },
         "i1-i1-a10-282-914": {
           "branch": "i1-a10-282",
@@ -10274,29 +10274,29 @@
           "branch": "i1-a10-286",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": true,
-          "start": 552
+          "selected": false,
+          "start": null
         },
         "i1-i1-a10-286-927": {
           "branch": "i1-a10-286",
           "resource": "res_1",
           "cost": 3.0,
-          "selected": true,
-          "start": 553
+          "selected": false,
+          "start": null
         },
         "i1-i1-a10-286-928": {
           "branch": "i1-a10-286",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 596
+          "selected": false,
+          "start": null
         },
         "i1-i1-a10-286-929": {
           "branch": "i1-a10-286",
           "resource": "res_3",
           "cost": 8.0,
-          "selected": true,
-          "start": 638
+          "selected": false,
+          "start": null
         },
         "i1-i1-a10-287-930": {
           "branch": "i1-a10-287",
@@ -14351,15 +14351,15 @@
           "branch": "i2-a1-4",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 0
         },
         "i2-i2-a1-4-5": {
           "branch": "i2-a1-4",
           "resource": "res_0",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 4
         },
         "i2-i2-a1-5-6": {
           "branch": "i2-a1-5",
@@ -14379,15 +14379,15 @@
           "branch": "i2-a1-6",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": true,
-          "start": 41
+          "selected": false,
+          "start": null
         },
         "i2-i2-a1-6-9": {
           "branch": "i2-a1-6",
           "resource": "res_2",
           "cost": 1.0,
-          "selected": true,
-          "start": 44
+          "selected": false,
+          "start": null
         },
         "i2-i2-a1-7-10": {
           "branch": "i2-a1-7",
@@ -14449,15 +14449,15 @@
           "branch": "i2-a2-13",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": true,
-          "start": 47
+          "selected": false,
+          "start": null
         },
         "i2-i2-a2-13-19": {
           "branch": "i2-a2-13",
           "resource": "res_0",
           "cost": 2.0,
-          "selected": true,
-          "start": 124
+          "selected": false,
+          "start": null
         },
         "i2-i2-a2-14-20": {
           "branch": "i2-a2-14",
@@ -14477,15 +14477,15 @@
           "branch": "i2-a2-15",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 12
         },
         "i2-i2-a2-15-23": {
           "branch": "i2-a2-15",
           "resource": "res_2",
           "cost": 1.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 15
         },
         "i2-i2-a2-16-24": {
           "branch": "i2-a2-16",
@@ -14750,36 +14750,36 @@
           "branch": "i2-a3-32",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 133
+          "selected": false,
+          "start": null
         },
         "i2-i2-a3-32-62": {
           "branch": "i2-a3-32",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": true,
-          "start": 141
+          "selected": false,
+          "start": null
         },
         "i2-i2-a3-32-63": {
           "branch": "i2-a3-32",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 194
+          "selected": false,
+          "start": null
         },
         "i2-i2-a3-32-64": {
           "branch": "i2-a3-32",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": true,
-          "start": 202
+          "selected": false,
+          "start": null
         },
         "i2-i2-a3-32-65": {
           "branch": "i2-a3-32",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 203
+          "selected": false,
+          "start": null
         },
         "i2-i2-a3-33-66": {
           "branch": "i2-a3-33",
@@ -15058,36 +15058,36 @@
           "branch": "i2-a3-41",
           "resource": "res_3",
           "cost": 5.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 16
         },
         "i2-i2-a3-41-106": {
           "branch": "i2-a3-41",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 21
         },
         "i2-i2-a3-41-107": {
           "branch": "i2-a3-41",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 31
         },
         "i2-i2-a3-41-108": {
           "branch": "i2-a3-41",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 39
         },
         "i2-i2-a3-41-109": {
           "branch": "i2-a3-41",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 43
         },
         "i2-i2-a3-42-110": {
           "branch": "i2-a3-42",
@@ -15772,36 +15772,36 @@
           "branch": "i2-a4-72",
           "resource": "res_1",
           "cost": 4.0,
-          "selected": true,
-          "start": 205
+          "selected": false,
+          "start": null
         },
         "i2-i2-a4-72-208": {
           "branch": "i2-a4-72",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 209
+          "selected": false,
+          "start": null
         },
         "i2-i2-a4-72-209": {
           "branch": "i2-a4-72",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 217
+          "selected": false,
+          "start": null
         },
         "i2-i2-a4-72-210": {
           "branch": "i2-a4-72",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 289
+          "selected": false,
+          "start": null
         },
         "i2-i2-a4-72-211": {
           "branch": "i2-a4-72",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": true,
-          "start": 297
+          "selected": false,
+          "start": null
         },
         "i2-i2-a4-73-212": {
           "branch": "i2-a4-73",
@@ -16192,36 +16192,36 @@
           "branch": "i2-a4-88",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 58
         },
         "i2-i2-a4-88-268": {
           "branch": "i2-a4-88",
           "resource": "res_1",
           "cost": 7.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 65
         },
         "i2-i2-a4-88-269": {
           "branch": "i2-a4-88",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 89
         },
         "i2-i2-a4-88-270": {
           "branch": "i2-a4-88",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 99
         },
         "i2-i2-a4-88-271": {
           "branch": "i2-a4-88",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 108
         },
         "i2-i2-a4-89-272": {
           "branch": "i2-a4-89",
@@ -16542,15 +16542,15 @@
           "branch": "i2-a5-102",
           "resource": "res_2",
           "cost": 2.0,
-          "selected": true,
-          "start": 301
+          "selected": false,
+          "start": null
         },
         "i2-i2-a5-102-318": {
           "branch": "i2-a5-102",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 303
+          "selected": false,
+          "start": null
         },
         "i2-i2-a5-103-319": {
           "branch": "i2-a5-103",
@@ -16570,15 +16570,15 @@
           "branch": "i2-a5-104",
           "resource": "res_4",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 110
         },
         "i2-i2-a5-104-322": {
           "branch": "i2-a5-104",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 112
         },
         "i2-i2-a5-105-323": {
           "branch": "i2-a5-105",
@@ -17200,22 +17200,22 @@
           "branch": "i2-a6-133",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 176
         },
         "i2-i2-a6-133-412": {
           "branch": "i2-a6-133",
           "resource": "res_4",
           "cost": 6.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 186
         },
         "i2-i2-a6-133-413": {
           "branch": "i2-a6-133",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 238
         },
         "i2-i2-a6-134-414": {
           "branch": "i2-a6-134",
@@ -17305,29 +17305,29 @@
           "branch": "i2-a6-138",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 353
+          "selected": false,
+          "start": null
         },
         "i2-i2-a6-138-427": {
           "branch": "i2-a6-138",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 361
+          "selected": false,
+          "start": null
         },
         "i2-i2-a6-138-428": {
           "branch": "i2-a6-138",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 369
+          "selected": false,
+          "start": null
         },
         "i2-i2-a6-138-429": {
           "branch": "i2-a6-138",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 446
+          "selected": false,
+          "start": null
         },
         "i2-i2-a6-139-430": {
           "branch": "i2-a6-139",
@@ -17676,15 +17676,15 @@
           "branch": "i2-a7-158",
           "resource": "res_4",
           "cost": 2.0,
-          "selected": true,
-          "start": 454
+          "selected": false,
+          "start": null
         },
         "i2-i2-a7-158-480": {
           "branch": "i2-a7-158",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": true,
-          "start": 456
+          "selected": false,
+          "start": null
         },
         "i2-i2-a7-159-481": {
           "branch": "i2-a7-159",
@@ -18117,36 +18117,36 @@
           "branch": "i2-a7-174",
           "resource": "res_4",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 246
         },
         "i2-i2-a7-174-543": {
           "branch": "i2-a7-174",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 248
         },
         "i2-i2-a7-174-544": {
           "branch": "i2-a7-174",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 256
         },
         "i2-i2-a7-174-545": {
           "branch": "i2-a7-174",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 325
         },
         "i2-i2-a7-174-546": {
           "branch": "i2-a7-174",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 333
         },
         "i2-i2-a7-175-547": {
           "branch": "i2-a7-175",
@@ -18712,8 +18712,8 @@
           "branch": "i2-a8-195",
           "resource": "res_0",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 357
         },
         "i2-i2-a8-196-628": {
           "branch": "i2-a8-196",
@@ -18740,8 +18740,8 @@
           "branch": "i2-a8-199",
           "resource": "res_4",
           "cost": 2.0,
-          "selected": true,
-          "start": 460
+          "selected": false,
+          "start": null
         },
         "i2-i2-a9-200-632": {
           "branch": "i2-a9-200",
@@ -19811,36 +19811,36 @@
           "branch": "i2-a9-245",
           "resource": "res_1",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 359
         },
         "i2-i2-a9-245-785": {
           "branch": "i2-a9-245",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 363
         },
         "i2-i2-a9-245-786": {
           "branch": "i2-a9-245",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 394
         },
         "i2-i2-a9-245-787": {
           "branch": "i2-a9-245",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 409
         },
         "i2-i2-a9-245-788": {
           "branch": "i2-a9-245",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 417
         },
         "i2-i2-a9-246-789": {
           "branch": "i2-a9-246",
@@ -19916,36 +19916,36 @@
           "branch": "i2-a9-248",
           "resource": "res_4",
           "cost": 2.0,
-          "selected": true,
-          "start": 462
+          "selected": false,
+          "start": null
         },
         "i2-i2-a9-248-800": {
           "branch": "i2-a9-248",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": true,
-          "start": 464
+          "selected": false,
+          "start": null
         },
         "i2-i2-a9-248-801": {
           "branch": "i2-a9-248",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 548
+          "selected": false,
+          "start": null
         },
         "i2-i2-a9-248-802": {
           "branch": "i2-a9-248",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 561
+          "selected": false,
+          "start": null
         },
         "i2-i2-a9-248-803": {
           "branch": "i2-a9-248",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 569
+          "selected": false,
+          "start": null
         },
         "i2-i2-a10-249-804": {
           "branch": "i2-a10-249",
@@ -20042,15 +20042,15 @@
           "branch": "i2-a10-256",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": true,
-          "start": 626
+          "selected": false,
+          "start": null
         },
         "i2-i2-a10-256-818": {
           "branch": "i2-a10-256",
           "resource": "res_3",
           "cost": 5.0,
-          "selected": true,
-          "start": 633
+          "selected": false,
+          "start": null
         },
         "i2-i2-a10-257-819": {
           "branch": "i2-a10-257",
@@ -20994,36 +20994,36 @@
           "branch": "i2-a10-292",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 419
         },
         "i2-i2-a10-292-954": {
           "branch": "i2-a10-292",
           "resource": "res_3",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 420
         },
         "i2-i2-a10-292-955": {
           "branch": "i2-a10-292",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 428
         },
         "i2-i2-a10-292-956": {
           "branch": "i2-a10-292",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 526
         },
         "i2-i2-a10-292-957": {
           "branch": "i2-a10-292",
           "resource": "res_3",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 534
         },
         "i2-i2-a10-293-958": {
           "branch": "i2-a10-293",
@@ -24966,8 +24966,8 @@
           "branch": "i3-a2-11",
           "resource": "res_2",
           "cost": 1.0,
-          "selected": true,
-          "start": 2
+          "selected": false,
+          "start": null
         },
         "i3-i3-a2-12-17": {
           "branch": "i3-a2-12",
@@ -25036,15 +25036,15 @@
           "branch": "i3-a2-17",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 3
         },
         "i3-i3-a2-17-27": {
           "branch": "i3-a2-17",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 6
         },
         "i3-i3-a3-18-28": {
           "branch": "i3-a3-18",
@@ -25281,36 +25281,36 @@
           "branch": "i3-a3-32",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 9
         },
         "i3-i3-a3-32-62": {
           "branch": "i3-a3-32",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 17
         },
         "i3-i3-a3-32-63": {
           "branch": "i3-a3-32",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 23
         },
         "i3-i3-a3-32-64": {
           "branch": "i3-a3-32",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 31
         },
         "i3-i3-a3-32-65": {
           "branch": "i3-a3-32",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 41
         },
         "i3-i3-a3-33-66": {
           "branch": "i3-a3-33",
@@ -25764,36 +25764,36 @@
           "branch": "i3-a3-46",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 10
+          "selected": false,
+          "start": null
         },
         "i3-i3-a3-46-131": {
           "branch": "i3-a3-46",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": true,
-          "start": 18
+          "selected": false,
+          "start": null
         },
         "i3-i3-a3-46-132": {
           "branch": "i3-a3-46",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 34
+          "selected": false,
+          "start": null
         },
         "i3-i3-a3-46-133": {
           "branch": "i3-a3-46",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": true,
-          "start": 42
+          "selected": false,
+          "start": null
         },
         "i3-i3-a3-46-134": {
           "branch": "i3-a3-46",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 43
+          "selected": false,
+          "start": null
         },
         "i3-i3-a4-47-135": {
           "branch": "i3-a4-47",
@@ -26759,35 +26759,35 @@
           "resource": "res_0",
           "cost": 7.0,
           "selected": true,
-          "start": 56
+          "start": 51
         },
         "i3-i3-a4-89-273": {
           "branch": "i3-a4-89",
           "resource": "res_2",
           "cost": 1.0,
           "selected": true,
-          "start": 63
+          "start": 58
         },
         "i3-i3-a4-89-274": {
           "branch": "i3-a4-89",
           "resource": "res_0",
           "cost": 8.0,
           "selected": true,
-          "start": 79
+          "start": 65
         },
         "i3-i3-a4-89-275": {
           "branch": "i3-a4-89",
           "resource": "res_4",
           "cost": 8.0,
           "selected": true,
-          "start": 87
+          "start": 88
         },
         "i3-i3-a4-89-276": {
           "branch": "i3-a4-89",
           "resource": "res_1",
           "cost": 2.0,
           "selected": true,
-          "start": 95
+          "start": 96
         },
         "i3-i3-a4-90-277": {
           "branch": "i3-a4-90",
@@ -27003,8 +27003,8 @@
           "branch": "i3-a5-96",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 135
         },
         "i3-i3-a5-97-308": {
           "branch": "i3-a5-97",
@@ -27521,29 +27521,29 @@
           "branch": "i3-a5-120",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 97
+          "selected": false,
+          "start": null
         },
         "i3-i3-a5-120-382": {
           "branch": "i3-a5-120",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": true,
-          "start": 105
+          "selected": false,
+          "start": null
         },
         "i3-i3-a5-120-383": {
           "branch": "i3-a5-120",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 202
+          "selected": false,
+          "start": null
         },
         "i3-i3-a5-120-384": {
           "branch": "i3-a5-120",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 210
+          "selected": false,
+          "start": null
         },
         "i3-i3-a6-121-385": {
           "branch": "i3-a6-121",
@@ -27906,22 +27906,22 @@
           "branch": "i3-a6-141",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 145
         },
         "i3-i3-a6-141-437": {
           "branch": "i3-a6-141",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 155
         },
         "i3-i3-a6-141-438": {
           "branch": "i3-a6-141",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 215
         },
         "i3-i3-a6-142-439": {
           "branch": "i3-a6-142",
@@ -27983,29 +27983,29 @@
           "branch": "i3-a6-144",
           "resource": "res_3",
           "cost": 5.0,
-          "selected": true,
-          "start": 212
+          "selected": false,
+          "start": null
         },
         "i3-i3-a6-144-448": {
           "branch": "i3-a6-144",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 217
+          "selected": false,
+          "start": null
         },
         "i3-i3-a6-144-449": {
           "branch": "i3-a6-144",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 225
+          "selected": false,
+          "start": null
         },
         "i3-i3-a6-144-450": {
           "branch": "i3-a6-144",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 313
+          "selected": false,
+          "start": null
         },
         "i3-i3-a6-145-451": {
           "branch": "i3-a6-145",
@@ -28613,36 +28613,36 @@
           "branch": "i3-a7-173",
           "resource": "res_3",
           "cost": 5.0,
-          "selected": true,
-          "start": 321
+          "selected": false,
+          "start": null
         },
         "i3-i3-a7-173-538": {
           "branch": "i3-a7-173",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 326
+          "selected": false,
+          "start": null
         },
         "i3-i3-a7-173-539": {
           "branch": "i3-a7-173",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 334
+          "selected": false,
+          "start": null
         },
         "i3-i3-a7-173-540": {
           "branch": "i3-a7-173",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 408
+          "selected": false,
+          "start": null
         },
         "i3-i3-a7-173-541": {
           "branch": "i3-a7-173",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": true,
-          "start": 416
+          "selected": false,
+          "start": null
         },
         "i3-i3-a7-174-542": {
           "branch": "i3-a7-174",
@@ -29068,36 +29068,36 @@
           "branch": "i3-a7-190",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 254
         },
         "i3-i3-a7-190-603": {
           "branch": "i3-a7-190",
           "resource": "res_4",
           "cost": 6.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 261
         },
         "i3-i3-a7-190-604": {
           "branch": "i3-a7-190",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 301
         },
         "i3-i3-a7-190-605": {
           "branch": "i3-a7-190",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 309
         },
         "i3-i3-a7-190-606": {
           "branch": "i3-a7-190",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 317
         },
         "i3-i3-a7-191-607": {
           "branch": "i3-a7-191",
@@ -29250,15 +29250,15 @@
           "branch": "i3-a8-196",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 319
         },
         "i3-i3-a8-197-629": {
           "branch": "i3-a8-197",
           "resource": "res_2",
           "cost": 2.0,
-          "selected": true,
-          "start": 420
+          "selected": false,
+          "start": null
         },
         "i3-i3-a8-198-630": {
           "branch": "i3-a8-198",
@@ -29817,36 +29817,36 @@
           "branch": "i3-a9-226",
           "resource": "res_2",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 321
         },
         "i3-i3-a9-226-710": {
           "branch": "i3-a9-226",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 327
         },
         "i3-i3-a9-226-711": {
           "branch": "i3-a9-226",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 335
         },
         "i3-i3-a9-226-712": {
           "branch": "i3-a9-226",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 449
         },
         "i3-i3-a9-226-713": {
           "branch": "i3-a9-226",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 457
         },
         "i3-i3-a9-227-714": {
           "branch": "i3-a9-227",
@@ -30447,36 +30447,36 @@
           "branch": "i3-a9-248",
           "resource": "res_4",
           "cost": 2.0,
-          "selected": true,
-          "start": 422
+          "selected": false,
+          "start": null
         },
         "i3-i3-a9-248-800": {
           "branch": "i3-a9-248",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": true,
-          "start": 424
+          "selected": false,
+          "start": null
         },
         "i3-i3-a9-248-801": {
           "branch": "i3-a9-248",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 500
+          "selected": false,
+          "start": null
         },
         "i3-i3-a9-248-802": {
           "branch": "i3-a9-248",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 526
+          "selected": false,
+          "start": null
         },
         "i3-i3-a9-248-803": {
           "branch": "i3-a9-248",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 540
+          "selected": false,
+          "start": null
         },
         "i3-i3-a10-249-804": {
           "branch": "i3-a10-249",
@@ -31147,36 +31147,36 @@
           "branch": "i3-a10-277",
           "resource": "res_4",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 463
         },
         "i3-i3-a10-277-900": {
           "branch": "i3-a10-277",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 465
         },
         "i3-i3-a10-277-901": {
           "branch": "i3-a10-277",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 473
         },
         "i3-i3-a10-277-902": {
           "branch": "i3-a10-277",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 541
         },
         "i3-i3-a10-277-903": {
           "branch": "i3-a10-277",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 556
         },
         "i3-i3-a10-278-904": {
           "branch": "i3-a10-278",
@@ -31560,36 +31560,36 @@
           "branch": "i3-a10-293",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": true,
-          "start": 543
+          "selected": false,
+          "start": null
         },
         "i3-i3-a10-293-959": {
           "branch": "i3-a10-293",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": true,
-          "start": 558
+          "selected": false,
+          "start": null
         },
         "i3-i3-a10-293-960": {
           "branch": "i3-a10-293",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": true,
-          "start": 569
+          "selected": false,
+          "start": null
         },
         "i3-i3-a10-293-961": {
           "branch": "i3-a10-293",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 572
+          "selected": false,
+          "start": null
         },
         "i3-i3-a10-293-962": {
           "branch": "i3-a10-293",
           "resource": "res_3",
           "cost": 8.0,
-          "selected": true,
-          "start": 580
+          "selected": false,
+          "start": null
         }
       }
     },
@@ -35428,14 +35428,14 @@
           "resource": "res_4",
           "cost": 3.0,
           "selected": true,
-          "start": 67
+          "start": 44
         },
         "i4-i4-a1-5-7": {
           "branch": "i4-a1-5",
           "resource": "res_1",
           "cost": 3.0,
           "selected": true,
-          "start": 70
+          "start": 54
         },
         "i4-i4-a1-6-8": {
           "branch": "i4-a1-6",
@@ -35526,14 +35526,14 @@
           "resource": "res_4",
           "cost": 3.0,
           "selected": true,
-          "start": 79
+          "start": 66
         },
         "i4-i4-a2-14-21": {
           "branch": "i4-a2-14",
           "resource": "res_1",
           "cost": 3.0,
           "selected": true,
-          "start": 84
+          "start": 74
         },
         "i4-i4-a2-15-22": {
           "branch": "i4-a2-15",
@@ -35721,22 +35721,22 @@
           "branch": "i4-a3-28",
           "resource": "res_2",
           "cost": 2.0,
-          "selected": true,
-          "start": 87
+          "selected": false,
+          "start": null
         },
         "i4-i4-a3-28-49": {
           "branch": "i4-a3-28",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": true,
-          "start": 89
+          "selected": false,
+          "start": null
         },
         "i4-i4-a3-28-50": {
           "branch": "i4-a3-28",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 90
+          "selected": false,
+          "start": null
         },
         "i4-i4-a3-29-51": {
           "branch": "i4-a3-29",
@@ -36295,36 +36295,36 @@
           "branch": "i4-a3-46",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 77
         },
         "i4-i4-a3-46-131": {
           "branch": "i4-a3-46",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 96
         },
         "i4-i4-a3-46-132": {
           "branch": "i4-a3-46",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 143
         },
         "i4-i4-a3-46-133": {
           "branch": "i4-a3-46",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 151
         },
         "i4-i4-a3-46-134": {
           "branch": "i4-a3-46",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 152
         },
         "i4-i4-a4-47-135": {
           "branch": "i4-a4-47",
@@ -36414,15 +36414,15 @@
           "branch": "i4-a4-53",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": true,
-          "start": 226
+          "selected": false,
+          "start": null
         },
         "i4-i4-a4-53-148": {
           "branch": "i4-a4-53",
           "resource": "res_2",
           "cost": 1.0,
-          "selected": true,
-          "start": 233
+          "selected": false,
+          "start": null
         },
         "i4-i4-a4-54-149": {
           "branch": "i4-a4-54",
@@ -37009,15 +37009,15 @@
           "branch": "i4-a4-77",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 158
         },
         "i4-i4-a4-77-233": {
           "branch": "i4-a4-77",
           "resource": "res_2",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 166
         },
         "i4-i4-a4-78-234": {
           "branch": "i4-a4-78",
@@ -37695,22 +37695,22 @@
           "branch": "i4-a5-107",
           "resource": "res_3",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 169
         },
         "i4-i4-a5-107-331": {
           "branch": "i4-a5-107",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 246
         },
         "i4-i4-a5-107-332": {
           "branch": "i4-a5-107",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 254
         },
         "i4-i4-a5-108-333": {
           "branch": "i4-a5-108",
@@ -38024,29 +38024,29 @@
           "branch": "i4-a5-119",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 234
+          "selected": false,
+          "start": null
         },
         "i4-i4-a5-119-378": {
           "branch": "i4-a5-119",
           "resource": "res_3",
           "cost": 3.0,
-          "selected": true,
-          "start": 242
+          "selected": false,
+          "start": null
         },
         "i4-i4-a5-119-379": {
           "branch": "i4-a5-119",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 297
+          "selected": false,
+          "start": null
         },
         "i4-i4-a5-119-380": {
           "branch": "i4-a5-119",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 305
+          "selected": false,
+          "start": null
         },
         "i4-i4-a5-120-381": {
           "branch": "i4-a5-120",
@@ -38101,8 +38101,8 @@
           "branch": "i4-a6-122",
           "resource": "res_1",
           "cost": 4.0,
-          "selected": true,
-          "start": 307
+          "selected": false,
+          "start": null
         },
         "i4-i4-a6-123-389": {
           "branch": "i4-a6-123",
@@ -38514,29 +38514,29 @@
           "branch": "i4-a6-144",
           "resource": "res_3",
           "cost": 5.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 256
         },
         "i4-i4-a6-144-448": {
           "branch": "i4-a6-144",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 267
         },
         "i4-i4-a6-144-449": {
           "branch": "i4-a6-144",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 275
         },
         "i4-i4-a6-144-450": {
           "branch": "i4-a6-144",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 349
         },
         "i4-i4-a6-145-451": {
           "branch": "i4-a6-145",
@@ -39018,29 +39018,29 @@
           "branch": "i4-a7-169",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 357
         },
         "i4-i4-a7-169-520": {
           "branch": "i4-a7-169",
           "resource": "res_3",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 365
         },
         "i4-i4-a7-169-521": {
           "branch": "i4-a7-169",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 402
         },
         "i4-i4-a7-169-522": {
           "branch": "i4-a7-169",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 410
         },
         "i4-i4-a7-170-523": {
           "branch": "i4-a7-170",
@@ -39291,22 +39291,22 @@
           "branch": "i4-a7-179",
           "resource": "res_1",
           "cost": 4.0,
-          "selected": true,
-          "start": 311
+          "selected": false,
+          "start": null
         },
         "i4-i4-a7-179-559": {
           "branch": "i4-a7-179",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 315
+          "selected": false,
+          "start": null
         },
         "i4-i4-a7-179-560": {
           "branch": "i4-a7-179",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 323
+          "selected": false,
+          "start": null
         },
         "i4-i4-a7-180-561": {
           "branch": "i4-a7-180",
@@ -39774,8 +39774,8 @@
           "branch": "i4-a8-195",
           "resource": "res_0",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 465
         },
         "i4-i4-a8-196-628": {
           "branch": "i4-a8-196",
@@ -39788,8 +39788,8 @@
           "branch": "i4-a8-197",
           "resource": "res_2",
           "cost": 2.0,
-          "selected": true,
-          "start": 325
+          "selected": false,
+          "start": null
         },
         "i4-i4-a8-198-630": {
           "branch": "i4-a8-198",
@@ -39935,15 +39935,15 @@
           "branch": "i4-a9-209",
           "resource": "res_1",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 467
         },
         "i4-i4-a9-209-651": {
           "branch": "i4-a9-209",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 471
         },
         "i4-i4-a9-210-652": {
           "branch": "i4-a9-210",
@@ -40642,36 +40642,36 @@
           "branch": "i4-a9-238",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 430
+          "selected": false,
+          "start": null
         },
         "i4-i4-a9-238-752": {
           "branch": "i4-a9-238",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": true,
-          "start": 438
+          "selected": false,
+          "start": null
         },
         "i4-i4-a9-238-753": {
           "branch": "i4-a9-238",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 484
+          "selected": false,
+          "start": null
         },
         "i4-i4-a9-238-754": {
           "branch": "i4-a9-238",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 492
+          "selected": false,
+          "start": null
         },
         "i4-i4-a9-238-755": {
           "branch": "i4-a9-238",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 500
+          "selected": false,
+          "start": null
         },
         "i4-i4-a9-239-756": {
           "branch": "i4-a9-239",
@@ -41923,29 +41923,29 @@
           "branch": "i4-a10-288",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": true,
-          "start": 502
+          "selected": false,
+          "start": null
         },
         "i4-i4-a10-288-935": {
           "branch": "i4-a10-288",
           "resource": "res_3",
           "cost": 8.0,
-          "selected": true,
-          "start": 503
+          "selected": false,
+          "start": null
         },
         "i4-i4-a10-288-936": {
           "branch": "i4-a10-288",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 604
+          "selected": false,
+          "start": null
         },
         "i4-i4-a10-288-937": {
           "branch": "i4-a10-288",
           "resource": "res_3",
           "cost": 8.0,
-          "selected": true,
-          "start": 612
+          "selected": false,
+          "start": null
         },
         "i4-i4-a10-289-938": {
           "branch": "i4-a10-289",
@@ -42021,36 +42021,36 @@
           "branch": "i4-a10-291",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 475
         },
         "i4-i4-a10-291-949": {
           "branch": "i4-a10-291",
           "resource": "res_2",
           "cost": 1.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 476
         },
         "i4-i4-a10-291-950": {
           "branch": "i4-a10-291",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 483
         },
         "i4-i4-a10-291-951": {
           "branch": "i4-a10-291",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 490
         },
         "i4-i4-a10-291-952": {
           "branch": "i4-a10-291",
           "resource": "res_3",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 498
         },
         "i4-i4-a10-292-953": {
           "branch": "i4-a10-292",
@@ -45944,15 +45944,15 @@
           "branch": "i5-a1-4",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 38
         },
         "i5-i5-a1-4-5": {
           "branch": "i5-a1-4",
           "resource": "res_0",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 49
         },
         "i5-i5-a1-5-6": {
           "branch": "i5-a1-5",
@@ -45972,15 +45972,15 @@
           "branch": "i5-a1-6",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": true,
-          "start": 38
+          "selected": false,
+          "start": null
         },
         "i5-i5-a1-6-9": {
           "branch": "i5-a1-6",
           "resource": "res_2",
           "cost": 1.0,
-          "selected": true,
-          "start": 41
+          "selected": false,
+          "start": null
         },
         "i5-i5-a1-7-10": {
           "branch": "i5-a1-7",
@@ -46070,29 +46070,29 @@
           "branch": "i5-a2-15",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": true,
-          "start": 44
+          "selected": false,
+          "start": null
         },
         "i5-i5-a2-15-23": {
           "branch": "i5-a2-15",
           "resource": "res_2",
           "cost": 1.0,
-          "selected": true,
-          "start": 47
+          "selected": false,
+          "start": null
         },
         "i5-i5-a2-16-24": {
           "branch": "i5-a2-16",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 55
         },
         "i5-i5-a2-16-25": {
           "branch": "i5-a2-16",
           "resource": "res_3",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 58
         },
         "i5-i5-a2-17-26": {
           "branch": "i5-a2-17",
@@ -46203,15 +46203,15 @@
           "branch": "i5-a3-25",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": true,
-          "start": 48
+          "selected": false,
+          "start": null
         },
         "i5-i5-a3-25-42": {
           "branch": "i5-a3-25",
           "resource": "res_3",
           "cost": 3.0,
-          "selected": true,
-          "start": 49
+          "selected": false,
+          "start": null
         },
         "i5-i5-a3-26-43": {
           "branch": "i5-a3-26",
@@ -46378,29 +46378,29 @@
           "branch": "i5-a3-33",
           "resource": "res_3",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 66
         },
         "i5-i5-a3-33-67": {
           "branch": "i5-a3-33",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 97
         },
         "i5-i5-a3-33-68": {
           "branch": "i5-a3-33",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 105
         },
         "i5-i5-a3-33-69": {
           "branch": "i5-a3-33",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 106
         },
         "i5-i5-a3-34-70": {
           "branch": "i5-a3-34",
@@ -47106,29 +47106,29 @@
           "branch": "i5-a4-63",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 59
+          "selected": false,
+          "start": null
         },
         "i5-i5-a4-63-171": {
           "branch": "i5-a4-63",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 162
+          "selected": false,
+          "start": null
         },
         "i5-i5-a4-63-172": {
           "branch": "i5-a4-63",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 218
+          "selected": false,
+          "start": null
         },
         "i5-i5-a4-63-173": {
           "branch": "i5-a4-63",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": true,
-          "start": 226
+          "selected": false,
+          "start": null
         },
         "i5-i5-a4-64-174": {
           "branch": "i5-a4-64",
@@ -47694,36 +47694,36 @@
           "branch": "i5-a4-85",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 153
         },
         "i5-i5-a4-85-255": {
           "branch": "i5-a4-85",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 161
         },
         "i5-i5-a4-85-256": {
           "branch": "i5-a4-85",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 199
         },
         "i5-i5-a4-85-257": {
           "branch": "i5-a4-85",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 208
         },
         "i5-i5-a4-85-258": {
           "branch": "i5-a4-85",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 218
         },
         "i5-i5-a4-86-259": {
           "branch": "i5-a4-86",
@@ -48226,22 +48226,22 @@
           "branch": "i5-a5-107",
           "resource": "res_3",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 220
         },
         "i5-i5-a5-107-331": {
           "branch": "i5-a5-107",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 285
         },
         "i5-i5-a5-107-332": {
           "branch": "i5-a5-107",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 293
         },
         "i5-i5-a5-108-333": {
           "branch": "i5-a5-108",
@@ -48555,29 +48555,29 @@
           "branch": "i5-a5-119",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 242
+          "selected": false,
+          "start": null
         },
         "i5-i5-a5-119-378": {
           "branch": "i5-a5-119",
           "resource": "res_3",
           "cost": 3.0,
-          "selected": true,
-          "start": 250
+          "selected": false,
+          "start": null
         },
         "i5-i5-a5-119-379": {
           "branch": "i5-a5-119",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 321
+          "selected": false,
+          "start": null
         },
         "i5-i5-a5-119-380": {
           "branch": "i5-a5-119",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 329
+          "selected": false,
+          "start": null
         },
         "i5-i5-a5-120-381": {
           "branch": "i5-a5-120",
@@ -48835,22 +48835,22 @@
           "branch": "i5-a6-135",
           "resource": "res_2",
           "cost": 2.0,
-          "selected": true,
-          "start": 331
+          "selected": false,
+          "start": null
         },
         "i5-i5-a6-135-418": {
           "branch": "i5-a6-135",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": true,
-          "start": 333
+          "selected": false,
+          "start": null
         },
         "i5-i5-a6-135-419": {
           "branch": "i5-a6-135",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 377
+          "selected": false,
+          "start": null
         },
         "i5-i5-a6-136-420": {
           "branch": "i5-a6-136",
@@ -48877,22 +48877,22 @@
           "branch": "i5-a6-137",
           "resource": "res_4",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 295
         },
         "i5-i5-a6-137-424": {
           "branch": "i5-a6-137",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 297
         },
         "i5-i5-a6-137-425": {
           "branch": "i5-a6-137",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 361
         },
         "i5-i5-a6-138-426": {
           "branch": "i5-a6-138",
@@ -49549,29 +49549,29 @@
           "branch": "i5-a7-169",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 385
+          "selected": false,
+          "start": null
         },
         "i5-i5-a7-169-520": {
           "branch": "i5-a7-169",
           "resource": "res_3",
           "cost": 3.0,
-          "selected": true,
-          "start": 393
+          "selected": false,
+          "start": null
         },
         "i5-i5-a7-169-521": {
           "branch": "i5-a7-169",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 466
+          "selected": false,
+          "start": null
         },
         "i5-i5-a7-169-522": {
           "branch": "i5-a7-169",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": true,
-          "start": 474
+          "selected": false,
+          "start": null
         },
         "i5-i5-a7-170-523": {
           "branch": "i5-a7-170",
@@ -49605,36 +49605,36 @@
           "branch": "i5-a7-171",
           "resource": "res_1",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 369
         },
         "i5-i5-a7-171-528": {
           "branch": "i5-a7-171",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 375
         },
         "i5-i5-a7-171-529": {
           "branch": "i5-a7-171",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 385
         },
         "i5-i5-a7-171-530": {
           "branch": "i5-a7-171",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 457
         },
         "i5-i5-a7-171-531": {
           "branch": "i5-a7-171",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 465
         },
         "i5-i5-a7-172-532": {
           "branch": "i5-a7-172",
@@ -50334,7 +50334,7 @@
           "resource": "res_4",
           "cost": 2.0,
           "selected": true,
-          "start": 478
+          "start": 473
         },
         "i5-i5-a9-200-632": {
           "branch": "i5-a9-200",
@@ -50641,29 +50641,29 @@
           "branch": "i5-a9-218",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": true,
-          "start": 541
+          "selected": false,
+          "start": null
         },
         "i5-i5-a9-218-676": {
           "branch": "i5-a9-218",
           "resource": "res_2",
           "cost": 1.0,
-          "selected": true,
-          "start": 548
+          "selected": false,
+          "start": null
         },
         "i5-i5-a9-218-677": {
           "branch": "i5-a9-218",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 556
+          "selected": false,
+          "start": null
         },
         "i5-i5-a9-218-678": {
           "branch": "i5-a9-218",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": true,
-          "start": 564
+          "selected": false,
+          "start": null
         },
         "i5-i5-a9-219-679": {
           "branch": "i5-a9-219",
@@ -50760,29 +50760,29 @@
           "branch": "i5-a9-222",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 475
         },
         "i5-i5-a9-222-693": {
           "branch": "i5-a9-222",
           "resource": "res_2",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 496
         },
         "i5-i5-a9-222-694": {
           "branch": "i5-a9-222",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 548
         },
         "i5-i5-a9-222-695": {
           "branch": "i5-a9-222",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 556
         },
         "i5-i5-a9-223-696": {
           "branch": "i5-a9-223",
@@ -51593,8 +51593,8 @@
           "branch": "i5-a10-252",
           "resource": "res_3",
           "cost": 1.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 560
         },
         "i5-i5-a10-253-812": {
           "branch": "i5-a10-253",
@@ -52356,22 +52356,22 @@
           "branch": "i5-a10-284",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": true,
-          "start": 568
+          "selected": false,
+          "start": null
         },
         "i5-i5-a10-284-921": {
           "branch": "i5-a10-284",
           "resource": "res_3",
           "cost": 5.0,
-          "selected": true,
-          "start": 569
+          "selected": false,
+          "start": null
         },
         "i5-i5-a10-284-922": {
           "branch": "i5-a10-284",
           "resource": "res_3",
           "cost": 8.0,
-          "selected": true,
-          "start": 620
+          "selected": false,
+          "start": null
         },
         "i5-i5-a10-285-923": {
           "branch": "i5-a10-285",
@@ -56461,15 +56461,15 @@
           "branch": "i6-a1-2",
           "resource": "res_2",
           "cost": 1.0,
-          "selected": true,
-          "start": 0
+          "selected": false,
+          "start": null
         },
         "i6-i6-a1-3-3": {
           "branch": "i6-a1-3",
           "resource": "res_3",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 0
         },
         "i6-i6-a1-4-4": {
           "branch": "i6-a1-4",
@@ -56559,8 +56559,8 @@
           "branch": "i6-a2-11",
           "resource": "res_2",
           "cost": 1.0,
-          "selected": true,
-          "start": 1
+          "selected": false,
+          "start": null
         },
         "i6-i6-a2-12-17": {
           "branch": "i6-a2-12",
@@ -56573,15 +56573,15 @@
           "branch": "i6-a2-13",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 107
         },
         "i6-i6-a2-13-19": {
           "branch": "i6-a2-13",
           "resource": "res_0",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 151
         },
         "i6-i6-a2-14-20": {
           "branch": "i6-a2-14",
@@ -56937,36 +56937,36 @@
           "branch": "i6-a3-34",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 2
+          "selected": false,
+          "start": null
         },
         "i6-i6-a3-34-71": {
           "branch": "i6-a3-34",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 10
+          "selected": false,
+          "start": null
         },
         "i6-i6-a3-34-72": {
           "branch": "i6-a3-34",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 18
+          "selected": false,
+          "start": null
         },
         "i6-i6-a3-34-73": {
           "branch": "i6-a3-34",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": true,
-          "start": 26
+          "selected": false,
+          "start": null
         },
         "i6-i6-a3-34-74": {
           "branch": "i6-a3-34",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 27
+          "selected": false,
+          "start": null
         },
         "i6-i6-a3-35-75": {
           "branch": "i6-a3-35",
@@ -57217,36 +57217,36 @@
           "branch": "i6-a3-42",
           "resource": "res_4",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 153
         },
         "i6-i6-a3-42-111": {
           "branch": "i6-a3-42",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 155
         },
         "i6-i6-a3-42-112": {
           "branch": "i6-a3-42",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 207
         },
         "i6-i6-a3-42-113": {
           "branch": "i6-a3-42",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 215
         },
         "i6-i6-a3-42-114": {
           "branch": "i6-a3-42",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 216
         },
         "i6-i6-a3-43-115": {
           "branch": "i6-a3-43",
@@ -58071,15 +58071,15 @@
           "branch": "i6-a4-77",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 218
         },
         "i6-i6-a4-77-233": {
           "branch": "i6-a4-77",
           "resource": "res_2",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 226
         },
         "i6-i6-a4-78-234": {
           "branch": "i6-a4-78",
@@ -58561,36 +58561,36 @@
           "branch": "i6-a4-95",
           "resource": "res_4",
           "cost": 2.0,
-          "selected": true,
-          "start": 30
+          "selected": false,
+          "start": null
         },
         "i6-i6-a4-95-303": {
           "branch": "i6-a4-95",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": true,
-          "start": 33
+          "selected": false,
+          "start": null
         },
         "i6-i6-a4-95-304": {
           "branch": "i6-a4-95",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 63
+          "selected": false,
+          "start": null
         },
         "i6-i6-a4-95-305": {
           "branch": "i6-a4-95",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 71
+          "selected": false,
+          "start": null
         },
         "i6-i6-a4-95-306": {
           "branch": "i6-a4-95",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 82
+          "selected": false,
+          "start": null
         },
         "i6-i6-a5-96-307": {
           "branch": "i6-a5-96",
@@ -58806,29 +58806,29 @@
           "branch": "i6-a5-109",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": true,
-          "start": 117
+          "selected": false,
+          "start": null
         },
         "i6-i6-a5-109-338": {
           "branch": "i6-a5-109",
           "resource": "res_1",
           "cost": 7.0,
-          "selected": true,
-          "start": 124
+          "selected": false,
+          "start": null
         },
         "i6-i6-a5-109-339": {
           "branch": "i6-a5-109",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 170
+          "selected": false,
+          "start": null
         },
         "i6-i6-a5-109-340": {
           "branch": "i6-a5-109",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 178
+          "selected": false,
+          "start": null
         },
         "i6-i6-a5-110-341": {
           "branch": "i6-a5-110",
@@ -58918,29 +58918,29 @@
           "branch": "i6-a5-113",
           "resource": "res_1",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 229
         },
         "i6-i6-a5-113-354": {
           "branch": "i6-a5-113",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 233
         },
         "i6-i6-a5-113-355": {
           "branch": "i6-a5-113",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 333
         },
         "i6-i6-a5-113-356": {
           "branch": "i6-a5-113",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 341
         },
         "i6-i6-a5-114-357": {
           "branch": "i6-a5-114",
@@ -59163,8 +59163,8 @@
           "branch": "i6-a6-122",
           "resource": "res_1",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 343
         },
         "i6-i6-a6-123-389": {
           "branch": "i6-a6-123",
@@ -59478,22 +59478,22 @@
           "branch": "i6-a6-140",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 180
+          "selected": false,
+          "start": null
         },
         "i6-i6-a6-140-434": {
           "branch": "i6-a6-140",
           "resource": "res_3",
           "cost": 3.0,
-          "selected": true,
-          "start": 188
+          "selected": false,
+          "start": null
         },
         "i6-i6-a6-140-435": {
           "branch": "i6-a6-140",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 257
+          "selected": false,
+          "start": null
         },
         "i6-i6-a6-141-436": {
           "branch": "i6-a6-141",
@@ -59772,15 +59772,15 @@
           "branch": "i6-a7-156",
           "resource": "res_2",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 347
         },
         "i6-i6-a7-156-476": {
           "branch": "i6-a7-156",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 349
         },
         "i6-i6-a7-157-477": {
           "branch": "i6-a7-157",
@@ -60731,36 +60731,36 @@
           "branch": "i6-a7-192",
           "resource": "res_2",
           "cost": 2.0,
-          "selected": true,
-          "start": 265
+          "selected": false,
+          "start": null
         },
         "i6-i6-a7-192-613": {
           "branch": "i6-a7-192",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": true,
-          "start": 267
+          "selected": false,
+          "start": null
         },
         "i6-i6-a7-192-614": {
           "branch": "i6-a7-192",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 337
+          "selected": false,
+          "start": null
         },
         "i6-i6-a7-192-615": {
           "branch": "i6-a7-192",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 345
+          "selected": false,
+          "start": null
         },
         "i6-i6-a7-192-616": {
           "branch": "i6-a7-192",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 353
+          "selected": false,
+          "start": null
         },
         "i6-i6-a7-193-617": {
           "branch": "i6-a7-193",
@@ -60843,8 +60843,8 @@
           "branch": "i6-a8-196",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 355
+          "selected": false,
+          "start": null
         },
         "i6-i6-a8-197-629": {
           "branch": "i6-a8-197",
@@ -60857,8 +60857,8 @@
           "branch": "i6-a8-198",
           "resource": "res_3",
           "cost": 7.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 353
         },
         "i6-i6-a8-199-631": {
           "branch": "i6-a8-199",
@@ -60941,15 +60941,15 @@
           "branch": "i6-a9-205",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 426
         },
         "i6-i6-a9-205-643": {
           "branch": "i6-a9-205",
           "resource": "res_1",
           "cost": 7.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 433
         },
         "i6-i6-a9-206-644": {
           "branch": "i6-a9-206",
@@ -61445,36 +61445,36 @@
           "branch": "i6-a9-227",
           "resource": "res_3",
           "cost": 5.0,
-          "selected": true,
-          "start": 357
+          "selected": false,
+          "start": null
         },
         "i6-i6-a9-227-715": {
           "branch": "i6-a9-227",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 369
+          "selected": false,
+          "start": null
         },
         "i6-i6-a9-227-716": {
           "branch": "i6-a9-227",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 377
+          "selected": false,
+          "start": null
         },
         "i6-i6-a9-227-717": {
           "branch": "i6-a9-227",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 492
+          "selected": false,
+          "start": null
         },
         "i6-i6-a9-227-718": {
           "branch": "i6-a9-227",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": true,
-          "start": 500
+          "selected": false,
+          "start": null
         },
         "i6-i6-a9-228-719": {
           "branch": "i6-a9-228",
@@ -62264,29 +62264,29 @@
           "branch": "i6-a10-261",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 504
+          "selected": false,
+          "start": null
         },
         "i6-i6-a10-261-832": {
           "branch": "i6-a10-261",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 564
+          "selected": false,
+          "start": null
         },
         "i6-i6-a10-261-833": {
           "branch": "i6-a10-261",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": true,
-          "start": 612
+          "selected": false,
+          "start": null
         },
         "i6-i6-a10-261-834": {
           "branch": "i6-a10-261",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 641
+          "selected": false,
+          "start": null
         },
         "i6-i6-a10-262-835": {
           "branch": "i6-a10-262",
@@ -62460,29 +62460,29 @@
           "branch": "i6-a10-268",
           "resource": "res_3",
           "cost": 5.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 440
         },
         "i6-i6-a10-268-860": {
           "branch": "i6-a10-268",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 445
         },
         "i6-i6-a10-268-861": {
           "branch": "i6-a10-268",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 534
         },
         "i6-i6-a10-268-862": {
           "branch": "i6-a10-268",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 572
         },
         "i6-i6-a10-269-863": {
           "branch": "i6-a10-269",
@@ -67020,29 +67020,29 @@
           "branch": "i7-a1-5",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 32
         },
         "i7-i7-a1-5-7": {
           "branch": "i7-a1-5",
           "resource": "res_1",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 36
         },
         "i7-i7-a1-6-8": {
           "branch": "i7-a1-6",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": true,
-          "start": 24
+          "selected": false,
+          "start": null
         },
         "i7-i7-a1-6-9": {
           "branch": "i7-a1-6",
           "resource": "res_2",
           "cost": 1.0,
-          "selected": true,
-          "start": 27
+          "selected": false,
+          "start": null
         },
         "i7-i7-a1-7-10": {
           "branch": "i7-a1-7",
@@ -67083,8 +67083,8 @@
           "branch": "i7-a2-10",
           "resource": "res_1",
           "cost": 3.0,
-          "selected": true,
-          "start": 29
+          "selected": false,
+          "start": null
         },
         "i7-i7-a2-11-16": {
           "branch": "i7-a2-11",
@@ -67104,15 +67104,15 @@
           "branch": "i7-a2-13",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 41
         },
         "i7-i7-a2-13-19": {
           "branch": "i7-a2-13",
           "resource": "res_0",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 47
         },
         "i7-i7-a2-14-20": {
           "branch": "i7-a2-14",
@@ -67573,36 +67573,36 @@
           "branch": "i7-a3-37",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": true,
-          "start": 49
+          "selected": false,
+          "start": null
         },
         "i7-i7-a3-37-86": {
           "branch": "i7-a3-37",
           "resource": "res_3",
           "cost": 8.0,
-          "selected": true,
-          "start": 56
+          "selected": false,
+          "start": null
         },
         "i7-i7-a3-37-87": {
           "branch": "i7-a3-37",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 102
+          "selected": false,
+          "start": null
         },
         "i7-i7-a3-37-88": {
           "branch": "i7-a3-37",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": true,
-          "start": 110
+          "selected": false,
+          "start": null
         },
         "i7-i7-a3-37-89": {
           "branch": "i7-a3-37",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 111
+          "selected": false,
+          "start": null
         },
         "i7-i7-a3-38-90": {
           "branch": "i7-a3-38",
@@ -67783,36 +67783,36 @@
           "branch": "i7-a3-43",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 58
         },
         "i7-i7-a3-43-116": {
           "branch": "i7-a3-43",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 72
         },
         "i7-i7-a3-43-117": {
           "branch": "i7-a3-43",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 81
         },
         "i7-i7-a3-43-118": {
           "branch": "i7-a3-43",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 89
         },
         "i7-i7-a3-43-119": {
           "branch": "i7-a3-43",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 90
         },
         "i7-i7-a3-44-120": {
           "branch": "i7-a3-44",
@@ -68252,29 +68252,29 @@
           "branch": "i7-a4-66",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 113
         },
         "i7-i7-a4-66-183": {
           "branch": "i7-a4-66",
           "resource": "res_3",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 120
         },
         "i7-i7-a4-66-184": {
           "branch": "i7-a4-66",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 183
         },
         "i7-i7-a4-66-185": {
           "branch": "i7-a4-66",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 191
         },
         "i7-i7-a4-67-186": {
           "branch": "i7-a4-67",
@@ -68427,36 +68427,36 @@
           "branch": "i7-a4-72",
           "resource": "res_1",
           "cost": 4.0,
-          "selected": true,
-          "start": 113
+          "selected": false,
+          "start": null
         },
         "i7-i7-a4-72-208": {
           "branch": "i7-a4-72",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 117
+          "selected": false,
+          "start": null
         },
         "i7-i7-a4-72-209": {
           "branch": "i7-a4-72",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 131
+          "selected": false,
+          "start": null
         },
         "i7-i7-a4-72-210": {
           "branch": "i7-a4-72",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 210
+          "selected": false,
+          "start": null
         },
         "i7-i7-a4-72-211": {
           "branch": "i7-a4-72",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": true,
-          "start": 218
+          "selected": false,
+          "start": null
         },
         "i7-i7-a4-73-212": {
           "branch": "i7-a4-73",
@@ -69169,8 +69169,8 @@
           "branch": "i7-a5-99",
           "resource": "res_3",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 195
         },
         "i7-i7-a5-100-314": {
           "branch": "i7-a5-100",
@@ -69477,29 +69477,29 @@
           "branch": "i7-a5-114",
           "resource": "res_2",
           "cost": 2.0,
-          "selected": true,
-          "start": 222
+          "selected": false,
+          "start": null
         },
         "i7-i7-a5-114-358": {
           "branch": "i7-a5-114",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": true,
-          "start": 234
+          "selected": false,
+          "start": null
         },
         "i7-i7-a5-114-359": {
           "branch": "i7-a5-114",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 273
+          "selected": false,
+          "start": null
         },
         "i7-i7-a5-114-360": {
           "branch": "i7-a5-114",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 281
+          "selected": false,
+          "start": null
         },
         "i7-i7-a5-115-361": {
           "branch": "i7-a5-115",
@@ -70051,29 +70051,29 @@
           "branch": "i7-a6-142",
           "resource": "res_1",
           "cost": 4.0,
-          "selected": true,
-          "start": 283
+          "selected": false,
+          "start": null
         },
         "i7-i7-a6-142-440": {
           "branch": "i7-a6-142",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 297
+          "selected": false,
+          "start": null
         },
         "i7-i7-a6-142-441": {
           "branch": "i7-a6-142",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 315
+          "selected": false,
+          "start": null
         },
         "i7-i7-a6-142-442": {
           "branch": "i7-a6-142",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 393
+          "selected": false,
+          "start": null
         },
         "i7-i7-a6-143-443": {
           "branch": "i7-a6-143",
@@ -70135,29 +70135,29 @@
           "branch": "i7-a6-145",
           "resource": "res_4",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 198
         },
         "i7-i7-a6-145-452": {
           "branch": "i7-a6-145",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 200
         },
         "i7-i7-a6-145-453": {
           "branch": "i7-a6-145",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 208
         },
         "i7-i7-a6-145-454": {
           "branch": "i7-a6-145",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 293
         },
         "i7-i7-a7-146-455": {
           "branch": "i7-a7-146",
@@ -70275,15 +70275,15 @@
           "branch": "i7-a7-154",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": true,
-          "start": 423
+          "selected": false,
+          "start": null
         },
         "i7-i7-a7-154-472": {
           "branch": "i7-a7-154",
           "resource": "res_4",
           "cost": 6.0,
-          "selected": true,
-          "start": 430
+          "selected": false,
+          "start": null
         },
         "i7-i7-a7-155-473": {
           "branch": "i7-a7-155",
@@ -70842,15 +70842,15 @@
           "branch": "i7-a7-176",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 301
         },
         "i7-i7-a7-176-553": {
           "branch": "i7-a7-176",
           "resource": "res_2",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 309
         },
         "i7-i7-a7-177-554": {
           "branch": "i7-a7-177",
@@ -71368,7 +71368,7 @@
           "resource": "res_0",
           "cost": 2.0,
           "selected": true,
-          "start": 482
+          "start": 369
         },
         "i7-i7-a8-196-628": {
           "branch": "i7-a8-196",
@@ -71605,22 +71605,22 @@
           "branch": "i7-a9-214",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": true,
-          "start": 484
+          "selected": false,
+          "start": null
         },
         "i7-i7-a9-214-662": {
           "branch": "i7-a9-214",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 518
+          "selected": false,
+          "start": null
         },
         "i7-i7-a9-214-663": {
           "branch": "i7-a9-214",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": true,
-          "start": 526
+          "selected": false,
+          "start": null
         },
         "i7-i7-a9-215-664": {
           "branch": "i7-a9-215",
@@ -71759,29 +71759,29 @@
           "branch": "i7-a9-220",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 387
         },
         "i7-i7-a9-220-684": {
           "branch": "i7-a9-220",
           "resource": "res_4",
           "cost": 6.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 395
         },
         "i7-i7-a9-220-685": {
           "branch": "i7-a9-220",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 441
         },
         "i7-i7-a9-220-686": {
           "branch": "i7-a9-220",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 449
         },
         "i7-i7-a9-221-687": {
           "branch": "i7-a9-221",
@@ -73202,35 +73202,35 @@
           "resource": "res_2",
           "cost": 2.0,
           "selected": true,
-          "start": 530
+          "start": 453
         },
         "i7-i7-a10-275-890": {
           "branch": "i7-a10-275",
           "resource": "res_4",
           "cost": 8.0,
           "selected": true,
-          "start": 550
+          "start": 455
         },
         "i7-i7-a10-275-891": {
           "branch": "i7-a10-275",
           "resource": "res_1",
           "cost": 2.0,
           "selected": true,
-          "start": 558
+          "start": 463
         },
         "i7-i7-a10-275-892": {
           "branch": "i7-a10-275",
           "resource": "res_0",
           "cost": 7.0,
           "selected": true,
-          "start": 619
+          "start": 498
         },
         "i7-i7-a10-275-893": {
           "branch": "i7-a10-275",
           "resource": "res_0",
           "cost": 8.0,
           "selected": true,
-          "start": 633
+          "start": 596
         },
         "i7-i7-a10-276-894": {
           "branch": "i7-a10-276",
@@ -77516,8 +77516,8 @@
           "branch": "i8-a1-1",
           "resource": "res_1",
           "cost": 3.0,
-          "selected": true,
-          "start": 3
+          "selected": false,
+          "start": null
         },
         "i8-i8-a1-2-2": {
           "branch": "i8-a1-2",
@@ -77565,15 +77565,15 @@
           "branch": "i8-a1-6",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 9
         },
         "i8-i8-a1-6-9": {
           "branch": "i8-a1-6",
           "resource": "res_2",
           "cost": 1.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 12
         },
         "i8-i8-a1-7-10": {
           "branch": "i8-a1-7",
@@ -77635,15 +77635,15 @@
           "branch": "i8-a2-13",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 18
         },
         "i8-i8-a2-13-19": {
           "branch": "i8-a2-13",
           "resource": "res_0",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 21
         },
         "i8-i8-a2-14-20": {
           "branch": "i8-a2-14",
@@ -77677,15 +77677,15 @@
           "branch": "i8-a2-16",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": true,
-          "start": 56
+          "selected": false,
+          "start": null
         },
         "i8-i8-a2-16-25": {
           "branch": "i8-a2-16",
           "resource": "res_3",
           "cost": 8.0,
-          "selected": true,
-          "start": 64
+          "selected": false,
+          "start": null
         },
         "i8-i8-a2-17-26": {
           "branch": "i8-a2-17",
@@ -77712,15 +77712,15 @@
           "branch": "i8-a3-19",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": true,
-          "start": 73
+          "selected": false,
+          "start": null
         },
         "i8-i8-a3-19-30": {
           "branch": "i8-a3-19",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 186
+          "selected": false,
+          "start": null
         },
         "i8-i8-a3-20-31": {
           "branch": "i8-a3-20",
@@ -78419,36 +78419,36 @@
           "branch": "i8-a3-46",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 24
         },
         "i8-i8-a3-46-131": {
           "branch": "i8-a3-46",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 35
         },
         "i8-i8-a3-46-132": {
           "branch": "i8-a3-46",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 39
         },
         "i8-i8-a3-46-133": {
           "branch": "i8-a3-46",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 47
         },
         "i8-i8-a3-46-134": {
           "branch": "i8-a3-46",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 48
         },
         "i8-i8-a4-47-135": {
           "branch": "i8-a4-47",
@@ -78930,64 +78930,64 @@
           "branch": "i8-a4-71",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 196
+          "selected": false,
+          "start": null
         },
         "i8-i8-a4-71-204": {
           "branch": "i8-a4-71",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": true,
-          "start": 204
+          "selected": false,
+          "start": null
         },
         "i8-i8-a4-71-205": {
           "branch": "i8-a4-71",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 249
+          "selected": false,
+          "start": null
         },
         "i8-i8-a4-71-206": {
           "branch": "i8-a4-71",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": true,
-          "start": 257
+          "selected": false,
+          "start": null
         },
         "i8-i8-a4-72-207": {
           "branch": "i8-a4-72",
           "resource": "res_1",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 50
         },
         "i8-i8-a4-72-208": {
           "branch": "i8-a4-72",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 69
         },
         "i8-i8-a4-72-209": {
           "branch": "i8-a4-72",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 77
         },
         "i8-i8-a4-72-210": {
           "branch": "i8-a4-72",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 105
         },
         "i8-i8-a4-72-211": {
           "branch": "i8-a4-72",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 113
         },
         "i8-i8-a4-73-212": {
           "branch": "i8-a4-73",
@@ -79770,22 +79770,22 @@
           "branch": "i8-a5-105",
           "resource": "res_1",
           "cost": 3.0,
-          "selected": true,
-          "start": 261
+          "selected": false,
+          "start": null
         },
         "i8-i8-a5-105-324": {
           "branch": "i8-a5-105",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 329
+          "selected": false,
+          "start": null
         },
         "i8-i8-a5-105-325": {
           "branch": "i8-a5-105",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 337
+          "selected": false,
+          "start": null
         },
         "i8-i8-a5-106-326": {
           "branch": "i8-a5-106",
@@ -79896,29 +79896,29 @@
           "branch": "i8-a5-110",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 161
         },
         "i8-i8-a5-110-342": {
           "branch": "i8-a5-110",
           "resource": "res_2",
           "cost": 1.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 169
         },
         "i8-i8-a5-110-343": {
           "branch": "i8-a5-110",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 191
         },
         "i8-i8-a5-110-344": {
           "branch": "i8-a5-110",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 199
         },
         "i8-i8-a5-111-345": {
           "branch": "i8-a5-111",
@@ -80253,15 +80253,15 @@
           "branch": "i8-a6-126",
           "resource": "res_1",
           "cost": 3.0,
-          "selected": true,
-          "start": 339
+          "selected": false,
+          "start": null
         },
         "i8-i8-a6-126-393": {
           "branch": "i8-a6-126",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 385
+          "selected": false,
+          "start": null
         },
         "i8-i8-a6-127-394": {
           "branch": "i8-a6-127",
@@ -80344,22 +80344,22 @@
           "branch": "i8-a6-131",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 223
         },
         "i8-i8-a6-131-406": {
           "branch": "i8-a6-131",
           "resource": "res_2",
           "cost": 1.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 230
         },
         "i8-i8-a6-131-407": {
           "branch": "i8-a6-131",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 269
         },
         "i8-i8-a6-132-408": {
           "branch": "i8-a6-132",
@@ -80750,15 +80750,15 @@
           "branch": "i8-a7-150",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 277
         },
         "i8-i8-a7-150-464": {
           "branch": "i8-a7-150",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 341
         },
         "i8-i8-a7-151-465": {
           "branch": "i8-a7-151",
@@ -81338,36 +81338,36 @@
           "branch": "i8-a7-175",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": true,
-          "start": 416
+          "selected": false,
+          "start": null
         },
         "i8-i8-a7-175-548": {
           "branch": "i8-a7-175",
           "resource": "res_0",
           "cost": 5.0,
-          "selected": true,
-          "start": 454
+          "selected": false,
+          "start": null
         },
         "i8-i8-a7-175-549": {
           "branch": "i8-a7-175",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 474
+          "selected": false,
+          "start": null
         },
         "i8-i8-a7-175-550": {
           "branch": "i8-a7-175",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 482
+          "selected": false,
+          "start": null
         },
         "i8-i8-a7-175-551": {
           "branch": "i8-a7-175",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 490
+          "selected": false,
+          "start": null
         },
         "i8-i8-a7-176-552": {
           "branch": "i8-a7-176",
@@ -81898,8 +81898,8 @@
           "branch": "i8-a8-195",
           "resource": "res_0",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 359
         },
         "i8-i8-a8-196-628": {
           "branch": "i8-a8-196",
@@ -81912,8 +81912,8 @@
           "branch": "i8-a8-197",
           "resource": "res_2",
           "cost": 2.0,
-          "selected": true,
-          "start": 492
+          "selected": false,
+          "start": null
         },
         "i8-i8-a8-198-630": {
           "branch": "i8-a8-198",
@@ -82542,36 +82542,36 @@
           "branch": "i8-a9-228",
           "resource": "res_4",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 365
         },
         "i8-i8-a9-228-720": {
           "branch": "i8-a9-228",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 367
         },
         "i8-i8-a9-228-721": {
           "branch": "i8-a9-228",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 375
         },
         "i8-i8-a9-228-722": {
           "branch": "i8-a9-228",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 410
         },
         "i8-i8-a9-228-723": {
           "branch": "i8-a9-228",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 418
         },
         "i8-i8-a9-229-724": {
           "branch": "i8-a9-229",
@@ -82612,15 +82612,15 @@
           "branch": "i8-a9-230",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 534
+          "selected": false,
+          "start": null
         },
         "i8-i8-a9-230-730": {
           "branch": "i8-a9-230",
           "resource": "res_2",
           "cost": 3.0,
-          "selected": true,
-          "start": 542
+          "selected": false,
+          "start": null
         },
         "i8-i8-a9-231-731": {
           "branch": "i8-a9-231",
@@ -83767,36 +83767,36 @@
           "branch": "i8-a10-276",
           "resource": "res_3",
           "cost": 5.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 428
         },
         "i8-i8-a10-276-895": {
           "branch": "i8-a10-276",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 433
         },
         "i8-i8-a10-276-896": {
           "branch": "i8-a10-276",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 441
         },
         "i8-i8-a10-276-897": {
           "branch": "i8-a10-276",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 512
         },
         "i8-i8-a10-276-898": {
           "branch": "i8-a10-276",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 588
         },
         "i8-i8-a10-277-899": {
           "branch": "i8-a10-277",
@@ -83907,22 +83907,22 @@
           "branch": "i8-a10-282",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": true,
-          "start": 545
+          "selected": false,
+          "start": null
         },
         "i8-i8-a10-282-915": {
           "branch": "i8-a10-282",
           "resource": "res_1",
           "cost": 6.0,
-          "selected": true,
-          "start": 560
+          "selected": false,
+          "start": null
         },
         "i8-i8-a10-282-916": {
           "branch": "i8-a10-282",
           "resource": "res_3",
           "cost": 8.0,
-          "selected": true,
-          "start": 588
+          "selected": false,
+          "start": null
         },
         "i8-i8-a10-283-917": {
           "branch": "i8-a10-283",
@@ -88061,22 +88061,22 @@
           "branch": "i9-a1-3",
           "resource": "res_3",
           "cost": 8.0,
-          "selected": true,
-          "start": 10
+          "selected": false,
+          "start": null
         },
         "i9-i9-a1-4-4": {
           "branch": "i9-a1-4",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 15
         },
         "i9-i9-a1-4-5": {
           "branch": "i9-a1-4",
           "resource": "res_0",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 18
         },
         "i9-i9-a1-5-6": {
           "branch": "i9-a1-5",
@@ -88194,29 +88194,29 @@
           "branch": "i9-a2-15",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": true,
-          "start": 27
+          "selected": false,
+          "start": null
         },
         "i9-i9-a2-15-23": {
           "branch": "i9-a2-15",
           "resource": "res_2",
           "cost": 1.0,
-          "selected": true,
-          "start": 30
+          "selected": false,
+          "start": null
         },
         "i9-i9-a2-16-24": {
           "branch": "i9-a2-16",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 21
         },
         "i9-i9-a2-16-25": {
           "branch": "i9-a2-16",
           "resource": "res_3",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 24
         },
         "i9-i9-a2-17-26": {
           "branch": "i9-a2-17",
@@ -88355,22 +88355,22 @@
           "branch": "i9-a3-27",
           "resource": "res_1",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 32
         },
         "i9-i9-a3-27-46": {
           "branch": "i9-a3-27",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 40
         },
         "i9-i9-a3-27-47": {
           "branch": "i9-a3-27",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 45
         },
         "i9-i9-a3-28-48": {
           "branch": "i9-a3-28",
@@ -88740,36 +88740,36 @@
           "branch": "i9-a3-40",
           "resource": "res_2",
           "cost": 2.0,
-          "selected": true,
-          "start": 31
+          "selected": false,
+          "start": null
         },
         "i9-i9-a3-40-101": {
           "branch": "i9-a3-40",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": true,
-          "start": 37
+          "selected": false,
+          "start": null
         },
         "i9-i9-a3-40-102": {
           "branch": "i9-a3-40",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 71
+          "selected": false,
+          "start": null
         },
         "i9-i9-a3-40-103": {
           "branch": "i9-a3-40",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": true,
-          "start": 79
+          "selected": false,
+          "start": null
         },
         "i9-i9-a3-40-104": {
           "branch": "i9-a3-40",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 80
+          "selected": false,
+          "start": null
         },
         "i9-i9-a3-41-105": {
           "branch": "i9-a3-41",
@@ -89405,29 +89405,29 @@
           "branch": "i9-a4-69",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 47
         },
         "i9-i9-a4-69-196": {
           "branch": "i9-a4-69",
           "resource": "res_2",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 55
         },
         "i9-i9-a4-69-197": {
           "branch": "i9-a4-69",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 73
         },
         "i9-i9-a4-69-198": {
           "branch": "i9-a4-69",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 81
         },
         "i9-i9-a4-70-199": {
           "branch": "i9-a4-70",
@@ -89979,36 +89979,36 @@
           "branch": "i9-a4-90",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": true,
-          "start": 95
+          "selected": false,
+          "start": null
         },
         "i9-i9-a4-90-278": {
           "branch": "i9-a4-90",
           "resource": "res_3",
           "cost": 8.0,
-          "selected": true,
-          "start": 102
+          "selected": false,
+          "start": null
         },
         "i9-i9-a4-90-279": {
           "branch": "i9-a4-90",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 154
+          "selected": false,
+          "start": null
         },
         "i9-i9-a4-90-280": {
           "branch": "i9-a4-90",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 162
+          "selected": false,
+          "start": null
         },
         "i9-i9-a4-90-281": {
           "branch": "i9-a4-90",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 170
+          "selected": false,
+          "start": null
         },
         "i9-i9-a4-91-282": {
           "branch": "i9-a4-91",
@@ -90427,29 +90427,29 @@
           "branch": "i9-a5-110",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 120
         },
         "i9-i9-a5-110-342": {
           "branch": "i9-a5-110",
           "resource": "res_2",
           "cost": 1.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 127
         },
         "i9-i9-a5-110-343": {
           "branch": "i9-a5-110",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 168
         },
         "i9-i9-a5-110-344": {
           "branch": "i9-a5-110",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 176
         },
         "i9-i9-a5-111-345": {
           "branch": "i9-a5-111",
@@ -90623,29 +90623,29 @@
           "branch": "i9-a5-117",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 172
+          "selected": false,
+          "start": null
         },
         "i9-i9-a5-117-370": {
           "branch": "i9-a5-117",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 180
+          "selected": false,
+          "start": null
         },
         "i9-i9-a5-117-371": {
           "branch": "i9-a5-117",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 265
+          "selected": false,
+          "start": null
         },
         "i9-i9-a5-117-372": {
           "branch": "i9-a5-117",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 273
+          "selected": false,
+          "start": null
         },
         "i9-i9-a5-118-373": {
           "branch": "i9-a5-118",
@@ -91093,21 +91093,21 @@
           "resource": "res_4",
           "cost": 8.0,
           "selected": true,
-          "start": 275
+          "start": 178
         },
         "i9-i9-a6-141-437": {
           "branch": "i9-a6-141",
           "resource": "res_4",
           "cost": 3.0,
           "selected": true,
-          "start": 283
+          "start": 192
         },
         "i9-i9-a6-141-438": {
           "branch": "i9-a6-141",
           "resource": "res_0",
           "cost": 8.0,
           "selected": true,
-          "start": 361
+          "start": 261
         },
         "i9-i9-a6-142-439": {
           "branch": "i9-a6-142",
@@ -91526,29 +91526,29 @@
           "branch": "i9-a7-164",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": true,
-          "start": 401
+          "selected": false,
+          "start": null
         },
         "i9-i9-a7-164-499": {
           "branch": "i9-a7-164",
           "resource": "res_2",
           "cost": 1.0,
-          "selected": true,
-          "start": 408
+          "selected": false,
+          "start": null
         },
         "i9-i9-a7-164-500": {
           "branch": "i9-a7-164",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 438
+          "selected": false,
+          "start": null
         },
         "i9-i9-a7-164-501": {
           "branch": "i9-a7-164",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": true,
-          "start": 446
+          "selected": false,
+          "start": null
         },
         "i9-i9-a7-165-502": {
           "branch": "i9-a7-165",
@@ -91610,36 +91610,36 @@
           "branch": "i9-a7-167",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 277
         },
         "i9-i9-a7-167-511": {
           "branch": "i9-a7-167",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 285
         },
         "i9-i9-a7-167-512": {
           "branch": "i9-a7-167",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 295
         },
         "i9-i9-a7-167-513": {
           "branch": "i9-a7-167",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 371
         },
         "i9-i9-a7-167-514": {
           "branch": "i9-a7-167",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 379
         },
         "i9-i9-a7-168-515": {
           "branch": "i9-a7-168",
@@ -92429,15 +92429,15 @@
           "branch": "i9-a8-195",
           "resource": "res_0",
           "cost": 2.0,
-          "selected": true,
-          "start": 508
+          "selected": false,
+          "start": null
         },
         "i9-i9-a8-196-628": {
           "branch": "i9-a8-196",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 383
         },
         "i9-i9-a8-197-629": {
           "branch": "i9-a8-197",
@@ -92534,15 +92534,15 @@
           "branch": "i9-a9-205",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": true,
-          "start": 526
+          "selected": false,
+          "start": null
         },
         "i9-i9-a9-205-643": {
           "branch": "i9-a9-205",
           "resource": "res_1",
           "cost": 7.0,
-          "selected": true,
-          "start": 533
+          "selected": false,
+          "start": null
         },
         "i9-i9-a9-206-644": {
           "branch": "i9-a9-206",
@@ -93073,36 +93073,36 @@
           "branch": "i9-a9-228",
           "resource": "res_4",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 385
         },
         "i9-i9-a9-228-720": {
           "branch": "i9-a9-228",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 401
         },
         "i9-i9-a9-228-721": {
           "branch": "i9-a9-228",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 409
         },
         "i9-i9-a9-228-722": {
           "branch": "i9-a9-228",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 474
         },
         "i9-i9-a9-228-723": {
           "branch": "i9-a9-228",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 482
         },
         "i9-i9-a9-229-724": {
           "branch": "i9-a9-229",
@@ -94025,29 +94025,29 @@
           "branch": "i9-a10-267",
           "resource": "res_2",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 486
         },
         "i9-i9-a10-267-856": {
           "branch": "i9-a10-267",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 488
         },
         "i9-i9-a10-267-857": {
           "branch": "i9-a10-267",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 519
         },
         "i9-i9-a10-267-858": {
           "branch": "i9-a10-267",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 580
         },
         "i9-i9-a10-268-859": {
           "branch": "i9-a10-268",
@@ -94578,29 +94578,29 @@
           "branch": "i9-a10-288",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": true,
-          "start": 542
+          "selected": false,
+          "start": null
         },
         "i9-i9-a10-288-935": {
           "branch": "i9-a10-288",
           "resource": "res_3",
           "cost": 8.0,
-          "selected": true,
-          "start": 543
+          "selected": false,
+          "start": null
         },
         "i9-i9-a10-288-936": {
           "branch": "i9-a10-288",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 588
+          "selected": false,
+          "start": null
         },
         "i9-i9-a10-288-937": {
           "branch": "i9-a10-288",
           "resource": "res_3",
           "cost": 8.0,
-          "selected": true,
-          "start": 596
+          "selected": false,
+          "start": null
         },
         "i9-i9-a10-289-938": {
           "branch": "i9-a10-289",
@@ -98571,15 +98571,15 @@
           "branch": "i10-a1-0",
           "resource": "res_0",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 2
         },
         "i10-i10-a1-1-1": {
           "branch": "i10-a1-1",
           "resource": "res_1",
           "cost": 3.0,
-          "selected": true,
-          "start": 0
+          "selected": false,
+          "start": null
         },
         "i10-i10-a1-2-2": {
           "branch": "i10-a1-2",
@@ -98669,15 +98669,15 @@
           "branch": "i10-a2-9",
           "resource": "res_0",
           "cost": 2.0,
-          "selected": true,
-          "start": 3
+          "selected": false,
+          "start": null
         },
         "i10-i10-a2-10-15": {
           "branch": "i10-a2-10",
           "resource": "res_1",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 4
         },
         "i10-i10-a2-11-16": {
           "branch": "i10-a2-11",
@@ -98858,15 +98858,15 @@
           "branch": "i10-a3-25",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 7
         },
         "i10-i10-a3-25-42": {
           "branch": "i10-a3-25",
           "resource": "res_3",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 8
         },
         "i10-i10-a3-26-43": {
           "branch": "i10-a3-26",
@@ -99306,36 +99306,36 @@
           "branch": "i10-a3-41",
           "resource": "res_3",
           "cost": 5.0,
-          "selected": true,
-          "start": 5
+          "selected": false,
+          "start": null
         },
         "i10-i10-a3-41-106": {
           "branch": "i10-a3-41",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": true,
-          "start": 10
+          "selected": false,
+          "start": null
         },
         "i10-i10-a3-41-107": {
           "branch": "i10-a3-41",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 26
+          "selected": false,
+          "start": null
         },
         "i10-i10-a3-41-108": {
           "branch": "i10-a3-41",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": true,
-          "start": 34
+          "selected": false,
+          "start": null
         },
         "i10-i10-a3-41-109": {
           "branch": "i10-a3-41",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 35
+          "selected": false,
+          "start": null
         },
         "i10-i10-a3-42-110": {
           "branch": "i10-a3-42",
@@ -99873,29 +99873,29 @@
           "branch": "i10-a4-67",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": true,
-          "start": 42
+          "selected": false,
+          "start": null
         },
         "i10-i10-a4-67-187": {
           "branch": "i10-a4-67",
           "resource": "res_4",
           "cost": 6.0,
-          "selected": true,
-          "start": 50
+          "selected": false,
+          "start": null
         },
         "i10-i10-a4-67-188": {
           "branch": "i10-a4-67",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 87
+          "selected": false,
+          "start": null
         },
         "i10-i10-a4-67-189": {
           "branch": "i10-a4-67",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": true,
-          "start": 95
+          "selected": false,
+          "start": null
         },
         "i10-i10-a4-68-190": {
           "branch": "i10-a4-68",
@@ -100223,15 +100223,15 @@
           "branch": "i10-a4-79",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 112
         },
         "i10-i10-a4-79-237": {
           "branch": "i10-a4-79",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 120
         },
         "i10-i10-a4-80-238": {
           "branch": "i10-a4-80",
@@ -100727,29 +100727,29 @@
           "branch": "i10-a5-97",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": true,
-          "start": 126
+          "selected": false,
+          "start": null
         },
         "i10-i10-a5-97-309": {
           "branch": "i10-a5-97",
           "resource": "res_0",
           "cost": 5.0,
-          "selected": true,
-          "start": 149
+          "selected": false,
+          "start": null
         },
         "i10-i10-a5-97-310": {
           "branch": "i10-a5-97",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 178
+          "selected": false,
+          "start": null
         },
         "i10-i10-a5-97-311": {
           "branch": "i10-a5-97",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 186
+          "selected": false,
+          "start": null
         },
         "i10-i10-a5-98-312": {
           "branch": "i10-a5-98",
@@ -100804,15 +100804,15 @@
           "branch": "i10-a5-103",
           "resource": "res_3",
           "cost": 5.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 128
         },
         "i10-i10-a5-103-320": {
           "branch": "i10-a5-103",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 133
         },
         "i10-i10-a5-104-321": {
           "branch": "i10-a5-104",
@@ -101364,22 +101364,22 @@
           "branch": "i10-a6-129",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 188
+          "selected": false,
+          "start": null
         },
         "i10-i10-a6-129-400": {
           "branch": "i10-a6-129",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 241
+          "selected": false,
+          "start": null
         },
         "i10-i10-a6-129-401": {
           "branch": "i10-a6-129",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 281
+          "selected": false,
+          "start": null
         },
         "i10-i10-a6-130-402": {
           "branch": "i10-a6-130",
@@ -101672,29 +101672,29 @@
           "branch": "i10-a6-143",
           "resource": "res_2",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 135
         },
         "i10-i10-a6-143-444": {
           "branch": "i10-a6-143",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 137
         },
         "i10-i10-a6-143-445": {
           "branch": "i10-a6-143",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 145
         },
         "i10-i10-a6-143-446": {
           "branch": "i10-a6-143",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 309
         },
         "i10-i10-a6-144-447": {
           "branch": "i10-a6-144",
@@ -102176,29 +102176,29 @@
           "branch": "i10-a7-168",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 289
+          "selected": false,
+          "start": null
         },
         "i10-i10-a7-168-516": {
           "branch": "i10-a7-168",
           "resource": "res_2",
           "cost": 3.0,
-          "selected": true,
-          "start": 303
+          "selected": false,
+          "start": null
         },
         "i10-i10-a7-168-517": {
           "branch": "i10-a7-168",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 369
+          "selected": false,
+          "start": null
         },
         "i10-i10-a7-168-518": {
           "branch": "i10-a7-168",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": true,
-          "start": 377
+          "selected": false,
+          "start": null
         },
         "i10-i10-a7-169-519": {
           "branch": "i10-a7-169",
@@ -102498,22 +102498,22 @@
           "branch": "i10-a7-180",
           "resource": "res_2",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 317
         },
         "i10-i10-a7-180-562": {
           "branch": "i10-a7-180",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 319
         },
         "i10-i10-a7-180-563": {
           "branch": "i10-a7-180",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 327
         },
         "i10-i10-a7-181-564": {
           "branch": "i10-a7-181",
@@ -102982,7 +102982,7 @@
           "resource": "res_3",
           "cost": 7.0,
           "selected": true,
-          "start": 381
+          "start": 329
         },
         "i10-i10-a8-199-631": {
           "branch": "i10-a8-199",
@@ -103198,22 +103198,22 @@
           "branch": "i10-a9-214",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 337
         },
         "i10-i10-a9-214-662": {
           "branch": "i10-a9-214",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 433
         },
         "i10-i10-a9-214-663": {
           "branch": "i10-a9-214",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 441
         },
         "i10-i10-a9-215-664": {
           "branch": "i10-a9-215",
@@ -103891,29 +103891,29 @@
           "branch": "i10-a9-240",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 393
+          "selected": false,
+          "start": null
         },
         "i10-i10-a9-240-761": {
           "branch": "i10-a9-240",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 510
+          "selected": false,
+          "start": null
         },
         "i10-i10-a9-240-762": {
           "branch": "i10-a9-240",
           "resource": "res_4",
           "cost": 8.0,
-          "selected": true,
-          "start": 518
+          "selected": false,
+          "start": null
         },
         "i10-i10-a9-240-763": {
           "branch": "i10-a9-240",
           "resource": "res_1",
           "cost": 2.0,
-          "selected": true,
-          "start": 526
+          "selected": false,
+          "start": null
         },
         "i10-i10-a9-241-764": {
           "branch": "i10-a9-241",
@@ -104339,29 +104339,29 @@
           "branch": "i10-a10-259",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 482
         },
         "i10-i10-a10-259-825": {
           "branch": "i10-a10-259",
           "resource": "res_2",
           "cost": 4.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 492
         },
         "i10-i10-a10-259-826": {
           "branch": "i10-a10-259",
           "resource": "res_0",
           "cost": 7.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 505
         },
         "i10-i10-a10-259-827": {
           "branch": "i10-a10-259",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": false,
-          "start": null
+          "selected": true,
+          "start": 564
         },
         "i10-i10-a10-260-828": {
           "branch": "i10-a10-260",
@@ -105172,36 +105172,36 @@
           "branch": "i10-a10-290",
           "resource": "res_1",
           "cost": 1.0,
-          "selected": true,
-          "start": 528
+          "selected": false,
+          "start": null
         },
         "i10-i10-a10-290-944": {
           "branch": "i10-a10-290",
           "resource": "res_1",
           "cost": 3.0,
-          "selected": true,
-          "start": 529
+          "selected": false,
+          "start": null
         },
         "i10-i10-a10-290-945": {
           "branch": "i10-a10-290",
           "resource": "res_4",
           "cost": 3.0,
-          "selected": true,
-          "start": 572
+          "selected": false,
+          "start": null
         },
         "i10-i10-a10-290-946": {
           "branch": "i10-a10-290",
           "resource": "res_0",
           "cost": 8.0,
-          "selected": true,
-          "start": 580
+          "selected": false,
+          "start": null
         },
         "i10-i10-a10-290-947": {
           "branch": "i10-a10-290",
           "resource": "res_3",
           "cost": 8.0,
-          "selected": true,
-          "start": 604
+          "selected": false,
+          "start": null
         },
         "i10-i10-a10-291-948": {
           "branch": "i10-a10-291",
@@ -105318,5 +105318,5 @@
     "res_3",
     "res_4"
   ],
-  "objective": 649
+  "objective": 604
 }
