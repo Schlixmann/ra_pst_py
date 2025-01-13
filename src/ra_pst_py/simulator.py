@@ -11,13 +11,25 @@ class Simulator():
         self.allocation_type = None
 
     def initialize(self, process_instances:list[Instance], allocation_type) -> None:
+        """
+        Initializes the Simulator adds instances and adds the first task to the allocation queue
+        TODO: maybe different allocation types for different instances.
+        """
         self.allocation_type = allocation_type
         self.process_instances = process_instances
         self.ns = process_instances[0].ns
+
         for i,instance in enumerate(process_instances):
             task = instance.current_task
             release_time = float(task.xpath("cpee1:release_time", namespaces = self.ns)[0].text)
             self.update_task_queue((instance, task, release_time))
+        
+    def add_instance(self): # TODO
+        """ 
+        Should add a new instance to self.process_instances after sumalation has started.
+        New instance will be added in queue
+        """
+        raise NotImplementedError("Method not implemented")
 
     def simulate(self):
         while self.task_queue:
@@ -34,6 +46,14 @@ class Simulator():
                 else:
                     print(f"Instance {instance} is finished")
             
+            elif self.allocation_type == "cp_single_instance":
+                # TODO use CP for each instance seperately
+                pass
+            elif self.allocation_type == "cp_all_instances":
+                # TODO use CP for all instances at once
+                pass
+            else:
+                raise NotImplementedError(f"Allocation_type {self.allocation_type} has not been implemented yet")
 
     def update_task_queue(self, task:tuple) -> None:
         instance, task, release_time = task

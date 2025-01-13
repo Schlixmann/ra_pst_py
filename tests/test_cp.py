@@ -31,7 +31,7 @@ class CPTest(unittest.TestCase):
         #show_tree_as_graph(self.ra_pst)
 
     def test_cp_sched(self):
-        show_tree_as_graph(self.ra_pst)
+        #show_tree_as_graph(self.ra_pst)
         result = conf_cp_scheduling("tests/test_data/ilp_rep.json")
         with open("out/cp_result.json", "w") as f:
             json.dump(result, f, indent=2)
