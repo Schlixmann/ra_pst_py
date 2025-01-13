@@ -8,8 +8,8 @@ with open("out/schedule.json", "r") as f:
     ilp_result = json.load(f)
     for sequence, values in ilp_result.items():
         jobs[sequence] = values["jobs"]
-
         resources.update(set(job["resource"][0] for job in jobs[sequence]))
+
 resources = sorted(resources)
 resource_to_y = {resource: i for i, resource in enumerate(resources)}
 
@@ -30,6 +30,5 @@ plt.xlabel("Time")
 plt.ylabel("Resources")
 plt.title("Job Scheduling Visualization")
 plt.grid(axis="x", linestyle="--", alpha=0.7)
-
 plt.tight_layout()
 plt.show()

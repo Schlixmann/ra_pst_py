@@ -1,131 +1,867 @@
 <description xmlns="http://cpee.org/ns/description/1.0">
-  <call id="a1" endpoint="">
-    <parameters>
-      <label>receive order</label>
-      <method>:post</method>
-      <arguments/>
-    </parameters>
-    <annotations>
-      <_timing>
-        <_timing_weight/>
-        <_timing_avg/>
-        <explanations/>
-      </_timing>
-      <_shifting>
-        <_shifting_type>Duration</_shifting_type>
-      </_shifting>
-      <_context_data_analysis>
-        <probes/>
-        <ips/>
-      </_context_data_analysis>
-      <report>
-        <url/>
-      </report>
-      <_notes>
-        <_notes_general/>
-      </_notes>
-    </annotations>
-    <documentation>
-      <input/>
-      <output/>
-      <implementation>
-        <description/>
-      </implementation>
-    </documentation>
-    <resources allocated_to="res_0 role: role_0role_0 resource res_0">
-      <resource>role_0</resource>
-    </resources>
-    <expectedready/>
-    <plannedstart/>
-    <plannedend/>
-  <allocation><resource id="res_0" name="res_0">
-		<resprofile id="role_0" name="role_0" role="role_0" task="receive order">
+      <call id="a1" endpoint="">
+        <parameters>
+          <label>receive order</label>
+          <method>:post</method>
+          <arguments/>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+        <resources allocated_to="res_2 role: role_4role_4 resource res_2"/>
+        <expectedready/>
+        <plannedstart/>
+        <plannedend/>
+      <allocation><resource id="res_2" name="res_2">
+		<resprofile id="role_4" name="role_4" role="role_4" task="receive order">
 			<measures>
 				<cost>1</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</allocation><release_time>0</release_time><expected_start>2.0</expected_start><expected_end>3.0</expected_end><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/></call>
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>check order</label>
+          <method>:post</method>
+          <arguments/>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+        <resources allocated_to="res_2 role: role_4role_4 resource res_2"/>
+        <expectedready/>
+        <plannedstart/>
+        <plannedend/>
+      <allocation><resource id="res_2" name="res_2">
+		<resprofile id="role_4" name="role_4" role="role_4" task="check order">
+			<measures>
+				<cost>1</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</allocation><release_time>3.0</release_time><expected_start>5.0</expected_start><expected_end>6.0</expected_end></call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>create part sheet</label>
+          <method>:post</method>
+          <arguments/>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+        <resources allocated_to="res_2 role: role_9role_9 resource res_2"/>
+        <expectedready/>
+        <plannedstart/>
+        <plannedend/>
+      <allocation><resource id="res_2" name="res_2">
+		<resprofile id="role_9" name="role_9" role="role_9" task="create part sheet">
+			<measures>
+				<cost>2</cost>
+			</measures>
+			<changepattern type="delete">
+				<parameters>
+					<direction>any</direction>
+				</parameters>
+				<description>
+					<manipulate id="delete_1" label="create part sheet">
+						<resources allocated_to="not_allocated">
+							<resource>role_8</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		<children/></resprofile>
+		</resource>
+	</allocation><release_time>6.0</release_time><expected_start>10.0</expected_start><expected_end>12.0</expected_end></call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label>check part sheet</label>
+          <method>:post</method>
+          <arguments/>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+        <resources allocated_to="res_0 role: role_8role_8 resource res_0"/>
+        <expectedready/>
+        <plannedstart/>
+        <plannedend/>
+      <allocation><resource id="res_0" name="res_0">
+		<resprofile id="role_8" name="role_8" role="role_8" task="check part sheet">
+			<measures>
+				<cost>7</cost>
 			</measures>
 			<changepattern type="insert">
 				<parameters>
 					<direction>after</direction>
 				</parameters>
 				<description>
-					<manipulate id="insert_b1" label="insert_b1" type="insert" direction="after">
+					<manipulate id="insert_a8" label="insert_a8" type="insert" direction="after">
 						<resources allocated_to="not_allocated">
-							<resource>role_1</resource>
+							<resource>role_0</resource>
 						</resources>
 					</manipulate>
 				</description>
 			</changepattern>
-		<children><manipulate id="insert_b1" label="insert_b1" type="insert" direction="after">
+		<children><manipulate id="insert_a8" label="insert_a8" type="insert" direction="after">
 						<resources allocated_to="not_allocated">
-							<resource>role_1</resource>
+							<resource>role_0</resource>
+						</resources>
+					<children><resource id="res_2" name="res_2">
+		<resprofile id="role_0" name="role_0" role="role_0" task="insert_a8">
+			<measures>
+				<cost>1</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</children><release_time>29.0</release_time><expected_start>29.0</expected_start><expected_end>30.0</expected_end><expectedready/></manipulate>
+				</children></resprofile>
+		</resource>
+	</allocation><release_time>12.0</release_time><expected_start>22.0</expected_start><expected_end>29.0</expected_end></call>
+      <manipulate id="r10" label="insert_a8" type="insert" direction="after">
+						<resources allocated_to="res_2 role: role_0role_0 resource res_2">
+							<resource>role_0</resource>
+						</resources>
+					<children><resource id="res_2" name="res_2">
+		<resprofile id="role_0" name="role_0" role="role_0" task="insert_a8">
+			<measures>
+				<cost>1</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</children><release_time>29.0</release_time><expected_start>29.0</expected_start><expected_end>30.0</expected_end><expectedready/><allocation><resource id="res_2" name="res_2">
+		<resprofile id="role_0" name="role_0" role="role_0" task="insert_a8">
+			<measures>
+				<cost>1</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</allocation></manipulate>
+				<manipulate id="r13" label="insert_b11" type="insert" direction="before">
+						<resources allocated_to="res_0 role: role_8role_8 resource res_0">
+							<resource>role_8</resource>
 						</resources>
 					<children><resource id="res_0" name="res_0">
-		<resprofile id="role_1" name="role_1" role="role_1" task="insert_b1">
+		<resprofile id="role_8" name="role_8" role="role_8" task="insert_b11">
 			<measures>
-				<cost>3</cost>
-			</measures>			
-			<changepattern type="replace">
+				<cost>7</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>after</direction>
+				</parameters>
+				<description>
+					<manipulate id="insert_a8" label="insert_a8" type="insert" direction="after">
+						<resources allocated_to="not_allocated">
+							<resource>role_0</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		<children><manipulate id="insert_a8" label="insert_a8" type="insert" direction="after">
+						<resources allocated_to="not_allocated">
+							<resource>role_0</resource>
+						</resources>
+					<children><resource id="res_0" name="res_0">
+		<resprofile id="role_0" name="role_0" role="role_0" task="insert_a8">
+			<measures>
+				<cost>5</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</children><release_time>76.0</release_time><expected_start>76.0</expected_start><expected_end>81.0</expected_end><expectedready/></manipulate>
+				</children></resprofile>
+		</resource>
+	</children><release_time>30.0</release_time><expected_start>69.0</expected_start><expected_end>76.0</expected_end><expectedready/><allocation><resource id="res_0" name="res_0">
+		<resprofile id="role_8" name="role_8" role="role_8" task="insert_b11">
+			<measures>
+				<cost>7</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>after</direction>
+				</parameters>
+				<description>
+					<manipulate id="insert_a8" label="insert_a8" type="insert" direction="after">
+						<resources allocated_to="not_allocated">
+							<resource>role_0</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		<children><manipulate id="insert_a8" label="insert_a8" type="insert" direction="after">
+						<resources allocated_to="not_allocated">
+							<resource>role_0</resource>
+						</resources>
+					<children><resource id="res_0" name="res_0">
+		<resprofile id="role_0" name="role_0" role="role_0" task="insert_a8">
+			<measures>
+				<cost>5</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</children><release_time>76.0</release_time><expected_start>76.0</expected_start><expected_end>81.0</expected_end><expectedready/></manipulate>
+				</children></resprofile>
+		</resource>
+	</allocation></manipulate>
+				<manipulate id="r14" label="insert_a8" type="insert" direction="after">
+						<resources allocated_to="res_0 role: role_0role_0 resource res_0">
+							<resource>role_0</resource>
+						</resources>
+					<children><resource id="res_0" name="res_0">
+		<resprofile id="role_0" name="role_0" role="role_0" task="insert_a8">
+			<measures>
+				<cost>5</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</children><release_time>76.0</release_time><expected_start>76.0</expected_start><expected_end>81.0</expected_end><expectedready/><allocation><resource id="res_0" name="res_0">
+		<resprofile id="role_0" name="role_0" role="role_0" task="insert_a8">
+			<measures>
+				<cost>5</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</allocation></manipulate>
+				<manipulate id="r12" label="insert_b1" type="insert" direction="before">
+						<resources allocated_to="res_0 role: role_7role_7 resource res_0">
+							<resource>role_7</resource>
+						</resources>
+					<children><resource id="res_0" name="res_0">
+		<resprofile id="role_7" name="role_7" role="role_7" task="insert_b1">
+			<measures>
+				<cost>8</cost>
+			</measures>
+			<changepattern type="insert">
 				<parameters>
 					<direction>before</direction>
 				</parameters>
 				<description>
-					<manipulate id="replace_c1" label="replace_c1" type="replace" direction="before">
+					<manipulate id="insert_b11" label="insert_b11" type="insert" direction="before">
 						<resources allocated_to="not_allocated">
-							<resource>role_1</resource>
+							<resource>role_8</resource>
 						</resources>
 					</manipulate>
 				</description>
 			</changepattern>
-		<children><manipulate id="replace_c1" label="replace_c1" type="replace" direction="before">
+		<children><manipulate id="insert_b11" label="insert_b11" type="insert" direction="before">
 						<resources allocated_to="not_allocated">
-							<resource>role_1</resource>
+							<resource>role_8</resource>
 						</resources>
 					<children><resource id="res_0" name="res_0">
-		<resprofile id="role_1" name="role_1" role="role_1" task="replace_c1">
+		<resprofile id="role_8" name="role_8" role="role_8" task="insert_b11">
 			<measures>
-				<cost>2</cost>
-			</measures>			
-			<children><manipulate id="to_delete" label="to_delete" type="delete" direction="any">
+				<cost>7</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>after</direction>
+				</parameters>
+				<description>
+					<manipulate id="insert_a8" label="insert_a8" type="insert" direction="after">
 						<resources allocated_to="not_allocated">
-							<resource>role_1</resource>
+							<resource>role_0</resource>
 						</resources>
-					<release_time>1.0</release_time><expectedready/></manipulate>
-				</children></resprofile>
-		</resource>
-</children><release_time>1.0</release_time><expected_start>1.0</expected_start><expected_end>3.0</expected_end><expectedready/></manipulate>
-				</children></resprofile>
-		</resource>
-</children><release_time>1.0</release_time><expected_start>1.0</expected_start><expected_end>3.0</expected_end><expectedready/></manipulate>
-				</children></resprofile>
-		</resource>
-</allocation><release_time>0</release_time><expected_start>0.0</expected_start><expected_end>1.0</expected_end></call>
-  <manipulate id="r1" label="replace_c1" type="replace" direction="before">
-						<resources allocated_to="res_0 role: role_1role_1 resource res_0">
-							<resource>role_1</resource>
-						</resources>
-					<children><resource id="res_0" name="res_0">
-		<resprofile id="role_1" name="role_1" role="role_1" task="replace_c1">
-			<measures>
-				<cost>2</cost>
-			</measures>			
-			<children><manipulate id="to_delete" label="to_delete" type="delete" direction="any">
-						<resources allocated_to="not_allocated">
-							<resource>role_1</resource>
-						</resources>
-					<release_time>1.0</release_time><expectedready/></manipulate>
-				</children></resprofile>
-		</resource>
-</children><release_time>1.0</release_time><expected_start>1.0</expected_start><expected_end>3.0</expected_end><expectedready/><allocation><resource id="res_0" name="res_0">
-		<resprofile id="role_1" name="role_1" role="role_1" task="replace_c1">
-			<measures>
-				<cost>2</cost>
-			</measures>			
-			<children><manipulate id="to_delete" label="to_delete" type="delete" direction="any">
-						<resources allocated_to="not_allocated">
-							<resource>role_1</resource>
-						</resources>
-					<release_time>1.0</release_time><expectedready/></manipulate>
-				</children></resprofile>
-		</resource>
-</allocation></manipulate>
+					</manipulate>
 				</description>
+			</changepattern>
+		<children><manipulate id="insert_a8" label="insert_a8" type="insert" direction="after">
+						<resources allocated_to="not_allocated">
+							<resource>role_0</resource>
+						</resources>
+					<children><resource id="res_0" name="res_0">
+		<resprofile id="role_0" name="role_0" role="role_0" task="insert_a8">
+			<measures>
+				<cost>5</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</children><release_time>76.0</release_time><expected_start>76.0</expected_start><expected_end>81.0</expected_end><expectedready/></manipulate>
+				</children></resprofile>
+		</resource>
+	</children><release_time>30.0</release_time><expected_start>69.0</expected_start><expected_end>76.0</expected_end><expectedready/></manipulate>
+				</children></resprofile>
+		</resource>
+	</children><release_time>81.0</release_time><expected_start>81.0</expected_start><expected_end>89.0</expected_end><expectedready/><allocation><resource id="res_0" name="res_0">
+		<resprofile id="role_7" name="role_7" role="role_7" task="insert_b1">
+			<measures>
+				<cost>8</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>before</direction>
+				</parameters>
+				<description>
+					<manipulate id="insert_b11" label="insert_b11" type="insert" direction="before">
+						<resources allocated_to="not_allocated">
+							<resource>role_8</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		<children><manipulate id="insert_b11" label="insert_b11" type="insert" direction="before">
+						<resources allocated_to="not_allocated">
+							<resource>role_8</resource>
+						</resources>
+					<children><resource id="res_0" name="res_0">
+		<resprofile id="role_8" name="role_8" role="role_8" task="insert_b11">
+			<measures>
+				<cost>7</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>after</direction>
+				</parameters>
+				<description>
+					<manipulate id="insert_a8" label="insert_a8" type="insert" direction="after">
+						<resources allocated_to="not_allocated">
+							<resource>role_0</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		<children><manipulate id="insert_a8" label="insert_a8" type="insert" direction="after">
+						<resources allocated_to="not_allocated">
+							<resource>role_0</resource>
+						</resources>
+					<children><resource id="res_0" name="res_0">
+		<resprofile id="role_0" name="role_0" role="role_0" task="insert_a8">
+			<measures>
+				<cost>5</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</children><release_time>76.0</release_time><expected_start>76.0</expected_start><expected_end>81.0</expected_end><expectedready/></manipulate>
+				</children></resprofile>
+		</resource>
+	</children><release_time>30.0</release_time><expected_start>69.0</expected_start><expected_end>76.0</expected_end><expectedready/></manipulate>
+				</children></resprofile>
+		</resource>
+	</allocation></manipulate>
+				<call id="a5" endpoint="">
+        <parameters>
+          <label>handover</label>
+          <method>:post</method>
+          <arguments/>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+        <resources allocated_to="res_1 role: role_3role_3 resource res_1"/>
+        <expectedready/>
+        <plannedstart/>
+        <plannedend/>
+      <allocation><resource id="res_1" name="res_1">
+		<resprofile id="role_3" name="role_3" role="role_3" task="handover">
+			<measures>
+				<cost>2</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>before</direction>
+				</parameters>
+				<description>
+					<manipulate id="insert_b1" label="insert_b1" type="insert" direction="before">
+						<resources allocated_to="not_allocated">
+							<resource>role_7</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		<children><manipulate id="insert_b1" label="insert_b1" type="insert" direction="before">
+						<resources allocated_to="not_allocated">
+							<resource>role_7</resource>
+						</resources>
+					<children><resource id="res_0" name="res_0">
+		<resprofile id="role_7" name="role_7" role="role_7" task="insert_b1">
+			<measures>
+				<cost>8</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>before</direction>
+				</parameters>
+				<description>
+					<manipulate id="insert_b11" label="insert_b11" type="insert" direction="before">
+						<resources allocated_to="not_allocated">
+							<resource>role_8</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		<children><manipulate id="insert_b11" label="insert_b11" type="insert" direction="before">
+						<resources allocated_to="not_allocated">
+							<resource>role_8</resource>
+						</resources>
+					<children><resource id="res_0" name="res_0">
+		<resprofile id="role_8" name="role_8" role="role_8" task="insert_b11">
+			<measures>
+				<cost>7</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>after</direction>
+				</parameters>
+				<description>
+					<manipulate id="insert_a8" label="insert_a8" type="insert" direction="after">
+						<resources allocated_to="not_allocated">
+							<resource>role_0</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		<children><manipulate id="insert_a8" label="insert_a8" type="insert" direction="after">
+						<resources allocated_to="not_allocated">
+							<resource>role_0</resource>
+						</resources>
+					<children><resource id="res_0" name="res_0">
+		<resprofile id="role_0" name="role_0" role="role_0" task="insert_a8">
+			<measures>
+				<cost>5</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</children><release_time>76.0</release_time><expected_start>76.0</expected_start><expected_end>81.0</expected_end><expectedready/></manipulate>
+				</children></resprofile>
+		</resource>
+	</children><release_time>30.0</release_time><expected_start>69.0</expected_start><expected_end>76.0</expected_end><expectedready/></manipulate>
+				</children></resprofile>
+		</resource>
+	</children><release_time>81.0</release_time><expected_start>81.0</expected_start><expected_end>89.0</expected_end><expectedready/></manipulate>
+				</children></resprofile>
+		</resource>
+	</allocation><release_time>89.0</release_time><expected_start>89.0</expected_start><expected_end>91.0</expected_end></call>
+      <call id="a6" endpoint="">
+        <parameters>
+          <label>create invoice</label>
+          <method>:post</method>
+          <arguments/>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+        <resources allocated_to="res_2 role: role_7role_7 resource res_2"/>
+        <expectedready/>
+        <plannedstart/>
+        <plannedend/>
+      <allocation><resource id="res_2" name="res_2">
+		<resprofile id="role_7" name="role_7" role="role_7" task="create invoice">
+			<measures>
+				<cost>2</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</allocation><release_time>91.0</release_time><expected_start>99.0</expected_start><expected_end>101.0</expected_end></call>
+      <call id="a7" endpoint="">
+        <parameters>
+          <label>send invoice</label>
+          <method>:post</method>
+          <arguments/>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+        <resources allocated_to="res_0 role: role_8role_8 resource res_0"/>
+        <expectedready/>
+        <plannedstart/>
+        <plannedend/>
+      <allocation><resource id="res_0" name="res_0">
+		<resprofile id="role_8" name="role_8" role="role_8" task="send invoice">
+			<measures>
+				<cost>7</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>after</direction>
+				</parameters>
+				<description>
+					<manipulate id="insert_a8" label="insert_a8" type="insert" direction="after">
+						<resources allocated_to="not_allocated">
+							<resource>role_0</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		<children><manipulate id="insert_a8" label="insert_a8" type="insert" direction="after">
+						<resources allocated_to="not_allocated">
+							<resource>role_0</resource>
+						</resources>
+					<children><resource id="res_2" name="res_2">
+		<resprofile id="role_0" name="role_0" role="role_0" task="insert_a8">
+			<measures>
+				<cost>1</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</children><release_time>120.0</release_time><expected_start>120.0</expected_start><expected_end>121.0</expected_end><expectedready/></manipulate>
+				</children></resprofile>
+		</resource>
+	</allocation><release_time>101.0</release_time><expected_start>113.0</expected_start><expected_end>120.0</expected_end></call>
+      <manipulate id="r15" label="insert_a8" type="insert" direction="after">
+						<resources allocated_to="res_2 role: role_0role_0 resource res_2">
+							<resource>role_0</resource>
+						</resources>
+					<children><resource id="res_2" name="res_2">
+		<resprofile id="role_0" name="role_0" role="role_0" task="insert_a8">
+			<measures>
+				<cost>1</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</children><release_time>120.0</release_time><expected_start>120.0</expected_start><expected_end>121.0</expected_end><expectedready/><allocation><resource id="res_2" name="res_2">
+		<resprofile id="role_0" name="role_0" role="role_0" task="insert_a8">
+			<measures>
+				<cost>1</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</allocation></manipulate>
+				<call id="a8" endpoint="">
+        <parameters>
+          <label>send product</label>
+          <method>:post</method>
+          <arguments/>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+        <resources allocated_to="res_0 role: role_5role_5 resource res_0"/>
+        <expectedready/>
+        <plannedstart/>
+        <plannedend/>
+      <to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><allocation><resource id="res_0" name="res_0">
+		<resprofile id="role_5" name="role_5" role="role_5" task="send product">
+			<measures>
+				<cost>2</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</allocation><release_time>121.0</release_time><expected_start>122.0</expected_start><expected_end>124.0</expected_end><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/></call>
+      <call id="a9" endpoint="">
+        <parameters>
+          <label>handover to aftersales</label>
+          <method>:post</method>
+          <arguments/>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+        <resources allocated_to="res_0 role: role_8role_8 resource res_0"/>
+        <expectedready/>
+        <plannedstart/>
+        <plannedend/>
+      <allocation><resource id="res_0" name="res_0">
+		<resprofile id="role_8" name="role_8" role="role_8" task="handover to aftersales">
+			<measures>
+				<cost>7</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>after</direction>
+				</parameters>
+				<description>
+					<manipulate id="insert_a8" label="insert_a8" type="insert" direction="after">
+						<resources allocated_to="not_allocated">
+							<resource>role_0</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		<children><manipulate id="insert_a8" label="insert_a8" type="insert" direction="after">
+						<resources allocated_to="not_allocated">
+							<resource>role_0</resource>
+						</resources>
+					<children><resource id="res_2" name="res_2">
+		<resprofile id="role_0" name="role_0" role="role_0" task="insert_a8">
+			<measures>
+				<cost>1</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</children><release_time>138.0</release_time><expected_start>138.0</expected_start><expected_end>139.0</expected_end><expectedready/></manipulate>
+				</children></resprofile>
+		</resource>
+	</allocation><release_time>124.0</release_time><expected_start>131.0</expected_start><expected_end>138.0</expected_end></call>
+      <manipulate id="r16" label="insert_a8" type="insert" direction="after">
+						<resources allocated_to="res_2 role: role_0role_0 resource res_2">
+							<resource>role_0</resource>
+						</resources>
+					<children><resource id="res_2" name="res_2">
+		<resprofile id="role_0" name="role_0" role="role_0" task="insert_a8">
+			<measures>
+				<cost>1</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</children><release_time>138.0</release_time><expected_start>138.0</expected_start><expected_end>139.0</expected_end><expectedready/><allocation><resource id="res_2" name="res_2">
+		<resprofile id="role_0" name="role_0" role="role_0" task="insert_a8">
+			<measures>
+				<cost>1</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</allocation></manipulate>
+				<call id="a10" endpoint="">
+        <parameters>
+          <label>wait</label>
+          <method>:post</method>
+          <arguments/>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+        <resources allocated_to="res_2 role: role_2role_2 resource res_2"/>
+        <expectedready/>
+        <plannedstart/>
+        <plannedend/>
+      <allocation><resource id="res_2" name="res_2">
+		<resprofile id="role_2" name="role_2" role="role_2" task="wait">
+			<measures>
+				<cost>1</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</allocation><release_time>139.0</release_time><expected_start>139.0</expected_start><expected_end>140.0</expected_end></call>
+    </description>
+  

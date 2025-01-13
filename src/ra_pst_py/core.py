@@ -99,8 +99,6 @@ class RA_PST:
             }
         }
         """
-        instanceId = "1"
-
         # Get resourcelist from RA_PST
         resourcelist = self.get_resourcelist()
 
