@@ -69,6 +69,16 @@ class RA_PST:
         )
         return [resource.attrib["id"] for resource in resources]
 
+    def get_first_release_time(self) -> int:
+        "Returns release time of first task"
+        first_task = self.get_tasklist()[0]
+        # find release_time of first_task
+        release_time_element = first_task.xpath("descendant::cpee1:release_time", namespaces=self.ns)
+        if release_time_element:
+            return int(release_time_element[0].text)
+        else: 
+            return None
+
     def get_ilp_rep(self, instance_id = 'i1') -> dict:
         """
         Transforms information from RA-PST into a dictionary format suitable for an ILP model.
@@ -128,7 +138,10 @@ class RA_PST:
         tasklist = self.get_tasklist(attribute="id")
 
         temp = {"tasks": tasklist, "resources": resourcelist, "branches": branches}
-
+        release_time = self.get_first_release_time()
+        task_release_dict = {}
+        if release_time is not None:
+            task_release_dict[tasklist[0]] = release_time
         # Different ilp format
         result = {
             "tasks": {},
@@ -147,6 +160,7 @@ class RA_PST:
                     "deletes": branch["deletes"],
                     "branch_no": branch["branch_no"],
                     "branchCost": 0,
+                    "release_time": 0
                 }
                 previousJob = None
                 for job in branch["jobs"]:
@@ -155,12 +169,16 @@ class RA_PST:
                         "resource": job[0],
                         "cost": float(job[1]),
                         "after": [],
+                        "release_time": 0, 
+                        "start": None
                     }
                     if previousJob is not None:
                         newJob["after"].append(previousJob)
                     for b in result["branches"].values():
                         newJob["after"].append(b["jobs"][-1])
                     newBranch["branchCost"] += float(job[1])
+                    if task in task_release_dict.keys():
+                        newJob["release_time"] = task_release_dict[task]
                     jobId = f'{instance_id}-{branchId}-{len(result["jobs"])}'
                     newBranch["jobs"].append(jobId)
                     result["jobs"][jobId] = newJob

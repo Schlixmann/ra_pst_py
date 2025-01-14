@@ -56,6 +56,21 @@ def cp_solver(ra_pst_json):
             # print(f'Add job {jobId}')
             job_intervals.append(job["interval"])
 
+            # Start time must be > than release time if a release time for instance is given
+            if job["release_time"]:
+                release_time_hr = job["release_time"]
+                job["interval"].set_start_min(release_time_hr)
+
+            # Fix intervals of Jobs scheduled in previous jobs:
+            if job["start"] is not None:
+                start_hr = int(job["start"])
+                end_hr = int(job["start"]) + int(job["cost"])
+                job["interval"].set_start_min(start_hr)
+                job["interval"].set_start_max(start_hr)
+                job["interval"].set_end_min(end_hr)
+                job["interval"].set_end_max(end_hr)
+                
+
         # Precedence constraints
         for jobId, job in ra_pst["jobs"].items():
             for jobId2 in job["after"]:
@@ -104,7 +119,7 @@ def cp_solver(ra_pst_json):
             job["selected"] = itv.is_present()
             job["start"] = itv.get_start()
             del job["interval"]
-            del job["after"]
+            #del job["after"]
     ra_psts["objective"] = result.get_objective_value()
 
     return ra_psts
