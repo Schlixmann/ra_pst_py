@@ -18,6 +18,10 @@ class ScheduleTest(unittest.TestCase):
             resource_file="test_instances/instance_generator_resources.xml"
         )
         self.ra_pst = build_rapst(
+            process_file="test_instances/paper_process_short.xml",
+            resource_file="test_instances/offer_resources_many_invalid_branches_sched.xml"
+        )
+        self.ra_pst = build_rapst(
             process_file="test_instances/instance_generator_process.xml",
             resource_file="test_instances/instance_generator_resources.xml"
         )
@@ -26,7 +30,7 @@ class ScheduleTest(unittest.TestCase):
             json.dump(ilp_rep, f, indent=2)
             f.close()
     
-    def test_check_homogeneous_allocation_types(self):
+    def test_get_allocation_types(self):
         instances_to_sim = []
         sched = Schedule()
         sim = Simulator()
@@ -40,7 +44,7 @@ class ScheduleTest(unittest.TestCase):
             instances_to_sim.append([instance, "heuristic"])
         
         sim.initialize(instances_to_sim, "heuristic")
-        result = sim.check_homogeneous_allocation_types()
+        result = sim.get_allocation_types()
         self.assertEqual(result, "heuristic", f"found allocation type {result}, expected 'heuristic'")
 
         sim = Simulator()
@@ -49,7 +53,7 @@ class ScheduleTest(unittest.TestCase):
         expected_error = f"More than one allocation_type among the instances to allocate. Types: {exp_values}"
         try:
             sim.initialize(instances_to_sim, "heuristic")
-            result = sim.check_homogeneous_allocation_types()
+            result = sim.get_allocation_types()
         except ValueError as e:
             self.assertEqual(
                 str(e), 
@@ -68,7 +72,7 @@ class ScheduleTest(unittest.TestCase):
             task1 = etree.fromstring(etree.tostring(task1))
             instances_to_sim.append([instance, "cp_all"])
         sim.initialize(instances_to_sim, "heuristic")
-        result = sim.check_homogeneous_allocation_types()
+        result = sim.get_allocation_types()
         self.assertEqual(result, "cp_all", f"found allocation type {result}, expected 'heuristic'")
 
     def test_new_sim(self):
@@ -87,7 +91,7 @@ class ScheduleTest(unittest.TestCase):
 
         sim.initialize(instances_to_sim, "heuristic")
         sim.simulate()
-        print(f"Schedule:\n {sched.schedule}")
+        #print(f"Schedule:\n {sched.schedule}")
         sched.print_to_cli()
         json.dump(sched.schedule_as_dict(), open("out/schedule.json", "w"), indent=2)
 
@@ -95,7 +99,7 @@ class ScheduleTest(unittest.TestCase):
         instances_to_sim = []
         sched = Schedule()
         sim = Simulator()
-        release_times = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        release_times = [0, 10, 15, 20, 30]
         created_instances = []
         for _  in range(len(release_times)):
             instance = Instance(copy.deepcopy(self.ra_pst), {}, sched)
@@ -111,3 +115,20 @@ class ScheduleTest(unittest.TestCase):
         #print(f"Schedule:\n {sched.schedule}")
         #sched.print_to_cli()
         #json.dump(sched.schedule_as_dict(), open("out/schedule.json", "w"), indent=2)
+        
+    def test_single_instance_sim(self):
+        instances_to_sim = []
+        sched = Schedule()
+        sim = Simulator()
+        release_times = [0, 10, 15, 20, 30]
+        created_instances = []
+        for _  in range(len(release_times)):
+            instance = Instance(copy.deepcopy(self.ra_pst), {}, sched)
+            task1 = instance.ra_pst.get_tasklist()[0]
+            child = etree.SubElement(task1, f"{{{instance.ns['cpee1']}}}release_time")
+            child.text = str(release_times.pop(0))
+            task1 = etree.fromstring(etree.tostring(task1))
+            instances_to_sim.append([instance, "cp_single_instance"])
+
+        sim.initialize(instances_to_sim, "h")
+        sim.simulate()
