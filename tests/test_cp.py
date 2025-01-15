@@ -48,17 +48,10 @@ class DocplexTest(unittest.TestCase):
             process_file="test_instances/paper_process_short.xml",
             resource_file="test_instances/offer_resources_many_invalid_branches.xml"
         )
-<<<<<<< Updated upstream
         self.ra_pst = build_rapst(
             process_file="test_instances/instance_generator_process_short.xml",
             resource_file="test_instances/instance_generator_resources.xml"
         )
-=======
-        #self.ra_pst = build_rapst(
-        #    process_file="test_instances/instance_generator_process.xml",
-        #    resource_file="test_instances/instance_generator_resources.xml"
-        #)
->>>>>>> Stashed changes
         ilp_rep = self.ra_pst.get_ilp_rep()
         ilp_dict = {"instances" : []}
         ilp_dict["instances"].append(ilp_rep)
