@@ -32,8 +32,10 @@ class Instance():
         best_branch, times = self.allocator.allocate_task(self.current_task)
         task_id = self.current_task.attrib["id"]
         branch_no = self.ra_pst.branches[task_id].index(best_branch)
+        self.ra_pst.branches[task_id][branch_no] = best_branch
         self.times.append(times)
-        # Add best branch to schedule
+        # transform best branch to job representation
+
         alloc_times = []
         for task in best_branch.get_tasklist():
             cp_type = task.attrib["type"] if "type" in list(task.attrib.keys()) else None
@@ -47,6 +49,7 @@ class Instance():
             start_time = task.xpath("cpee1:expected_start", namespaces=self.ns)[0].text
             end_time = task.xpath("cpee1:expected_end", namespaces=self.ns)[0].text
             duration = float(end_time) - float(start_time)
+            
             self.allocator.schedule.add_task((self, task, start_time), resource, duration, branch_no)
             alloc_times.append((start_time, duration))
         # Apply best branch to processmodel
@@ -57,14 +60,14 @@ class Instance():
         self.current_task = utils.get_next_task(self.tasks_iter, self)
         if self.current_task == "end":
             self.optimal_process = self.ra_pst.process
-            return times
+            return best_branch
         if self.current_task.xpath("cpee1:release_time", namespaces=self.ns):
             self.current_task.xpath("cpee1:release_time", namespaces=self.ns)[0].text = str(sum(times))
         else:
             child = etree.SubElement(self.current_task, f"{{{self.ns['cpee1']}}}release_time")
             child.text = str(sum(times))
-        return times
-
+        return best_branch
+    
     def apply_single_branch(self, task, branch):
         if self.optimal_process is not None:
             raise ValueError("All tasks have already been allocated")
