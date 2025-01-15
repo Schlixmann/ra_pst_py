@@ -1,6 +1,6 @@
-<call xmlns="http://cpee.org/ns/description/1.0" id="a10" endpoint="">
+<call xmlns="http://cpee.org/ns/description/1.0" id="a9" endpoint="">
         <parameters>
-          <label>wait</label>
+          <label>handover to aftersales</label>
           <method>:post</method>
           <arguments/>
         </parameters>
@@ -35,12 +35,17 @@
         <expectedready/>
         <plannedstart/>
         <plannedend/>
-      <children><resource id="res_2" name="res_2">
-		<resprofile id="role_2" name="role_2" role="role_2" task="wait">
+      <children><resource id="res_3" name="res_3">
+		<resprofile id="role_8" name="role_8" role="role_8" task="handover to aftersales">
 			<measures>
-				<cost>1</cost>
+				<cost>2</cost>
 			</measures>
-		<children/></resprofile>
+			<children><manipulate id="delete_6" label="receive order" type="delete" direction="any">
+						<resources allocated_to="not_allocated">
+							<resource>role_4</resource>
+						</resources>
+					<release_time>39.0</release_time></manipulate>
+				</children></resprofile>
 		</resource>
-	</children><release_time>137.0</release_time><expected_start>137.0</expected_start><expected_end>138.0</expected_end></call>
+	</children><release_time>39.0</release_time><expected_start>39.0</expected_start><expected_end>41.0</expected_end></call>
     

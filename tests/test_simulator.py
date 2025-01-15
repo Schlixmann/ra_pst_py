@@ -19,7 +19,7 @@ class ScheduleTest(unittest.TestCase):
             resource_file="test_instances/offer_resources_many_invalid_branches_sched.xml"
         )
         self.ra_pst = build_rapst(
-            process_file="test_instances/instance_generator_process.xml",
+            process_file="test_instances/instance_generator_process_short.xml",
             resource_file="test_instances/instance_generator_resources.xml"
         )
         ilp_rep = self.ra_pst.get_ilp_rep()
@@ -92,7 +92,6 @@ class ScheduleTest(unittest.TestCase):
         sched.print_to_cli()
         
 
-
     def test_multiinstance_cp_sim(self):
         instances_to_sim = []
         sched = Schedule()
@@ -118,7 +117,7 @@ class ScheduleTest(unittest.TestCase):
         instances_to_sim = []
         sched = Schedule()
         sim = Simulator()
-        release_times = [0, 10, 15, 20, 30]
+        release_times = [0] #[0, 10, 15, 20, 30]
         created_instances = []
         for _  in range(len(release_times)):
             instance = Instance(copy.deepcopy(self.ra_pst), {}, sched)
@@ -128,20 +127,23 @@ class ScheduleTest(unittest.TestCase):
             task1 = etree.fromstring(etree.tostring(task1))
             instances_to_sim.append([instance, "cp_single_instance"])
 
+        show_tree_as_graph(instances_to_sim[0][0].ra_pst)
         sim.initialize(instances_to_sim)
         sim.simulate()
     
     def test_all_three_types(self):               
         sched = Schedule()
         results = {}
+        org_release_times = [30,15]
 
         # Heuristic Single Task allocation
         sim = Simulator()
         instances_to_sim = []
-        release_times = [0, 25, 10]
+        release_times = copy.copy(org_release_times)
         allocation_type = "heuristic"
         for _  in range(len(release_times)):
             instance = Instance(copy.deepcopy(self.ra_pst), {}, sched)
+            
             task1 = instance.ra_pst.get_tasklist()[0]
             child = etree.SubElement(task1, f"{{{instance.ns['cpee1']}}}release_time")
             child.text = str(release_times.pop(0))
@@ -163,7 +165,7 @@ class ScheduleTest(unittest.TestCase):
         # CP Single Instance allocation
         sim = Simulator()
         instances_to_sim = []
-        release_times = [0, 25, 10]        
+        release_times = copy.copy(org_release_times)
         allocation_type = "cp_single_instance"
         for _  in range(len(release_times)):
             instance = Instance(copy.deepcopy(self.ra_pst), {}, sched)
@@ -172,6 +174,7 @@ class ScheduleTest(unittest.TestCase):
             child.text = str(release_times.pop(0))
             task1 = etree.fromstring(etree.tostring(task1))
             instances_to_sim.append([instance, allocation_type])
+        show_tree_as_graph(instance.ra_pst)
 
         sim.initialize(instances_to_sim, f"out/schedule_{allocation_type}.json")
         start = time.time()
@@ -188,7 +191,7 @@ class ScheduleTest(unittest.TestCase):
         # CP Multi Instance allocation
         sim = Simulator()
         instances_to_sim = []
-        release_times = [0, 25, 10]        
+        release_times = copy.copy(org_release_times)
         allocation_type = "cp_all"
         for _  in range(len(release_times)):
             instance = Instance(copy.deepcopy(self.ra_pst), {}, sched)

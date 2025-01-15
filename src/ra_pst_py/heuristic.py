@@ -28,7 +28,7 @@ class TaskAllocator():
                 finish_times.append((branch, self.calculate_finish_time(branch.node)[1:]))
         if not finish_times:
             raise ValueError("No valid branch for this task")
-        finish_times.sort(key=lambda x: sum(x[1][1:]))
+        finish_times.sort(key=lambda x: sum(x[1]))
         #print(finish_times)
         return finish_times[0]
     

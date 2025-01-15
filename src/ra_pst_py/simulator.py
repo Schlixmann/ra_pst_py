@@ -113,6 +113,7 @@ class Simulator():
                     # Find id of instance in self.process_instances
                     instance_id = [element["instance"] for element in self.process_instances].index(instance_to_allocate)
                     ilp_rep = instance_to_allocate.ra_pst.get_ilp_rep(instance_id=instance_id)
+
                     ra_psts["instances"].append(ilp_rep)
                     ra_psts["resources"] = ilp_rep["resources"]
 
@@ -139,7 +140,7 @@ class Simulator():
             ra_psts["instances"] = []
             for i, allocation_object in enumerate(self.process_instances):
                 instance_to_allocate = allocation_object["instance"] 
-                ilp_rep = instance_to_allocate.ra_pst.get_ilp_rep(instance_id=f'i{i+1}')
+                ilp_rep = instance_to_allocate.ra_pst.get_ilp_rep(instance_id=i)
                 ra_psts["instances"].append(ilp_rep)
             ra_psts["resources"] = ilp_rep["resources"]      
             with open(self.schedule_filepath, "w") as f:

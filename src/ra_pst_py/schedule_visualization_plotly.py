@@ -62,9 +62,9 @@ def show_schedule(path):
     fig.show()
 
 if __name__ == "__main__":
-    #show_schedule("out/all_single_cp.json")
+    #show_schedule("out/sim_schedule.json")
     #show_schedule("out/cp_rep_multiinstance.json")
-    #show_schedule("out/schedule_cp_all.json")
-    #show_schedule("out/schedule_cp_single_instance.json")
+    show_schedule("out/schedule_cp_all.json")
+    show_schedule("out/schedule_cp_single_instance.json")
     #show_schedule("out/schedule_heuristic.json")
     show_schedule("tests/test_data/cp_result copy.json")
