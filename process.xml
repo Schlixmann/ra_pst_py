@@ -43,7 +43,7 @@
 			</measures>
 		<children/></resprofile>
 		</resource>
-	</allocation><release_time>0</release_time><expected_start>2.0</expected_start><expected_end>3.0</expected_end><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/></call>
+	</allocation><release_time>25</release_time><expected_start>40.0</expected_start><expected_end>41.0</expected_end><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/></call>
       <call id="a2" endpoint="">
         <parameters>
           <label>check order</label>
@@ -88,7 +88,7 @@
 			</measures>
 		<children/></resprofile>
 		</resource>
-	</allocation><release_time>3.0</release_time><expected_start>5.0</expected_start><expected_end>6.0</expected_end></call>
+	</allocation><release_time>41.0</release_time><expected_start>43.0</expected_start><expected_end>44.0</expected_end></call>
       <call id="a3" endpoint="">
         <parameters>
           <label>create part sheet</label>
@@ -145,7 +145,7 @@
 			</changepattern>
 		<children/></resprofile>
 		</resource>
-	</allocation><release_time>6.0</release_time><expected_start>10.0</expected_start><expected_end>12.0</expected_end></call>
+	</allocation><release_time>44.0</release_time><expected_start>44.0</expected_start><expected_end>46.0</expected_end></call>
       <call id="a4" endpoint="">
         <parameters>
           <label>check part sheet</label>
@@ -211,10 +211,10 @@
 			</measures>
 		<children/></resprofile>
 		</resource>
-	</children><release_time>29.0</release_time><expected_start>29.0</expected_start><expected_end>30.0</expected_end><expectedready/></manipulate>
+	</children><release_time>74.0</release_time><expected_start>74.0</expected_start><expected_end>75.0</expected_end><expectedready/></manipulate>
 				</children></resprofile>
 		</resource>
-	</allocation><release_time>12.0</release_time><expected_start>22.0</expected_start><expected_end>29.0</expected_end></call>
+	</allocation><release_time>46.0</release_time><expected_start>67.0</expected_start><expected_end>74.0</expected_end></call>
       <manipulate id="r10" label="insert_a8" type="insert" direction="after">
 						<resources allocated_to="res_2 role: role_0role_0 resource res_2">
 							<resource>role_0</resource>
@@ -226,7 +226,7 @@
 			</measures>
 		<children/></resprofile>
 		</resource>
-	</children><release_time>29.0</release_time><expected_start>29.0</expected_start><expected_end>30.0</expected_end><expectedready/><allocation><resource id="res_2" name="res_2">
+	</children><release_time>74.0</release_time><expected_start>74.0</expected_start><expected_end>75.0</expected_end><expectedready/><allocation><resource id="res_2" name="res_2">
 		<resprofile id="role_0" name="role_0" role="role_0" task="insert_a8">
 			<measures>
 				<cost>1</cost>
@@ -266,10 +266,10 @@
 			</measures>
 		<children/></resprofile>
 		</resource>
-	</children><release_time>76.0</release_time><expected_start>76.0</expected_start><expected_end>81.0</expected_end><expectedready/></manipulate>
+	</children><release_time>90.0</release_time><expected_start>90.0</expected_start><expected_end>95.0</expected_end><expectedready/></manipulate>
 				</children></resprofile>
 		</resource>
-	</children><release_time>30.0</release_time><expected_start>69.0</expected_start><expected_end>76.0</expected_end><expectedready/><allocation><resource id="res_0" name="res_0">
+	</children><release_time>75.0</release_time><expected_start>83.0</expected_start><expected_end>90.0</expected_end><expectedready/><allocation><resource id="res_0" name="res_0">
 		<resprofile id="role_8" name="role_8" role="role_8" task="insert_b11">
 			<measures>
 				<cost>7</cost>
@@ -297,7 +297,7 @@
 			</measures>
 		<children/></resprofile>
 		</resource>
-	</children><release_time>76.0</release_time><expected_start>76.0</expected_start><expected_end>81.0</expected_end><expectedready/></manipulate>
+	</children><release_time>90.0</release_time><expected_start>90.0</expected_start><expected_end>95.0</expected_end><expectedready/></manipulate>
 				</children></resprofile>
 		</resource>
 	</allocation></manipulate>
@@ -312,7 +312,7 @@
 			</measures>
 		<children/></resprofile>
 		</resource>
-	</children><release_time>76.0</release_time><expected_start>76.0</expected_start><expected_end>81.0</expected_end><expectedready/><allocation><resource id="res_0" name="res_0">
+	</children><release_time>90.0</release_time><expected_start>90.0</expected_start><expected_end>95.0</expected_end><expectedready/><allocation><resource id="res_0" name="res_0">
 		<resprofile id="role_0" name="role_0" role="role_0" task="insert_a8">
 			<measures>
 				<cost>5</cost>
@@ -373,13 +373,13 @@
 			</measures>
 		<children/></resprofile>
 		</resource>
-	</children><release_time>76.0</release_time><expected_start>76.0</expected_start><expected_end>81.0</expected_end><expectedready/></manipulate>
+	</children><release_time>90.0</release_time><expected_start>90.0</expected_start><expected_end>95.0</expected_end><expectedready/></manipulate>
 				</children></resprofile>
 		</resource>
-	</children><release_time>30.0</release_time><expected_start>69.0</expected_start><expected_end>76.0</expected_end><expectedready/></manipulate>
+	</children><release_time>75.0</release_time><expected_start>83.0</expected_start><expected_end>90.0</expected_end><expectedready/></manipulate>
 				</children></resprofile>
 		</resource>
-	</children><release_time>81.0</release_time><expected_start>81.0</expected_start><expected_end>89.0</expected_end><expectedready/><allocation><resource id="res_0" name="res_0">
+	</children><release_time>95.0</release_time><expected_start>95.0</expected_start><expected_end>103.0</expected_end><expectedready/><allocation><resource id="res_0" name="res_0">
 		<resprofile id="role_7" name="role_7" role="role_7" task="insert_b1">
 			<measures>
 				<cost>8</cost>
@@ -428,10 +428,10 @@
 			</measures>
 		<children/></resprofile>
 		</resource>
-	</children><release_time>76.0</release_time><expected_start>76.0</expected_start><expected_end>81.0</expected_end><expectedready/></manipulate>
+	</children><release_time>90.0</release_time><expected_start>90.0</expected_start><expected_end>95.0</expected_end><expectedready/></manipulate>
 				</children></resprofile>
 		</resource>
-	</children><release_time>30.0</release_time><expected_start>69.0</expected_start><expected_end>76.0</expected_end><expectedready/></manipulate>
+	</children><release_time>75.0</release_time><expected_start>83.0</expected_start><expected_end>90.0</expected_end><expectedready/></manipulate>
 				</children></resprofile>
 		</resource>
 	</allocation></manipulate>
@@ -542,16 +542,16 @@
 			</measures>
 		<children/></resprofile>
 		</resource>
-	</children><release_time>76.0</release_time><expected_start>76.0</expected_start><expected_end>81.0</expected_end><expectedready/></manipulate>
+	</children><release_time>90.0</release_time><expected_start>90.0</expected_start><expected_end>95.0</expected_end><expectedready/></manipulate>
 				</children></resprofile>
 		</resource>
-	</children><release_time>30.0</release_time><expected_start>69.0</expected_start><expected_end>76.0</expected_end><expectedready/></manipulate>
+	</children><release_time>75.0</release_time><expected_start>83.0</expected_start><expected_end>90.0</expected_end><expectedready/></manipulate>
 				</children></resprofile>
 		</resource>
-	</children><release_time>81.0</release_time><expected_start>81.0</expected_start><expected_end>89.0</expected_end><expectedready/></manipulate>
+	</children><release_time>95.0</release_time><expected_start>95.0</expected_start><expected_end>103.0</expected_end><expectedready/></manipulate>
 				</children></resprofile>
 		</resource>
-	</allocation><release_time>89.0</release_time><expected_start>89.0</expected_start><expected_end>91.0</expected_end></call>
+	</allocation><release_time>103.0</release_time><expected_start>103.0</expected_start><expected_end>105.0</expected_end></call>
       <call id="a6" endpoint="">
         <parameters>
           <label>create invoice</label>
@@ -596,7 +596,7 @@
 			</measures>
 		<children/></resprofile>
 		</resource>
-	</allocation><release_time>91.0</release_time><expected_start>99.0</expected_start><expected_end>101.0</expected_end></call>
+	</allocation><release_time>105.0</release_time><expected_start>111.0</expected_start><expected_end>113.0</expected_end></call>
       <call id="a7" endpoint="">
         <parameters>
           <label>send invoice</label>
@@ -662,10 +662,10 @@
 			</measures>
 		<children/></resprofile>
 		</resource>
-	</children><release_time>120.0</release_time><expected_start>120.0</expected_start><expected_end>121.0</expected_end><expectedready/></manipulate>
+	</children><release_time>126.0</release_time><expected_start>126.0</expected_start><expected_end>127.0</expected_end><expectedready/></manipulate>
 				</children></resprofile>
 		</resource>
-	</allocation><release_time>101.0</release_time><expected_start>113.0</expected_start><expected_end>120.0</expected_end></call>
+	</allocation><release_time>113.0</release_time><expected_start>119.0</expected_start><expected_end>126.0</expected_end></call>
       <manipulate id="r15" label="insert_a8" type="insert" direction="after">
 						<resources allocated_to="res_2 role: role_0role_0 resource res_2">
 							<resource>role_0</resource>
@@ -677,7 +677,7 @@
 			</measures>
 		<children/></resprofile>
 		</resource>
-	</children><release_time>120.0</release_time><expected_start>120.0</expected_start><expected_end>121.0</expected_end><expectedready/><allocation><resource id="res_2" name="res_2">
+	</children><release_time>126.0</release_time><expected_start>126.0</expected_start><expected_end>127.0</expected_end><expectedready/><allocation><resource id="res_2" name="res_2">
 		<resprofile id="role_0" name="role_0" role="role_0" task="insert_a8">
 			<measures>
 				<cost>1</cost>
@@ -729,7 +729,7 @@
 			</measures>
 		<children/></resprofile>
 		</resource>
-	</allocation><release_time>121.0</release_time><expected_start>122.0</expected_start><expected_end>124.0</expected_end><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/></call>
+	</allocation><release_time>127.0</release_time><expected_start>127.0</expected_start><expected_end>129.0</expected_end><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/><to_delete/></call>
       <call id="a9" endpoint="">
         <parameters>
           <label>handover to aftersales</label>
@@ -795,10 +795,10 @@
 			</measures>
 		<children/></resprofile>
 		</resource>
-	</children><release_time>138.0</release_time><expected_start>138.0</expected_start><expected_end>139.0</expected_end><expectedready/></manipulate>
+	</children><release_time>136.0</release_time><expected_start>136.0</expected_start><expected_end>137.0</expected_end><expectedready/></manipulate>
 				</children></resprofile>
 		</resource>
-	</allocation><release_time>124.0</release_time><expected_start>131.0</expected_start><expected_end>138.0</expected_end></call>
+	</allocation><release_time>129.0</release_time><expected_start>129.0</expected_start><expected_end>136.0</expected_end></call>
       <manipulate id="r16" label="insert_a8" type="insert" direction="after">
 						<resources allocated_to="res_2 role: role_0role_0 resource res_2">
 							<resource>role_0</resource>
@@ -810,7 +810,7 @@
 			</measures>
 		<children/></resprofile>
 		</resource>
-	</children><release_time>138.0</release_time><expected_start>138.0</expected_start><expected_end>139.0</expected_end><expectedready/><allocation><resource id="res_2" name="res_2">
+	</children><release_time>136.0</release_time><expected_start>136.0</expected_start><expected_end>137.0</expected_end><expectedready/><allocation><resource id="res_2" name="res_2">
 		<resprofile id="role_0" name="role_0" role="role_0" task="insert_a8">
 			<measures>
 				<cost>1</cost>
@@ -862,6 +862,6 @@
 			</measures>
 		<children/></resprofile>
 		</resource>
-	</allocation><release_time>139.0</release_time><expected_start>139.0</expected_start><expected_end>140.0</expected_end></call>
+	</allocation><release_time>137.0</release_time><expected_start>137.0</expected_start><expected_end>138.0</expected_end></call>
     </description>
   

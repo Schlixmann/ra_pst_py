@@ -53,8 +53,12 @@ class DocplexTest(unittest.TestCase):
             resource_file="test_instances/instance_generator_resources.xml"
         )
         ilp_rep = self.ra_pst.get_ilp_rep()
+        ilp_dict = {"instances" : []}
+        ilp_dict["instances"].append(ilp_rep)
+        ilp_dict["resources"] = ilp_rep["resources"]
         with open("tests/test_data/ilp_rep.json", "w") as f:
-            json.dump(ilp_rep, f, indent=2)
+            json.dump(ilp_dict, f, indent=2)
+            f.close()
     
     def test_cp(self):
         self.setUp()
