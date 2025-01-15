@@ -67,4 +67,4 @@ if __name__ == "__main__":
     #show_schedule("out/schedule_cp_all.json")
     #show_schedule("out/schedule_cp_single_instance.json")
     #show_schedule("out/schedule_heuristic.json")
-    show_schedule("tests/test_data/cp_result.json")
+    show_schedule("tests/test_data/cp_result copy.json")

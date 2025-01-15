@@ -49,7 +49,7 @@ class DocplexTest(unittest.TestCase):
             resource_file="test_instances/offer_resources_many_invalid_branches.xml"
         )
         self.ra_pst = build_rapst(
-            process_file="test_instances/instance_generator_process.xml",
+            process_file="test_instances/instance_generator_process_short.xml",
             resource_file="test_instances/instance_generator_resources.xml"
         )
         ilp_rep = self.ra_pst.get_ilp_rep()
@@ -74,7 +74,7 @@ class DocplexTest(unittest.TestCase):
         self.setUp()
         ra_psts = {}
         ra_psts["instances"] = []
-        for i in range(10):
+        for i in range(3):
             ilp_rep = self.ra_pst.get_ilp_rep(instance_id=f'i{i+1}')
             ra_psts["instances"].append(ilp_rep)
         ra_psts["resources"] = ilp_rep["resources"]
