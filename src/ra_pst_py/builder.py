@@ -1,6 +1,12 @@
 from .core import RA_PST
 from .graphix import TreeGraph
 from .file_parser import parse_process_file, parse_resource_file
+from src.ra_pst_py.ilp import configuration_ilp, scheduling_ilp, combined_ilp
+from src.ra_pst_py.cp_google_or import conf_cp
+from src.ra_pst_py.instance import transform_ilp_to_branches, Instance
+
+import json
+import pathlib
 
 
 def build_rapst(process_file, resource_file) -> RA_PST:
@@ -67,3 +73,26 @@ def get_ilp_rep(ra_pst: RA_PST):
         "resources": resourcelist,
         "branches": branches
     }
+
+def build_optimized_instance(ra_pst:RA_PST, solver:str = "ilp") -> Instance:        
+    ilp_rep = ra_pst.get_ilp_rep() 
+    pathlib.Path("tmp").mkdir(parents=True, exist_ok=True)
+    with open("tmp/ilp_rep.json", "w") as f:
+        json.dump(ilp_rep, f, indent=2)
+        f.close()
+    if solver == "ilp":
+        conf_ilp = combined_ilp("tmp/ilp_rep.json")
+        with open("out/ilp_result.json", "w") as f:
+            json.dump(conf_ilp, f)
+    elif solver == "cp":
+        conf_ilp = conf_cp("tmp/ilp_rep.json")
+    else:
+        raise NotImplementedError(f"Specified solver {solver} not implemented.")
+    
+    branches_to_apply = transform_ilp_to_branches(ra_pst, conf_ilp)
+    instance = Instance(ra_pst, branches_to_apply)
+    instance.get_optimal_instance()
+    return instance
+
+        
+

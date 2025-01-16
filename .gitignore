@@ -5,6 +5,10 @@ tests/outcome/*
 branches.xml
 .vscode
 ilp_rep.json
+ilp_result.json
+tmp/*
+branch_raw.xml
+out/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
