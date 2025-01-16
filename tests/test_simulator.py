@@ -160,7 +160,7 @@ class ScheduleTest(unittest.TestCase):
             results[allocation_type] = {}
             results[allocation_type]["objective"] = jobs["objective"]
             results[allocation_type]["time"] = str(end - start)
-            print(f"Objective: {jobs["objective"]}")
+            print(f"Objective: {jobs['objective']}")
 
         # CP Single Instance allocation
         sim = Simulator()
@@ -186,7 +186,7 @@ class ScheduleTest(unittest.TestCase):
             results[allocation_type] = {}
             results[allocation_type]["objective"] = jobs["objective"]
             results[allocation_type]["time"] = str(end - start)
-            print(f"Objective: {jobs["objective"]}")
+            print(f"Objective: {jobs['objective']}")
     
         # CP Multi Instance allocation
         sim = Simulator()
@@ -211,6 +211,6 @@ class ScheduleTest(unittest.TestCase):
             results[allocation_type] = {}
             results[allocation_type]["objective"] = jobs["objective"]
             results[allocation_type]["time"] = str(end - start)
-            print(f"Objective: {jobs["objective"]}")
+            print(f"Objective: {jobs['objective']}")
         
         print(f"Results: {results}")

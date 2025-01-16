@@ -37,7 +37,7 @@ class TaskAllocator():
         release_time = task.xpath("cpee1:release_time", namespaces=self.ns)[0].text
         tasks = branch.get_tasklist()
         for branch_task in tasks:
-            child = etree.SubElement(branch_task, f"{{{self.ns["cpee1"]}}}release_time")
+            child = etree.SubElement(branch_task, f"{{{self.ns['cpee1']}}}release_time")
             child.text = release_time
     
     def calculate_finish_time(self, task:etree._Element) -> float:
@@ -51,9 +51,9 @@ class TaskAllocator():
             #release_time_element = task.xpath("cpee1:release_time", namespaces=self.ns)[0]
             #resource_element = task.xpath("cpee1:children/cpee1:resource", namespaces=self.ns)[0]
             allocated_resource, earliest_start, duration = self.find_best_resource(task)
-            start_element = etree.SubElement(task, f"{{{self.ns["cpee1"]}}}expected_start")
+            start_element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_start")
             start_element.text = str(earliest_start)
-            end_element = etree.SubElement(task, f"{{{self.ns["cpee1"]}}}expected_end")
+            end_element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_end")
             end_element.text = str(earliest_start + duration)
 
             return start_element, earliest_start, duration
@@ -83,9 +83,9 @@ class TaskAllocator():
                        
                         # find times for tree_node
                         allocated_resource, earliest_start, duration = self.find_best_resource(task)
-                        start_element = etree.SubElement(task, f"{{{self.ns["cpee1"]}}}expected_start")
+                        start_element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_start")
                         start_element.text = str(earliest_start)
-                        end_element = etree.SubElement(task, f"{{{self.ns["cpee1"]}}}expected_end")
+                        end_element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_end")
                         end_element.text = str(earliest_start + duration)
 
                         # return to branch
@@ -93,9 +93,9 @@ class TaskAllocator():
 
                     elif child_direction == "after":
                         allocated_resource, earliest_start, duration = self.find_best_resource(task)
-                        start_element = etree.SubElement(task, f"{{{self.ns["cpee1"]}}}expected_start")
+                        start_element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_start")
                         start_element.text = str(earliest_start)
-                        end_element = etree.SubElement(task, f"{{{self.ns["cpee1"]}}}expected_end")
+                        end_element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_end")
                         end_element.text = str(earliest_start + duration)
                         new_release_time = earliest_start+duration
 
@@ -126,9 +126,9 @@ class TaskAllocator():
                             child_node.text = anchor.text
                             earliest_start = anchor.text
                         allocated_resource, earliest_start, duration = self.find_best_resource(task)
-                        start_element = etree.SubElement(task, f"{{{self.ns["cpee1"]}}}expected_start")
+                        start_element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_start")
                         start_element.text = str(earliest_start)
-                        end_element = etree.SubElement(task, f"{{{self.ns["cpee1"]}}}expected_end")
+                        end_element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_end")
                         end_element.text = str(earliest_start + duration)
                         new_release_time = earliest_start+duration
                         return start_element, earliest_start, duration
@@ -147,7 +147,7 @@ class TaskAllocator():
                         for task in affected_tasks:
                             proc_tasks = self.change_operation.get_proc_task(self.ra_pst.process, task, full_rapst=True)
                             for proc_task in proc_tasks:
-                                delete_element = etree.SubElement(proc_task, f"{{{self.ns["cpee1"]}}}to_delete")
+                                delete_element = etree.SubElement(proc_task, f"{{{self.ns['cpee1']}}}to_delete")
                                 self.change_operation.to_del_label.append(utils.get_label(etree.tostring(proc_task)))
 
                         cp_element = new_child.xpath("cpee1:children/cpee1:resource/cpee1:resprofile/cpee1:changepattern", namespaces=self.ns)[0]
@@ -166,9 +166,9 @@ class TaskAllocator():
                     start_element, earliest_start, duration = self.calculate_finish_time(
                         task=child)
                     #allocated_resource, earliest_start, duration = self.find_best_resource(child)
-                    start_element = etree.SubElement(task, f"{{{self.ns["cpee1"]}}}expected_start")
+                    start_element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_start")
                     start_element.text = str(earliest_start)
-                    end_element = etree.SubElement(task, f"{{{self.ns["cpee1"]}}}expected_end")
+                    end_element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_end")
                     end_element.text = str(earliest_start + duration)
                     new_release_time = earliest_start+duration
 
@@ -178,9 +178,9 @@ class TaskAllocator():
             if task.xpath("descendant::cpee1:changepattern/@type", namespaces=self.ns)[0] == "delete":
                 # set values for task and resource
                 allocated_resource, earliest_start, duration = self.find_best_resource(task)
-                start_element = etree.SubElement(task, f"{{{self.ns["cpee1"]}}}expected_start")
+                start_element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_start")
                 start_element.text = str(earliest_start)
-                end_element = etree.SubElement(task, f"{{{self.ns["cpee1"]}}}expected_end")
+                end_element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_end")
                 end_element.text = str(earliest_start + duration)                 
                 # return to branch
                 return start_element, earliest_start, duration

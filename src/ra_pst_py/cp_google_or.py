@@ -147,7 +147,7 @@ def conf_cp_scheduling(ra_pst_json):
     for sequence, ra_pst in sequences.items():
         branch_vars[sequence] = defaultdict(list)
         for task, taskId in enumerate(ra_pst["tasks"]):
-            branch_vars[sequence][taskId] = [model.NewBoolVar(f"{ra_pst["tasks"][task]}_branch{i}") for i in range(len(task_branch_list[sequence][taskId]))]
+            branch_vars[sequence][taskId] = [model.NewBoolVar(f"{ra_pst['tasks'][task]}_branch{i}") for i in range(len(task_branch_list[sequence][taskId]))]
             # Set the number of chosen branches equal to 1 if the task is not deleted
             model.Add(sum(branch_vars[sequence][taskId]) == 1 - task_vars[sequence][task])
             # TODO needs intervals?!
