@@ -63,14 +63,15 @@ class Simulator():
 
                 if instance_allocation_type == "heuristic":
                     best_branch = instance.allocate_next_task()
-                    #instance_dict = self.format_branch_to_job_dict(best_branch, next_task, instance)
-                    
+                    instance_dict = self.format_branch_to_job_dict(best_branch, next_task, instance)
+                    instance_dict = self.generate_dict_from_ra_pst(best_branch, instance, next_task)
                     with open(self.schedule_filepath, "r+") as f:
                         if os.path.getsize(self.schedule_filepath) > 0:
                             tmp_sched = json.load(f)
                         else: 
                             tmp_sched = {"instances": [], "resources":[], "objective":0}  # Default if file is empty
-                        
+
+                        # Create global resources list
                         resources = set(tmp_sched["resources"])
                         
                         list_idx=len(instance_mapper.values())
@@ -245,7 +246,8 @@ class Simulator():
         instances_dict["jobs"] = jobs_dict
         return instances_dict
     
-    def generate_dict_from_ra_pst(self, branch:Branch, instance:Instance, ilp_rep):
+    def generate_dict_from_ra_pst(self, branch:Branch, instance:Instance, next_task):
+        ilp_rep = instance.ra_pst.get_ilp_rep()
         instance_id = ilp_rep["instanceId"]
         task_id = branch.node.attrib["id"]
         branch_running_id = list(itertools.chain(*instance.ra_pst.branches.values())).index(branch)
@@ -267,7 +269,6 @@ class Simulator():
             ilp_rep["jobs"][jobId]["start"] = start_time
             ilp_rep["jobs"][jobId]["cost"] = duration
             ilp_rep["jobs"][jobId]["selected"]=True
-
 
         return ilp_rep
 
