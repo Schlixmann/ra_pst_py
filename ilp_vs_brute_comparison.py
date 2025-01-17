@@ -1,4 +1,4 @@
-from src.ra_pst_py.builder import build_rapst, get_rapst_etree, get_rapst_str, build_optimized_instance
+from src.ra_pst_py.builder import build_rapst, get_rapst_etree, get_rapst_str, build_optimized_instance, show_tree_as_graph
 from src.ra_pst_py.ilp import configuration_ilp, scheduling_ilp, combined_ilp
 from src.ra_pst_py.brute_force import BruteForceSearch, build_optimized_instance_brute
 

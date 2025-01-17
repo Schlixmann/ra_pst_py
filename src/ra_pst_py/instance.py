@@ -1,4 +1,7 @@
 from src.ra_pst_py.change_operations import ChangeOperation
+from src.ra_pst_py.heuristic import TaskAllocator
+from src.ra_pst_py.schedule import Schedule
+
 from . import utils 
 
 import numpy as np
@@ -9,7 +12,7 @@ from .core import RA_PST
 CURRENT_MIN_DATE = "2024-01-01T00:00" # Placeholder for scheduling heuristics
 
 class Instance():
-    def __init__(self, ra_pst, branches_to_apply:dict):
+    def __init__(self, ra_pst, branches_to_apply:dict, schedule:Schedule):
         self.ra_pst:RA_PST = ra_pst
         self.ns = ra_pst.ns
         self.branches_to_apply = branches_to_apply
@@ -20,7 +23,66 @@ class Instance():
         self.current_task = utils.get_next_task(self.tasks_iter, self)
         self.optimal_process = None
         self.invalid = False
+        self.allocator = TaskAllocator(self.ra_pst, schedule, self.change_op)
+        self.allocated_tasks = set()
+        self.times = []
 
+    def allocate_next_task(self):
+        """ Allocate next task in ra_pst based on earliest finish time heuristic"""
+        best_branch, times = self.allocator.allocate_task(self.current_task)
+        task_id = self.current_task.attrib["id"]
+        branch_no = self.ra_pst.branches[task_id].index(best_branch)
+        self.ra_pst.branches[task_id][branch_no] = best_branch
+        self.times.append(times)
+        # transform best branch to job representation
+
+        alloc_times = []
+        for task in best_branch.get_tasklist():
+            cp_type = task.attrib["type"] if "type" in list(task.attrib.keys()) else None
+            if cp_type == "delete":
+                continue
+            if task.xpath("cpee1:children/descendant::cpee1:changepattern", namespaces=self.ns):
+                if task.xpath("cpee1:children/descendant::cpee1:changepattern", namespaces=self.ns)[0].attrib["type"] == "replace":
+                    continue
+                
+            resource = task.xpath("cpee1:children/cpee1:resource", namespaces=self.ns)[0].attrib["id"]
+            start_time = task.xpath("cpee1:expected_start", namespaces=self.ns)[0].text
+            end_time = task.xpath("cpee1:expected_end", namespaces=self.ns)[0].text
+            duration = float(end_time) - float(start_time)
+            
+            self.allocator.schedule.add_task((self, task, start_time), resource, duration, branch_no)
+            alloc_times.append((start_time, duration))
+        # Apply best branch to processmodel
+        self.branches_to_apply[self.current_task.attrib["id"]] = best_branch
+        self.apply_single_branch(self.current_task, best_branch)       
+
+        # Set new release time for following task
+        self.current_task = utils.get_next_task(self.tasks_iter, self)
+        if self.current_task == "end":
+            self.optimal_process = self.ra_pst.process
+            return best_branch
+        if self.current_task.xpath("cpee1:release_time", namespaces=self.ns):
+            self.current_task.xpath("cpee1:release_time", namespaces=self.ns)[0].text = str(sum(times))
+        else:
+            child = etree.SubElement(self.current_task, f"{{{self.ns['cpee1']}}}release_time")
+            child.text = str(sum(times))
+        return best_branch
+    
+    def apply_single_branch(self, task, branch):
+        if self.optimal_process is not None:
+            raise ValueError("All tasks have already been allocated")
+        task_id = task.attrib["id"]
+        current_time = task.xpath("cpee1:release_time", namespaces=self.ns)
+        delete=False
+        if branch.node.xpath("//*[@type='delete']"):
+            #self.delayed_deletes.append((branch, task, current_time))
+            delete = False
+        self.ra_pst.process = branch.apply_to_process(
+            self.change_op.ra_pst, solution=self, earliest_possible_start=current_time, change_op=self.change_op, delete=delete)  # build branch
+        self.change_op.ra_pst = self.ra_pst.process
+        branch_no = self.ra_pst.branches[task_id].index(branch)
+        self.applied_branches[task_id] = branch_no
+        
     def get_optimal_instance(self):
         self.apply_branches()
         self.ra_pst.process = etree.fromstring(etree.tostring(self.ra_pst.process))
@@ -36,7 +98,6 @@ class Instance():
         tree.write(path)
 
     def apply_branches(self, tasks_to_apply:list = None, current_time = CURRENT_MIN_DATE):
-        
         while True:
             if not self.current_task == "end":
                 task, task_id = self.current_task, self.current_task.attrib["id"]
@@ -51,9 +112,7 @@ class Instance():
                     pass
                 else:
                     continue
-
             if self.current_task != "end":
-
                 # Try to build Branch from RA-PST
                 branch = self.ra_pst.branches[task_id][branch_no]            
                 self.applied_branches[task_id] = branch_no
@@ -62,16 +121,11 @@ class Instance():
                 if branch.node.xpath("//*[@type='delete']"):
                     self.delayed_deletes.append((branch, task, current_time))
                     delete = True
-
                 #TODO add branch invalidities on branch building!
                 self.ra_pst.process = branch.apply_to_process(
                     self.change_op.ra_pst, solution=self, earliest_possible_start=current_time, change_op=self.change_op, delete=delete)  # build branch
                 self.change_op.ra_pst = self.ra_pst.process
                 self.applied_branches[task_id] = branch_no
-
-                # If branch is already delayed because of delete: #TODO check for reasonability
-                #if self.ra_pst.process.xpath("//cpee1:plannedend", namespaces=self.ns):
-                #    current_time=self.ra_pst.process.xpath("//cpee1:plannedend", namespaces=self.ns)[-1].text
 
                 # gets next tasks and checks for deletes
                 self.current_task = utils.get_next_task(self.tasks_iter, self)
@@ -131,4 +185,14 @@ def transform_ilp_to_branches(ra_pst:RA_PST, ilp_rep):
         branch_map[task] = choosen_branch[0]["branch_no"]
     
     return branch_map
+
+    # To enable online allocation, for each task a branch has to be selected and applied singularily
+    # Therefore we need to track the currently allocated task and only add and apply branches on the fly
+    # to_del tasks must also be tracked. 
+    # The RA_PST instance will be kept in memory and updated.
+    # The following functions are needed: 
+    # allocated_next_task
+    # apply_single_branch
+    # the allocation decision should be made externally by heuristic.find_best_resource
+    # the propagation through should also be done externally 
     

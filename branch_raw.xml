@@ -1,24 +1,46 @@
-<manipulate xmlns="http://cpee.org/ns/description/1.0" id="a4" label="create_proposal">level3<resources allocated_to="not_allocated">
-			<resource>level3</resource>
-			<resource>level2</resource>
-		</resources>
-	<children><resource id="r_5" name="level3">
-		<resprofile id="rp_15" name="create_proposal" role="level3" task="create_proposal">
+<call xmlns="http://cpee.org/ns/description/1.0" id="a10" endpoint="">
+        <parameters>
+          <label>wait</label>
+          <method>:post</method>
+          <arguments/>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+        <resources allocated_to="not_allocated"/>
+        <expectedready/>
+        <plannedstart/>
+        <plannedend/>
+      <children><resource id="res_2" name="res_2">
+		<resprofile id="role_2" name="role_2" role="role_2" task="wait">
 			<measures>
-				<cost>30</cost>
+				<cost>1</cost>
 			</measures>
-			<changepattern type="delete">
-				<parameters>
-					<direction>any</direction>
-				</parameters>
-				<description>
-					</description>
-			</changepattern>
-		<children><manipulate id="a15" label="decide_on_proposal" type="delete" direction="any">
-						<resources allocated_to="not_allocated">
-                        </resources>
-					<expectedready/></manipulate>
-				</children></resprofile>
+		<children/></resprofile>
 		</resource>
-</children><expectedready>2024-01-01T00:00</expectedready></manipulate>
-	
+	</children><release_time>48.0</release_time><expected_start>48.0</expected_start><expected_end>49.0</expected_end></call>
+    

@@ -1,0 +1,1 @@
+{"0": {"objective": 0, "jobs": [{"task": "replace_c1", "resource": ["res_0"], "cost": 4.0, "selected": 1, "start": 0.0, "duration": 4.0, "branch": 0}, {"task": "a1", "resource": ["res_0"], "cost": 1.0, "selected": 1, "start": 4.0, "duration": 1.0, "branch": 0}, {"task": "a2", "resource": ["res_0"], "cost": 5.0, "selected": 1, "start": 5.0, "duration": 5.0, "branch": 0}]}}

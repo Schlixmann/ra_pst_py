@@ -1,9 +1,10 @@
-from src.ra_pst_py.core import RA_PST
+from src.ra_pst_py.core import RA_PST, ResourceError
 from src.ra_pst_py.file_parser import parse_process_file, parse_resource_file
 
 import unittest
 from lxml import etree
 from collections import defaultdict
+import warnings
 
 
 class CoreTest(unittest.TestCase):
@@ -15,8 +16,32 @@ class CoreTest(unittest.TestCase):
         ra_pst = RA_PST(process, resources)
         ra_pst.save_ra_pst("tests/outcome/ra_pst.xml")
         created = etree.parse("tests/outcome/ra_pst.xml")
-
         self.assertEqual(etree.tostring(created), etree.tostring(target))
+
+    def test_invalid_allocation(self):
+        target = etree.parse("tests/test_comparison_data/allocation.xml")
+        process = parse_process_file("tests/test_data/test_process_2_tasks.xml")
+        resources = parse_resource_file("tests/test_data/test_resource_invalid.xml")
+        
+        # Expected warning and error messages
+        expected_error = "For Task decide_on_proposal no valid resource allocation can be found. RA-PST cannot lead to a possible solution"
+        expected_warning = "No resource for task insert_a2, Branch is invalid"
+        try:
+            with warnings.catch_warnings(record=True) as caught_warnings:
+                warnings.simplefilter("always")
+                ra_pst = RA_PST(process, resources)
+        except ResourceError as e:
+            # Check the exception message
+            self.assertEqual(
+                str(e), 
+                expected_error,
+                f"Unexpected exception message: {e}"
+            )
+        # Verify the correct warning was raised
+        self.assertTrue(
+        any(expected_warning in str(w.message) for w in caught_warnings),
+        f"Expected warning '{expected_warning}' not found in: {[str(w.message) for w in caught_warnings]}"
+    )
 
     def test_set_branches_for_task(self):
         target = etree.parse("tests/test_comparison_data/allocation.xml")
