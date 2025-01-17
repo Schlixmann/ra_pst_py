@@ -18,8 +18,8 @@ def show_scheduling_matplotlib(file):
         jobs = instance["jobs"]
         for job in jobs.values():
             y = resource_to_y[job["resource"]]
-            plt.barh(y, job["cost"]*job["selected"], left=job["start"], color=color_list[int(job["branch"][1])-1], edgecolor="black")
-            plt.text(job["start"] + job["cost"] / 2, y, job["branch"][:2], 
+            plt.barh(y, job["cost"]*job["selected"], left=job["start"], color=color_list[int(job["branch"].split("-")[0][1:])], edgecolor="black")
+            plt.text(job["start"] + job["cost"] / 2, y, job["branch"].split("-")[0], 
                     ha="center", va="center", color="white", fontsize=10) if job["selected"] else None
 
     plt.yticks(range(len(resources)), resources)

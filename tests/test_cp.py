@@ -74,8 +74,10 @@ class DocplexTest(unittest.TestCase):
         self.setUp()
         ra_psts = {}
         ra_psts["instances"] = []
+
         for i in range(3):
             ilp_rep = self.ra_pst.get_ilp_rep(instance_id=f'i{i+1}')
+
             ra_psts["instances"].append(ilp_rep)
         ra_psts["resources"] = ilp_rep["resources"]
         with open("tests/test_data/ilp_rep.json", "w") as f:
