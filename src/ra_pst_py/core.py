@@ -83,7 +83,8 @@ class RA_PST:
         """
         Transforms information from RA-PST into a dictionary format suitable for an ILP model.
         Returns:
-        {
+        {   
+            "id": instanceId
             "tasks": {
                 taskId: {
                     "branches": [branchId]
@@ -105,6 +106,7 @@ class RA_PST:
                     "cost": cost,
                     "after": [jobId],
                     "instance": instanceId
+                    "selected": False
                 }
             }
         }
@@ -170,7 +172,8 @@ class RA_PST:
                         "cost": float(job[1]),
                         "after": [],
                         "release_time": 0, 
-                        "start": None
+                        "start": None,
+                        "selected": False
                     }
                     if previousJob is not None:
                         newJob["after"].append(previousJob)
@@ -184,6 +187,7 @@ class RA_PST:
                     result["jobs"][jobId] = newJob
                     previousJob = jobId
                 result["branches"][branchId] = newBranch
+        result["instanceId"] = instance_id
         return result
 
     def get_optimized_instance(self, branch_list):
@@ -588,6 +592,40 @@ class Branch:
                 f"{e}. Hint: The branch you're trying to serialize is probably invalid"
             )
         return jobs, deletes
+    
+    def get_serialized_tasklist(self) -> list:
+        """
+        Returns the tasks in a branch following the precedence constraints through inserts.
+        """
+        # TODO: How to deal with deletes? -> do we need to deal with deletes?
+        # TODO: Does currently not deal with change fragments/ multiple tasks
+        # WARN: ("Not fully implemented. \n Please only use with single change patterns. \n Does not deal with multiple change patterns or change fragments")
+
+        try:
+            tasklist = self.get_tasklist()
+            task = tasklist.pop(0)
+            jobs = [task]
+            current_position = 0
+            for task in tasklist:
+                if task.attrib["type"] == "delete":
+                    continue
+                if task.attrib["direction"] == "before":
+                    jobs.insert(current_position, task)
+
+                elif task.attrib["direction"] == "after":
+                    new_position = current_position + 1
+                    jobs.insert(new_position, task)
+                elif task.attrib["direction"] == "parallel":
+                    jobs.insert(current_position, task)
+                else:
+                    raise NotImplementedError(
+                        f"This direction has not been implemented {task.attrib['direction']}"
+                    )
+        except IndexError as e:
+            raise IndexError(
+                f"{e}. Hint: The branch you're trying to serialize is probably invalid"
+            )
+        return jobs
 
     def check_validity(self):
         self.is_valid = True
