@@ -1,4 +1,5 @@
 from src.ra_pst_py.instance import Instance
+from src.ra_pst_py.core import Branch, RA_PST
 from src.ra_pst_py.cp_docplex import cp_solver
 
 from collections import defaultdict
@@ -7,6 +8,7 @@ from lxml import etree
 import json
 import os
 import time
+import itertools
 
 class Simulator():
     def __init__(self) -> None:
@@ -61,13 +63,13 @@ class Simulator():
 
                 if instance_allocation_type == "heuristic":
                     best_branch = instance.allocate_next_task()
-                    instance_dict = self.format_branch_to_job_dict(best_branch, next_task)
+                    instance_dict = self.format_branch_to_job_dict(best_branch, next_task, instance)
+                    instance_dict = self.generate_dict_from_ra_pst(best_branch, instance, next_task)
                     with open(self.schedule_filepath, "r+") as f:
                         if os.path.getsize(self.schedule_filepath) > 0:
                             tmp_sched = json.load(f)
                         else: 
                             tmp_sched = {"instances": [], "resources":[], "objective":0}  # Default if file is empty
-
 
                         # Create global resources list
                         resources = set(tmp_sched["resources"])
@@ -213,7 +215,7 @@ class Simulator():
         all_instances["instances"] += ra_psts["instances"]
         return all_instances
 
-    def format_branch_to_job_dict(self, branch, task):
+    def format_branch_to_job_dict(self, branch, task, instance):
         resources = set()
         jobs_dict = {}
         for task in branch.get_tasklist():
@@ -225,8 +227,8 @@ class Simulator():
                     continue
             instance_id = 0
             task_id = task.attrib["id"]
-            branch_id = 0
-            job_id = f"{instance_id}-{task_id}-{branch_id}"
+            branch_id = list(itertools.chain(*instance.ra_pst.branches.values())).index(branch)
+            job_id = f"{instance_id}-{instance_id}-{task_id}-{branch_id}-0"
             resource = task.xpath("cpee1:children/cpee1:resource", namespaces=self.ns)[0].attrib["id"]
             start_time = float(task.xpath("cpee1:expected_start", namespaces=self.ns)[0].text)
             end_time = float(task.xpath("cpee1:expected_end", namespaces=self.ns)[0].text)
@@ -246,3 +248,31 @@ class Simulator():
         instances_dict["resources"] = list(resources)
         instances_dict["jobs"] = jobs_dict
         return instances_dict
+    
+    def generate_dict_from_ra_pst(self, branch:Branch, instance:Instance, next_task):
+        ilp_rep = instance.ra_pst.get_ilp_rep()
+        instance_id = ilp_rep["instanceId"]
+        task_id = branch.node.attrib["id"]
+        branch_running_id = list(itertools.chain(*instance.ra_pst.branches.values())).index(branch)
+        branch_ilp_id = f"{instance_id}-{task_id}-{branch_running_id}"
+
+        branch_ilp_dict = ilp_rep["branches"][branch_ilp_id]
+        branch_ilp_jobs = branch_ilp_dict["jobs"]
+        branch_ra_pst_tasks = branch.get_serialized_tasklist()
+
+        if len(branch_ilp_jobs) != len(branch_ra_pst_tasks):
+            raise ValueError(f"Length of Jobs in ilp_rep <{len(branch_ilp_jobs)}> does not match length of jobs in ra_pst_branch <{len(branch_ra_pst_tasks)}>")
+
+        for i, jobId in enumerate(branch_ilp_jobs):
+            task = branch_ra_pst_tasks[i]
+            start_time = float(task.xpath("cpee1:expected_start", namespaces=self.ns)[0].text)
+            end_time = float(task.xpath("cpee1:expected_end", namespaces=self.ns)[0].text)
+            duration = float(end_time) - float(start_time)
+            
+            ilp_rep["jobs"][jobId]["start"] = start_time
+            ilp_rep["jobs"][jobId]["cost"] = duration
+            ilp_rep["jobs"][jobId]["selected"]=True
+
+        return ilp_rep
+
+
