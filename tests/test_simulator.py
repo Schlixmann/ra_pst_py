@@ -19,7 +19,7 @@ class ScheduleTest(unittest.TestCase):
             resource_file="test_instances/offer_resources_many_invalid_branches_sched.xml"
         )
         self.ra_pst = build_rapst(
-            process_file="test_instances/instance_generator_process.xml",
+            process_file="test_instances/instance_generator_process_short.xml",
             resource_file="test_instances/instance_generator_resources.xml"
         )
         ilp_rep = self.ra_pst.get_ilp_rep()
@@ -158,9 +158,9 @@ class ScheduleTest(unittest.TestCase):
         with open(f"out/schedule_{allocation_type}.json") as f:
             jobs = json.load(f)
             results[allocation_type] = {}
-            results[allocation_type]["objective"] = jobs["objective"]
+            results[allocation_type]["objective"] = jobs["solution"]["objective"]
             results[allocation_type]["time"] = str(end - start)
-            print(f"Objective: {jobs['objective']}")
+            print(f"Objective: {jobs["solution"]['objective']}")
 
         # CP Single Instance allocation
         sim = Simulator()
@@ -184,9 +184,9 @@ class ScheduleTest(unittest.TestCase):
         with open(f"out/schedule_{allocation_type}.json") as f:
             jobs = json.load(f)
             results[allocation_type] = {}
-            results[allocation_type]["objective"] = jobs["objective"]
+            results[allocation_type]["objective"] = jobs["solution"]["objective"]
             results[allocation_type]["time"] = str(end - start)
-            print(f"Objective: {jobs['objective']}")
+            print(f"Objective: {jobs["solution"]['objective']}")
     
         # CP Multi Instance allocation
         sim = Simulator()
@@ -209,8 +209,8 @@ class ScheduleTest(unittest.TestCase):
         with open(f"out/schedule_{allocation_type}.json") as f:
             jobs = json.load(f)
             results[allocation_type] = {}
-            results[allocation_type]["objective"] = jobs["objective"]
+            results[allocation_type]["objective"] = jobs["solution"]["objective"]
             results[allocation_type]["time"] = str(end - start)
-            print(f"Objective: {jobs['objective']}")
+            print(f"Objective: {jobs["solution"]['objective']}")
         
         print(f"Results: {results}")
