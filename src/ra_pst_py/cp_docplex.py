@@ -80,7 +80,6 @@ def cp_solver(ra_pst_json):
             # Create optional interval variables for each job
             for jobId, job in ra_pst["jobs"].items():
                 job["interval"] = model.interval_var(name=jobId, optional=True, size=int(job["cost"]))
-                # print(f'Add job {jobId}')
 
                 # Start time must be > than release time if a release time for instance is given
                 if job["release_time"]:
@@ -97,39 +96,32 @@ def cp_solver(ra_pst_json):
     for r in ra_psts["resources"]:
         resource_intervals = []
         for ra_pst in ra_psts["instances"]:
-            if ra_pst["fixed"]:
-                resource_intervals.extend([job["interval"] for job in ra_pst["jobs"].values() if (job["resource"] == r and job["selected"])])
-            else:
-                resource_intervals.extend([job["interval"] for job in ra_pst["jobs"].values() if job["resource"] == r])
-        if len(resource_intervals) > 0:
-            model.add(no_overlap(resource_intervals))
-    
-    
-    # model.add(no_overlap(job["interval"] for job in ra_pst["jobs"].values() if job["resource"] == r) for r in ra_pst["resources"])
-
-    # Objective
-    model.add(minimize(max([end_of(interval) for interval in job_intervals])))
+            resource_intervals.extend([job["interval"] for job in ra_pst["jobs"].values() if job["resource"] == r])
+        if len(resource_intervals) == 0: continue
+        model.add(no_overlap(resource_intervals))
 
     # Configuration constraints
     # Select exactly one branch from each non-deleted task
     for ra_pst in ra_psts["instances"]:
-        if not ra_pst["fixed"]:
-            for taskId, task in ra_pst["tasks"].items():
-                task_jobs = []
+        if not ra_pst["fixed"]: continue
+        for taskId, task in ra_pst["tasks"].items():
+            # task_jobs = []
+            branch_jobs = []
+            for branchId in task["branches"]:
+                for jobId in ra_pst["branches"][branchId]["jobs"]:
+                    if len(branch_jobs) > 0:
+                        model.add(equal(presence_of(ra_pst["jobs"][jobId]["interval"]), presence_of(ra_pst["jobs"][branch_jobs[-1]]["interval"])))
+                    # for jobId2 in task_jobs:
+                        # model.add(if_then(presence_of(ra_pst["jobs"][jobId]["interval"]), logical_not(presence_of(ra_pst["jobs"][jobId2]["interval"]))))
+                    branch_jobs.append(jobId)
+                # task_jobs.extend(branch_jobs)
                 branch_jobs = []
-                for branchId in task["branches"]:
-                    for jobId in ra_pst["branches"][branchId]["jobs"]:
-                        if len(branch_jobs) > 0:
-                            model.add(equal(presence_of(ra_pst["jobs"][jobId]["interval"]), presence_of(ra_pst["jobs"][branch_jobs[-1]]["interval"])))
-                        for jobId2 in task_jobs:
-                            model.add(if_then(presence_of(ra_pst["jobs"][jobId]["interval"]), logical_not(presence_of(ra_pst["jobs"][jobId2]["interval"]))))
-                        branch_jobs.append(jobId)
-                    task_jobs.extend(branch_jobs)
-                    branch_jobs = []
-                deletes_task = [presence_of(ra_pst["jobs"][branch["jobs"][0]]["interval"]) for branch in ra_pst["branches"].values() if taskId in branch["deletes"]]
-                deletes_task.append(0)
-                model.add(sum([presence_of(ra_pst["jobs"][ra_pst["branches"][branchId]["jobs"][0]]["interval"]) for branchId in task["branches"]]) == 1-max(deletes_task))
+            deletes_task = [presence_of(ra_pst["jobs"][branch["jobs"][0]]["interval"]) for branch in ra_pst["branches"].values() if taskId in branch["deletes"]]
+            deletes_task.append(0)
+            model.add(sum([presence_of(ra_pst["jobs"][ra_pst["branches"][branchId]["jobs"][0]]["interval"]) for branchId in task["branches"]]) == 1-max(deletes_task))
 
+    # Objective
+    model.add(minimize(max([end_of(interval) for interval in job_intervals])))
 
     result = model.solve(FailLimit=100000, TimeLimit=1000)
     # result.print_solution()

@@ -84,7 +84,7 @@ class DocplexTest(unittest.TestCase):
             json.dump(ra_psts, f, indent=2)
         result = cp_solver("tests/test_data/ilp_rep.json")
         # print([branch for branch in result["branches"] if branch["selected"] == 1])
-        print(result["objective"])
+        print(result["solution"]["objective"])
         with open("tests/test_data/cp_result.json", "w") as f:
             json.dump(result, f, indent=2)
 
