@@ -115,12 +115,15 @@ class DocplexTest(unittest.TestCase):
         # TODO add new Jobs to existing job file
         warm_start_file = "tests/test_data/cp_warmstart_gen_process.json"
         result1 = cp_solver("tests/test_data/cp_instance.json")
-        
         print("Test with warmstarting")
         result2 = cp_solver("tests/test_data/cp_instance.json", warm_start_file)
-
         print(f"Time w/o warm_start: {result1["solution"]["computing time"]}, \n Time w warm_start: {result2["solution"]["computing time"]}")
-
+        self.assertEqual(result1["solution"]["objective"], 17, "Objective of normal cp is wrong, maybe check used input files")
+        self.assertEqual(result2["solution"]["objective"], 17, "Objective of warm_started cp is wrong, maybe check used input files")
+        with open("tests/outcome/cp_cold.json", "w") as f:
+            json.dump(result1, f, indent=2)
+        with open("tests/outcome/cp_warm.json", "w") as f:
+            json.dump(result2, f, indent=2)
 
 
         

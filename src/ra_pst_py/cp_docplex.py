@@ -137,7 +137,7 @@ def cp_solver(ra_pst_json, warm_start_json=None):
 
     if warm_start_json:
         starting_solution = CpoModelSolution()
-        # TODO make sure warm_start instances are the same as to optimize ones
+        #TODO make sure warm_start instances are the same as to optimize ones
         for i, ra_pst in enumerate(ra_psts["instances"]):
             for jobId, job in ra_pst["jobs"].items():
                 interval_var = job["interval"]
@@ -186,6 +186,7 @@ def cp_solver(ra_pst_json, warm_start_json=None):
         "propagations": solve_details.get('NumberOfPropagations','N/A'),
         "total interval length": total_interval_length
     }
+    # TODO maybe add resource usage
     return ra_psts
 
     
