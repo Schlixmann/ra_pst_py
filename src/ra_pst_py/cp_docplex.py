@@ -133,6 +133,7 @@ def cp_solver(ra_pst_json):
 
     result = model.solve(FailLimit=100000, TimeLimit=1000)
     # result.print_solution()
+    intervals = []
     for ra_pst in ra_psts["instances"]:
         if not ra_pst["fixed"]:
             for jobId, job in ra_pst["jobs"].items():
@@ -141,6 +142,12 @@ def cp_solver(ra_pst_json):
                 #     continue
                 job["selected"] = itv.is_present()
                 job["start"] = itv.get_start()
+                if itv.is_present():
+                    intervals.append({
+                        "jobID": jobId, 
+                        "start": itv.get_start(),
+                        "duration" : itv.get_length()
+                    })
                 del job["interval"]
                 #del job["after"]
         else:
@@ -148,9 +155,18 @@ def cp_solver(ra_pst_json):
                 if "interval" in job.keys():
                     del job["interval"]
         ra_pst["fixed"] = True
-    ra_psts["objective"] = result.get_objective_value()
-
-
+    
+    solve_details = result.get_solver_infos()
+    total_interval_length = sum([element["duration"] for element in intervals])
+    ra_psts["solution"] = {
+        "objective": result.get_objective_value(),
+        "optimality gap": solve_details.get('RelativeOptimalityGap', 'N/A'),
+        "computing time": solve_details.get('TotalTime', 'N/A'),
+        "solver status": result.get_solve_status(),
+        "branches": solve_details.get('NumberOfBranches', 'N/A'),
+        "propagations": solve_details.get('NumberOfPropagations','N/A'),
+        "total interval length": total_interval_length
+    }
     return ra_psts
 
     

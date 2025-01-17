@@ -6,6 +6,7 @@ import numpy as np
 from lxml import etree
 import json
 import os
+import time
 
 class Simulator():
     def __init__(self) -> None:
@@ -52,6 +53,7 @@ class Simulator():
             print("Start single instance/task allocation")
             objective = 0
             instance_mapper = {}
+            start = time.time()
             while self.task_queue:
                 next_task = self.task_queue.pop(0)
                 instance, instance_allocation_type, task, release_time = next_task
@@ -64,7 +66,7 @@ class Simulator():
                         if os.path.getsize(self.schedule_filepath) > 0:
                             tmp_sched = json.load(f)
                         else: 
-                             tmp_sched = {"instances": [], "resources":[], "objective":0}  # Default if file is empty
+                            tmp_sched = {"instances": [], "resources":[], "objective":0}  # Default if file is empty
 
 
                         # Create global resources list
@@ -96,7 +98,6 @@ class Simulator():
                     if instance.current_task != "end":
                         self.update_task_queue((instance, instance_allocation_type, instance.current_task, sum(instance.times[-1])))
                     else:
-                        
                         if sum(instance.times[-1]) > objective:
                             objective = sum(instance.times[-1])
                         print(f"Instance {instance} is finished")
@@ -131,9 +132,33 @@ class Simulator():
                     result = cp_solver(self.schedule_filepath)
                     with open(self.schedule_filepath, "w") as f:
                         json.dump(result, f, indent=2)
-                    print(result["objective"])
                 else:
                     raise NotImplementedError(f"Allocation_type {instance_allocation_type} has not been implemented yet")
+            
+            if instance_allocation_type == "heuristic":
+                # Collect information on heuristic allocation: 
+                end = time.time()
+                with open(self.schedule_filepath, "r+") as f:
+                    ra_psts = json.load(f)
+                    intervals = []
+                    for ra_pst in ra_psts["instances"]:
+                        for jobId, job in ra_pst["jobs"].items():
+                            if job["selected"]: 
+                                intervals.append({
+                                    "jobId":jobId,
+                                    "start":job["start"],
+                                    "duration":job["cost"]
+                                })
+                    total_interval_length = sum([element["duration"] for element in intervals])
+                    ra_psts["solution"] = {
+                        "objective": ra_psts["objective"],
+                        "computing time": end-start,
+                        "total interval length": total_interval_length
+                    }
+                    # Save back to file
+                    f.seek(0)  # Reset file pointer to the beginning
+                    json.dump(ra_psts, f, indent=4)  
+                    f.truncate()
 
         elif self.allocation_type == "cp_all":
             ra_psts = {}
@@ -148,7 +173,6 @@ class Simulator():
             result = cp_solver(self.schedule_filepath)
             with open(self.schedule_filepath, "w") as f:
                 json.dump(result, f, indent=2)            
-            print(result["objective"])
             #TODO combine with Schedule class
             #raise NotImplemented(f"Allocation_type {self.allocation_type} has not been implemented yet")
         else:
