@@ -4,7 +4,7 @@ import json
 context.solver.local.execfile = '/opt/ibm/ILOG/CPLEX_Studio2211/cpoptimizer/bin/x86-64_linux/cpoptimizer'
 
 
-def cp_solver(ra_pst_json):
+def cp_solver(ra_pst_json, warm_start_json=None):
     """
     ra_pst_json input format:
     {
@@ -41,6 +41,10 @@ def cp_solver(ra_pst_json):
     """
     with open(ra_pst_json, "r") as f:
         ra_psts = json.load(f)
+    
+    if warm_start_json:
+        with open(warm_start_json, "r") as f:
+            warm_start_ra_psts = json.load(f)
     
     # Fix taskIds for deletes: 
     for i, instance in enumerate(ra_psts["instances"]):
@@ -131,6 +135,21 @@ def cp_solver(ra_pst_json):
                 model.add(sum([presence_of(ra_pst["jobs"][ra_pst["branches"][branchId]["jobs"][0]]["interval"]) for branchId in task["branches"]]) == 1-max(deletes_task))
 
 
+    if warm_start_json:
+        starting_solution = CpoModelSolution()
+        #TODO make sure warm_start instances are the same as to optimize ones
+        for i, ra_pst in enumerate(ra_psts["instances"]):
+            for jobId, job in ra_pst["jobs"].items():
+                interval_var = job["interval"]
+                warm_start_job = warm_start_ra_psts["instances"][i]["jobs"][jobId]
+                if warm_start_job["selected"]:
+                    starting_solution.add_interval_var_solution(interval_var, start=warm_start_job["start"], end= warm_start_job["start"] + warm_start_job["cost"], size=warm_start_job["cost"], presence= warm_start_job["selected"])
+                else:
+                    starting_solution.add_interval_var_solution(interval_var, start=warm_start_job["start"], end=None, size=warm_start_job["cost"], presence= warm_start_job["selected"])
+        if len(starting_solution.get_all_var_solutions()) != len(model.get_all_variables()):
+            raise ValueError(f"Solution size <{len(starting_solution.get_all_var_solutions())}> does not match model size <{len(model.get_all_variables())}>")
+        model.set_starting_point(starting_solution)
+
     result = model.solve(FailLimit=100000, TimeLimit=1000)
     # result.print_solution()
     intervals = []
@@ -167,6 +186,7 @@ def cp_solver(ra_pst_json):
         "propagations": solve_details.get('NumberOfPropagations','N/A'),
         "total interval length": total_interval_length
     }
+    # TODO maybe add resource usage
     return ra_psts
 
     

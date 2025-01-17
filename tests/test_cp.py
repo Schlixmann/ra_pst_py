@@ -49,7 +49,7 @@ class DocplexTest(unittest.TestCase):
             resource_file="test_instances/offer_resources_many_invalid_branches.xml"
         )
         self.ra_pst = build_rapst(
-            process_file="test_instances/instance_generator_process_short.xml",
+            process_file="test_instances/instance_generator_process.xml",
             resource_file="test_instances/instance_generator_resources.xml"
         )
         ilp_rep = self.ra_pst.get_ilp_rep()
@@ -87,4 +87,44 @@ class DocplexTest(unittest.TestCase):
         print(result["objective"])
         with open("tests/test_data/cp_result.json", "w") as f:
             json.dump(result, f, indent=2)
+
+    def test_cp_warmstart(self):
+        sched = None
+        results = {}
+        org_release_times = [0]
+        
+        # CP Single Instance allocation
+        release_times = [0]
+
+        instance = Instance(self.ra_pst, {}, sched)
+        task1 = instance.ra_pst.get_tasklist()[0]
+        child = etree.SubElement(task1, f"{{{instance.ns['cpee1']}}}release_time")
+        child.text = str(release_times.pop(0))
+        task1 = etree.fromstring(etree.tostring(task1))
+
+        ilp_rep = instance.ra_pst.get_ilp_rep()
+        ra_psts = {}
+        ra_psts["instances"] = []
+        ra_psts["instances"].append(ilp_rep)
+        ra_psts["resources"] = ilp_rep["resources"]
+    
+        with open("tests/test_data/cp_instance.json", "w") as f:
+            json.dump(ra_psts, f, indent=2)
+           
+        #show_tree_as_graph(instance.ra_pst)
+        # TODO add new Jobs to existing job file
+        warm_start_file = "tests/test_data/cp_warmstart_gen_process.json"
+        result1 = cp_solver("tests/test_data/cp_instance.json")
+        print("Test with warmstarting")
+        result2 = cp_solver("tests/test_data/cp_instance.json", warm_start_file)
+        print(f"Time w/o warm_start: {result1["solution"]["computing time"]}, \n Time w warm_start: {result2["solution"]["computing time"]}")
+        self.assertEqual(result1["solution"]["objective"], 17, "Objective of normal cp is wrong, maybe check used input files")
+        self.assertEqual(result2["solution"]["objective"], 17, "Objective of warm_started cp is wrong, maybe check used input files")
+        with open("tests/outcome/cp_cold.json", "w") as f:
+            json.dump(result1, f, indent=2)
+        with open("tests/outcome/cp_warm.json", "w") as f:
+            json.dump(result2, f, indent=2)
+
+
+        
 
