@@ -131,7 +131,7 @@ def cp_solver(ra_pst_json):
                 model.add(sum([presence_of(ra_pst["jobs"][ra_pst["branches"][branchId]["jobs"][0]]["interval"]) for branchId in task["branches"]]) == 1-max(deletes_task))
 
 
-    result = model.solve(FailLimit=1000, TimeLimit=1000)
+    result = model.solve(FailLimit=100000, TimeLimit=1000)
     # result.print_solution()
     for ra_pst in ra_psts["instances"]:
         if not ra_pst["fixed"]:

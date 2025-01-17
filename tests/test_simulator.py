@@ -19,7 +19,7 @@ class ScheduleTest(unittest.TestCase):
             resource_file="test_instances/offer_resources_many_invalid_branches_sched.xml"
         )
         self.ra_pst = build_rapst(
-            process_file="test_instances/instance_generator_process_short.xml",
+            process_file="test_instances/instance_generator_process.xml",
             resource_file="test_instances/instance_generator_resources.xml"
         )
         ilp_rep = self.ra_pst.get_ilp_rep()
