@@ -1,0 +1,702 @@
+{
+  "instances": [
+    {
+      "tasks": {
+        "0-a3": {
+          "branches": [
+            "0-a3-0",
+            "0-a3-1"
+          ]
+        },
+        "0-a4": {
+          "branches": [
+            "0-a4-2",
+            "0-a4-3",
+            "0-a4-4",
+            "0-a4-5"
+          ]
+        },
+        "0-a10": {
+          "branches": [
+            "0-a10-6",
+            "0-a10-7"
+          ]
+        }
+      },
+      "resources": [
+        "r_1",
+        "r_6",
+        "r_2",
+        "r_4",
+        "r_3",
+        "r_5"
+      ],
+      "branches": {
+        "0-a3-0": {
+          "task": "0-a3",
+          "jobs": [
+            "0-0-a3-0-0"
+          ],
+          "deletes": [],
+          "branch_no": 4,
+          "branchCost": 15.0,
+          "release_time": 0
+        },
+        "0-a3-1": {
+          "task": "0-a3",
+          "jobs": [
+            "0-0-a3-1-1"
+          ],
+          "deletes": [],
+          "branch_no": 5,
+          "branchCost": 30.0,
+          "release_time": 0
+        },
+        "0-a4-2": {
+          "task": "0-a4",
+          "jobs": [
+            "0-0-a4-2-2"
+          ],
+          "deletes": [],
+          "branch_no": 0,
+          "branchCost": 20.0,
+          "release_time": 0
+        },
+        "0-a4-3": {
+          "task": "0-a4",
+          "jobs": [
+            "0-0-a4-3-3"
+          ],
+          "deletes": [],
+          "branch_no": 1,
+          "branchCost": 25.0,
+          "release_time": 0
+        },
+        "0-a4-4": {
+          "task": "0-a4",
+          "jobs": [
+            "0-0-a4-4-4"
+          ],
+          "deletes": [],
+          "branch_no": 2,
+          "branchCost": 25.0,
+          "release_time": 0
+        },
+        "0-a4-5": {
+          "task": "0-a4",
+          "jobs": [
+            "0-0-a4-5-5"
+          ],
+          "deletes": [
+            "0-0-0-a10"
+          ],
+          "branch_no": 3,
+          "branchCost": 25.0,
+          "release_time": 0
+        },
+        "0-a10-6": {
+          "task": "0-a10",
+          "jobs": [
+            "0-0-a10-6-6"
+          ],
+          "deletes": [],
+          "branch_no": 0,
+          "branchCost": 10.0,
+          "release_time": 0
+        },
+        "0-a10-7": {
+          "task": "0-a10",
+          "jobs": [
+            "0-0-a10-7-7"
+          ],
+          "deletes": [],
+          "branch_no": 2,
+          "branchCost": 15.0,
+          "release_time": 0
+        }
+      },
+      "jobs": {
+        "0-0-a3-0-0": {
+          "branch": "0-a3-0",
+          "resource": "r_3",
+          "cost": 15.0,
+          "after": [],
+          "release_time": 0,
+          "start": 0,
+          "selected": true
+        },
+        "0-0-a3-1-1": {
+          "branch": "0-a3-1",
+          "resource": "r_5",
+          "cost": 30.0,
+          "after": [
+            "0-0-a3-0-0"
+          ],
+          "release_time": 0,
+          "start": null,
+          "selected": false
+        },
+        "0-0-a4-2-2": {
+          "branch": "0-a4-2",
+          "resource": "r_1",
+          "cost": 20.0,
+          "after": [
+            "0-0-a3-0-0",
+            "0-0-a3-1-1"
+          ],
+          "release_time": 0,
+          "start": null,
+          "selected": false
+        },
+        "0-0-a4-3-3": {
+          "branch": "0-a4-3",
+          "resource": "r_2",
+          "cost": 25.0,
+          "after": [
+            "0-0-a3-0-0",
+            "0-0-a3-1-1",
+            "0-0-a4-2-2"
+          ],
+          "release_time": 0,
+          "start": null,
+          "selected": false
+        },
+        "0-0-a4-4-4": {
+          "branch": "0-a4-4",
+          "resource": "r_4",
+          "cost": 25.0,
+          "after": [
+            "0-0-a3-0-0",
+            "0-0-a3-1-1",
+            "0-0-a4-2-2",
+            "0-0-a4-3-3"
+          ],
+          "release_time": 0,
+          "start": null,
+          "selected": false
+        },
+        "0-0-a4-5-5": {
+          "branch": "0-a4-5",
+          "resource": "r_5",
+          "cost": 25.0,
+          "after": [
+            "0-0-a3-0-0",
+            "0-0-a3-1-1",
+            "0-0-a4-2-2",
+            "0-0-a4-3-3",
+            "0-0-a4-4-4"
+          ],
+          "release_time": 0,
+          "start": 15,
+          "selected": true
+        },
+        "0-0-a10-6-6": {
+          "branch": "0-a10-6",
+          "resource": "r_1",
+          "cost": 10.0,
+          "after": [
+            "0-0-a3-0-0",
+            "0-0-a3-1-1",
+            "0-0-a4-2-2",
+            "0-0-a4-3-3",
+            "0-0-a4-4-4",
+            "0-0-a4-5-5"
+          ],
+          "release_time": 0,
+          "start": null,
+          "selected": false
+        },
+        "0-0-a10-7-7": {
+          "branch": "0-a10-7",
+          "resource": "r_5",
+          "cost": 15.0,
+          "after": [
+            "0-0-a3-0-0",
+            "0-0-a3-1-1",
+            "0-0-a4-2-2",
+            "0-0-a4-3-3",
+            "0-0-a4-4-4",
+            "0-0-a4-5-5",
+            "0-0-a10-6-6"
+          ],
+          "release_time": 0,
+          "start": null,
+          "selected": false
+        }
+      },
+      "instanceId": 0,
+      "fixed": true
+    },
+    {
+      "tasks": {
+        "1-a3": {
+          "branches": [
+            "1-a3-0",
+            "1-a3-1"
+          ]
+        },
+        "1-a4": {
+          "branches": [
+            "1-a4-2",
+            "1-a4-3",
+            "1-a4-4",
+            "1-a4-5"
+          ]
+        },
+        "1-a10": {
+          "branches": [
+            "1-a10-6",
+            "1-a10-7"
+          ]
+        }
+      },
+      "resources": [
+        "r_1",
+        "r_6",
+        "r_2",
+        "r_4",
+        "r_3",
+        "r_5"
+      ],
+      "branches": {
+        "1-a3-0": {
+          "task": "1-a3",
+          "jobs": [
+            "1-1-a3-0-0"
+          ],
+          "deletes": [],
+          "branch_no": 4,
+          "branchCost": 15.0,
+          "release_time": 0
+        },
+        "1-a3-1": {
+          "task": "1-a3",
+          "jobs": [
+            "1-1-a3-1-1"
+          ],
+          "deletes": [],
+          "branch_no": 5,
+          "branchCost": 30.0,
+          "release_time": 0
+        },
+        "1-a4-2": {
+          "task": "1-a4",
+          "jobs": [
+            "1-1-a4-2-2"
+          ],
+          "deletes": [],
+          "branch_no": 0,
+          "branchCost": 20.0,
+          "release_time": 0
+        },
+        "1-a4-3": {
+          "task": "1-a4",
+          "jobs": [
+            "1-1-a4-3-3"
+          ],
+          "deletes": [],
+          "branch_no": 1,
+          "branchCost": 25.0,
+          "release_time": 0
+        },
+        "1-a4-4": {
+          "task": "1-a4",
+          "jobs": [
+            "1-1-a4-4-4"
+          ],
+          "deletes": [],
+          "branch_no": 2,
+          "branchCost": 25.0,
+          "release_time": 0
+        },
+        "1-a4-5": {
+          "task": "1-a4",
+          "jobs": [
+            "1-1-a4-5-5"
+          ],
+          "deletes": [
+            "1-1-a10"
+          ],
+          "branch_no": 3,
+          "branchCost": 25.0,
+          "release_time": 0
+        },
+        "1-a10-6": {
+          "task": "1-a10",
+          "jobs": [
+            "1-1-a10-6-6"
+          ],
+          "deletes": [],
+          "branch_no": 0,
+          "branchCost": 10.0,
+          "release_time": 0
+        },
+        "1-a10-7": {
+          "task": "1-a10",
+          "jobs": [
+            "1-1-a10-7-7"
+          ],
+          "deletes": [],
+          "branch_no": 2,
+          "branchCost": 15.0,
+          "release_time": 0
+        }
+      },
+      "jobs": {
+        "1-1-a3-0-0": {
+          "branch": "1-a3-0",
+          "resource": "r_3",
+          "cost": 15.0,
+          "after": [],
+          "release_time": 10,
+          "start": 15,
+          "selected": true
+        },
+        "1-1-a3-1-1": {
+          "branch": "1-a3-1",
+          "resource": "r_5",
+          "cost": 30.0,
+          "after": [
+            "1-1-a3-0-0"
+          ],
+          "release_time": 10,
+          "start": null,
+          "selected": false
+        },
+        "1-1-a4-2-2": {
+          "branch": "1-a4-2",
+          "resource": "r_1",
+          "cost": 20.0,
+          "after": [
+            "1-1-a3-0-0",
+            "1-1-a3-1-1"
+          ],
+          "release_time": 0,
+          "start": 30,
+          "selected": true
+        },
+        "1-1-a4-3-3": {
+          "branch": "1-a4-3",
+          "resource": "r_2",
+          "cost": 25.0,
+          "after": [
+            "1-1-a3-0-0",
+            "1-1-a3-1-1",
+            "1-1-a4-2-2"
+          ],
+          "release_time": 0,
+          "start": null,
+          "selected": false
+        },
+        "1-1-a4-4-4": {
+          "branch": "1-a4-4",
+          "resource": "r_4",
+          "cost": 25.0,
+          "after": [
+            "1-1-a3-0-0",
+            "1-1-a3-1-1",
+            "1-1-a4-2-2",
+            "1-1-a4-3-3"
+          ],
+          "release_time": 0,
+          "start": null,
+          "selected": false
+        },
+        "1-1-a4-5-5": {
+          "branch": "1-a4-5",
+          "resource": "r_5",
+          "cost": 25.0,
+          "after": [
+            "1-1-a3-0-0",
+            "1-1-a3-1-1",
+            "1-1-a4-2-2",
+            "1-1-a4-3-3",
+            "1-1-a4-4-4"
+          ],
+          "release_time": 0,
+          "start": null,
+          "selected": false
+        },
+        "1-1-a10-6-6": {
+          "branch": "1-a10-6",
+          "resource": "r_1",
+          "cost": 10.0,
+          "after": [
+            "1-1-a3-0-0",
+            "1-1-a3-1-1",
+            "1-1-a4-2-2",
+            "1-1-a4-3-3",
+            "1-1-a4-4-4",
+            "1-1-a4-5-5"
+          ],
+          "release_time": 0,
+          "start": 50,
+          "selected": true
+        },
+        "1-1-a10-7-7": {
+          "branch": "1-a10-7",
+          "resource": "r_5",
+          "cost": 15.0,
+          "after": [
+            "1-1-a3-0-0",
+            "1-1-a3-1-1",
+            "1-1-a4-2-2",
+            "1-1-a4-3-3",
+            "1-1-a4-4-4",
+            "1-1-a4-5-5",
+            "1-1-a10-6-6"
+          ],
+          "release_time": 0,
+          "start": null,
+          "selected": false
+        }
+      },
+      "instanceId": 1,
+      "fixed": true
+    },
+    {
+      "tasks": {
+        "2-a3": {
+          "branches": [
+            "2-a3-0",
+            "2-a3-1"
+          ]
+        },
+        "2-a4": {
+          "branches": [
+            "2-a4-2",
+            "2-a4-3",
+            "2-a4-4",
+            "2-a4-5"
+          ]
+        },
+        "2-a10": {
+          "branches": [
+            "2-a10-6",
+            "2-a10-7"
+          ]
+        }
+      },
+      "resources": [
+        "r_1",
+        "r_6",
+        "r_2",
+        "r_4",
+        "r_3",
+        "r_5"
+      ],
+      "branches": {
+        "2-a3-0": {
+          "task": "2-a3",
+          "jobs": [
+            "2-2-a3-0-0"
+          ],
+          "deletes": [],
+          "branch_no": 4,
+          "branchCost": 15.0,
+          "release_time": 0
+        },
+        "2-a3-1": {
+          "task": "2-a3",
+          "jobs": [
+            "2-2-a3-1-1"
+          ],
+          "deletes": [],
+          "branch_no": 5,
+          "branchCost": 30.0,
+          "release_time": 0
+        },
+        "2-a4-2": {
+          "task": "2-a4",
+          "jobs": [
+            "2-2-a4-2-2"
+          ],
+          "deletes": [],
+          "branch_no": 0,
+          "branchCost": 20.0,
+          "release_time": 0
+        },
+        "2-a4-3": {
+          "task": "2-a4",
+          "jobs": [
+            "2-2-a4-3-3"
+          ],
+          "deletes": [],
+          "branch_no": 1,
+          "branchCost": 25.0,
+          "release_time": 0
+        },
+        "2-a4-4": {
+          "task": "2-a4",
+          "jobs": [
+            "2-2-a4-4-4"
+          ],
+          "deletes": [],
+          "branch_no": 2,
+          "branchCost": 25.0,
+          "release_time": 0
+        },
+        "2-a4-5": {
+          "task": "2-a4",
+          "jobs": [
+            "2-2-a4-5-5"
+          ],
+          "deletes": [
+            "2-a10"
+          ],
+          "branch_no": 3,
+          "branchCost": 25.0,
+          "release_time": 0
+        },
+        "2-a10-6": {
+          "task": "2-a10",
+          "jobs": [
+            "2-2-a10-6-6"
+          ],
+          "deletes": [],
+          "branch_no": 0,
+          "branchCost": 10.0,
+          "release_time": 0
+        },
+        "2-a10-7": {
+          "task": "2-a10",
+          "jobs": [
+            "2-2-a10-7-7"
+          ],
+          "deletes": [],
+          "branch_no": 2,
+          "branchCost": 15.0,
+          "release_time": 0
+        }
+      },
+      "jobs": {
+        "2-2-a3-0-0": {
+          "branch": "2-a3-0",
+          "resource": "r_3",
+          "cost": 15.0,
+          "after": [],
+          "release_time": 23,
+          "start": 30,
+          "selected": true
+        },
+        "2-2-a3-1-1": {
+          "branch": "2-a3-1",
+          "resource": "r_5",
+          "cost": 30.0,
+          "after": [
+            "2-2-a3-0-0"
+          ],
+          "release_time": 23,
+          "start": null,
+          "selected": false
+        },
+        "2-2-a4-2-2": {
+          "branch": "2-a4-2",
+          "resource": "r_1",
+          "cost": 20.0,
+          "after": [
+            "2-2-a3-0-0",
+            "2-2-a3-1-1"
+          ],
+          "release_time": 0,
+          "start": null,
+          "selected": false
+        },
+        "2-2-a4-3-3": {
+          "branch": "2-a4-3",
+          "resource": "r_2",
+          "cost": 25.0,
+          "after": [
+            "2-2-a3-0-0",
+            "2-2-a3-1-1",
+            "2-2-a4-2-2"
+          ],
+          "release_time": 0,
+          "start": null,
+          "selected": false
+        },
+        "2-2-a4-4-4": {
+          "branch": "2-a4-4",
+          "resource": "r_4",
+          "cost": 25.0,
+          "after": [
+            "2-2-a3-0-0",
+            "2-2-a3-1-1",
+            "2-2-a4-2-2",
+            "2-2-a4-3-3"
+          ],
+          "release_time": 0,
+          "start": null,
+          "selected": false
+        },
+        "2-2-a4-5-5": {
+          "branch": "2-a4-5",
+          "resource": "r_5",
+          "cost": 25.0,
+          "after": [
+            "2-2-a3-0-0",
+            "2-2-a3-1-1",
+            "2-2-a4-2-2",
+            "2-2-a4-3-3",
+            "2-2-a4-4-4"
+          ],
+          "release_time": 0,
+          "start": 45,
+          "selected": true
+        },
+        "2-2-a10-6-6": {
+          "branch": "2-a10-6",
+          "resource": "r_1",
+          "cost": 10.0,
+          "after": [
+            "2-2-a3-0-0",
+            "2-2-a3-1-1",
+            "2-2-a4-2-2",
+            "2-2-a4-3-3",
+            "2-2-a4-4-4",
+            "2-2-a4-5-5"
+          ],
+          "release_time": 0,
+          "start": null,
+          "selected": false
+        },
+        "2-2-a10-7-7": {
+          "branch": "2-a10-7",
+          "resource": "r_5",
+          "cost": 15.0,
+          "after": [
+            "2-2-a3-0-0",
+            "2-2-a3-1-1",
+            "2-2-a4-2-2",
+            "2-2-a4-3-3",
+            "2-2-a4-4-4",
+            "2-2-a4-5-5",
+            "2-2-a10-6-6"
+          ],
+          "release_time": 0,
+          "start": null,
+          "selected": false
+        }
+      },
+      "instanceId": 2,
+      "fixed": true
+    }
+  ],
+  "resources": [
+    "r_4",
+    "r_6",
+    "r_1",
+    "r_2",
+    "r_5",
+    "r_3"
+  ],
+  "solution": {
+    "objective": 70,
+    "optimality gap": "N/A",
+    "computing time": 0.04,
+    "solver status": "Optimal",
+    "branches": 75518,
+    "propagations": "N/A",
+    "total interval length": 40
+  }
+}

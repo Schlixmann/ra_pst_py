@@ -1,5 +1,5 @@
 from src.ra_pst_py.builder import build_rapst, show_tree_as_graph
-from src.ra_pst_py.simulator import Simulator
+from src.ra_pst_py.simulator import Simulator, AllocationTypeEnum
 from src.ra_pst_py.heuristic import TaskAllocator
 from src.ra_pst_py.instance import Instance
 from src.ra_pst_py.schedule import Schedule, print_schedule
@@ -73,84 +73,68 @@ class ScheduleTest(unittest.TestCase):
         self.assertEqual(result, "cp_all", f"found allocation type {result}, expected 'heuristic'")
 
     def test_single_task_heuristic(self):
-        instances_to_sim = []
         sched = Schedule()
-        sim = Simulator()
         release_times = [0, 50, 0]
-        created_instances = []
-        for _  in range(len(release_times)):
-            instance = Instance(copy.deepcopy(self.ra_pst), {}, sched)
-            task1 = instance.ra_pst.get_tasklist()[0]
-            child = etree.SubElement(task1, f"{{{instance.ns['cpee1']}}}release_time")
-            child.text = str(release_times.pop(0))
-            task1 = etree.fromstring(etree.tostring(task1))
-            instances_to_sim.append([instance, "heuristic"])
+        # Heuristic Single Task allocation
 
-        sim.initialize(instances_to_sim)
+        allocation_type = AllocationTypeEnum.HEURISTIC
+        sim = Simulator(schedule_filepath=f"out/schedule_{str(allocation_type)}.json")
+        for i, release_time in enumerate(release_times):
+            instance = Instance(copy.deepcopy(self.ra_pst), {}, sched, id=i)
+            instance.add_release_time(release_time)
+            sim.add_instance(instance, allocation_type)
+
+        start = time.time()
         sim.simulate()
-        #print(f"Schedule:\n {sched.schedule}")
-        sched.print_to_cli()
+        end = time.time()
         
 
     def test_multiinstance_cp_sim(self):
-        instances_to_sim = []
-        sched = Schedule()
-        sim = Simulator()
-        release_times = [0, 10, 15, 20, 30]
-        created_instances = []
-        for _  in range(len(release_times)):
-            instance = Instance(copy.deepcopy(self.ra_pst), {}, sched)
-            task1 = instance.ra_pst.get_tasklist()[0]
-            child = etree.SubElement(task1, f"{{{instance.ns['cpee1']}}}release_time")
-            child.text = str(release_times.pop(0))
-            task1 = etree.fromstring(etree.tostring(task1))
-            instances_to_sim.append([instance, "cp_all"])
 
-        sim.initialize(instances_to_sim)
+        sched = Schedule()
+
+        release_times = [0, 10, 15, 20, 30]
+        # Heuristic Single Task allocation
+        allocation_type = AllocationTypeEnum.ALL_INSTANCE_CP
+        sim = Simulator(schedule_filepath=f"out/schedule_{str(allocation_type)}.json")
+        for i, release_time in enumerate(release_times):
+            instance = Instance(copy.deepcopy(self.ra_pst), {}, sched, id=i)
+            instance.add_release_time(release_time)
+            sim.add_instance(instance, allocation_type)
+
+        start = time.time()
         sim.simulate()
-        
-        #print(f"Schedule:\n {sched.schedule}")
-        #sched.print_to_cli()
-        #json.dump(sched.schedule_as_dict(), open("out/schedule.json", "w"), indent=2)
+        end = time.time()
         
     def test_single_instance_sim(self):
-        instances_to_sim = []
         sched = Schedule()
-        sim = Simulator()
+        
         release_times = [0] #[0, 10, 15, 20, 30]
-        created_instances = []
-        for _  in range(len(release_times)):
-            instance = Instance(copy.deepcopy(self.ra_pst), {}, sched)
-            task1 = instance.ra_pst.get_tasklist()[0]
-            child = etree.SubElement(task1, f"{{{instance.ns['cpee1']}}}release_time")
-            child.text = str(release_times.pop(0))
-            task1 = etree.fromstring(etree.tostring(task1))
-            instances_to_sim.append([instance, "cp_single_instance"])
+        # Heuristic Single Task allocation
+        allocation_type = AllocationTypeEnum.SINGLE_INSTANCE_CP
+        sim = Simulator(schedule_filepath=f"out/schedule_{str(allocation_type)}.json")
+        for i, release_time in enumerate(release_times):
+            instance = Instance(copy.deepcopy(self.ra_pst), {}, sched, id=i)
+            instance.add_release_time(release_time)
+            sim.add_instance(instance, allocation_type)
 
-        show_tree_as_graph(instances_to_sim[0][0].ra_pst)
-        sim.initialize(instances_to_sim)
+        start = time.time()
         sim.simulate()
+        end = time.time()
     
-    def test_all_three_types(self):               
-        sched = Schedule()
+    def test_all_three_types(self):
+        sched = Schedule()      
         results = {}
-        org_release_times = [0]
+        release_times = [0,1,2]
 
         # Heuristic Single Task allocation
-        sim = Simulator()
-        instances_to_sim = []
-        release_times = copy.copy(org_release_times)
-        allocation_type = "heuristic"
-        for _  in range(len(release_times)):
-            instance = Instance(copy.deepcopy(self.ra_pst), {}, sched)
-            
-            task1 = instance.ra_pst.get_tasklist()[0]
-            child = etree.SubElement(task1, f"{{{instance.ns['cpee1']}}}release_time")
-            child.text = str(release_times.pop(0))
-            task1 = etree.fromstring(etree.tostring(task1))
-            instances_to_sim.append([instance, allocation_type])
+        allocation_type = AllocationTypeEnum.HEURISTIC
+        sim = Simulator(schedule_filepath=f"out/schedule_{str(allocation_type)}.json")
+        for i, release_time in enumerate(release_times):
+            instance = Instance(copy.deepcopy(self.ra_pst), {}, sched, id=i)
+            instance.add_release_time(release_time)
+            sim.add_instance(instance, allocation_type)
 
-        sim.initialize(instances_to_sim, f"out/schedule_{allocation_type}.json")
         start = time.time()
         sim.simulate()
         end = time.time()
@@ -162,21 +146,14 @@ class ScheduleTest(unittest.TestCase):
             results[allocation_type]["time"] = str(end - start)
             print(f"Objective: {jobs["solution"]['objective']}")
 
-        # CP Single Instance allocation
-        sim = Simulator()
-        instances_to_sim = []
-        release_times = copy.copy(org_release_times)
-        allocation_type = "cp_single_instance"
-        for _  in range(len(release_times)):
-            instance = Instance(copy.deepcopy(self.ra_pst), {}, sched)
-            task1 = instance.ra_pst.get_tasklist()[0]
-            child = etree.SubElement(task1, f"{{{instance.ns['cpee1']}}}release_time")
-            child.text = str(release_times.pop(0))
-            task1 = etree.fromstring(etree.tostring(task1))
-            instances_to_sim.append([instance, allocation_type])
-        show_tree_as_graph(instance.ra_pst)
+        # Singel-Instance Task allocation
+        allocation_type = AllocationTypeEnum.SINGLE_INSTANCE_CP
+        sim = Simulator(schedule_filepath=f"out/schedule_{str(allocation_type)}.json")
+        for i, release_time in enumerate(release_times):
+            instance = Instance(copy.deepcopy(self.ra_pst), {}, sched, id=i)
+            instance.add_release_time(release_time)
+            sim.add_instance(instance, allocation_type)
 
-        sim.initialize(instances_to_sim, f"out/schedule_{allocation_type}.json")
         start = time.time()
         sim.simulate()
         end = time.time()
@@ -188,20 +165,15 @@ class ScheduleTest(unittest.TestCase):
             results[allocation_type]["time"] = str(end - start)
             print(f"Objective: {jobs["solution"]['objective']}")
     
+        print("All_INSTANCE_CP started")
         # CP Multi Instance allocation
-        sim = Simulator()
-        instances_to_sim = []
-        release_times = copy.copy(org_release_times)
-        allocation_type = "cp_all"
-        for _  in range(len(release_times)):
-            instance = Instance(copy.deepcopy(self.ra_pst), {}, sched)
-            task1 = instance.ra_pst.get_tasklist()[0]
-            child = etree.SubElement(task1, f"{{{instance.ns['cpee1']}}}release_time")
-            child.text = str(release_times.pop(0))
-            task1 = etree.fromstring(etree.tostring(task1))
-            instances_to_sim.append([instance, allocation_type])
+        allocation_type = AllocationTypeEnum.ALL_INSTANCE_CP
+        sim = Simulator(schedule_filepath=f"out/schedule_{str(allocation_type)}.json")
+        for i, release_time in enumerate(release_times):
+            instance = Instance(copy.deepcopy(self.ra_pst), {}, sched, id=i)
+            instance.add_release_time(release_time)
+            sim.add_instance(instance, allocation_type)
 
-        sim.initialize(instances_to_sim, f"out/schedule_{allocation_type}.json")
         start = time.time()
         sim.simulate()
         end = time.time()
