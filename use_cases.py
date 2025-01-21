@@ -34,14 +34,14 @@ def run(ra_pst:RA_PST, allocation_type:AllocationTypeEnum, path_to_dir: os.PathL
         results[allocation_type] = {}
         results[allocation_type]["objective"] = jobs["solution"]["objective"]
         results[allocation_type]["time"] = str(end - start)
-        print(f"Objective: {jobs["solution"]['objective']}")
+        #print(f"Objective: {jobs["solution"]['objective']}")
 
     return results
 
 if __name__ == "__main__":
     ra_pst = build_rapst(
-        process_file="test_instances/paper_process_short.xml",
-        resource_file="test_instances/offer_resources_many_invalid_branches_sched.xml"
+        process_file="test_instances/instance_generator_process.xml",
+        resource_file="test_instances/instance_generator_resources.xml"
     )
     output_dir_path = "evaluation/paper_process_short_invalids"
     run(ra_pst, AllocationTypeEnum.HEURISTIC, output_dir_path)

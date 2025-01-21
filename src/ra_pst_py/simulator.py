@@ -168,7 +168,7 @@ class Simulator():
             ra_psts["instances"] = []
 
             # Generate dict needed for cp_solver
-            for queue_object in enumerate(self.task_queue):
+            for queue_object in self.task_queue:
                 ilp_rep = queue_object.instance.get_ilp_rep()
                 ra_psts["instances"].append(ilp_rep)
             ra_psts["resources"] = ilp_rep["resources"]

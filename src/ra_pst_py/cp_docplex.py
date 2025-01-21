@@ -161,12 +161,12 @@ def cp_solver(ra_pst_json, warm_start_json=None):
                 #     continue
                 job["selected"] = itv.is_present()
                 job["start"] = itv.get_start()
-                if itv.is_present():
-                    intervals.append({
-                        "jobID": jobId, 
-                        "start": itv.get_start(),
-                        "duration" : itv.get_length()
-                    })
+                #if itv.is_present():
+                #    intervals.append({
+                #        "jobID": jobId, 
+                #        "start": itv.get_start(),
+                #        "cost" : itv.get_length()
+                #    })
                 del job["interval"]
                 #del job["after"]
         else:
@@ -175,8 +175,12 @@ def cp_solver(ra_pst_json, warm_start_json=None):
                     del job["interval"]
         ra_pst["fixed"] = True
     
+        for jobId, job in ra_pst["jobs"].items():
+            if job["selected"]:
+                intervals.append(job)
+    
     solve_details = result.get_solver_infos()
-    total_interval_length = sum([element["duration"] for element in intervals])
+    total_interval_length = sum([element["cost"] for element in intervals])
     ra_psts["solution"] = {
         "objective": result.get_objective_value(),
         "optimality gap": solve_details.get('RelativeOptimalityGap', 'N/A'),
