@@ -1,5 +1,6 @@
 import plotly.graph_objects as go
 import json
+import os
 
 def show_schedule(path):
     # Load data
@@ -44,7 +45,7 @@ def show_schedule(path):
 
     # Update layout
     fig.update_layout(
-        title="Job Scheduling Visualization",
+        title=f"Job Scheduling Visualization for {path}",
         xaxis=dict(title="Time", gridcolor="lightgray"),
         yaxis=dict(
             title="Resources",
@@ -57,14 +58,18 @@ def show_schedule(path):
         plot_bgcolor="white",
     )
 
-    # Show plot
-    #print(f"Objective: {ilp_result['objective']}")
     fig.show()
 
+def show_full_dir(path_to_dir:os.PathLike):
+    for filename in os.listdir(path_to_dir):
+        filepath = os.path.join(path_to_dir, filename)
+        if os.path.isfile(filepath):  # Check if it's a file
+            show_schedule(filepath)
+
 if __name__ == "__main__":
-    #show_schedule("out/sim_schedule.json")
-    #show_schedule("out/cp_rep_multiinstance.json")
-    #show_schedule("out/schedule_cp_all.json")
-    #show_schedule("out/schedule_cp_single_instance.json")
-    show_schedule("out/schedule_heuristic.json")
-    #show_schedule("tests/outcome/cp_cold.json")
+    #show_schedule("out/schedule_heuristic.json")
+    #show_schedule("out/schedule_single_instance_cp.json")
+    #show_schedule("out/schedule_all_instance_cp.json")
+
+    show_full_dir("evaluation/paper_process_short_invalids")
+
