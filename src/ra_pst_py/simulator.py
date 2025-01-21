@@ -11,11 +11,12 @@ import time
 import itertools
 
 class Simulator():
-    def __init__(self) -> None:
+    def __init__(self, schedule_filepath:str="out/sim_schedule.json") -> None:
+        self.schedule_filepath = schedule_filepath
         self.process_instances = [] # List of [{instance:RA_PST_instance, allocation_type:str(allocation_type)}]
         self.task_queue = [] # List of tuples (i, task, release_time)
         self.allocation_type = None
-        self.schedule_filepath = None
+        self.ns = None
 
     def initialize(self, process_instances:list[Instance], schedule_filepath:str="out/sim_schedule.json") -> None:
         """
@@ -38,18 +39,31 @@ class Simulator():
         with open(schedule_filepath, "w") as f:
             self.schedule_filepath = schedule_filepath
         
-    def add_instance(self): # TODO
+    def add_instance(self, instance:Instance, allocation_type): # TODO
         """ 
-        Should add a new instance to self.process_instances after sumalation has started.
+        Should add a new instance to self.process_instances after simulation has started.
         New instance will be added in queue
         """
-        raise NotImplementedError("Method not implemented")
+        self.process_instances.append({"instance_id": len(self.process_instances), "instance":instance, "allocation_type":str(allocation_type)})
+        self.update_task_queue((instance, allocation_type, instance.current_task, instance.release_time))
+        print(f"Instance added to simulator with allocation_type {allocation_type}")
+        
+    def check_setup(self):
+        # Check namespaces for ra-pst:
+        if not self.ns:
+            self.ns = self.process_instances[0]["instance"].ns
+        
+        # Check/create schedule file:
+        os.makedirs(os.path.dirname(self.schedule_filepath), exist_ok=True)
+        with open(self.schedule_filepath, "w") as f:
+            self.schedule_filepath = self.schedule_filepath
 
     def simulate(self):
         """
         TODO: refactor so that different allocation types are possible
         within one Simulator. e.g. Heuristic + single instance cp
         """
+        self.check_setup()
         self.allocation_type = self.get_allocation_types()
         if self.allocation_type in ["heuristic", "cp_single_instance"]:
             print("Start single instance/task allocation")
@@ -63,8 +77,9 @@ class Simulator():
 
                 if instance_allocation_type == "heuristic":
                     best_branch = instance.allocate_next_task()
-                    instance_dict = self.format_branch_to_job_dict(best_branch, next_task, instance)
-                    instance_dict = self.generate_dict_from_ra_pst(best_branch, instance, next_task)
+                    if not best_branch.check_validity():
+                        raise ValueError("Invalid Branch chosen")
+                    instance_dict = self.generate_dict_from_ra_pst(best_branch, instance)
                     with open(self.schedule_filepath, "r+") as f:
                         if os.path.getsize(self.schedule_filepath) > 0:
                             tmp_sched = json.load(f)
@@ -246,11 +261,11 @@ class Simulator():
         instances_dict["jobs"] = jobs_dict
         return instances_dict
     
-    def generate_dict_from_ra_pst(self, branch:Branch, instance:Instance, next_task):
-        ilp_rep = instance.ra_pst.get_ilp_rep()
+    def generate_dict_from_ra_pst(self, branch:Branch, instance:Instance):
+        ilp_rep = instance.get_ilp_rep()
         instance_id = ilp_rep["instanceId"]
         task_id = branch.node.attrib["id"]
-        branch_running_id = list(itertools.chain(*instance.ra_pst.branches.values())).index(branch)
+        branch_running_id = instance.get_all_valid_branches_list().index(branch)
         branch_ilp_id = f"{instance_id}-{task_id}-{branch_running_id}"
 
         branch_ilp_dict = ilp_rep["branches"][branch_ilp_id]

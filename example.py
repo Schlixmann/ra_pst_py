@@ -6,6 +6,11 @@ from src.ra_pst_py.brute_force import build_optimized_instance_brute
 ra_pst = build_rapst(process_file="example_data/test_process_cpee.xml",
                      resource_file="example_data/test_resource.xml")
 
+# Same with processes from paper
+ra_pst2 = build_rapst(process_file="test_instances/paper_process_short.xml",
+                     resource_file="test_instances/resources_paper_process_short.xml")
+ra_pst2.save_ra_pst("out/ra_pst_short.xml")
+
 # Get RA-PST as binary string
 ra_pst_str = get_rapst_str(process_file="example_data/test_process_cpee.xml",
                            resource_file="example_data/test_resource.xml")
@@ -33,10 +38,7 @@ ilp_rep = ra_pst.get_ilp_rep()
 
 ra_psts = {}
 
-# Same with processes from paper
-ra_pst2 = build_rapst(process_file="test_instances/paper_process_short.xml",
-                     resource_file="test_instances/resources_paper_process_short.xml")
-ra_psts["short_paper"] = ra_pst2
+
 #show_tree_as_graph(ra_pst2)
 
 #ra_pst3 = build_rapst(process_file="test_instances/instance_generator_process.xml",

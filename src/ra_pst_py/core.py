@@ -631,7 +631,7 @@ class Branch:
         attributes_list = self.node.xpath(f"//cpee1:resprofile/cpee1:measures/cpee1:{attribute}", namespaces = self.ns)
         return sum([float(element.text) for element in attributes_list])
 
-    def check_validity(self):
+    def check_validity(self) -> bool:
         self.is_valid = True
         empty_children = self.node.xpath(
             "descendant::cpee1:children[not(*)][not(parent::cpee1:resprofile)]",
@@ -647,6 +647,7 @@ class Branch:
             else:
                 self.is_valid = False
                 continue
+        return self.is_valid
 
     def apply_to_process(
         self,

@@ -1,18 +1,20 @@
 from src.ra_pst_py.change_operations import ChangeOperation
 from src.ra_pst_py.heuristic import TaskAllocator
 from src.ra_pst_py.schedule import Schedule
+from src.ra_pst_py.core import RA_PST, Branch
 
 from . import utils 
 
 import numpy as np
 import pathlib
 from lxml import etree
-from .core import RA_PST
+
 
 CURRENT_MIN_DATE = "2024-01-01T00:00" # Placeholder for scheduling heuristics
 
 class Instance():
-    def __init__(self, ra_pst:RA_PST, branches_to_apply:dict, schedule:Schedule):
+    def __init__(self, ra_pst, branches_to_apply:dict, schedule:Schedule, id=None):
+        self.id = id
         self.ra_pst:RA_PST = ra_pst
         self.ns = ra_pst.ns
         self.branches_to_apply = branches_to_apply
@@ -26,8 +28,27 @@ class Instance():
         self.allocator = TaskAllocator(self.ra_pst, schedule, self.change_op)
         self.allocated_tasks = set()
         self.times = []
+        self.release_time:float = None
 
-    def allocate_next_task(self):
+    def add_release_time(self, release_time:float):
+        """ """
+        task1 = self.ra_pst.get_tasklist()[0]
+        child = etree.SubElement(task1, f"{{{self.ns['cpee1']}}}release_time")
+        child.text = str(release_time)
+        task1 = etree.fromstring(etree.tostring(task1)) # save with namespaces
+        self.release_time = float(release_time)
+        
+    def get_ilp_rep(self) -> dict:
+        """Returns the RA-PST of the instance as dict for an ILP or CP"""
+        return self.ra_pst.get_ilp_rep(instance_id=self.id)
+
+    def get_all_valid_branches_list(self) -> list:
+        branches = []
+        for key, values in self.ra_pst.branches.items():
+            branches.extend([branch for branch in values if branch.check_validity()])
+        return branches
+
+    def allocate_next_task(self) -> Branch:
         """ Allocate next task in ra_pst based on earliest finish time heuristic"""
         best_branch, times = self.allocator.allocate_task(self.current_task)
         times = times[0:2]
