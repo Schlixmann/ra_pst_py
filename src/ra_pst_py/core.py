@@ -632,6 +632,7 @@ class Branch:
         return sum([float(element.text) for element in attributes_list])
 
     def check_validity(self) -> bool:
+        #TODO if delete task does not exist become invalid.
         self.is_valid = True
         empty_children = self.node.xpath(
             "descendant::cpee1:children[not(*)][not(parent::cpee1:resprofile)]",
@@ -642,6 +643,7 @@ class Branch:
                 "preceding-sibling::cpee1:changepattern[@type='delete']",
                 namespaces=self.ns,
             ):
+                
                 # if child.xpath("preceding-sibling::*[not(@type='delete')]", namespaces=self.ns):
                 continue
             else:

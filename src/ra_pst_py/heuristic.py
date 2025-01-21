@@ -23,8 +23,7 @@ class TaskAllocator():
         finish_times = []
         for branch in branches:
             #TODO create etree._Element release_time for each task in branch and set time to release_time
-            branch.check_validity()
-            if branch.is_valid:
+            if branch.check_validity():
                 self.set_release_times(branch, task)
                 finish_times.append((branch, self.calculate_finish_time(branch.node)[1:]))
 
@@ -172,7 +171,9 @@ class TaskAllocator():
                         start_element, earliest_start, duration, to_del_time = self.calculate_finish_time(
                             task=new_child)
                         task.xpath("cpee1:release_time", namespaces=self.ns)[0].text = str(earliest_start)
-                        to_del_time = -float(sorted(min_deletion_savings)[0])
+                        to_del_time = 0
+                        if min_deletion_savings:
+                            to_del_time = -float(sorted(min_deletion_savings)[0])
 
                         # return to branch
                         return start_element, earliest_start, duration, to_del_time

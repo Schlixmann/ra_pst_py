@@ -79,7 +79,7 @@ class Simulator():
                     best_branch = instance.allocate_next_task()
                     if not best_branch.check_validity():
                         raise ValueError("Invalid Branch chosen")
-                    instance_dict = self.generate_dict_from_ra_pst(best_branch, instance)
+                    #instance_dict = self.generate_dict_from_ra_pst(best_branch, instance, instance.get_ilp_rep())
                     with open(self.schedule_filepath, "r+") as f:
                         if os.path.getsize(self.schedule_filepath) > 0:
                             tmp_sched = json.load(f)
@@ -96,7 +96,7 @@ class Simulator():
                             resources.update(list(tmp_sched["instances"][list_idx]["resources"]))
                         else:
                             instance_mapper[instance_no] = list_idx
-                            tmp_sched["instances"].append(self.generate_dict_from_ra_pst(best_branch, instance, instance.ra_pst.get_ilp_rep()))
+                            tmp_sched["instances"].append(self.generate_dict_from_ra_pst(best_branch, instance, instance.get_ilp_rep()))
                             resources.update(list(tmp_sched["instances"][-1]["resources"]))    
                         tmp_sched["resources"] = list(resources)
 
@@ -261,8 +261,7 @@ class Simulator():
         instances_dict["jobs"] = jobs_dict
         return instances_dict
     
-    def generate_dict_from_ra_pst(self, branch:Branch, instance:Instance):
-        ilp_rep = instance.get_ilp_rep()
+    def generate_dict_from_ra_pst(self, branch:Branch, instance:Instance, ilp_rep):
         instance_id = ilp_rep["instanceId"]
         task_id = branch.node.attrib["id"]
         branch_running_id = instance.get_all_valid_branches_list().index(branch)
