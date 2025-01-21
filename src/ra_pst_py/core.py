@@ -626,6 +626,10 @@ class Branch:
                 f"{e}. Hint: The branch you're trying to serialize is probably invalid"
             )
         return jobs
+    
+    def get_branch_costs(self, attribute:str = "cost"):
+        attributes_list = self.node.xpath(f"//cpee1:resprofile/cpee1:measures/cpee1:{attribute}", namespaces = self.ns)
+        return sum([float(element.text) for element in attributes_list])
 
     def check_validity(self):
         self.is_valid = True

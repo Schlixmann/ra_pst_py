@@ -12,7 +12,7 @@ from .core import RA_PST
 CURRENT_MIN_DATE = "2024-01-01T00:00" # Placeholder for scheduling heuristics
 
 class Instance():
-    def __init__(self, ra_pst, branches_to_apply:dict, schedule:Schedule):
+    def __init__(self, ra_pst:RA_PST, branches_to_apply:dict, schedule:Schedule):
         self.ra_pst:RA_PST = ra_pst
         self.ns = ra_pst.ns
         self.branches_to_apply = branches_to_apply
@@ -30,6 +30,7 @@ class Instance():
     def allocate_next_task(self):
         """ Allocate next task in ra_pst based on earliest finish time heuristic"""
         best_branch, times = self.allocator.allocate_task(self.current_task)
+        times = times[0:2]
         task_id = self.current_task.attrib["id"]
         branch_no = self.ra_pst.branches[task_id].index(best_branch)
         self.ra_pst.branches[task_id][branch_no] = best_branch
