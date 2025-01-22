@@ -29,7 +29,7 @@ class RA_PST:
         self.ns = {"cpee1": list(self.process.nsmap.values())[0]}
         self.ra_pst: etree._Element = None
         self.solver = None
-        self.branches = defaultdict(list)
+        self.branches: dict[list[Branch]] = defaultdict(list)
         self.build_ra_pst()
         self.set_branches()
         self.transformed_items = []
@@ -121,7 +121,7 @@ class RA_PST:
         for key, values in self.branches.items():
             for i, branch in enumerate(values):
                 # TODO branch.serialize_jobs
-                if branch.is_valid:
+                if branch.check_validity():
                     jobs, deletes = branch.get_serialized_jobs(attribute="id")
 
                     # find task id by label for deletes:

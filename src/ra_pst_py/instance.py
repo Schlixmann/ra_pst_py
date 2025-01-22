@@ -8,12 +8,13 @@ from . import utils
 import numpy as np
 import pathlib
 from lxml import etree
+import os
 
 
 CURRENT_MIN_DATE = "2024-01-01T00:00" # Placeholder for scheduling heuristics
 
 class Instance():
-    def __init__(self, ra_pst, branches_to_apply:dict, schedule:Schedule, id=None):
+    def __init__(self, ra_pst, branches_to_apply:dict, schedule:Schedule=None, id=None):
         self.id = id
         self.ra_pst:RA_PST = ra_pst
         self.ns = ra_pst.ns
@@ -25,7 +26,7 @@ class Instance():
         self.current_task = utils.get_next_task(self.tasks_iter, self)
         self.optimal_process = None
         self.invalid = False
-        self.allocator = TaskAllocator(self.ra_pst, schedule, self.change_op)
+        self.allocator = TaskAllocator(self.ra_pst, self.change_op)
         self.allocated_tasks = set()
         self.times = []
         self.release_time:float = None
@@ -48,9 +49,10 @@ class Instance():
             branches.extend([branch for branch in values if branch.check_validity()])
         return branches
 
-    def allocate_next_task(self) -> Branch:
+    def allocate_next_task(self, schedule_filepath:os.PathLike) -> Branch:
         """ Allocate next task in ra_pst based on earliest finish time heuristic"""
-        best_branch, times = self.allocator.allocate_task(self.current_task)
+
+        best_branch, times = self.allocator.allocate_task(self.current_task, schedule_filepath=schedule_filepath)
         times = times[0:2]
         task_id = self.current_task.attrib["id"]
         branch_no = self.ra_pst.branches[task_id].index(best_branch)
@@ -72,7 +74,8 @@ class Instance():
             end_time = task.xpath("cpee1:expected_end", namespaces=self.ns)[0].text
             duration = float(end_time) - float(start_time)
             
-            self.allocator.schedule.add_task((self, task, start_time), resource, duration, branch_no)
+            #self.allocator.add_task((self, task, start_time), resource, duration, branch_no, schedule_filepath)
+
             alloc_times.append((start_time, duration))
         # Apply best branch to processmodel
         self.branches_to_apply[self.current_task.attrib["id"]] = best_branch

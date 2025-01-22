@@ -60,6 +60,7 @@ def cp_solver(ra_pst_json, warm_start_json=None):
 
     model = CpoModel()
     job_intervals = []
+    fixed_intervals = 0
 
     for ra_pst in ra_psts["instances"]:
         min_time = 0
@@ -79,6 +80,7 @@ def cp_solver(ra_pst_json, warm_start_json=None):
                         job["interval"].set_end_min(end_hr)
                         job["interval"].set_end_max(end_hr)
                     #job_intervals.append(job["interval"])
+                    fixed_intervals += 1
 
         else:
             # Create optional interval variables for each job
@@ -139,15 +141,16 @@ def cp_solver(ra_pst_json, warm_start_json=None):
         starting_solution = CpoModelSolution()
         #TODO make sure warm_start instances are the same as to optimize ones
         for i, ra_pst in enumerate(ra_psts["instances"]):
-            for jobId, job in ra_pst["jobs"].items():
-                interval_var = job["interval"]
-                warm_start_job = warm_start_ra_psts["instances"][i]["jobs"][jobId]
-                if warm_start_job["selected"]:
-                    starting_solution.add_interval_var_solution(interval_var, start=warm_start_job["start"], end= warm_start_job["start"] + warm_start_job["cost"], size=warm_start_job["cost"], presence= warm_start_job["selected"])
-                else:
-                    starting_solution.add_interval_var_solution(interval_var, start=warm_start_job["start"], end=None, size=warm_start_job["cost"], presence= warm_start_job["selected"])
-        if len(starting_solution.get_all_var_solutions()) != len(model.get_all_variables()):
-            raise ValueError(f"Solution size <{len(starting_solution.get_all_var_solutions())}> does not match model size <{len(model.get_all_variables())}>")
+            if not ra_pst["fixed"]:
+                for jobId, job in ra_pst["jobs"].items():
+                    interval_var = job["interval"]
+                    warm_start_job = warm_start_ra_psts["instances"][i]["jobs"][jobId]
+                    if warm_start_job["selected"]:
+                        starting_solution.add_interval_var_solution(interval_var, start=warm_start_job["start"], end= warm_start_job["start"] + warm_start_job["cost"], size=warm_start_job["cost"], presence= warm_start_job["selected"])
+                    else:
+                        starting_solution.add_interval_var_solution(interval_var, start=warm_start_job["start"], end=None, size=warm_start_job["cost"], presence= warm_start_job["selected"])
+        if len(starting_solution.get_all_var_solutions()) != len(model.get_all_variables())-fixed_intervals:
+            raise ValueError(f"Solution size <{len(starting_solution.get_all_var_solutions())}> does not match model size <{len(model.get_all_variables())-fixed_intervals}>")
         model.set_starting_point(starting_solution)
 
     result = model.solve(FailLimit=100000, TimeLimit=10000)
@@ -181,10 +184,14 @@ def cp_solver(ra_pst_json, warm_start_json=None):
     
     solve_details = result.get_solver_infos()
     total_interval_length = sum([element["cost"] for element in intervals])
+    if "solution" in ra_psts.keys():
+        computing_time = ra_psts["solution"]["computing time"] + solve_details.get('TotalTime', 'N/A')
+    else:
+        computing_time = solve_details.get('TotalTime', 'N/A')
     ra_psts["solution"] = {
         "objective": result.get_objective_value(),
         "optimality gap": solve_details.get('RelativeOptimalityGap', 'N/A'),
-        "computing time": solve_details.get('TotalTime', 'N/A'),
+        "computing time": computing_time,
         "solver status": result.get_solve_status(),
         "branches": solve_details.get('NumberOfBranches', 'N/A'),
         "propagations": solve_details.get('NumberOfPropagations','N/A'),
