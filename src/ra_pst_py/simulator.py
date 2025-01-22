@@ -53,8 +53,9 @@ class Simulator():
             self.ns = self.process_instances[0]["instance"].ns
         # Check/create schedule file:
         os.makedirs(os.path.dirname(self.schedule_filepath), exist_ok=True)
-        with open(self.schedule_filepath, "w") as f:
-            self.schedule_filepath = self.schedule_filepath
+        with open(self.schedule_filepath, "w"): pass
+        self.schedule_filepath = self.schedule_filepath
+        #open(self.schedule_filepath, "w").close()
 
     def simulate(self):
         """
@@ -66,10 +67,10 @@ class Simulator():
         self.set_allocation_type()
 
         if self.allocation_type in [AllocationTypeEnum.HEURISTIC, AllocationTypeEnum.SINGLE_INSTANCE_CP]:
-            print("Start single instance/task allocation")
             # objective = 0
             instance_mapper = {}
             start = time.time()
+
             while self.task_queue:
                 queue_object = self.task_queue.pop(0)
                 instance_no = [element["instance_id"]
@@ -86,7 +87,8 @@ class Simulator():
                         else:
                             # Default if file is empty
                             tmp_sched = {"instances": [],
-                                         "resources": [], "objective": 0}
+                                         "resources": [], 
+                                         "objective": 0}
 
                         # Create global resources list
                         resources = set(tmp_sched["resources"])
@@ -119,10 +121,6 @@ class Simulator():
                     print("Times: \t ", queue_object.instance.times)
                     if queue_object.instance.current_task != "end":
                         self.update_task_queue(queue_object)
-                    # else:
-                    #    if queue_object.release_time > objective:
-                    #        objective = sum(instance.times[-1])
-                    #    print(f"Instance {instance} is finished")
 
                 elif self.allocation_type == AllocationTypeEnum.SINGLE_INSTANCE_CP:
                     # Create ra_psts for next instance in task_queue
@@ -149,7 +147,7 @@ class Simulator():
                     with open(self.schedule_filepath, "w") as f:
                         json.dump(all_instances, f, indent=2)
 
-                    # TODO add new Jobs to existing job file
+                    # Add new Jobs to existing job file
                     result = cp_solver(self.schedule_filepath)
                     with open(self.schedule_filepath, "w") as f:
                         json.dump(result, f, indent=2)

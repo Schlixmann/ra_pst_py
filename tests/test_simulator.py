@@ -26,163 +26,118 @@ class ScheduleTest(unittest.TestCase):
         with open("tests/test_data/ilp_rep.json", "w") as f:
             json.dump(ilp_rep, f, indent=2)
             f.close()
-    
-    def test_get_allocation_types(self):
-        instances_to_sim = []
-        sched = Schedule()
-        sim = Simulator()
-        release_times = [0, 0, 0]
-        for _  in range(len(release_times)):
-            instance = Instance(copy.deepcopy(self.ra_pst), {}, sched)
-            task1 = instance.ra_pst.get_tasklist()[0]
-            child = etree.SubElement(task1, f"{{{instance.ns['cpee1']}}}release_time")
-            child.text = str(release_times.pop(0))
-            task1 = etree.fromstring(etree.tostring(task1))
-            instances_to_sim.append([instance, "heuristic"])
-        
-        sim.initialize(instances_to_sim, "heuristic")
-        result = sim.get_allocation_types()
-        self.assertEqual(result, "heuristic", f"found allocation type {result}, expected 'heuristic'")
-
-        sim = Simulator()
-        instances_to_sim.append([instance, "batching_cp"])
-        exp_values = set(("heuristic", "batching_cp"))
-        expected_error = f"More than one allocation_type among the instances to allocate. Types: {exp_values}"
-        try:
-            sim.initialize(instances_to_sim, "heuristic")
-            result = sim.get_allocation_types()
-        except ValueError as e:
-            self.assertEqual(
-                str(e), 
-                expected_error,
-                f"Unexpected exception message: {e}"
-            )
-        instances_to_sim = []
-        sched = Schedule()
-        sim = Simulator()
-        release_times = [0, 0, 0]
-        for _  in range(len(release_times)):
-            instance = Instance(copy.deepcopy(self.ra_pst), {}, sched)
-            task1 = instance.ra_pst.get_tasklist()[0]
-            child = etree.SubElement(task1, f"{{{instance.ns['cpee1']}}}release_time")
-            child.text = str(release_times.pop(0))
-            task1 = etree.fromstring(etree.tostring(task1))
-            instances_to_sim.append([instance, "cp_all"])
-        sim.initialize(instances_to_sim, "heuristic")
-        result = sim.get_allocation_types()
-        self.assertEqual(result, "cp_all", f"found allocation type {result}, expected 'heuristic'")
 
     def test_single_task_heuristic(self):
         sched = Schedule()
-        release_times = [0, 50, 0]
+        release_times = [0,1,2]
         # Heuristic Single Task allocation
 
         allocation_type = AllocationTypeEnum.HEURISTIC
-        sim = Simulator(schedule_filepath=f"out/schedule_{str(allocation_type)}.json")
+        file = f"out/schedule_{str(allocation_type)}.json"
+        sim = Simulator(schedule_filepath=file)
         for i, release_time in enumerate(release_times):
             instance = Instance(copy.deepcopy(self.ra_pst), {}, sched, id=i)
             instance.add_release_time(release_time)
             sim.add_instance(instance, allocation_type)
 
-        start = time.time()
         sim.simulate()
-        end = time.time()
+        
+        with open(file, "r") as f:
+            data = json.load(f)
+            objective = data["solution"]["objective"]
+        target = 26
+        self.assertEqual(objective, target, "HEURISTIC: The found objective does not match the target value")
         
 
     def test_multiinstance_cp_sim(self):
 
         sched = Schedule()
 
-        release_times = [0, 10, 15, 20, 30]
+        release_times = [0,1,2]
         # Heuristic Single Task allocation
         allocation_type = AllocationTypeEnum.ALL_INSTANCE_CP
-        sim = Simulator(schedule_filepath=f"out/schedule_{str(allocation_type)}.json")
+        file = f"out/schedule_{str(allocation_type)}.json"
+        sim = Simulator(schedule_filepath=file)
         for i, release_time in enumerate(release_times):
             instance = Instance(copy.deepcopy(self.ra_pst), {}, sched, id=i)
             instance.add_release_time(release_time)
             sim.add_instance(instance, allocation_type)
-
-        start = time.time()
         sim.simulate()
-        end = time.time()
+        with open(file, "r") as f:
+            data = json.load(f)
+            objective = data["solution"]["objective"]
+        target = 23
+        self.assertEqual(objective, target, "ALL_INSTANCE_CP: The found objective does not match the target value")
         
     def test_single_instance_sim(self):
         sched = Schedule()
         
-        release_times = [0] #[0, 10, 15, 20, 30]
+        release_times = [0,1,2]
         # Heuristic Single Task allocation
         allocation_type = AllocationTypeEnum.SINGLE_INSTANCE_CP
-        sim = Simulator(schedule_filepath=f"out/schedule_{str(allocation_type)}.json")
+        file = f"out/schedule_{str(allocation_type)}.json"
+        sim = Simulator(schedule_filepath=file)
         for i, release_time in enumerate(release_times):
             instance = Instance(copy.deepcopy(self.ra_pst), {}, sched, id=i)
             instance.add_release_time(release_time)
             sim.add_instance(instance, allocation_type)
 
-        start = time.time()
         sim.simulate()
-        end = time.time()
+        with open(file, "r") as f:
+            data = json.load(f)
+            objective = data["solution"]["objective"]
+        target = 23
+        self.assertEqual(objective, target, "SINGLE_INSTANCE_CP: The found objective does not match the target value")
+
     
     def test_all_three_types(self):
         sched = Schedule()      
-        results = {}
         release_times = [0,1,2]
 
         # Heuristic Single Task allocation
         allocation_type = AllocationTypeEnum.HEURISTIC
         sim = Simulator(schedule_filepath=f"out/schedule_{str(allocation_type)}.json")
+        file = f"out/schedule_{str(allocation_type)}.json"
         for i, release_time in enumerate(release_times):
             instance = Instance(copy.deepcopy(self.ra_pst), {}, sched, id=i)
             instance.add_release_time(release_time)
             sim.add_instance(instance, allocation_type)
-
-        start = time.time()
         sim.simulate()
-        end = time.time()
-
-        with open(f"out/schedule_{allocation_type}.json") as f:
-            jobs = json.load(f)
-            results[allocation_type] = {}
-            results[allocation_type]["objective"] = jobs["solution"]["objective"]
-            results[allocation_type]["time"] = str(end - start)
-            print(f"Objective: {jobs["solution"]['objective']}")
-
-        # Singel-Instance Task allocation
+        with open(file, "r") as f:
+            data = json.load(f)
+            objective = data["solution"]["objective"]
+        target = 26
+        self.assertEqual(objective, target, "HEURISTIC: The found objective does not match the target value")
+        
+        # Single-Instance Task allocation
+        print("SINGLE_INSTANCE_CP started")
         allocation_type = AllocationTypeEnum.SINGLE_INSTANCE_CP
         sim = Simulator(schedule_filepath=f"out/schedule_{str(allocation_type)}.json")
+        file = f"out/schedule_{str(allocation_type)}.json"
         for i, release_time in enumerate(release_times):
             instance = Instance(copy.deepcopy(self.ra_pst), {}, sched, id=i)
             instance.add_release_time(release_time)
             sim.add_instance(instance, allocation_type)
-
-        start = time.time()
         sim.simulate()
-        end = time.time()
-
-        with open(f"out/schedule_{allocation_type}.json") as f:
-            jobs = json.load(f)
-            results[allocation_type] = {}
-            results[allocation_type]["objective"] = jobs["solution"]["objective"]
-            results[allocation_type]["time"] = str(end - start)
-            print(f"Objective: {jobs["solution"]['objective']}")
+        with open(file, "r") as f:
+            data = json.load(f)
+            objective = data["solution"]["objective"]
+        target = 23
+        self.assertEqual(objective, target, "SINGLE_INSTANCE_CP: The found objective does not match the target value")
     
-        print("All_INSTANCE_CP started")
         # CP Multi Instance allocation
+        print("All_INSTANCE_CP started")
         allocation_type = AllocationTypeEnum.ALL_INSTANCE_CP
         sim = Simulator(schedule_filepath=f"out/schedule_{str(allocation_type)}.json")
+        file = f"out/schedule_{str(allocation_type)}.json"
         for i, release_time in enumerate(release_times):
             instance = Instance(copy.deepcopy(self.ra_pst), {}, sched, id=i)
             instance.add_release_time(release_time)
             sim.add_instance(instance, allocation_type)
-
-        start = time.time()
         sim.simulate()
-        end = time.time()
         
-        with open(f"out/schedule_{allocation_type}.json") as f:
-            jobs = json.load(f)
-            results[allocation_type] = {}
-            results[allocation_type]["objective"] = jobs["solution"]["objective"]
-            results[allocation_type]["time"] = str(end - start)
-            print(f"Objective: {jobs["solution"]['objective']}")
-        
-        print(f"Results: {results}")
+        with open(file, "r") as f:
+            data = json.load(f)
+            objective = data["solution"]["objective"]
+        target = 23
+        self.assertEqual(objective, target, "ALL_INSTANCE_CP: The found objective does not match the target value")
