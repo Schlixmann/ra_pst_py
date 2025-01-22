@@ -153,7 +153,7 @@ def cp_solver(ra_pst_json, warm_start_json=None):
             raise ValueError(f"Solution size <{len(starting_solution.get_all_var_solutions())}> does not match model size <{len(model.get_all_variables())-fixed_intervals}>")
         model.set_starting_point(starting_solution)
 
-    result = model.solve(FailLimit=100000, TimeLimit=10000)
+    result = model.solve(FailLimit=1000000, TimeLimit=10000)
     # result.print_solution()
     intervals = []
     for ra_pst in ra_psts["instances"]:
