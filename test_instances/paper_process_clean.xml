@@ -1,0 +1,214 @@
+<description xmlns="http://cpee.org/ns/description/1.0">
+  <manipulate id="a1" label="new_tender">level1level2level3<resources allocated_to="not_allocated">
+    <resource>level1</resource>
+    <resource>level2</resource>
+    <resource>level3</resource>
+  </resources>
+</manipulate>
+<manipulate id="a2" label="data_gathering">level1level2<resources allocated_to="not_allocated">
+  <resource>level1</resource>
+  <resource>level2</resource>
+</resources>
+</manipulate>
+<manipulate id="a3" label="evaluate_risk">Must be checked by level3 if executed by 1 or 2<resources allocated_to="not_allocated">
+<resource>level1</resource>
+<resource>level2</resource>
+<resource>level3</resource>
+</resources>
+</manipulate>
+<manipulate id="a4" label="create_proposal">level3<resources allocated_to="not_allocated">
+<resource>level3</resource>
+<resource>level2</resource>
+</resources>
+</manipulate>
+<manipulate id="a10" label="decide_on_proposal">
+<resources allocated_to="not_allocated">
+<resource>level3</resource>
+</resources>
+</manipulate>
+<call id="a7" endpoint="">
+<parameters>
+<label>design_offer</label>
+<method>:post</method>
+<arguments/>
+</parameters>
+<code>
+<prepare/>
+<finalize output="result"/>
+<update output="result"/>
+<rescue output="result"/>
+</code>
+<annotations>
+<_timing>
+  <_timing_weight/>
+  <_timing_avg/>
+  <explanations/>
+</_timing>
+<_shifting>
+  <_shifting_type>Duration</_shifting_type>
+</_shifting>
+<_context_data_analysis>
+  <probes/>
+  <ips/>
+</_context_data_analysis>
+<report>
+  <url/>
+</report>
+<_notes>
+  <_notes_general/>
+</_notes>
+</annotations>
+<documentation>
+<input/>
+<output/>
+<implementation>
+  <description/>
+</implementation>
+<code>
+  <description/>
+</code>
+</documentation>
+<resources allocated_to="not_allocated">
+<resource>level1</resource>
+<resource>level2</resource>
+<resource>level3</resource>
+</resources>
+</call>
+<call id="a8" endpoint="">
+<parameters>
+<label>contact_suppliers</label>
+<method>:post</method>
+<arguments/>
+</parameters>
+<annotations>
+<_timing>
+  <_timing_weight/>
+  <_timing_avg/>
+  <explanations/>
+</_timing>
+<_shifting>
+  <_shifting_type>Duration</_shifting_type>
+</_shifting>
+<_context_data_analysis>
+  <probes/>
+  <ips/>
+</_context_data_analysis>
+<report>
+  <url/>
+</report>
+<_notes>
+  <_notes_general/>
+</_notes>
+</annotations>
+<documentation>
+<input/>
+<output/>
+<implementation>
+  <description/>
+</implementation>
+</documentation>
+<resources allocated_to="not_allocated">
+<resource>level3</resource>
+</resources>
+</call>
+<manipulate id="a5" label="send_offer">level1level2level3<resources allocated_to="not_allocated">
+<resource>level1</resource>
+<resource>level2</resource>
+<resource>level3</resource>
+</resources>
+</manipulate>
+<call id="a6" endpoint="">
+<parameters>
+<label>handover_to_engineering</label>
+<method>:post</method>
+<arguments/>
+</parameters>
+<code>
+<prepare/>
+<finalize output="result"/>
+<update output="result"/>
+<rescue output="result"/>
+</code>
+<annotations>
+<_timing>
+<_timing_weight/>
+<_timing_avg/>
+<explanations/>
+</_timing>
+<_shifting>
+<_shifting_type>Duration</_shifting_type>
+</_shifting>
+<_context_data_analysis>
+<probes/>
+<ips/>
+</_context_data_analysis>
+<report>
+<url/>
+</report>
+<_notes>
+<_notes_general/>
+</_notes>
+</annotations>
+<documentation>
+<input/>
+<output/>
+<implementation>
+<description/>
+</implementation>
+<code>
+<description/>
+</code>
+</documentation>
+<resources allocated_to="not_allocated">
+<resource>level2</resource>
+<resource>level3</resource>
+</resources>
+</call>
+<call id="a9" endpoint="">
+<parameters>
+<label>close_project</label>
+<method>:post</method>
+<arguments/>
+</parameters>
+<code>
+<prepare/>
+<finalize output="result"/>
+<update output="result"/>
+<rescue output="result"/>
+</code>
+<annotations>
+<_timing>
+<_timing_weight/>
+<_timing_avg/>
+<explanations/>
+</_timing>
+<_shifting>
+<_shifting_type>Duration</_shifting_type>
+</_shifting>
+<_context_data_analysis>
+<probes/>
+<ips/>
+</_context_data_analysis>
+<report>
+<url/>
+</report>
+<_notes>
+<_notes_general/>
+</_notes>
+</annotations>
+<documentation>
+<input/>
+<output/>
+<implementation>
+<description/>
+</implementation>
+<code>
+<description/>
+</code>
+</documentation>
+<resources allocated_to="not_allocated">
+<resource>level3</resource>
+<resource>level2</resource>
+</resources>
+</call>
+</description>

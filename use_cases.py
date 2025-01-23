@@ -12,27 +12,40 @@ def run(ra_pst:RA_PST, allocation_type:AllocationTypeEnum, path_to_dir: os.PathL
     sched = Schedule()
     release_times = [0,10,23]
 
+    # Check for replace pattern: 
+    if "replace" in ra_pst.get_ra_pst_etree().xpath("//@type"):
+        raise NotImplementedError("Replace pattern not implemented for allocation")
+
     # Instantiate simulator and run
     sim = Simulator(schedule_filepath=f"{path_to_dir}/{allocation_type}.json")
     for i, release_time in enumerate(release_times):
         instance = Instance(copy.deepcopy(ra_pst), {}, sched, id=i)
         instance.add_release_time(release_time)
         sim.add_instance(instance, allocation_type)
+    sim.simulate()
 
-    sim.simulate(instance_mapper={})
+def create_full_dir(path_to_dir):
+    ra_pst_file_dict = []
+    for filename in os.listdir(path_to_dir):
+        filepath = os.path.join(path_to_dir, filename)
+        if os.path.isfile(filepath):  # Check if it's a file
+            ra_pst = build_rapst(
+                process_file="test_instances/paper_process_clean.xml",
+                resource_file=filepath
+            )
+            output_dir_path = f"evaluation/paper_process_{os.path.splitext(filename)[0]}"
+            ra_pst_file_dict.append({"ra_pst" : ra_pst, "output_dir_path": output_dir_path})
+    return ra_pst_file_dict
+    
 
 if __name__ == "__main__":
 
-    ra_pst = build_rapst(
-        process_file="test_instances/paper_process_first_4.xml",
-        resource_file="test_instances/offer_resources_plain_fully_synthetic_small.xml"
-    )
-    output_dir_path = "evaluation/paper_process_first_invalids"
-    show_tree_as_graph(ra_pst)
-    run(ra_pst, AllocationTypeEnum.HEURISTIC, output_dir_path)
-    run(ra_pst, AllocationTypeEnum.SINGLE_INSTANCE_CP , output_dir_path)
-    run(ra_pst, AllocationTypeEnum.SINGLE_INSTANCE_CP_WARM , output_dir_path)
-    run(ra_pst, AllocationTypeEnum.ALL_INSTANCE_CP , output_dir_path)
+    #for element in create_full_dir("test_instances/offer_resources"):
+    #    show_tree_as_graph(element["ra_pst"])
+    #    run(element["ra_pst"], AllocationTypeEnum.HEURISTIC, element["output_dir_path"])
+    #    run(element["ra_pst"], AllocationTypeEnum.SINGLE_INSTANCE_CP , element["output_dir_path"])
+    #    run(element["ra_pst"], AllocationTypeEnum.SINGLE_INSTANCE_CP_WARM , element["output_dir_path"])
+    #    run(element["ra_pst"], AllocationTypeEnum.ALL_INSTANCE_CP , element["output_dir_path"])
 
     ra_pst = build_rapst(
         process_file="test_instances/instance_generator_process.xml",
@@ -40,9 +53,9 @@ if __name__ == "__main__":
     )
     output_dir_path = "evaluation/paper_process_short_invalids"
     
-    run(ra_pst, AllocationTypeEnum.HEURISTIC, output_dir_path)
-    run(ra_pst, AllocationTypeEnum.SINGLE_INSTANCE_CP , output_dir_path)
-    run(ra_pst, AllocationTypeEnum.SINGLE_INSTANCE_CP_WARM , output_dir_path)
+    #run(ra_pst, AllocationTypeEnum.HEURISTIC, output_dir_path)
+    #run(ra_pst, AllocationTypeEnum.SINGLE_INSTANCE_CP , output_dir_path)
+    #run(ra_pst, AllocationTypeEnum.SINGLE_INSTANCE_CP_WARM , output_dir_path)
     run(ra_pst, AllocationTypeEnum.ALL_INSTANCE_CP , output_dir_path)
 
 

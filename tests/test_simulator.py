@@ -66,7 +66,7 @@ class ScheduleTest(unittest.TestCase):
         with open(file, "r") as f:
             data = json.load(f)
             objective = data["solution"]["objective"]
-        target = 23
+        target = 21
         self.assertEqual(objective, target, "ALL_INSTANCE_CP: The found objective does not match the target value")
         
     def test_single_instance_sim(self):
@@ -99,7 +99,7 @@ class ScheduleTest(unittest.TestCase):
         file = f"out/schedule_{str(allocation_type)}.json"
         sim = Simulator(schedule_filepath=file)
         for i, release_time in enumerate(release_times):
-            instance = Instance(copy.deepcopy(self.ra_pst), {},id=i)
+            instance = Instance(copy.deepcopy(self.ra_pst), {}, id=i)
             instance.add_release_time(release_time)
             sim.add_instance(instance, allocation_type)
 

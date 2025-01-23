@@ -50,9 +50,9 @@ def cp_solver(ra_pst_json, warm_start_json=None):
     for i, instance in enumerate(ra_psts["instances"]):
         if "fixed" not in instance.keys():
             instance["fixed"] = False
-        inst_prefix = str(list(instance["tasks"].keys())[0]).split("-")[0]
-        for key, value in instance["branches"].items():
-            value["deletes"] = [str(inst_prefix) + f"-{element}"for element in value["deletes"]]
+        #inst_prefix = str(list(instance["tasks"].keys())[0]).split("-")[0]
+        #for key, value in instance["branches"].items():
+        #    value["deletes"] = [str(inst_prefix) + f"-{element}"for element in value["deletes"]]
     
     #-----------------------------------------------------------------------------
     # Build the model
@@ -81,6 +81,9 @@ def cp_solver(ra_pst_json, warm_start_json=None):
                         job["interval"].set_end_max(end_hr)
                     #job_intervals.append(job["interval"])
                     fixed_intervals += 1
+                    
+                    # TODO figure out if this should be part of the objective or not
+                    job_intervals.append(job["interval"])
 
         else:
             # Create optional interval variables for each job
@@ -139,7 +142,6 @@ def cp_solver(ra_pst_json, warm_start_json=None):
 
     if warm_start_json:
         starting_solution = CpoModelSolution()
-        #TODO make sure warm_start instances are the same as to optimize ones
         for i, ra_pst in enumerate(ra_psts["instances"]):
             if not ra_pst["fixed"]:
                 for jobId, job in ra_pst["jobs"].items():
@@ -153,25 +155,17 @@ def cp_solver(ra_pst_json, warm_start_json=None):
             raise ValueError(f"Solution size <{len(starting_solution.get_all_var_solutions())}> does not match model size <{len(model.get_all_variables())-fixed_intervals}>")
         model.set_starting_point(starting_solution)
 
-    result = model.solve(FailLimit=1000000, TimeLimit=10000)
+    result = model.solve(FailLimit=100000000, TimeLimit=10000)
     # result.print_solution()
     intervals = []
     for ra_pst in ra_psts["instances"]:
         if not ra_pst["fixed"]:
             for jobId, job in ra_pst["jobs"].items():
                 itv = result.get_var_solution(ra_pst["jobs"][jobId]["interval"])
-                # if itv is None:
-                #     continue
                 job["selected"] = itv.is_present()
                 job["start"] = itv.get_start()
-                #if itv.is_present():
-                #    intervals.append({
-                #        "jobID": jobId, 
-                #        "start": itv.get_start(),
-                #        "cost" : itv.get_length()
-                #    })
                 del job["interval"]
-                #del job["after"]
+
         else:
             for jobId, job in ra_pst["jobs"].items():
                 if "interval" in job.keys():
@@ -184,6 +178,19 @@ def cp_solver(ra_pst_json, warm_start_json=None):
     
     solve_details = result.get_solver_infos()
     total_interval_length = sum([element["cost"] for element in intervals])
+
+    # Metadata per instance:
+    ra_psts["instances"][-1]["solution"] = {
+            "objective": result.get_objective_value(),
+            "optimality gap": solve_details.get('RelativeOptimalityGap', 'N/A'),
+            "computing time": solve_details.get('TotalTime', 'N/A'),
+            "solver status": result.get_solve_status(),
+            "branches": solve_details.get('NumberOfBranches', 'N/A'),
+            "propagations": solve_details.get('NumberOfPropagations','N/A'),
+            "total interval length": total_interval_length
+        }
+
+
     if "solution" in ra_psts.keys():
         computing_time = ra_psts["solution"]["computing time"] + solve_details.get('TotalTime', 'N/A')
     else:

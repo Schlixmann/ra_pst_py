@@ -159,7 +159,7 @@ class RA_PST:
                 newBranch = {
                     "task": f'{instance_id}-{task}',
                     "jobs": [],
-                    "deletes": branch["deletes"],
+                    "deletes": [f"{instance_id}-{element}" for element in branch["deletes"]],
                     "branch_no": branch["branch_no"],
                     "branchCost": 0,
                     "release_time": 0

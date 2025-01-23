@@ -51,10 +51,15 @@ class Node(ABC):
 class TaskNode(Node):
     def __init__(self):
         super().__init__(self)
-    
 
-
-    
+class ChildInfo():
+    def __init__(self, release_time:float, cp_type:str, cp_direction:str, children:list = None, duration:float=None):
+        self.release_time = release_time
+        self.cp_type = cp_type
+        self.cp_direction = cp_direction
+        self.children = children
+        self.duration = duration
+        
 
 class TaskAllocator():
 
@@ -123,7 +128,15 @@ class TaskAllocator():
                 except:
                     #TODO implement for replace pattern
                     #raise NotImplementedError("Child is probably replace pattern")
-                    pass
+                    child_direction = "replace"
+                
+                child_info = ChildInfo(
+                    release_time= float(child.xpath("cpee1:release_time", namespaces=self.ns)[
+                            0].text),
+                    cp_type=child.attrib["type"],
+                    cp_direction=child_direction
+
+                )
 
                 if change_pattern_type == "insert":
                     if child_direction == "before":
