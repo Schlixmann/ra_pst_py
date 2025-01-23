@@ -7,9 +7,54 @@ from collections import defaultdict
 import warnings
 import os
 import json
+from abc import ABC, abstractmethod
 
-class Node():
-    def __init__(self, start, duration, type, children, parents):
+class Node(ABC):
+    def __init__(self, children, parent ):
+        self.children = children
+        self.parent = parent   
+
+    def add_child(self, node):
+        """
+        Add child to self.children
+        """
+        #TODO
+        pass
+
+    def set_parent(self, node):
+        """
+        Set parent for self.parent
+        """
+        #TODO
+
+    def get_children(self) -> list:
+        """
+        Return all available children for the given node
+        """
+        return list(self.children)
+        pass
+
+    def get_parent(self):
+        """
+        Return the parent of the current node
+        """
+        return self.parent
+    
+    
+    @abstractmethod
+    def get_release_times():
+        """
+        Return release time of current node
+        """
+        return NotImplementedError
+    
+class TaskNode(Node):
+    def __init__(self):
+        super().__init__(self)
+    
+
+
+    
 
 class TaskAllocator():
 
