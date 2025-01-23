@@ -17,8 +17,7 @@ class InstanceTest(unittest.TestCase):
             process_file="test_instances/paper_process.xml",
             resource_file="test_instances/offer_resources_many_invalid_branches.xml"
         )
-        #with open("out/ilp_result.json", "r") as f:
-        #    self.ilp_rep = json.load(f)
+            
 
     def test_transform_ilp_to_branches(self):        
         branches_to_apply = transform_ilp_to_branches(self.ra_pst, self.ilp_rep)

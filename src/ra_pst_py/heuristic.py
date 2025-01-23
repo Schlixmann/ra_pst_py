@@ -8,6 +8,9 @@ import warnings
 import os
 import json
 
+class Node():
+    def __init__(self, start, duration, type, children, parents):
+
 class TaskAllocator():
 
     def __init__(self, ra_pst:RA_PST,  change_operation):
