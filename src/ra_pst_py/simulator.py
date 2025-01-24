@@ -17,7 +17,6 @@ class AllocationTypeEnum(StrEnum):
     SINGLE_INSTANCE_CP = "single_instance_cp"
     SINGLE_INSTANCE_CP_WARM = "single_instance_cp_warm"
     ALL_INSTANCE_CP = "all_instance_cp"
-    ALL_INSTANCE_CP_WARM = "all_instance_cp_warm"
 
 class QueueObject():
     def __init__(self, instance: Instance, schedule_idx:int,  allocation_type: AllocationTypeEnum, task: etree._Element, release_time: float):
@@ -80,8 +79,6 @@ class Simulator():
             self.single_instance_processing(warmstart=True)
         elif self.allocation_type == AllocationTypeEnum.ALL_INSTANCE_CP:
             self.all_instance_processing()
-        elif self.allocation_type == AllocationTypeEnum.ALL_INSTANCE_CP_WARM:
-            self.all_instance_processing(warmstart=True)
         else:
             raise NotImplementedError(
                 f"Allocation_type {self.allocation_type} has not been implemented yet")
@@ -214,7 +211,7 @@ class Simulator():
             schedule_dict = self.add_ilp_rep_to_schedule(instance_ilp_rep, schedule_dict, queue_object)
             schedule_dict["resources"] = list(set(schedule_dict["resources"]).union(instance_ilp_rep["resources"]))
             if warmstart:
-                self.create_warmstart_file(schedule_dict, [queue_object])
+                self.create_warmstart_file(schedule_dict, queue_object)
             self.save_schedule(schedule_dict)
 
             if warmstart:
@@ -223,30 +220,25 @@ class Simulator():
                 result = cp_solver(self.schedule_filepath)
             self.save_schedule(result)
         
-    def all_instance_processing(self, warmstart:bool = False):
+    def all_instance_processing(self):
         # Generate dict needed for cp_solver
         for queue_object in self.task_queue:
             schedule_dict = self.get_current_schedule_dict()
             instance_ilp_rep = self.get_current_instance_ilp_rep(schedule_dict, queue_object)
             schedule_dict = self.add_ilp_rep_to_schedule(instance_ilp_rep, schedule_dict, queue_object)
+            
             self.save_schedule(schedule_dict)
-        
-        if warmstart:
-            self.create_warmstart_file(schedule_dict, self.task_queue)
-            result = cp_solver(self.schedule_filepath, "tmp/warmstart.json")
-        else:
-            result = cp_solver(self.schedule_filepath)
+        result = cp_solver(self.schedule_filepath)
         self.save_schedule(result)
             
-    def create_warmstart_file(self, ra_psts:dict, queue_objects:list[QueueObject]):
+    def create_warmstart_file(self, ra_psts:dict, queue_object:QueueObject):
         with open("tmp/warmstart.json", "w") as f:
             ra_psts.setdefault("objective", 0)
             json.dump(ra_psts, f, indent=2)
         
         # Create new sim to create warmsstart file
         sim = Simulator(schedule_filepath="tmp/warmstart.json", is_warmstart=True)
-        for queue_object in queue_objects:
-            sim.add_instance(queue_object.instance, AllocationTypeEnum.HEURISTIC)
+        sim.add_instance(queue_object.instance, AllocationTypeEnum.HEURISTIC)
         sim.simulate()
         print("Warmstart file created")
 
@@ -271,8 +263,6 @@ class Simulator():
             self.allocation_type = AllocationTypeEnum.ALL_INSTANCE_CP
         elif allocation_types == {AllocationTypeEnum.SINGLE_INSTANCE_CP_WARM}:
             self.allocation_type = AllocationTypeEnum.SINGLE_INSTANCE_CP_WARM
-        elif allocation_types == {AllocationTypeEnum.ALL_INSTANCE_CP_WARM}:
-            self.allocation_type = AllocationTypeEnum.ALL_INSTANCE_CP_WARM
         else:
             raise NotImplementedError(f"The allocation type combination {allocation_types} is not implemented")
 

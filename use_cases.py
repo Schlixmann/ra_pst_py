@@ -53,11 +53,10 @@ if __name__ == "__main__":
     )
     output_dir_path = "evaluation/paper_process_short_invalids"
     
-    run(ra_pst, AllocationTypeEnum.HEURISTIC, output_dir_path)
-    run(ra_pst, AllocationTypeEnum.SINGLE_INSTANCE_CP , output_dir_path)
-    run(ra_pst, AllocationTypeEnum.SINGLE_INSTANCE_CP_WARM , output_dir_path)
+    #run(ra_pst, AllocationTypeEnum.HEURISTIC, output_dir_path)
+    #run(ra_pst, AllocationTypeEnum.SINGLE_INSTANCE_CP , output_dir_path)
+    #run(ra_pst, AllocationTypeEnum.SINGLE_INSTANCE_CP_WARM , output_dir_path)
     run(ra_pst, AllocationTypeEnum.ALL_INSTANCE_CP , output_dir_path)
-    run(ra_pst, AllocationTypeEnum.ALL_INSTANCE_CP_WARM , output_dir_path)
 
 
     

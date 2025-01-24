@@ -68,8 +68,8 @@ def show_full_dir(path_to_dir:os.PathLike):
 
 if __name__ == "__main__":
     #show_schedule("out/schedule_heuristic.json")
-    show_schedule("tmp/warmstart.json")
-    #show_schedule("out/schedule_single_instance_cp_warm.json")
+    #show_schedule("tmp/warmstart.json")
+    show_schedule("out/schedule_single_instance_cp_warm.json")
     #show_schedule("out/schedule_all_instance_cp.json")
 
     #show_full_dir("evaluation/paper_process_first_invalids")
