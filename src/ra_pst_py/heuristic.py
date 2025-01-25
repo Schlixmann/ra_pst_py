@@ -1,6 +1,5 @@
 from src.ra_pst_py import utils
 from src.ra_pst_py.core import Branch, RA_PST
-
 from lxml import etree
 import numpy as np
 from collections import defaultdict
@@ -9,45 +8,6 @@ import os
 import json
 from abc import ABC, abstractmethod
 from enum import StrEnum
-
-class Node(ABC):
-    def __init__(self, children, parent ):
-        self.children = children
-        self.parent = parent   
-
-    def add_child(self, node):
-        """
-        Add child to self.children
-        """
-        #TODO
-        pass
-
-    def set_parent(self, node):
-        """
-        Set parent for self.parent
-        """
-        #TODO
-
-    def get_children(self) -> list:
-        """
-        Return all available children for the given node
-        """
-        return list(self.children)
-        pass
-
-    def get_parent(self):
-        """
-        Return the parent of the current node
-        """
-        return self.parent
-    
-    
-    @abstractmethod
-    def get_release_times():
-        """
-        Return release time of current node
-        """
-        return NotImplementedError
     
 class CPType_Enum(StrEnum):
     INSERT = "insert"
@@ -68,6 +28,7 @@ class TaskNode():
         self.release_time:float = None
         self.earliest_start:float = None
         self.change_patterns: list['TaskNode'] = []
+        self.deletion_savings:float = float(0)
         self.cp_type:CPType_Enum = None
         self.cp_direction: CPDirction_Enum = None
         if initialize:
@@ -117,7 +78,7 @@ class TaskNode():
         starts = sorted([float(start) for start in starts])
         ends = self.task.xpath("//cpee1:expected_end/text()", namespaces=self.ns)
         ends = sorted([float(end) for end in ends])
-        return (starts[0], ends[-1] - starts[0],  ends[-1])
+        return (starts[0], ends[-1] - starts[0], self.deletion_savings,  ends[-1])
         
     def set_earliest_start(self, schedule_dict:dict) -> None:
         """
@@ -159,7 +120,7 @@ class TaskNode():
         else:
             return np.array([[self.release_time, np.inf]])
         
-    def calculate_finish_time(self, schedule_dict:dict):
+    def calculate_finish_time(self, schedule_dict:dict, ra_pst:RA_PST):
 
         self.set_change_patterns()
         if self.change_patterns:
@@ -168,7 +129,7 @@ class TaskNode():
                     if child_task_node.cp_direction == CPDirction_Enum.BEFORE:
                         # Insert Before
                         child_task_node.set_release_time(self.release_time)
-                        child_task_node.calculate_finish_time(schedule_dict)
+                        child_task_node.calculate_finish_time(schedule_dict, ra_pst)
                         self.release_time = child_task_node.earliest_start + child_task_node.duration
                         self.set_earliest_start(schedule_dict)
 
@@ -176,7 +137,7 @@ class TaskNode():
                         # Insert After
                         self.set_earliest_start(schedule_dict)
                         child_task_node.release_time = self.earliest_start + self.duration
-                        child_task_node.calculate_finish_time(schedule_dict)
+                        child_task_node.calculate_finish_time(schedule_dict, ra_pst)
                     elif child_task_node.cp_direction == CPDirction_Enum.PARALLEL:
                         # Insert Parallel
                         pass
@@ -184,9 +145,18 @@ class TaskNode():
                 elif child_task_node.cp_type == CPType_Enum.DELETE:
                     # DELETE Task
                     # TODO calc_minimum deletion savings
+                    warnings.warn("The direction of the delete is any, for taskwise allocation, previous tasks can not be deleted from the process")
                     self.set_earliest_start(schedule_dict)
-
-                    pass
+                    affected_tasks= [ra_pst_task for ra_pst_task in ra_pst.get_tasklist() if child_task_node.task.attrib["label"] == utils.get_label(ra_pst_task)]
+                    if len(affected_tasks) > 1:
+                        warnings.warn("More than one task available to be deleted. Your process has multiple tasks with the same name")
+                    min_deletion_savings = []
+                    for affected_task in affected_tasks:
+                        branches = ra_pst.branches[affected_task.attrib["id"]]
+                        min_deletion_savings.append(sorted([branch.get_branch_costs() for branch in branches])[0])
+                    if min_deletion_savings:
+                        self.deletion_savings = -float(sorted(min_deletion_savings)[0])
+                    
                 elif child_task_node.cp_type == CPType_Enum.REPLACE:
                     # Replace Task
                     pass
@@ -248,14 +218,14 @@ class TaskAllocator():
                 task_node = TaskNode(branch.node)
                 branch_release = task.xpath("cpee1:release_time", namespaces=self.ns)[0].text
                 task_node.set_release_time(float(branch_release))
-                task_node.calculate_finish_time(schedule_dict)
+                task_node.calculate_finish_time(schedule_dict, self.ra_pst)
                 task_node.add_all_times_to_branch()
                 branch.node = task_node.task
                 finish_times.append((branch, task_node.get_interval()))
 
         if not finish_times:
             raise ValueError("No valid branch for this task")
-        finish_times.sort(key=lambda x: sum(x[1]))
+        finish_times.sort(key=lambda x: sum(x[1][0:3]))
         #print(finish_times)
         return finish_times[0]
     
