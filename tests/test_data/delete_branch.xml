@@ -1,0 +1,64 @@
+<call xmlns="http://cpee.org/ns/description/1.0" id="a1" endpoint="">
+	<parameters>
+		<label>receive order</label>
+		<method>:post</method>
+		<arguments/>
+	</parameters>
+	<annotations>
+		<_timing>
+			<_timing_weight/>
+			<_timing_avg/>
+			<explanations/>
+		</_timing>
+		<_shifting>
+			<_shifting_type>Duration</_shifting_type>
+		</_shifting>
+		<_context_data_analysis>
+			<probes/>
+			<ips/>
+		</_context_data_analysis>
+		<report>
+			<url/>
+		</report>
+		<_notes>
+			<_notes_general/>
+		</_notes>
+	</annotations>
+	<documentation>
+		<input/>
+		<output/>
+		<implementation>
+			<description/>
+		</implementation>
+	</documentation>
+	<resources allocated_to="not_allocated"/>
+	<expectedready/>
+	<plannedstart/>
+	<plannedend/>
+	<children>
+		<resource id="res_3" name="res_3">
+			<resprofile id="role_4" name="role_4" role="role_4" task="receive order">
+				<measures>
+					<cost>8</cost>
+				</measures>
+				<changepattern type="delete">
+					<parameters>
+						<direction>any</direction>
+					</parameters>
+					<description>
+					</description>
+				</changepattern>
+				<children>
+					<manipulate id="delete_2" label="send product" type="delete" direction="any">
+						<resources allocated_to="not_allocated">
+							<resource>role_8</resource>
+						</resources>
+						<release_time>0</release_time>
+					</manipulate>
+				</children>
+			</resprofile>
+		</resource>
+	</children>
+	<release_time>0</release_time>
+</call>
+      

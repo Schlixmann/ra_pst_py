@@ -1,4 +1,4 @@
-from . import utils
+from src.ra_pst_py import utils
 from src.ra_pst_py.core import Branch, RA_PST
 
 from lxml import etree
@@ -8,6 +8,7 @@ import warnings
 import os
 import json
 from abc import ABC, abstractmethod
+from enum import StrEnum
 
 class Node(ABC):
     def __init__(self, children, parent ):
@@ -48,18 +49,180 @@ class Node(ABC):
         """
         return NotImplementedError
     
-class TaskNode(Node):
-    def __init__(self):
-        super().__init__(self)
+class CPType_Enum(StrEnum):
+    INSERT = "insert"
+    REPLACE = "replace"
+    DELETE = "delete"
 
-class ChildInfo():
-    def __init__(self, release_time:float, cp_type:str, cp_direction:str, children:list = None, duration:float=None):
-        self.release_time = release_time
-        self.cp_type = cp_type
-        self.cp_direction = cp_direction
-        self.children = children
-        self.duration = duration
+class CPDirction_Enum(StrEnum):
+    BEFORE = "before"
+    AFTER = "after"
+    PARALLEL = "parallel"
+    ANY = "any"
+    REPLACE = "replace"    
+
+class TaskNode():
+    def __init__(self, task, initialize:bool=True):
+        self.task:etree._Element = task
+        self.ns = self.get_namespace()
+        self.release_time:float = None
+        self.earliest_start:float = None
+        self.change_patterns: list['TaskNode'] = []
+        self.cp_type:CPType_Enum = None
+        self.cp_direction: CPDirction_Enum = None
+        if initialize:
+            self.initialize_resource_attributes()
+
+    def initialize_resource_attributes(self):
+        self.duration:float = self.get_duration()
+        self.resource:str = self.get_resource()
+    
+    def get_release_time(self):
+        return float(self.task.xpath("cpee1:release_time", namespaces=self.ns)[0])
+    
+    def get_duration(self):
+        attrib = "cost"
+        return float(self.task.xpath(f"cpee1:children/cpee1:resource/cpee1:resprofile/cpee1:measures/cpee1:{attrib}", namespaces=self.ns)[0].text)
+
+    def get_resource(self):
+        return (self.task.xpath("cpee1:children/cpee1:resource", namespaces=self.ns)[0].attrib["id"])
+    
+    def get_namespace(self):
+        return {"cpee1": list(self.task.nsmap.values())[0]}
+
+    def set_change_patterns(self):
+        children = self.task.xpath("cpee1:children/cpee1:resource/cpee1:resprofile/cpee1:children/*", namespaces=self.ns)
+        self.change_patterns = [CpTaskNode(child) for child in children]
+    
+    def set_release_time(self, release_time):
+        self.release_time = float(release_time)
+
+    def check_release_time(self):
+        if self.release_time is None:
+            raise ValueError("No release time set")
+    
+    def add_all_times_to_branch(self):
+        if self.cp_type != CPType_Enum.DELETE:
+            release_time = etree.SubElement(self.task, f"{{{self.ns["cpee1"]}}}release_time")
+            release_time.text = str(self.release_time)
+            start_element = etree.SubElement(self.task, f"{{{self.ns["cpee1"]}}}expected_start")
+            start_element.text = str(self.earliest_start)
+            end_element = etree.SubElement(self.task, f"{{{self.ns["cpee1"]}}}expected_end")
+            end_element.text = str(self.earliest_start+self.duration)
+            for child in self.change_patterns:
+                child.add_all_times_to_branch()
+    
+    def get_interval(self) -> tuple:
+        starts = self.task.xpath("//cpee1:expected_start/text()", namespaces=self.ns)
+        starts = sorted([float(start) for start in starts])
+        ends = self.task.xpath("//cpee1:expected_end/text()", namespaces=self.ns)
+        ends = sorted([float(end) for end in ends])
+        return (starts[0], ends[-1] - starts[0],  ends[-1])
         
+    def set_earliest_start(self, schedule_dict:dict) -> None:
+        """
+        Finds best availabe timeslot for one task of an RA-PST.
+        """
+        earliest_start = np.inf
+        earliest_finish = np.inf
+        timeslot_matrix = self.get_timeslot_matrix(schedule_dict)
+        possible_slots = np.argwhere(np.diff(timeslot_matrix) >= self.duration)
+        if possible_slots.size > 0:
+            for slot in possible_slots:
+                earliest_slot = float(timeslot_matrix[slot[0]][0])
+                if earliest_slot+self.duration < earliest_finish and earliest_slot >= float(self.release_time):
+                    earliest_start = earliest_slot
+                    earliest_finish = earliest_slot+self.duration
+                elif timeslot_matrix[slot[0]][1] == np.inf and earliest_start == np.inf:
+                    earliest_start = self.release_time
+                    earliest_finish = earliest_slot+self.duration
+        else:
+            raise ValueError("No timeslot found")
+        #print(f" Best start: {earliest_start}, on resource {allocated_resource}")
+        self.earliest_start = earliest_start
+    
+    def get_timeslot_matrix(self, schedule_dict:dict):
+        if not schedule_dict:
+            return np.array([[self.release_time, np.inf]])
+        matrix = []
+        jobs_on_resource = []
+        # Match selected Jobs and resources
+        for instance in schedule_dict["instances"]:
+            jobs_on_resource.extend([job for jobId, job in instance["jobs"].items() if job["selected"] and job["resource"] == self.resource])
+        for block in jobs_on_resource:
+            if float(block["start"]) + float(block["cost"]) >= self.release_time:
+                matrix.append([block["start"], block["start"] + block["cost"]])
+        matrix.sort()
+        matrix.append([np.inf, 0])
+        if matrix:
+            return np.roll(np.array(matrix), 1) 
+        else:
+            return np.array([[self.release_time, np.inf]])
+        
+    def calculate_finish_time(self, schedule_dict:dict):
+
+        self.set_change_patterns()
+        if self.change_patterns:
+            for child_task_node in self.change_patterns:
+                if child_task_node.cp_type == CPType_Enum.INSERT:
+                    if child_task_node.cp_direction == CPDirction_Enum.BEFORE:
+                        # Insert Before
+                        child_task_node.set_release_time(self.release_time)
+                        child_task_node.calculate_finish_time(schedule_dict)
+                        self.release_time = child_task_node.earliest_start + child_task_node.duration
+                        self.set_earliest_start(schedule_dict)
+
+                    elif child_task_node.cp_direction == CPDirction_Enum.AFTER:
+                        # Insert After
+                        self.set_earliest_start(schedule_dict)
+                        child_task_node.release_time = self.earliest_start + self.duration
+                        child_task_node.calculate_finish_time(schedule_dict)
+                    elif child_task_node.cp_direction == CPDirction_Enum.PARALLEL:
+                        # Insert Parallel
+                        pass
+                
+                elif child_task_node.cp_type == CPType_Enum.DELETE:
+                    # DELETE Task
+                    # TODO calc_minimum deletion savings
+                    self.set_earliest_start(schedule_dict)
+
+                    pass
+                elif child_task_node.cp_type == CPType_Enum.REPLACE:
+                    # Replace Task
+                    pass
+                else:
+                    raise NotImplementedError(f"CP_TYPE {child_task_node.cp_type} not implemented")
+            
+                # Handover release time to next child:
+                child_task_node_idx = self.change_patterns.index(child_task_node)
+                if child_task_node_idx < len(self.change_patterns) -1:
+                    next_child = self.change_patterns[child_task_node_idx + 1]
+                    next_child.set_release_time(child_task_node.earliest_start + child_task_node.duration)
+
+        else:
+            # Find earliest timeslot in schedule and set it
+            self.check_release_time()
+            self.set_earliest_start(schedule_dict)
+
+        return self
+
+class CpTaskNode(TaskNode):
+    def __init__(self, task, initialize:bool=False):
+        super().__init__(task, initialize)
+        self.cp_type:CPType_Enum = self.get_cp_type()
+        self.cp_direction: CPDirction_Enum = self.get_cp_direction()
+        if self.cp_type != CPType_Enum.DELETE:
+            self.initialize_resource_attributes()
+    
+    def get_cp_type(self):
+        return CPType_Enum(self.task.attrib["type"])
+
+    def get_cp_direction(self):
+        if self.cp_type == CPType_Enum.REPLACE:
+            return CPDirction_Enum.REPLACE
+        else:
+            return CPDirction_Enum(self.task.attrib["direction"])
+
 
 class TaskAllocator():
 
@@ -82,8 +245,13 @@ class TaskAllocator():
         for branch in branches:
             #TODO create etree._Element release_time for each task in branch and set time to release_time
             if branch.check_validity():
-                self.set_release_times(branch, task)
-                finish_times.append((branch, self.calculate_finish_time(branch.node, schedule_dict)[1:]))
+                task_node = TaskNode(branch.node)
+                branch_release = task.xpath("cpee1:release_time", namespaces=self.ns)[0].text
+                task_node.set_release_time(float(branch_release))
+                task_node.calculate_finish_time(schedule_dict)
+                task_node.add_all_times_to_branch()
+                branch.node = task_node.task
+                finish_times.append((branch, task_node.get_interval()))
 
         if not finish_times:
             raise ValueError("No valid branch for this task")
@@ -99,6 +267,47 @@ class TaskAllocator():
             child = etree.SubElement(branch_task, f"{{{self.ns['cpee1']}}}release_time")
             child.text = release_time
     
+    def calculate_finish_time_old(self, task_node:TaskNode, schedule_dict:dict):
+
+        if task_node.change_patterns:
+            for child_task_node in task_node.change_patterns:
+                if child_task_node.cp_type == CPType_Enum.INSERT:
+                    if child_task_node.cp_direction == CPDirction_Enum.BEFORE:
+                        # Insert Before
+                        child_task_node.calculate_finish_time(schedule_dict)
+                        task_node.release_time = child_task_node.earliest_start + child_task_node.duration
+                        task_node.set_earliest_start()
+
+                    elif child_task_node.cp_direction == CPDirction_Enum.AFTER:
+                        # Insert After
+                        task_node.set_earliest_start()
+                        child_task_node.release_time = task_node.earliest_start + task_node.duration
+                        child_task_node.calculate_finish_time(schedule_dict)
+                    
+                    elif child_task_node.cp_direction == CPDirction_Enum.PARALLEL:
+                        # Insert Parallel
+                        pass
+                
+                elif child_task_node.cp_type == CPType_Enum.DELETE:
+                    # DELETE Task
+                    # TODO calc_minimum deletion savings
+                    task_node.set_earliest_start()
+                    
+
+                elif child_task_node.cp_type == CPType_Enum.REPLACE:
+                    # Replace Task
+                    pass
+                else:
+                    raise NotImplementedError(f"CP_TYPE {child_task_node.cp_type} not implemented")
+            
+                # Handover release time to next child:
+        else:
+            # Find earliest timeslot in schedule and set it
+            task_node.check_release_time()
+            task_node.set_earliest_start(schedule_dict)
+
+        return task_node
+
     def calculate_finish_time(self, task:etree._Element, schedule_dict:dict) -> tuple[etree._Element, float, float, float]:
         """
         Calculates the finish time of a task for a specific branch.
@@ -129,14 +338,6 @@ class TaskAllocator():
                     #TODO implement for replace pattern
                     #raise NotImplementedError("Child is probably replace pattern")
                     child_direction = "replace"
-                
-                child_info = ChildInfo(
-                    release_time= float(child.xpath("cpee1:release_time", namespaces=self.ns)[
-                            0].text),
-                    cp_type=child.attrib["type"],
-                    cp_direction=child_direction
-
-                )
 
                 if change_pattern_type == "insert":
                     if child_direction == "before":
@@ -286,40 +487,7 @@ class TaskAllocator():
         return exp_ready_element
 
 
-    def find_best_resource(self, task:etree._Element, schedule_dict:dict) -> None:
-        """
-        Finds best availabe timeslot for one task of an RA-PST.
-        """
-        earliest_start = np.inf
-        earliest_finish = np.inf
-        allocated_resource = None
-        release_time = float(task.xpath("cpee1:release_time", namespaces = self.ns)[0].text)
 
-        # Iterate over all resources and resource profiles to find slot with earliest possible finishing time
-        if not task.xpath("cpee1:children/cpee1:resource/cpee1:resprofile", namespaces=self.ns):
-            raise ValueError("No rp found")
-        for resource in task.xpath("cpee1:children/cpee1:resource/cpee1:resprofile", namespaces=self.ns):
-            resource_name = resource.xpath("parent::cpee1:resource", namespaces=self.ns)[0].attrib["id"]
-            duration = float(resource.xpath(f"cpee1:measures/cpee1:cost", namespaces=self.ns)[0].text)
-            timeslot_matrix = self.get_timeslot_matrix(float(release_time), resource_name, schedule_dict)
-            possible_slots = np.argwhere(np.diff(timeslot_matrix) >= duration)
-            if possible_slots.size > 0:
-                for slot in possible_slots:
-                    earliest_slot = float(timeslot_matrix[slot[0]][0])
-                    if earliest_slot+duration < earliest_finish and earliest_slot >= float(release_time):
-                        earliest_start = earliest_slot
-                        earliest_finish = earliest_slot+duration
-                        allocated_resource = resource_name
-                    elif timeslot_matrix[slot[0]][1] == np.inf and earliest_start == np.inf:
-                        earliest_start = release_time
-                        earliest_finish = earliest_slot+duration
-                        allocated_resource = resource_name
-            else:
-                raise ValueError("No timeslot found")
-        if allocated_resource is None:
-            raise ValueError("No slot and resource found")
-        #print(f" Best start: {earliest_start}, on resource {allocated_resource}")
-        return allocated_resource, earliest_start, duration
     
     def get_timeslot_matrix(self, release_time:float, resource_name:str, schedule_dict:dict):
         if not schedule_dict:
@@ -342,6 +510,18 @@ class TaskAllocator():
             return np.array([[release_time, np.inf]])
     
 
-
-
-
+if __name__ == "__main__":
+    tree = etree.parse("tests/test_data/delete_branch.xml")
+    root = tree.getroot()
+    task_node = TaskNode(root)
+    task_node.set_release_time(0)
+    with open("tests/test_data/test_sched.json", "r") as f:
+        schedule_dict = json.load(f)
+    task_node.calculate_finish_time(schedule_dict)
+    print("task_node")
+    task_node.add_all_times_to_branch()
+    tree = etree.ElementTree(task_node.task)
+    etree.indent(tree, space="\t", level=0)
+    tree.write("test.xml")
+    print(task_node.get_interval())
+    

@@ -76,7 +76,22 @@
 											</manipulate>
 										</description>
 									</changepattern>
-									<children/>
+									<children>
+										<manipulate id="insert_b1" label="insert_b1" type="insert" direction="before">
+											<resources allocated_to="not_allocated">
+												<resource>role_7</resource>
+											</resources>
+											<children>
+											<resource id="res_1" name="res_1">
+											<resprofile id="role_3" name="role_3" role="role_3" task="insert_a12">
+												<measures>
+													<cost>2</cost>
+												</measures>
+											</resprofile>
+											</resource>
+											</children>
+										</manipulate>
+									</children>												
 								</resprofile>
 							</resource>
 						</children>
