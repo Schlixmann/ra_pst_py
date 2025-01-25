@@ -1,0 +1,89 @@
+<call xmlns="http://cpee.org/ns/description/1.0" id="a3" endpoint="">
+	<parameters>
+		<label>create part sheet</label>
+		<method>:post</method>
+		<arguments/>
+	</parameters>
+	<annotations>
+		<_timing>
+			<_timing_weight/>
+			<_timing_avg/>
+			<explanations/>
+		</_timing>
+		<_shifting>
+			<_shifting_type>Duration</_shifting_type>
+		</_shifting>
+		<_context_data_analysis>
+			<probes/>
+			<ips/>
+		</_context_data_analysis>
+		<report>
+			<url/>
+		</report>
+		<_notes>
+			<_notes_general/>
+		</_notes>
+	</annotations>
+	<documentation>
+		<input/>
+		<output/>
+		<implementation>
+			<description/>
+		</implementation>
+	</documentation>
+	<resources allocated_to="not_allocated"/>
+	<expectedready/>
+	<plannedstart/>
+	<plannedend/>
+	<children>
+		<resource id="res_1" name="res_1">
+			<resprofile id="role_9" name="role_9" role="role_9" task="create part sheet">
+				<measures>
+					<cost>1</cost>
+				</measures>
+				<changepattern type="insert">
+					<parameters>
+						<direction>after</direction>
+					</parameters>
+					<description>
+						<manipulate id="insert_a12" label="insert_a12" type="insert" direction="after">
+							<resources allocated_to="not_allocated">
+								<resource>role_3</resource>
+							</resources>
+						</manipulate>
+					</description>
+				</changepattern>
+				<children>
+					<manipulate id="insert_a12" label="insert_a12" type="insert" direction="after">
+						<resources allocated_to="not_allocated">
+							<resource>role_3</resource>
+						</resources>
+						<children>
+							<resource id="res_1" name="res_1">
+								<resprofile id="role_3" name="role_3" role="role_3" task="insert_a12">
+									<measures>
+										<cost>2</cost>
+									</measures>
+									<changepattern type="insert">
+										<parameters>
+											<direction>before</direction>
+										</parameters>
+										<description>
+											<manipulate id="insert_b1" label="insert_b1" type="insert" direction="before">
+												<resources allocated_to="not_allocated">
+													<resource>role_7</resource>
+												</resources>
+											</manipulate>
+										</description>
+									</changepattern>
+									<children/>
+								</resprofile>
+							</resource>
+						</children>
+					</manipulate>
+				</children>
+			</resprofile>
+		</resource>
+	</children>
+</call>
+      
