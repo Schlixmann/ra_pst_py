@@ -166,42 +166,7 @@ class Simulator():
 
         end = time.time()
         self.add_allocation_metadata(float(end-start))
-    """
-    def single_task_processing(self, instance_mapper:dict = {}):
 
-                # Create global resources list
-                resources = set(tmp_sched["resources"])
-
-                list_idx = len(instance_mapper.values())
-
-                if instance_no in instance_mapper.keys():
-                    list_idx = instance_mapper[instance_no]
-                    tmp_sched["instances"][list_idx] = self.generate_dict_from_ra_pst(
-                        best_branch, queue_object.instance, tmp_sched["instances"][list_idx])
-                    resources.update(
-                        list(tmp_sched["instances"][list_idx]["resources"]))
-                else:
-                    instance_mapper[instance_no] = list_idx
-                    tmp_sched["instances"].append(self.generate_dict_from_ra_pst(
-                        best_branch, queue_object.instance, queue_object.instance.get_ilp_rep()))
-                    resources.update(
-                        list(tmp_sched["instances"][-1]["resources"]))
-                tmp_sched["resources"] = list(resources)
-
-                queue_object.release_time = sum(
-                    queue_object.instance.times[-1])
-                if queue_object.release_time > tmp_sched["objective"]:
-                    tmp_sched["objective"] = queue_object.release_time
-
-                # Save back to file
-                f.seek(0)  # Reset file pointer to the beginning
-                json.dump(tmp_sched, f, indent=2)
-                f.truncate()
-
-            print("Times: \t ", queue_object.instance.times)
-            if queue_object.instance.current_task != "end":
-                self.update_task_queue(queue_object)
-        """
     
     def single_instance_processing(self, warmstart:bool = False):
         while self.task_queue:
@@ -289,3 +254,7 @@ class Simulator():
             f.seek(0)  # Reset file pointer to the beginning
             json.dump(ra_psts, f, indent=2)
             f.truncate()
+
+
+if __name__ == "__main__":
+    pass
