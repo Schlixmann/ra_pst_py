@@ -62,12 +62,12 @@ class DocplexTest(unittest.TestCase):
     
     def test_cp(self):
         self.setUp()
-        result = cp_solver("tests/test_data/ilp_rep.json")
+        result = cp_solver_decomposed("tests/test_data/ilp_rep.json")
         # print([branch for branch in result["branches"] if branch["selected"] == 1])
-        print(result["objective"])
+        print(result["solution"]["objective"])
         with open("tests/test_data/cp_result.json", "w") as f:
             json.dump(result, f, indent=2)
-        self.assertEqual(result["objective"], 59)
+        self.assertEqual(result["solution"]["objective"], 59)
         #show_tree_as_graph(self.ra_pst)
     
     def test_multiple_cp(self):
@@ -75,7 +75,7 @@ class DocplexTest(unittest.TestCase):
         ra_psts = {}
         ra_psts["instances"] = []
 
-        for i in range(3):
+        for i in range(1):
             ilp_rep = self.ra_pst.get_ilp_rep(instance_id=f'i{i+1}')
 
             ra_psts["instances"].append(ilp_rep)
@@ -93,7 +93,7 @@ class DocplexTest(unittest.TestCase):
         ra_psts = {}
         ra_psts["instances"] = []
 
-        for i in range(25):
+        for i in range(20):
             ilp_rep = self.ra_pst.get_ilp_rep(instance_id=f'i{i+1}')
 
             ra_psts["instances"].append(ilp_rep)

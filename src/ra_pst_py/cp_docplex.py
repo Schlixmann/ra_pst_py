@@ -235,7 +235,6 @@ def cp_solver_decomposed(ra_pst_json):
     # Build the model
     #-----------------------------------------------------------------------------
 
-    selected_branches = []
     master_model = gp.Model('master')
     master_model.setParam('OutputFlag', False)
     z = master_model.addVar()
@@ -258,7 +257,7 @@ def cp_solver_decomposed(ra_pst_json):
             for jobId in branch["jobs"]:
                 branch_jobs[ra_pst["jobs"][jobId]["resource"]] += ra_pst["jobs"][jobId]["cost"]
             branch["branch_jobs"] = branch_jobs
-            master_model.addConstr(z >= branch["branchCost"] * branch["selected"])
+        master_model.addConstr(z >= gp.quicksum(branch["branchCost"] * branch["selected"] for branch in ra_pst["branches"].values()))
     # Get the maximum bin size of the selected branches
     master_model.addConstrs(z >= gp.quicksum(branch["selected"] * branch["branch_jobs"][r] for ra_pst in ra_psts["instances"] for branch in ra_pst["branches"].values()) for r in ra_psts["resources"])
     # Objective
@@ -272,53 +271,21 @@ def cp_solver_decomposed(ra_pst_json):
             big_number += branch["branchCost"]
     upper_bound = big_number
 
-    while (upper_bound - lower_bound)/upper_bound > 0.1: # Gap of .1
+    while (upper_bound - lower_bound)/upper_bound > 0.10: # Gap of .1
         print(f"Lower bound: {lower_bound}, upper bound: {upper_bound}. Gap {100*(upper_bound-lower_bound)/upper_bound:.2f}%")
         # Solve master problem
         master_model.optimize()
         lower_bound = master_model.objVal
         if lower_bound < upper_bound:
             # Solve sub-problem
-            resource_jobs = {}
-            resource_costs = {}
-            all_jobs = []
-            for resource in ra_psts["resources"]:
-                resource_jobs[resource] = []
-                resource_costs[resource] = 0
-            subproblem_model = CpoModel(name="subproblem")
-            branch_list = []
-            for ra_pst in ra_psts["instances"]:
-                previous_branch_job = None
-                for branchId, branch in ra_pst["branches"].items():
-                    # print(f'branch {branchId}: {int(branch["selected"].x)}')
-                    if not int(branch["selected"].x): continue
-                    branch_list.append(branchId)
-                    for jobId in branch["jobs"]:
-                        interval_var = subproblem_model.interval_var(name=jobId, optional=False, size=int(ra_pst["jobs"][jobId]["cost"]))
-                        if previous_branch_job is not None:
-                            subproblem_model.add(end_before_start(previous_branch_job, interval_var))
-                        resource_jobs[ra_pst["jobs"][jobId]["resource"]].append(interval_var)
-                        resource_costs[ra_pst["jobs"][jobId]["resource"]] += int(ra_pst["jobs"][jobId]["cost"])
-                        previous_branch_job = interval_var
-                        all_jobs.append(interval_var)
-            joined_branches = ''.join(branch_list)
-            if joined_branches in selected_branches:
-                print(f'DUPLICATE')
-            else: 
-                selected_branches.append(''.join(branch_list))
-            
-            # No overlap between jobs on the same resource
-            subproblem_model.add(no_overlap(resource_jobs[resource]) for resource in ra_psts["resources"] if len(resource_jobs[resource]) > 1)
-            # Objective
-            subproblem_model.add(minimize(max([end_of(interval) for interval in all_jobs] )))
-            schedule = subproblem_model.solve()
-            # Solved subproblem
+            schedule, all_jobs = cp_subproblem(ra_psts)
+            # Solved subproblem: Add cuts
             if schedule.get_objective_value() < upper_bound:
                 upper_bound = schedule.get_objective_value()
+                print(f'Upper bound: {upper_bound}')
                 for ra_pst in ra_psts["instances"]:
                     master_model.addConstr(upper_bound >= gp.quicksum(branch["branchCost"] * branch["selected"] for branch in ra_pst["branches"].values()))
                 master_model.addConstr(z <= upper_bound)
-            # Add cuts
             # for ra_pst in ra_psts["instances"]:
             #     for branchId, branch in ra_pst["branches"].items():
             #         if int(branch["selected"].x):
@@ -349,5 +316,36 @@ def cp_solver_decomposed(ra_pst_json):
     print(f"Lower bound: {lower_bound}, upper bound: {upper_bound}. Gap {100*(upper_bound-lower_bound)/upper_bound:.2f}%")
 
     return ra_psts
+
+def cp_subproblem(ra_psts):
+    # Solve sub-problem
+    resource_jobs = {}
+    resource_costs = {}
+    all_jobs = []
+    for resource in ra_psts["resources"]:
+        resource_jobs[resource] = []
+        resource_costs[resource] = 0
+    subproblem_model = CpoModel(name="subproblem")
+    for ra_pst in ra_psts["instances"]:
+        previous_branch_job = None
+        for branchId, branch in ra_pst["branches"].items():
+            # print(f'branch {branchId}: {int(branch["selected"].x)}')
+            if not int(branch["selected"].x): continue
+            for jobId in branch["jobs"]:
+                interval_var = subproblem_model.interval_var(name=jobId, optional=False, size=int(ra_pst["jobs"][jobId]["cost"]))
+                if previous_branch_job is not None:
+                    subproblem_model.add(end_before_start(previous_branch_job, interval_var))
+                resource_jobs[ra_pst["jobs"][jobId]["resource"]].append(interval_var)
+                resource_costs[ra_pst["jobs"][jobId]["resource"]] += int(ra_pst["jobs"][jobId]["cost"])
+                previous_branch_job = interval_var
+                all_jobs.append(interval_var)
+    
+    # No overlap between jobs on the same resource
+    subproblem_model.add(no_overlap(resource_jobs[resource]) for resource in ra_psts["resources"] if len(resource_jobs[resource]) > 1)
+    # Objective
+    subproblem_model.add(minimize(max(end_of(interval) for interval in all_jobs )))
+    schedule = subproblem_model.solve(TimeLimit=100)
+    return schedule, all_jobs
+
 
 
