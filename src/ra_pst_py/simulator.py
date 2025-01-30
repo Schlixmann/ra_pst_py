@@ -1,6 +1,6 @@
 from src.ra_pst_py.instance import Instance
 from src.ra_pst_py.core import Branch, RA_PST
-from src.ra_pst_py.cp_docplex import cp_solver
+from src.ra_pst_py.cp_docplex import cp_solver, cp_solver_decomposed
 
 from enum import Enum, StrEnum
 from collections import defaultdict
@@ -200,7 +200,7 @@ class Simulator():
             self.create_warmstart_file(schedule_dict, self.task_queue)
             result = cp_solver(self.schedule_filepath, "tmp/warmstart.json")
         else:
-            result = cp_solver(self.schedule_filepath)
+            result = cp_solver_decomposed(self.schedule_filepath)
         self.save_schedule(result)
             
     def create_warmstart_file(self, ra_psts:dict, queue_objects:list[QueueObject]):

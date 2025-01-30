@@ -1,0 +1,508 @@
+<description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a1" endpoint="">
+        <parameters>
+          <label>receive order</label>
+          <method>:post</method>
+          <arguments/>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+        <resources allocated_to="res_1 role: role_93role_93 resource res_1"/>
+        <expectedready/>
+        <plannedstart/>
+        <plannedend/>
+      <allocation><resource id="res_1" name="res_1">
+		<resprofile task="receive order" id="role_93" name="role_93" role="role_93">
+			<measures>
+				<cost>3</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</allocation><release_time>5.0</release_time><expected_start>6.0</expected_start><expected_end>9.0</expected_end></call>
+      <call id="a2" endpoint="">
+        <parameters>
+          <label>check order</label>
+          <method>:post</method>
+          <arguments/>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+        <resources allocated_to="res_2 role: role_94role_94 resource res_2"/>
+        <expectedready/>
+        <plannedstart/>
+        <plannedend/>
+      <allocation><resource id="res_2" name="res_2">
+		<resprofile task="check order" id="role_94" name="role_94" role="role_94">
+			<measures>
+				<cost>0</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</allocation><release_time>9.0</release_time><expected_start>9.0</expected_start><expected_end>9.0</expected_end></call>
+      <call id="a3" endpoint="">
+        <parameters>
+          <label>create part sheet</label>
+          <method>:post</method>
+          <arguments/>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+        <resources allocated_to="res_3 role: role_91role_91 resource res_3"/>
+        <expectedready/>
+        <plannedstart/>
+        <plannedend/>
+      <allocation><resource id="res_3" name="res_3">
+		<resprofile task="create part sheet" id="role_91" name="role_91" role="role_91">
+			<measures>
+				<cost>1</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</allocation><release_time>9.0</release_time><expected_start>9.0</expected_start><expected_end>10.0</expected_end></call>
+      <call id="a4" endpoint="">
+        <parameters>
+          <label>check part sheet</label>
+          <method>:post</method>
+          <arguments/>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+        <resources allocated_to="res_4 role: role_109role_109 resource res_4"/>
+        <expectedready/>
+        <plannedstart/>
+        <plannedend/>
+      <allocation><resource id="res_4" name="res_4">
+		<resprofile task="check part sheet" id="role_109" name="role_109" role="role_109">
+			<measures>
+				<cost>2</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</allocation><release_time>10.0</release_time><expected_start>18.0</expected_start><expected_end>20.0</expected_end></call>
+      <call id="a5" endpoint="">
+        <parameters>
+          <label>handover</label>
+          <method>:post</method>
+          <arguments/>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+        <resources allocated_to="res_4 role: role_107role_107 resource res_4"/>
+        <expectedready/>
+        <plannedstart/>
+        <plannedend/>
+      <allocation><resource id="res_4" name="res_4">
+		<resprofile task="handover" id="role_107" name="role_107" role="role_107">
+			<measures>
+				<cost>1</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</allocation><release_time>20.0</release_time><expected_start>20.0</expected_start><expected_end>21.0</expected_end></call>
+      <call id="a6" endpoint="">
+        <parameters>
+          <label>create invoice</label>
+          <method>:post</method>
+          <arguments/>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+        <resources allocated_to="res_4 role: role_99role_99 resource res_4"/>
+        <expectedready/>
+        <plannedstart/>
+        <plannedend/>
+      <allocation><resource id="res_4" name="res_4">
+		<resprofile task="create invoice" id="role_99" name="role_99" role="role_99">
+			<measures>
+				<cost>3</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</allocation><release_time>21.0</release_time><expected_start>21.0</expected_start><expected_end>24.0</expected_end></call>
+      <call id="a7" endpoint="">
+        <parameters>
+          <label>send invoice</label>
+          <method>:post</method>
+          <arguments/>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+        <resources allocated_to="res_1 role: role_113role_113 resource res_1"/>
+        <expectedready/>
+        <plannedstart/>
+        <plannedend/>
+      <allocation><resource id="res_1" name="res_1">
+		<resprofile task="send invoice" id="role_113" name="role_113" role="role_113">
+			<measures>
+				<cost>2</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</allocation><release_time>24.0</release_time><expected_start>24.0</expected_start><expected_end>26.0</expected_end></call>
+      <call id="a8" endpoint="">
+        <parameters>
+          <label>send product</label>
+          <method>:post</method>
+          <arguments/>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+        <resources allocated_to="res_1 role: role_80role_80 resource res_1"/>
+        <expectedready/>
+        <plannedstart/>
+        <plannedend/>
+      <allocation><resource id="res_1" name="res_1">
+		<resprofile task="send product" id="role_80" name="role_80" role="role_80">
+			<measures>
+				<cost>1</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>after</direction>
+				</parameters>
+				<description>
+					<manipulate id="task_45" label="task_45" type="insert" direction="after">
+						<resources allocated_to="not_allocated">
+							<resource>role_81</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		<children><manipulate id="task_45" label="task_45" type="insert" direction="after">
+						<resources allocated_to="not_allocated">
+							<resource>role_81</resource>
+						</resources>
+					<children><resource id="res_3" name="res_3">
+		<resprofile task="task_45" id="role_81" name="role_81" role="role_81">
+			<measures>
+				<cost>3</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</children><release_time>27.0</release_time><expected_start>27.0</expected_start><expected_end>30.0</expected_end><expectedready/></manipulate>
+				</children></resprofile>
+		</resource>
+	</allocation><release_time>26.0</release_time><expected_start>26.0</expected_start><expected_end>27.0</expected_end></call>
+      <manipulate id="r114" label="task_45" type="insert" direction="after">
+						<resources allocated_to="res_3 role: role_81role_81 resource res_3">
+							<resource>role_81</resource>
+						</resources>
+					<children><resource id="res_3" name="res_3">
+		<resprofile task="task_45" id="role_81" name="role_81" role="role_81">
+			<measures>
+				<cost>3</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</children><release_time>27.0</release_time><expected_start>27.0</expected_start><expected_end>30.0</expected_end><expectedready/><allocation><resource id="res_3" name="res_3">
+		<resprofile task="task_45" id="role_81" name="role_81" role="role_81">
+			<measures>
+				<cost>3</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</allocation></manipulate>
+				<call id="a9" endpoint="">
+        <parameters>
+          <label>handover to aftersales</label>
+          <method>:post</method>
+          <arguments/>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+        <resources allocated_to="res_2 role: role_87role_87 resource res_2"/>
+        <expectedready/>
+        <plannedstart/>
+        <plannedend/>
+      <allocation><resource id="res_2" name="res_2">
+		<resprofile task="handover to aftersales" id="role_87" name="role_87" role="role_87">
+			<measures>
+				<cost>3</cost>
+			</measures>
+			<changepattern type="delete">
+				<parameters>
+					<direction>any</direction>
+				</parameters>
+				<description>
+					</description>
+			</changepattern>
+		<children><manipulate id="a5" label="a5" type="delete" direction="any">
+						<resources allocated_to="not_allocated">
+							<resource>role_88</resource>
+						</resources>
+					<expectedready/></manipulate>
+				</children></resprofile>
+		</resource>
+	</allocation><release_time>30.0</release_time><expected_start>30.0</expected_start><expected_end>33.0</expected_end></call>
+      <call id="a10" endpoint="">
+        <parameters>
+          <label>wait</label>
+          <method>:post</method>
+          <arguments/>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+        <resources allocated_to="res_3 role: role_126role_126 resource res_3"/>
+        <expectedready/>
+        <plannedstart/>
+        <plannedend/>
+      <allocation><resource id="res_3" name="res_3">
+		<resprofile task="wait" id="role_126" name="role_126" role="role_126">
+			<measures>
+				<cost>1</cost>
+			</measures>
+		<children/></resprofile>
+		</resource>
+	</allocation><release_time>33.0</release_time><expected_start>33.0</expected_start><expected_end>34.0</expected_end></call>
+    </description>
+  

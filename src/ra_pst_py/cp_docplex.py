@@ -1,5 +1,8 @@
 from docplex.cp.model import *
 import json
+import gurobipy as gp
+from gurobipy import GRB
+
 
 context.solver.local.execfile = '/opt/ibm/ILOG/CPLEX_Studio2211/cpoptimizer/bin/x86-64_linux/cpoptimizer'
 
@@ -89,7 +92,6 @@ def cp_solver(ra_pst_json, warm_start_json=None):
             # Create optional interval variables for each job
             for jobId, job in ra_pst["jobs"].items():
                 job["interval"] = model.interval_var(name=jobId, optional=True, size=int(job["cost"]))
-                # print(f'Add job {jobId}')
 
                 # Start time must be > than release time if a release time for instance is given
                 if job["release_time"]:
@@ -102,7 +104,7 @@ def cp_solver(ra_pst_json, warm_start_json=None):
                 for jobId2 in job["after"]:
                     model.add(end_before_start(ra_pst["jobs"][jobId2]["interval"], ra_pst["jobs"][jobId]["interval"]))
                     
-    # No overlap between jobs on the same resource   
+     # No overlap between jobs on the same resource   
     for r in ra_psts["resources"]:
         resource_intervals = []
         for ra_pst in ra_psts["instances"]:
@@ -155,7 +157,7 @@ def cp_solver(ra_pst_json, warm_start_json=None):
             raise ValueError(f"Solution size <{len(starting_solution.get_all_var_solutions())}> does not match model size <{len(model.get_all_variables())-fixed_intervals}>")
         model.set_starting_point(starting_solution)
 
-    result = model.solve(FailLimit=100000000, TimeLimit=10000)
+    result = model.solve(FailLimit=100000, TimeLimit=1000)
     # result.print_solution()
     intervals = []
     for ra_pst in ra_psts["instances"]:
@@ -206,6 +208,169 @@ def cp_solver(ra_pst_json, warm_start_json=None):
     }
     # TODO maybe add resource usage
     return ra_psts
-
     
+
+def cp_solver_decomposed(ra_pst_json):
+    """
+    ra_pst_json input format:
+    {
+        "resources": [resourceId],
+        "instances": [
+            {
+                "tasks": { 
+                    taskId: {
+                        "branches": [branchId]
+                    }
+                },
+                "resources": [resourceId],
+                "branches": {
+                    branchId: {
+                        "task": taskId,
+                        "jobs": [jobId],
+                        "deletes": [taskId],
+                        "branchCost": cost
+                    }
+                },
+                "jobs": {
+                    jobId: {
+                        "branch": branchId,
+                        "resource": resourceId,
+                        "cost": cost,
+                        "after": [jobId],
+                        "instance": instanceId,
+                        "min_start_time": int
+                    }
+                }
+            }
+        ]
+    }
+    """
+    with open(ra_pst_json, "r") as f:
+        ra_psts = json.load(f)
+    
+    # Fix taskIds for deletes: 
+    for i, instance in enumerate(ra_psts["instances"]):
+        if "fixed" not in instance.keys():
+            instance["fixed"] = False
+        inst_prefix = str(list(instance["tasks"].keys())[0]).split("-")[0]
+        for key, value in instance["branches"].items():
+            value["deletes"] = [str(inst_prefix) + f"-{element}"for element in value["deletes"]]
+    
+    #-----------------------------------------------------------------------------
+    # Build the model
+    #-----------------------------------------------------------------------------
+
+    master_model = gp.Model('master')
+    master_model.setParam('OutputFlag', False)
+    z = master_model.addVar()
+    # Branch variables
+    for ra_pst in ra_psts["instances"]:
+        for branchId, branch in ra_pst["branches"].items():
+            branch["selected"] = master_model.addVar(vtype=(GRB.BINARY), name=branchId)
+    # Add constraints
+    for ra_pst in ra_psts["instances"]:
+        for branchId, branch in ra_pst["branches"].items():
+            independent_branches = []
+            for branch_2_id, branch_2 in ra_pst["branches"].items():
+                if branch_2["task"] == branch["task"] or branch["task"] in branch_2["deletes"]:
+                    independent_branches.append(branch_2_id)
+            # master_model.add(sum([ra_pst["branches"][b_id]["selected"] for b_id in independent_branches]) == 1)
+            master_model.addConstr(gp.quicksum([ra_pst["branches"][b_id]["selected"] for b_id in independent_branches]) == 1)
+            branch_jobs = {}
+            for resource in ra_psts["resources"]:
+                branch_jobs[resource] = 0
+            for jobId in branch["jobs"]:
+                branch_jobs[ra_pst["jobs"][jobId]["resource"]] += ra_pst["jobs"][jobId]["cost"]
+            branch["branch_jobs"] = branch_jobs
+        master_model.addConstr(z >= gp.quicksum(branch["branchCost"] * branch["selected"] for branch in ra_pst["branches"].values()))
+    # Get the maximum bin size of the selected branches
+    master_model.addConstrs(z >= gp.quicksum(branch["selected"] * branch["branch_jobs"][r] for ra_pst in ra_psts["instances"] for branch in ra_pst["branches"].values()) for r in ra_psts["resources"])
+    # Objective
+    master_model.setObjective(z, GRB.MINIMIZE)
+
+    lower_bound = 0
+    big_number = 0
+    all_jobs = []
+    for ra_pst in ra_psts["instances"]:
+        for branch in ra_pst["branches"].values():
+            big_number += branch["branchCost"]
+    upper_bound = big_number
+
+    while (upper_bound - lower_bound)/upper_bound > 0.10: # Gap of .1
+        print(f"Lower bound: {lower_bound}, upper bound: {upper_bound}. Gap {100*(upper_bound-lower_bound)/upper_bound:.2f}%")
+        # Solve master problem
+        master_model.optimize()
+        lower_bound = master_model.objVal
+        if lower_bound < upper_bound:
+            # Solve sub-problem
+            schedule, all_jobs = cp_subproblem(ra_psts)
+            # Solved subproblem: Add cuts
+            if schedule.get_objective_value() < upper_bound:
+                upper_bound = schedule.get_objective_value()
+                print(f'Upper bound: {upper_bound}')
+                for ra_pst in ra_psts["instances"]:
+                    master_model.addConstr(upper_bound >= gp.quicksum(branch["branchCost"] * branch["selected"] for branch in ra_pst["branches"].values()))
+                master_model.addConstr(z <= upper_bound)
+            # for ra_pst in ra_psts["instances"]:
+            #     for branchId, branch in ra_pst["branches"].items():
+            #         if int(branch["selected"].x):
+            #             print(f'Add cut for branch {branchId} ({branch["branchCost"]})')
+            master_model.addConstr(z >= schedule.get_objective_value() - big_number * gp.quicksum(1-branch["selected"] for ra_pst in ra_psts["instances"] for branchId, branch in ra_pst["branches"].items() if int(branch["selected"].x)))
+            master_model.addConstr(z >= lower_bound)
+            # Output the current schedule
+    for ra_pst in ra_psts["instances"]:
+        for jobId, job in ra_pst["jobs"].items():
+            job["selected"] = 0
+            job["start"] = 0
+            for interval in all_jobs:
+                itv = schedule.get_var_solution(interval)
+                if jobId == itv.get_name():
+                    job["selected"] = 1
+                    job["start"] = itv.get_start()
+                    break
+    for ra_pst in ra_psts["instances"]:
+        for branchId, branch in ra_pst["branches"].items():
+            del branch["selected"]
+
+    # solve_details = result.get_solver_infos()
+    ra_psts["solution"] = {
+        "objective": upper_bound,
+        "solver status": '?',
+    }
+                
+    print(f"Lower bound: {lower_bound}, upper bound: {upper_bound}. Gap {100*(upper_bound-lower_bound)/upper_bound:.2f}%")
+
+    return ra_psts
+
+def cp_subproblem(ra_psts):
+    # Solve sub-problem
+    resource_jobs = {}
+    resource_costs = {}
+    all_jobs = []
+    for resource in ra_psts["resources"]:
+        resource_jobs[resource] = []
+        resource_costs[resource] = 0
+    subproblem_model = CpoModel(name="subproblem")
+    for ra_pst in ra_psts["instances"]:
+        previous_branch_job = None
+        for branchId, branch in ra_pst["branches"].items():
+            # print(f'branch {branchId}: {int(branch["selected"].x)}')
+            if not int(branch["selected"].x): continue
+            for jobId in branch["jobs"]:
+                interval_var = subproblem_model.interval_var(name=jobId, optional=False, size=int(ra_pst["jobs"][jobId]["cost"]))
+                if previous_branch_job is not None:
+                    subproblem_model.add(end_before_start(previous_branch_job, interval_var))
+                resource_jobs[ra_pst["jobs"][jobId]["resource"]].append(interval_var)
+                resource_costs[ra_pst["jobs"][jobId]["resource"]] += int(ra_pst["jobs"][jobId]["cost"])
+                previous_branch_job = interval_var
+                all_jobs.append(interval_var)
+    
+    # No overlap between jobs on the same resource
+    subproblem_model.add(no_overlap(resource_jobs[resource]) for resource in ra_psts["resources"] if len(resource_jobs[resource]) > 1)
+    # Objective
+    subproblem_model.add(minimize(max(end_of(interval) for interval in all_jobs )))
+    schedule = subproblem_model.solve(TimeLimit=100)
+    return schedule, all_jobs
+
+
 

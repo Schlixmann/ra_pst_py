@@ -54,7 +54,7 @@ class EvalPipeline():
                             # Setup Simulator for each allocation_type
                             schedule_path = testset / "evaluation" / "all_instance_cp" / resource_file.name
                             schedule_path.parent.mkdir(parents=True, exist_ok=True)
-                            self.setup_simulator(ra_pst, AllocationTypeEnum.ALL_INSTANCE_CP_WARM, path_to_dir=schedule_path)
+                            self.setup_simulator(ra_pst, AllocationTypeEnum.ALL_INSTANCE_CP, path_to_dir=schedule_path)
                             self.sim.simulate()
                             
 if __name__ == "__main__":

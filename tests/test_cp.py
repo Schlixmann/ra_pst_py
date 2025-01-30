@@ -2,7 +2,7 @@ from src.ra_pst_py.builder import build_rapst, show_tree_as_graph
 from src.ra_pst_py.instance import transform_ilp_to_branches, Instance
 from src.ra_pst_py.brute_force import BruteForceSearch
 from src.ra_pst_py.cp_google_or import conf_cp, conf_cp_scheduling
-from src.ra_pst_py.cp_docplex import cp_solver
+from src.ra_pst_py.cp_docplex import cp_solver, cp_solver_decomposed
 
 from lxml import etree
 import unittest
@@ -62,12 +62,12 @@ class DocplexTest(unittest.TestCase):
     
     def test_cp(self):
         self.setUp()
-        result = cp_solver("tests/test_data/ilp_rep.json")
+        result = cp_solver_decomposed("tests/test_data/ilp_rep.json")
         # print([branch for branch in result["branches"] if branch["selected"] == 1])
-        print(result["objective"])
+        print(result["solution"]["objective"])
         with open("tests/test_data/cp_result.json", "w") as f:
             json.dump(result, f, indent=2)
-        self.assertEqual(result["objective"], 59)
+        self.assertEqual(result["solution"]["objective"], 59)
         #show_tree_as_graph(self.ra_pst)
     
     def test_multiple_cp(self):
@@ -75,7 +75,7 @@ class DocplexTest(unittest.TestCase):
         ra_psts = {}
         ra_psts["instances"] = []
 
-        for i in range(3):
+        for i in range(1):
             ilp_rep = self.ra_pst.get_ilp_rep(instance_id=f'i{i+1}')
 
             ra_psts["instances"].append(ilp_rep)
@@ -84,9 +84,28 @@ class DocplexTest(unittest.TestCase):
             json.dump(ra_psts, f, indent=2)
         result = cp_solver("tests/test_data/ilp_rep.json")
         # print([branch for branch in result["branches"] if branch["selected"] == 1])
-        print(result["objective"])
+        print(result["solution"]["objective"])
         with open("tests/test_data/cp_result.json", "w") as f:
             json.dump(result, f, indent=2)
+    
+    def test_multiple_cp_decomposed(self):
+        self.setUp()
+        ra_psts = {}
+        ra_psts["instances"] = []
+
+        for i in range(20):
+            ilp_rep = self.ra_pst.get_ilp_rep(instance_id=f'i{i+1}')
+
+            ra_psts["instances"].append(ilp_rep)
+        ra_psts["resources"] = ilp_rep["resources"]
+        with open("tests/test_data/ilp_rep.json", "w") as f:
+            json.dump(ra_psts, f, indent=2)
+        result = cp_solver_decomposed("tests/test_data/ilp_rep.json")
+        # print([branch for branch in result["branches"] if branch["selected"] == 1])
+        print(result["solution"]["objective"])
+        with open("tests/test_data/cp_result.json", "w") as f:
+            json.dump(result, f, indent=2)
+
 
     def test_cp_warmstart(self):
         sched = None
@@ -117,7 +136,7 @@ class DocplexTest(unittest.TestCase):
         result1 = cp_solver("tests/test_data/cp_instance.json")
         print("Test with warmstarting")
         result2 = cp_solver("tests/test_data/cp_instance.json", warm_start_file)
-        print(f"Time w/o warm_start: {result1["solution"]["computing time"]}, \n Time w warm_start: {result2["solution"]["computing time"]}")
+        print(f"Time w/o warm_start: {result1['solution']['computing time']}, \n Time w warm_start: {result2['solution']['computing time']}")
         self.assertEqual(result1["solution"]["objective"], 17, "Objective of normal cp is wrong, maybe check used input files")
         self.assertEqual(result2["solution"]["objective"], 17, "Objective of warm_started cp is wrong, maybe check used input files")
         with open("tests/outcome/cp_cold.json", "w") as f:

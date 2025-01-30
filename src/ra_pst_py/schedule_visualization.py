@@ -10,8 +10,8 @@ def show_scheduling_matplotlib(file):
     resources = sorted(set(ilp_result["resources"]))
     resource_to_y = {resource: i for i, resource in enumerate(resources)}
 
-    color_list = ['#a6cee3','#1f78b4','#b2df8a','#33a02c','#fb9a99','#e31a1c','#fdbf6f','#ff7f00','#cab2d6','#6a3d9a','#ffff99','#b15928'] 
-    # color_list = list(mcolors.XKCD_COLORS)
+    # color_list = ['#a6cee3','#1f78b4','#b2df8a','#33a02c','#fb9a99','#e31a1c','#fdbf6f','#ff7f00','#cab2d6','#6a3d9a','#ffff99','#b15928'] 
+    color_list = list(mcolors.XKCD_COLORS)
 
     plt.figure(figsize=(10, 6))
     for instance in ilp_result["instances"]:
