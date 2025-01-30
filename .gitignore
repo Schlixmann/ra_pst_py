@@ -9,7 +9,6 @@ ilp_result.json
 tmp/*
 branch_raw.xml
 out/*
-process.xml
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

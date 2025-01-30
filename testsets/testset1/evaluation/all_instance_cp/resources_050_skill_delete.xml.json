@@ -711,7 +711,7 @@
             "0-0-a1-2-4"
           ],
           "release_time": 0,
-          "start": 0.0,
+          "start": 0,
           "selected": true
         },
         "0-0-a1-4-6": {
@@ -1126,7 +1126,7 @@
             "0-0-a2-13-24"
           ],
           "release_time": 0,
-          "start": 2.0,
+          "start": 2,
           "selected": true
         },
         "0-0-a2-15-26": {
@@ -1898,8 +1898,8 @@
             "0-0-a3-26-49"
           ],
           "release_time": 0,
-          "start": 4.0,
-          "selected": true
+          "start": null,
+          "selected": false
         },
         "0-0-a3-28-51": {
           "branch": "0-a3-28",
@@ -1975,8 +1975,8 @@
             "0-0-a3-28-51"
           ],
           "release_time": 0,
-          "start": null,
-          "selected": false
+          "start": 2,
+          "selected": true
         },
         "0-0-a4-30-53": {
           "branch": "0-a4-30",
@@ -2529,7 +2529,7 @@
             "0-0-a4-34-64"
           ],
           "release_time": 0,
-          "start": 8.0,
+          "start": 4,
           "selected": true
         },
         "0-0-a4-36-66": {
@@ -2973,8 +2973,8 @@
             "0-0-a5-40-73"
           ],
           "release_time": 0,
-          "start": 10.0,
-          "selected": true
+          "start": null,
+          "selected": false
         },
         "0-0-a5-41-75": {
           "branch": "0-a5-41",
@@ -3025,8 +3025,8 @@
             "0-0-a5-40-73"
           ],
           "release_time": 0,
-          "start": 14.0,
-          "selected": true
+          "start": null,
+          "selected": false
         },
         "0-0-a5-42-76": {
           "branch": "0-a5-42",
@@ -3292,8 +3292,8 @@
             "0-0-a5-43-79"
           ],
           "release_time": 0,
-          "start": null,
-          "selected": false
+          "start": 6,
+          "selected": true
         },
         "0-0-a6-45-81": {
           "branch": "0-a6-45",
@@ -3347,7 +3347,7 @@
             "0-0-a5-44-80"
           ],
           "release_time": 0,
-          "start": 16.0,
+          "start": 10,
           "selected": true
         },
         "0-0-a6-45-82": {
@@ -3403,7 +3403,7 @@
             "0-0-a5-44-80"
           ],
           "release_time": 0,
-          "start": 20.0,
+          "start": 12,
           "selected": true
         },
         "0-0-a7-46-83": {
@@ -3459,7 +3459,7 @@
             "0-0-a6-45-82"
           ],
           "release_time": 0,
-          "start": 24.0,
+          "start": 16,
           "selected": true
         },
         "0-0-a8-47-84": {
@@ -3516,7 +3516,7 @@
             "0-0-a7-46-83"
           ],
           "release_time": 0,
-          "start": 27.0,
+          "start": 19,
           "selected": true
         },
         "0-0-a8-47-85": {
@@ -3574,7 +3574,7 @@
             "0-0-a7-46-83"
           ],
           "release_time": 0,
-          "start": 30.0,
+          "start": 23,
           "selected": true
         },
         "0-0-a9-48-86": {
@@ -3632,7 +3632,7 @@
             "0-0-a8-47-85"
           ],
           "release_time": 0,
-          "start": 39.0,
+          "start": 26,
           "selected": true
         },
         "0-0-a9-48-87": {
@@ -3691,7 +3691,7 @@
             "0-0-a8-47-85"
           ],
           "release_time": 0,
-          "start": 42.0,
+          "start": 29,
           "selected": true
         },
         "0-0-a9-48-88": {
@@ -3750,7 +3750,7 @@
             "0-0-a8-47-85"
           ],
           "release_time": 0,
-          "start": 36.0,
+          "start": 32,
           "selected": true
         },
         "0-0-a9-48-89": {
@@ -3809,7 +3809,7 @@
             "0-0-a8-47-85"
           ],
           "release_time": 0,
-          "start": 42.0,
+          "start": 45,
           "selected": true
         },
         "0-0-a10-49-90": {
@@ -3868,11 +3868,12 @@
             "0-0-a9-48-89"
           ],
           "release_time": 0,
-          "start": 45.0,
+          "start": 48,
           "selected": true
         }
       },
-      "instanceId": 0
+      "instanceId": 0,
+      "fixed": true
     },
     {
       "tasks": {
@@ -4524,7 +4525,7 @@
           "cost": 3.0,
           "after": [],
           "release_time": 1,
-          "start": 1.0,
+          "start": 1,
           "selected": true
         },
         "1-1-a1-1-1": {
@@ -5000,7 +5001,7 @@
             "1-1-a2-13-24"
           ],
           "release_time": 0,
-          "start": 4.0,
+          "start": 4,
           "selected": true
         },
         "1-1-a2-15-26": {
@@ -5560,8 +5561,8 @@
             "1-1-a3-22-43"
           ],
           "release_time": 0,
-          "start": null,
-          "selected": false
+          "start": 4,
+          "selected": true
         },
         "1-1-a3-23-45": {
           "branch": "1-a3-23",
@@ -5594,8 +5595,8 @@
             "1-1-a3-22-43"
           ],
           "release_time": 0,
-          "start": null,
-          "selected": false
+          "start": 7,
+          "selected": true
         },
         "1-1-a3-24-46": {
           "branch": "1-a3-24",
@@ -5772,8 +5773,8 @@
             "1-1-a3-26-49"
           ],
           "release_time": 0,
-          "start": 6.0,
-          "selected": true
+          "start": null,
+          "selected": false
         },
         "1-1-a3-28-51": {
           "branch": "1-a3-28",
@@ -6403,7 +6404,7 @@
             "1-1-a4-34-64"
           ],
           "release_time": 0,
-          "start": 10.0,
+          "start": 10,
           "selected": true
         },
         "1-1-a4-36-66": {
@@ -6951,7 +6952,7 @@
             "1-1-a5-41-75"
           ],
           "release_time": 0,
-          "start": 14.0,
+          "start": 12,
           "selected": true
         },
         "1-1-a5-43-77": {
@@ -7221,7 +7222,7 @@
             "1-1-a5-44-80"
           ],
           "release_time": 0,
-          "start": 18.0,
+          "start": 14,
           "selected": true
         },
         "1-1-a6-45-82": {
@@ -7277,7 +7278,7 @@
             "1-1-a5-44-80"
           ],
           "release_time": 0,
-          "start": 24.0,
+          "start": 17,
           "selected": true
         },
         "1-1-a7-46-83": {
@@ -7333,7 +7334,7 @@
             "1-1-a6-45-82"
           ],
           "release_time": 0,
-          "start": 28.0,
+          "start": 21,
           "selected": true
         },
         "1-1-a8-47-84": {
@@ -7390,7 +7391,7 @@
             "1-1-a7-46-83"
           ],
           "release_time": 0,
-          "start": 31.0,
+          "start": 26,
           "selected": true
         },
         "1-1-a8-47-85": {
@@ -7448,7 +7449,7 @@
             "1-1-a7-46-83"
           ],
           "release_time": 0,
-          "start": 34.0,
+          "start": 29,
           "selected": true
         },
         "1-1-a9-48-86": {
@@ -7506,7 +7507,7 @@
             "1-1-a8-47-85"
           ],
           "release_time": 0,
-          "start": 45.0,
+          "start": 32,
           "selected": true
         },
         "1-1-a9-48-87": {
@@ -7565,7 +7566,7 @@
             "1-1-a8-47-85"
           ],
           "release_time": 0,
-          "start": 48.0,
+          "start": 35,
           "selected": true
         },
         "1-1-a9-48-88": {
@@ -7624,7 +7625,7 @@
             "1-1-a8-47-85"
           ],
           "release_time": 0,
-          "start": 39.0,
+          "start": 38,
           "selected": true
         },
         "1-1-a9-48-89": {
@@ -7683,7 +7684,7 @@
             "1-1-a8-47-85"
           ],
           "release_time": 0,
-          "start": 48.0,
+          "start": 41,
           "selected": true
         },
         "1-1-a10-49-90": {
@@ -7742,11 +7743,12 @@
             "1-1-a9-48-89"
           ],
           "release_time": 0,
-          "start": 51.0,
+          "start": 44,
           "selected": true
         }
       },
-      "instanceId": 1
+      "instanceId": 1,
+      "fixed": true
     },
     {
       "tasks": {
@@ -8459,8 +8461,8 @@
             "2-2-a1-2-4"
           ],
           "release_time": 2,
-          "start": 2.0,
-          "selected": true
+          "start": null,
+          "selected": false
         },
         "2-2-a1-4-6": {
           "branch": "2-a1-4",
@@ -8473,8 +8475,8 @@
             "2-2-a1-3-5"
           ],
           "release_time": 2,
-          "start": null,
-          "selected": false
+          "start": 2,
+          "selected": true
         },
         "2-2-a1-5-7": {
           "branch": "2-a1-5",
@@ -8874,7 +8876,7 @@
             "2-2-a2-13-24"
           ],
           "release_time": 0,
-          "start": 4.0,
+          "start": 6,
           "selected": true
         },
         "2-2-a2-15-26": {
@@ -9434,8 +9436,8 @@
             "2-2-a3-22-43"
           ],
           "release_time": 0,
-          "start": 4.0,
-          "selected": true
+          "start": null,
+          "selected": false
         },
         "2-2-a3-23-45": {
           "branch": "2-a3-23",
@@ -9468,8 +9470,8 @@
             "2-2-a3-22-43"
           ],
           "release_time": 0,
-          "start": 7.0,
-          "selected": true
+          "start": null,
+          "selected": false
         },
         "2-2-a3-24-46": {
           "branch": "2-a3-24",
@@ -9646,8 +9648,8 @@
             "2-2-a3-26-49"
           ],
           "release_time": 0,
-          "start": null,
-          "selected": false
+          "start": 6,
+          "selected": true
         },
         "2-2-a3-28-51": {
           "branch": "2-a3-28",
@@ -10277,7 +10279,7 @@
             "2-2-a4-34-64"
           ],
           "release_time": 0,
-          "start": 12.0,
+          "start": 8,
           "selected": true
         },
         "2-2-a4-36-66": {
@@ -10721,8 +10723,8 @@
             "2-2-a5-40-73"
           ],
           "release_time": 0,
-          "start": 14.0,
-          "selected": true
+          "start": null,
+          "selected": false
         },
         "2-2-a5-41-75": {
           "branch": "2-a5-41",
@@ -10773,8 +10775,8 @@
             "2-2-a5-40-73"
           ],
           "release_time": 0,
-          "start": 18.0,
-          "selected": true
+          "start": null,
+          "selected": false
         },
         "2-2-a5-42-76": {
           "branch": "2-a5-42",
@@ -10878,8 +10880,8 @@
             "2-2-a5-42-76"
           ],
           "release_time": 0,
-          "start": null,
-          "selected": false
+          "start": 10,
+          "selected": true
         },
         "2-2-a5-43-78": {
           "branch": "2-a5-43",
@@ -10932,8 +10934,8 @@
             "2-2-a5-42-76"
           ],
           "release_time": 0,
-          "start": null,
-          "selected": false
+          "start": 14,
+          "selected": true
         },
         "2-2-a5-43-79": {
           "branch": "2-a5-43",
@@ -10986,8 +10988,8 @@
             "2-2-a5-42-76"
           ],
           "release_time": 0,
-          "start": null,
-          "selected": false
+          "start": 17,
+          "selected": true
         },
         "2-2-a5-44-80": {
           "branch": "2-a5-44",
@@ -11095,7 +11097,7 @@
             "2-2-a5-44-80"
           ],
           "release_time": 0,
-          "start": 20.0,
+          "start": 19,
           "selected": true
         },
         "2-2-a6-45-82": {
@@ -11151,7 +11153,7 @@
             "2-2-a5-44-80"
           ],
           "release_time": 0,
-          "start": 28.0,
+          "start": 21,
           "selected": true
         },
         "2-2-a7-46-83": {
@@ -11207,7 +11209,7 @@
             "2-2-a6-45-82"
           ],
           "release_time": 0,
-          "start": 32.0,
+          "start": 35,
           "selected": true
         },
         "2-2-a8-47-84": {
@@ -11264,7 +11266,7 @@
             "2-2-a7-46-83"
           ],
           "release_time": 0,
-          "start": 35.0,
+          "start": 38,
           "selected": true
         },
         "2-2-a8-47-85": {
@@ -11322,7 +11324,7 @@
             "2-2-a7-46-83"
           ],
           "release_time": 0,
-          "start": 42.0,
+          "start": 41,
           "selected": true
         },
         "2-2-a9-48-86": {
@@ -11380,7 +11382,7 @@
             "2-2-a8-47-85"
           ],
           "release_time": 0,
-          "start": 51.0,
+          "start": 44,
           "selected": true
         },
         "2-2-a9-48-87": {
@@ -11439,7 +11441,7 @@
             "2-2-a8-47-85"
           ],
           "release_time": 0,
-          "start": 54.0,
+          "start": 47,
           "selected": true
         },
         "2-2-a9-48-88": {
@@ -11498,7 +11500,7 @@
             "2-2-a8-47-85"
           ],
           "release_time": 0,
-          "start": 45.0,
+          "start": 50,
           "selected": true
         },
         "2-2-a9-48-89": {
@@ -11557,7 +11559,7 @@
             "2-2-a8-47-85"
           ],
           "release_time": 0,
-          "start": 54.0,
+          "start": 53,
           "selected": true
         },
         "2-2-a10-49-90": {
@@ -11616,11 +11618,12 @@
             "2-2-a9-48-89"
           ],
           "release_time": 0,
-          "start": 57.0,
+          "start": 56,
           "selected": true
         }
       },
-      "instanceId": 2
+      "instanceId": 2,
+      "fixed": true
     },
     {
       "tasks": {
@@ -12272,8 +12275,8 @@
           "cost": 3.0,
           "after": [],
           "release_time": 5,
-          "start": 5.0,
-          "selected": true
+          "start": null,
+          "selected": false
         },
         "3-3-a1-1-1": {
           "branch": "3-a1-1",
@@ -12347,8 +12350,8 @@
             "3-3-a1-3-5"
           ],
           "release_time": 5,
-          "start": null,
-          "selected": false
+          "start": 5,
+          "selected": true
         },
         "3-3-a1-5-7": {
           "branch": "3-a1-5",
@@ -12748,7 +12751,7 @@
             "3-3-a2-13-24"
           ],
           "release_time": 0,
-          "start": 8.0,
+          "start": 8,
           "selected": true
         },
         "3-3-a2-15-26": {
@@ -13242,8 +13245,8 @@
             "3-3-a3-21-41"
           ],
           "release_time": 0,
-          "start": 8.0,
-          "selected": true
+          "start": null,
+          "selected": false
         },
         "3-3-a3-22-43": {
           "branch": "3-a3-22",
@@ -13275,8 +13278,8 @@
             "3-3-a3-21-41"
           ],
           "release_time": 0,
-          "start": 11.0,
-          "selected": true
+          "start": null,
+          "selected": false
         },
         "3-3-a3-23-44": {
           "branch": "3-a3-23",
@@ -13308,8 +13311,8 @@
             "3-3-a3-22-43"
           ],
           "release_time": 0,
-          "start": null,
-          "selected": false
+          "start": 9,
+          "selected": true
         },
         "3-3-a3-23-45": {
           "branch": "3-a3-23",
@@ -13342,8 +13345,8 @@
             "3-3-a3-22-43"
           ],
           "release_time": 0,
-          "start": null,
-          "selected": false
+          "start": 12,
+          "selected": true
         },
         "3-3-a3-24-46": {
           "branch": "3-a3-24",
@@ -14151,7 +14154,7 @@
             "3-3-a4-34-64"
           ],
           "release_time": 0,
-          "start": 16.0,
+          "start": 14,
           "selected": true
         },
         "3-3-a4-36-66": {
@@ -14699,7 +14702,7 @@
             "3-3-a5-41-75"
           ],
           "release_time": 0,
-          "start": 18.0,
+          "start": 19,
           "selected": true
         },
         "3-3-a5-43-77": {
@@ -14969,7 +14972,7 @@
             "3-3-a5-44-80"
           ],
           "release_time": 0,
-          "start": 22.0,
+          "start": 21,
           "selected": true
         },
         "3-3-a6-45-82": {
@@ -15025,7 +15028,7 @@
             "3-3-a5-44-80"
           ],
           "release_time": 0,
-          "start": 32.0,
+          "start": 25,
           "selected": true
         },
         "3-3-a7-46-83": {
@@ -15081,7 +15084,7 @@
             "3-3-a6-45-82"
           ],
           "release_time": 0,
-          "start": 36.0,
+          "start": 29,
           "selected": true
         },
         "3-3-a8-47-84": {
@@ -15138,7 +15141,7 @@
             "3-3-a7-46-83"
           ],
           "release_time": 0,
-          "start": 39.0,
+          "start": 32,
           "selected": true
         },
         "3-3-a8-47-85": {
@@ -15196,7 +15199,7 @@
             "3-3-a7-46-83"
           ],
           "release_time": 0,
-          "start": 48.0,
+          "start": 35,
           "selected": true
         },
         "3-3-a9-48-86": {
@@ -15254,7 +15257,7 @@
             "3-3-a8-47-85"
           ],
           "release_time": 0,
-          "start": 54.0,
+          "start": 38,
           "selected": true
         },
         "3-3-a9-48-87": {
@@ -15313,7 +15316,7 @@
             "3-3-a8-47-85"
           ],
           "release_time": 0,
-          "start": 57.0,
+          "start": 41,
           "selected": true
         },
         "3-3-a9-48-88": {
@@ -15372,7 +15375,7 @@
             "3-3-a8-47-85"
           ],
           "release_time": 0,
-          "start": 51.0,
+          "start": 44,
           "selected": true
         },
         "3-3-a9-48-89": {
@@ -15431,7 +15434,7 @@
             "3-3-a8-47-85"
           ],
           "release_time": 0,
-          "start": 57.0,
+          "start": 49,
           "selected": true
         },
         "3-3-a10-49-90": {
@@ -15490,11 +15493,21 @@
             "3-3-a9-48-89"
           ],
           "release_time": 0,
-          "start": 61.0,
+          "start": 52,
           "selected": true
         }
       },
-      "instanceId": 3
+      "instanceId": 3,
+      "fixed": true,
+      "solution": {
+        "objective": 60,
+        "optimality gap": "N/A",
+        "computing time": 71.69,
+        "solver status": "Optimal",
+        "branches": 13149888,
+        "propagations": "N/A",
+        "total interval length": 172.0
+      }
     }
   ],
   "resources": [
@@ -15504,10 +15517,14 @@
     "res_5",
     "res_2"
   ],
-  "objective": 65.0,
+  "objective": 0,
   "solution": {
-    "objective": 65.0,
-    "computing time": 0.46740269660949707,
-    "total interval length": 173.0
+    "objective": 60,
+    "optimality gap": "N/A",
+    "computing time": 71.69,
+    "solver status": "Optimal",
+    "branches": 13149888,
+    "propagations": "N/A",
+    "total interval length": 172.0
   }
 }
