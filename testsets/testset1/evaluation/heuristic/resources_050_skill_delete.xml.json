@@ -15498,16 +15498,16 @@
     }
   ],
   "resources": [
-    "res_1",
-    "res_4",
-    "res_3",
     "res_5",
+    "res_1",
+    "res_3",
+    "res_4",
     "res_2"
   ],
   "objective": 65.0,
   "solution": {
     "objective": 65.0,
-    "computing time": 0.46740269660949707,
+    "computing time": 0.5066368579864502,
     "total interval length": 173.0
   }
 }

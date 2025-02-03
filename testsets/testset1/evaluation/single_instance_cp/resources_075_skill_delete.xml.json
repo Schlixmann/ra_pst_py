@@ -7019,9 +7019,9 @@
       "solution": {
         "objective": 17,
         "optimality gap": "N/A",
-        "computing time": 0.57,
+        "computing time": 0.58,
         "solver status": "Optimal",
-        "branches": 106804,
+        "branches": 106323,
         "propagations": "N/A",
         "total interval length": 17.0
       }
@@ -14045,9 +14045,9 @@
       "solution": {
         "objective": 24,
         "optimality gap": "N/A",
-        "computing time": 0.76,
+        "computing time": 0.75,
         "solver status": "Optimal",
-        "branches": 185344,
+        "branches": 188194,
         "propagations": "N/A",
         "total interval length": 38.0
       }
@@ -21071,9 +21071,9 @@
       "solution": {
         "objective": 27,
         "optimality gap": "N/A",
-        "computing time": 0.17,
+        "computing time": 0.16,
         "solver status": "Optimal",
-        "branches": 11149,
+        "branches": 11138,
         "propagations": "N/A",
         "total interval length": 61.0
       }
@@ -28099,26 +28099,26 @@
         "optimality gap": "N/A",
         "computing time": 0.08,
         "solver status": "Optimal",
-        "branches": 7725,
+        "branches": 7710,
         "propagations": "N/A",
         "total interval length": 81.0
       }
     }
   ],
   "resources": [
+    "res_5",
+    "res_1",
     "res_3",
     "res_4",
-    "res_2",
-    "res_5",
-    "res_1"
+    "res_2"
   ],
   "objective": 0,
   "solution": {
     "objective": 34,
     "optimality gap": "N/A",
-    "computing time": 1.58,
+    "computing time": 1.57,
     "solver status": "Optimal",
-    "branches": 7725,
+    "branches": 7710,
     "propagations": "N/A",
     "total interval length": 81.0
   }

@@ -5022,16 +5022,16 @@
     }
   ],
   "resources": [
-    "res_1",
-    "res_4",
-    "res_3",
     "res_5",
+    "res_1",
+    "res_3",
+    "res_4",
     "res_2"
   ],
   "objective": 82.0,
   "solution": {
     "objective": 82.0,
-    "computing time": 0.26116442680358887,
+    "computing time": 0.26398658752441406,
     "total interval length": 167.0
   }
 }

@@ -5026,28 +5026,28 @@
       "solution": {
         "objective": 69,
         "optimality gap": "N/A",
-        "computing time": 0.63,
+        "computing time": 0.75,
         "solver status": "Optimal",
-        "branches": 835091,
+        "branches": 1050691,
         "propagations": "N/A",
         "total interval length": 165.0
       }
     }
   ],
   "resources": [
-    "res_1",
-    "res_4",
-    "res_3",
     "res_5",
+    "res_1",
+    "res_3",
+    "res_4",
     "res_2"
   ],
   "objective": 0,
   "solution": {
     "objective": 69,
     "optimality gap": "N/A",
-    "computing time": 0.63,
+    "computing time": 0.75,
     "solver status": "Optimal",
-    "branches": 835091,
+    "branches": 1050691,
     "propagations": "N/A",
     "total interval length": 165.0
   }

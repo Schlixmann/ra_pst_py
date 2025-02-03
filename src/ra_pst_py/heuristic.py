@@ -1,5 +1,6 @@
 from src.ra_pst_py import utils
 from src.ra_pst_py.core import Branch, RA_PST
+from src.ra_pst_py.builder import build_rapst, show_tree_as_graph
 from lxml import etree
 import numpy as np
 from collections import defaultdict
@@ -8,6 +9,7 @@ import os
 import json
 from abc import ABC, abstractmethod
 from enum import StrEnum
+
     
 class CPType_Enum(StrEnum):
     INSERT = "insert"
@@ -130,13 +132,16 @@ class TaskNode():
                         # Insert Before
                         child_task_node.set_release_time(self.release_time)
                         child_task_node.calculate_finish_time(schedule_dict, ra_pst)
-                        self.release_time = child_task_node.earliest_start + child_task_node.duration
+                        child_fin = [child_node.earliest_start + child_node.duration for child_node in child_task_node.change_patterns]
+                        child_task_node_finish = child_fin.append(child_task_node.earliest_start + child_task_node.duration)
+                        child_task_node_finish = max(child_fin)
+                        self.set_release_time(child_task_node_finish)
                         self.set_earliest_start(schedule_dict)
 
                     elif child_task_node.cp_direction == CPDirction_Enum.AFTER:
                         # Insert After
                         self.set_earliest_start(schedule_dict)
-                        child_task_node.release_time = self.earliest_start + self.duration
+                        child_task_node.set_release_time(self.earliest_start + self.duration)
                         child_task_node.calculate_finish_time(schedule_dict, ra_pst)
                     elif child_task_node.cp_direction == CPDirction_Enum.PARALLEL:
                         # Insert Parallel
@@ -156,6 +161,9 @@ class TaskNode():
                         min_deletion_savings.append(sorted([branch.get_branch_costs() for branch in branches])[0])
                     if min_deletion_savings:
                         self.deletion_savings = -float(sorted(min_deletion_savings)[0])
+                    child_task_node.duration = 0.0
+                    child_task_node.earliest_start = 0.0
+
                     
                 elif child_task_node.cp_type == CPType_Enum.REPLACE:
                     # Replace Task
@@ -481,13 +489,15 @@ class TaskAllocator():
     
 
 if __name__ == "__main__":
-    tree = etree.parse("tests/test_data/delete_branch.xml")
+    ra_pst = build_rapst(process_file="testsets/testset1/process/process_short.xml", resource_file="testsets/testset1/resources/1_skill_short.xml")
+    show_tree_as_graph(ra_pst)
+    tree = etree.parse("tests/test_data/bef_after_test.xml")
     root = tree.getroot()
     task_node = TaskNode(root)
     task_node.set_release_time(0)
     with open("tests/test_data/test_sched.json", "r") as f:
         schedule_dict = json.load(f)
-    task_node.calculate_finish_time(schedule_dict)
+    task_node.calculate_finish_time(schedule_dict, ra_pst)
     print("task_node")
     task_node.add_all_times_to_branch()
     tree = etree.ElementTree(task_node.task)

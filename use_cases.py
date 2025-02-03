@@ -40,23 +40,29 @@ class EvalPipeline():
                             ra_pst = build_rapst(process_file, resource_file)
 
                             # Setup Simulator for each allocation_type
+                            print("Start heuristic allocation")
                             schedule_path = testset / "evaluation" / "heuristic" / resource_file.name
                             schedule_path.parent.mkdir(parents=True, exist_ok=True)
                             self.setup_simulator(ra_pst, AllocationTypeEnum.HEURISTIC, path_to_dir=schedule_path)
                             self.sim.simulate()
 
                             # Setup Simulator for each allocation_type
+                            print("Start single instance CP allocation")
                             schedule_path = testset / "evaluation" / "single_instance_cp" / resource_file.name
                             schedule_path.parent.mkdir(parents=True, exist_ok=True)
                             self.setup_simulator(ra_pst, AllocationTypeEnum.SINGLE_INSTANCE_CP_WARM, path_to_dir=schedule_path)
                             self.sim.simulate()
 
+                            print("Start all instance CP allocation Warm")
                             # Setup Simulator for each allocation_type
                             schedule_path = testset / "evaluation" / "all_instance_cp" / resource_file.name
                             schedule_path.parent.mkdir(parents=True, exist_ok=True)
-                            self.setup_simulator(ra_pst, AllocationTypeEnum.ALL_INSTANCE_CP, path_to_dir=schedule_path)
+                            self.setup_simulator(ra_pst, AllocationTypeEnum.ALL_INSTANCE_CP_WARM, path_to_dir=schedule_path)
                             self.sim.simulate()
-                            
+
+    def print_block():
+        pass
+
 if __name__ == "__main__":
     ep = EvalPipeline([0,1,2,5])
     ep.run("testsets")

@@ -3,7 +3,7 @@ from .graphix import TreeGraph
 from .file_parser import parse_process_file, parse_resource_file
 from src.ra_pst_py.ilp import configuration_ilp, scheduling_ilp, combined_ilp
 from src.ra_pst_py.cp_google_or import conf_cp
-from src.ra_pst_py.instance import transform_ilp_to_branches, Instance
+#from src.ra_pst_py.instance import transform_ilp_to_branches, Instance
 
 import json
 import pathlib
@@ -74,6 +74,7 @@ def get_ilp_rep(ra_pst: RA_PST):
         "branches": branches
     }
 
+"""
 def build_optimized_instance(ra_pst:RA_PST, solver:str = "ilp") -> Instance:        
     ilp_rep = ra_pst.get_ilp_rep() 
     pathlib.Path("tmp").mkdir(parents=True, exist_ok=True)
@@ -93,6 +94,6 @@ def build_optimized_instance(ra_pst:RA_PST, solver:str = "ilp") -> Instance:
     instance = Instance(ra_pst, branches_to_apply)
     instance.get_optimal_instance()
     return instance
-
+"""
         
 

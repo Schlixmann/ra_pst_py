@@ -2523,7 +2523,7 @@
       "solution": {
         "objective": 49,
         "optimality gap": "N/A",
-        "computing time": 0.02,
+        "computing time": 0.03,
         "solver status": "Optimal",
         "branches": 49595,
         "propagations": "N/A",
@@ -5053,28 +5053,28 @@
       "solution": {
         "objective": 80,
         "optimality gap": "N/A",
-        "computing time": 0.02,
+        "computing time": 0.03,
         "solver status": "Optimal",
-        "branches": 69777,
+        "branches": 69765,
         "propagations": "N/A",
         "total interval length": 172.0
       }
     }
   ],
   "resources": [
-    "res_1",
-    "res_4",
-    "res_3",
     "res_5",
+    "res_1",
+    "res_3",
+    "res_4",
     "res_2"
   ],
   "objective": 0,
   "solution": {
     "objective": 80,
     "optimality gap": "N/A",
-    "computing time": 0.07,
+    "computing time": 0.09,
     "solver status": "Optimal",
-    "branches": 69777,
+    "branches": 69765,
     "propagations": "N/A",
     "total interval length": 172.0
   }

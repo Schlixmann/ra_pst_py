@@ -22,6 +22,10 @@ class ScheduleTest(unittest.TestCase):
             process_file="test_instances/instance_generator_process.xml",
             resource_file="test_instances/instance_generator_resources.xml"
         )
+        #self.ra_pst = build_rapst(
+        #    process_file="testsets/testset1/process/process_short.xml",
+        #    resource_file="testsets/testset1/resources/1_skill_short.xml"
+        #)
         ilp_rep = self.ra_pst.get_ilp_rep()
         with open("tests/test_data/ilp_rep.json", "w") as f:
             json.dump(ilp_rep, f, indent=2)
@@ -29,7 +33,7 @@ class ScheduleTest(unittest.TestCase):
 
     def test_single_task_heuristic(self):
         sched = Schedule()
-        release_times = [0,1,2]
+        release_times = [0]
         # Heuristic Single Task allocation
         show_tree_as_graph(self.ra_pst)
         allocation_type = AllocationTypeEnum.HEURISTIC

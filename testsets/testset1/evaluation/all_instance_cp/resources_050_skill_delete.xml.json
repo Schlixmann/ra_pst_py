@@ -1898,8 +1898,8 @@
             "0-0-a3-26-49"
           ],
           "release_time": 0,
-          "start": null,
-          "selected": false
+          "start": 2,
+          "selected": true
         },
         "0-0-a3-28-51": {
           "branch": "0-a3-28",
@@ -1975,8 +1975,8 @@
             "0-0-a3-28-51"
           ],
           "release_time": 0,
-          "start": 2,
-          "selected": true
+          "start": null,
+          "selected": false
         },
         "0-0-a4-30-53": {
           "branch": "0-a4-30",
@@ -3809,7 +3809,7 @@
             "0-0-a8-47-85"
           ],
           "release_time": 0,
-          "start": 45,
+          "start": 35,
           "selected": true
         },
         "0-0-a10-49-90": {
@@ -3868,7 +3868,7 @@
             "0-0-a9-48-89"
           ],
           "release_time": 0,
-          "start": 48,
+          "start": 38,
           "selected": true
         }
       },
@@ -4525,8 +4525,8 @@
           "cost": 3.0,
           "after": [],
           "release_time": 1,
-          "start": 1,
-          "selected": true
+          "start": null,
+          "selected": false
         },
         "1-1-a1-1-1": {
           "branch": "1-a1-1",
@@ -4600,8 +4600,8 @@
             "1-1-a1-3-5"
           ],
           "release_time": 1,
-          "start": null,
-          "selected": false
+          "start": 1,
+          "selected": true
         },
         "1-1-a1-5-7": {
           "branch": "1-a1-5",
@@ -7278,7 +7278,7 @@
             "1-1-a5-44-80"
           ],
           "release_time": 0,
-          "start": 17,
+          "start": 16,
           "selected": true
         },
         "1-1-a7-46-83": {
@@ -7391,7 +7391,7 @@
             "1-1-a7-46-83"
           ],
           "release_time": 0,
-          "start": 26,
+          "start": 24,
           "selected": true
         },
         "1-1-a8-47-85": {
@@ -8400,8 +8400,8 @@
           "cost": 3.0,
           "after": [],
           "release_time": 2,
-          "start": null,
-          "selected": false
+          "start": 2,
+          "selected": true
         },
         "2-2-a1-1-1": {
           "branch": "2-a1-1",
@@ -8475,8 +8475,8 @@
             "2-2-a1-3-5"
           ],
           "release_time": 2,
-          "start": 2,
-          "selected": true
+          "start": null,
+          "selected": false
         },
         "2-2-a1-5-7": {
           "branch": "2-a1-5",
@@ -9648,8 +9648,8 @@
             "2-2-a3-26-49"
           ],
           "release_time": 0,
-          "start": 6,
-          "selected": true
+          "start": null,
+          "selected": false
         },
         "2-2-a3-28-51": {
           "branch": "2-a3-28",
@@ -9725,8 +9725,8 @@
             "2-2-a3-28-51"
           ],
           "release_time": 0,
-          "start": null,
-          "selected": false
+          "start": 6,
+          "selected": true
         },
         "2-2-a4-30-53": {
           "branch": "2-a4-30",
@@ -11209,7 +11209,7 @@
             "2-2-a6-45-82"
           ],
           "release_time": 0,
-          "start": 35,
+          "start": 25,
           "selected": true
         },
         "2-2-a8-47-84": {
@@ -11266,7 +11266,7 @@
             "2-2-a7-46-83"
           ],
           "release_time": 0,
-          "start": 38,
+          "start": 28,
           "selected": true
         },
         "2-2-a8-47-85": {
@@ -11324,7 +11324,7 @@
             "2-2-a7-46-83"
           ],
           "release_time": 0,
-          "start": 41,
+          "start": 35,
           "selected": true
         },
         "2-2-a9-48-86": {
@@ -11382,7 +11382,7 @@
             "2-2-a8-47-85"
           ],
           "release_time": 0,
-          "start": 44,
+          "start": 38,
           "selected": true
         },
         "2-2-a9-48-87": {
@@ -11441,7 +11441,7 @@
             "2-2-a8-47-85"
           ],
           "release_time": 0,
-          "start": 47,
+          "start": 41,
           "selected": true
         },
         "2-2-a9-48-88": {
@@ -11500,7 +11500,7 @@
             "2-2-a8-47-85"
           ],
           "release_time": 0,
-          "start": 50,
+          "start": 44,
           "selected": true
         },
         "2-2-a9-48-89": {
@@ -11559,7 +11559,7 @@
             "2-2-a8-47-85"
           ],
           "release_time": 0,
-          "start": 53,
+          "start": 47,
           "selected": true
         },
         "2-2-a10-49-90": {
@@ -11618,7 +11618,7 @@
             "2-2-a9-48-89"
           ],
           "release_time": 0,
-          "start": 56,
+          "start": 50,
           "selected": true
         }
       },
@@ -15199,7 +15199,7 @@
             "3-3-a7-46-83"
           ],
           "release_time": 0,
-          "start": 35,
+          "start": 41,
           "selected": true
         },
         "3-3-a9-48-86": {
@@ -15257,7 +15257,7 @@
             "3-3-a8-47-85"
           ],
           "release_time": 0,
-          "start": 38,
+          "start": 44,
           "selected": true
         },
         "3-3-a9-48-87": {
@@ -15316,7 +15316,7 @@
             "3-3-a8-47-85"
           ],
           "release_time": 0,
-          "start": 41,
+          "start": 47,
           "selected": true
         },
         "3-3-a9-48-88": {
@@ -15375,7 +15375,7 @@
             "3-3-a8-47-85"
           ],
           "release_time": 0,
-          "start": 44,
+          "start": 50,
           "selected": true
         },
         "3-3-a9-48-89": {
@@ -15434,7 +15434,7 @@
             "3-3-a8-47-85"
           ],
           "release_time": 0,
-          "start": 49,
+          "start": 53,
           "selected": true
         },
         "3-3-a10-49-90": {
@@ -15493,7 +15493,7 @@
             "3-3-a9-48-89"
           ],
           "release_time": 0,
-          "start": 52,
+          "start": 56,
           "selected": true
         }
       },
@@ -15502,28 +15502,28 @@
       "solution": {
         "objective": 60,
         "optimality gap": "N/A",
-        "computing time": 71.69,
+        "computing time": 20.44,
         "solver status": "Optimal",
-        "branches": 13149888,
+        "branches": 10435250,
         "propagations": "N/A",
         "total interval length": 172.0
       }
     }
   ],
   "resources": [
-    "res_1",
-    "res_4",
-    "res_3",
     "res_5",
+    "res_1",
+    "res_3",
+    "res_4",
     "res_2"
   ],
   "objective": 0,
   "solution": {
     "objective": 60,
     "optimality gap": "N/A",
-    "computing time": 71.69,
+    "computing time": 20.44,
     "solver status": "Optimal",
-    "branches": 13149888,
+    "branches": 10435250,
     "propagations": "N/A",
     "total interval length": 172.0
   }

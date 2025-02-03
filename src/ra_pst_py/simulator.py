@@ -200,7 +200,7 @@ class Simulator():
             self.create_warmstart_file(schedule_dict, self.task_queue)
             result = cp_solver(self.schedule_filepath, "tmp/warmstart.json")
         else:
-            result = cp_solver_decomposed(self.schedule_filepath)
+            result = cp_solver(self.schedule_filepath)
         self.save_schedule(result)
             
     def create_warmstart_file(self, ra_psts:dict, queue_objects:list[QueueObject]):
