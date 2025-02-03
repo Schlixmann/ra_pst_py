@@ -1,0 +1,220 @@
+	<call id="a4" endpoint="" xmlns="http://cpee.org/ns/description/1.0">
+		<parameters>
+			<label>check part sheet</label>
+			<method>:post</method>
+			<arguments/>
+		</parameters>
+		<annotations>
+			<_timing>
+				<_timing_weight/>
+				<_timing_avg/>
+				<explanations/>
+			</_timing>
+			<_shifting>
+				<_shifting_type>Duration</_shifting_type>
+			</_shifting>
+			<_context_data_analysis>
+				<probes/>
+				<ips/>
+			</_context_data_analysis>
+			<report>
+				<url/>
+			</report>
+			<_notes>
+				<_notes_general/>
+			</_notes>
+		</annotations>
+		<documentation>
+			<input/>
+			<output/>
+			<implementation>
+				<description/>
+			</implementation>
+		</documentation>
+		<resources allocated_to="not_allocated"/>
+		<expectedready/>
+		<plannedstart/>
+		<plannedend/>
+		<children>
+			<resource id="res_1" name="res_1">
+				<resprofile task="check part sheet" id="role_37" name="role_37" role="role_37">
+					<measures>
+						<cost>2</cost>
+					</measures>
+					<changepattern type="insert">
+						<parameters>
+							<direction>before</direction>
+						</parameters>
+						<description>
+							<manipulate id="task_24" label="task_24" type="insert" direction="before">
+								<resources allocated_to="not_allocated">
+									<resource>role_38</resource>
+								</resources>
+							</manipulate>
+						</description>
+					</changepattern>
+					<children>
+						<manipulate id="task_24" label="task_24" type="insert" direction="before">
+							<resources allocated_to="not_allocated">
+								<resource>role_38</resource>
+							</resources>
+							<children>
+								<resource id="res_2" name="res_2">
+									<resprofile task="task_24" id="role_38" name="role_38" role="role_38">
+										<measures>
+											<cost>4</cost>
+										</measures>
+										<changepattern type="insert">
+											<parameters>
+												<direction>after</direction>
+											</parameters>
+											<description>
+												<manipulate id="task_25" label="task_25" type="insert" direction="after">
+													<resources allocated_to="not_allocated">
+														<resource>role_39</resource>
+													</resources>
+												</manipulate>
+											</description>
+										</changepattern>
+										<children>
+											<manipulate id="task_25" label="task_25" type="insert" direction="after">
+												<resources allocated_to="not_allocated">
+													<resource>role_39</resource>
+												</resources>
+												<children>
+													<resource id="res_3" name="res_3">
+														<resprofile task="task_25" id="role_39" name="role_39" role="role_39">
+															<measures>
+																<cost>2</cost>
+															</measures>
+															<children/>
+														</resprofile>
+													</resource>
+												</children>
+											</manipulate>
+										</children>
+									</resprofile>
+								</resource>
+							</children>
+						</manipulate>
+					</children>
+				</resprofile>
+			</resource>
+			<resource id="res_2" name="res_2">
+				<resprofile task="check part sheet" id="role_16" name="role_16" role="role_16">
+					<measures>
+						<cost>2</cost>
+					</measures>
+					<changepattern type="insert">
+						<parameters>
+							<direction>after</direction>
+						</parameters>
+						<description>
+							<manipulate id="task_10" label="task_10" type="insert" direction="after">
+								<resources allocated_to="not_allocated">
+									<resource>role_17</resource>
+								</resources>
+							</manipulate>
+						</description>
+					</changepattern>
+					<children>
+						<manipulate id="task_10" label="task_10" type="insert" direction="after">
+							<resources allocated_to="not_allocated">
+								<resource>role_17</resource>
+							</resources>
+							<children>
+								<resource id="res_3" name="res_3">
+									<resprofile task="task_10" id="role_17" name="role_17" role="role_17">
+										<measures>
+											<cost>2</cost>
+										</measures>
+										<changepattern type="insert">
+											<parameters>
+												<direction>before</direction>
+											</parameters>
+											<description>
+												<manipulate id="task_11" label="task_11" type="insert" direction="before">
+													<resources allocated_to="not_allocated">
+														<resource>role_18</resource>
+													</resources>
+												</manipulate>
+											</description>
+										</changepattern>
+										<children>
+											<manipulate id="task_11" label="task_11" type="insert" direction="before">
+												<resources allocated_to="not_allocated">
+													<resource>role_18</resource>
+												</resources>
+												<children>
+													<resource id="res_3" name="res_3">
+														<resprofile task="task_11" id="role_18" name="role_18" role="role_18">
+															<measures>
+																<cost>2</cost>
+															</measures>
+															<children/>
+														</resprofile>
+													</resource>
+												</children>
+											</manipulate>
+										</children>
+									</resprofile>
+								</resource>
+							</children>
+						</manipulate>
+					</children>
+				</resprofile>
+			</resource>
+			<resource id="res_4" name="res_4">
+				<resprofile task="check part sheet" id="role_66" name="role_66" role="role_66">
+					<measures>
+						<cost>2</cost>
+					</measures>
+					<changepattern type="insert">
+						<parameters>
+							<direction>after</direction>
+						</parameters>
+						<description>
+							<manipulate id="task_43" label="task_43" type="insert" direction="after">
+								<resources allocated_to="not_allocated">
+									<resource>role_67</resource>
+								</resources>
+							</manipulate>
+						</description>
+					</changepattern>
+					<children>
+						<manipulate id="task_43" label="task_43" type="insert" direction="after">
+							<resources allocated_to="not_allocated">
+								<resource>role_67</resource>
+							</resources>
+							<children>
+								<resource id="res_4" name="res_4">
+									<resprofile task="task_43" id="role_67" name="role_67" role="role_67">
+										<measures>
+											<cost>3</cost>
+										</measures>
+										<children/>
+									</resprofile>
+								</resource>
+							</children>
+						</manipulate>
+					</children>
+				</resprofile>
+			</resource>
+			<resource id="res_6" name="res_6">
+				<resprofile task="check part sheet" id="role_78" name="role_78" role="role_78">
+					<measures>
+						<cost>7</cost>
+					</measures>
+					<children/>
+				</resprofile>
+			</resource>
+			<resource id="res_7" name="res_7">
+				<resprofile task="check part sheet" id="role_76" name="role_76" role="role_76">
+					<measures>
+						<cost>7</cost>
+					</measures>
+					<children/>
+				</resprofile>
+			</resource>
+		</children>
+	</call>
