@@ -1,0 +1,25 @@
+OldCp =  Minimization problem - 79 variables, 1574 constraints
+ ! ----------------------------------------------------------------------------
+ ! Search completed, 3 solutions found.
+ ! Best objective         : 46 (optimal - effective tol. is 0)
+ ! Best bound             : 46
+ ! ----------------------------------------------------------------------------
+ ! Number of branches     : 785544
+ ! Number of fails        : 126055
+ ! Total memory usage     : 17.3 MB (17.2 MB CP Optimizer + 0.1 MB Concert)
+ ! Time spent in solve    : 0.86s (0.85s engine + 0.01s extraction)
+ ! Search speed (br. / s) : 924169.4
+
+ 
+NewCP = ! Minimization problem - 87 variables, 1379 constraints
+----------------------------------------------------------------------------
+ ! Search completed, 7 solutions found.
+ ! Best objective         : 46 (optimal - effective tol. is 0)
+ ! Best bound             : 46
+ ! ----------------------------------------------------------------------------
+ ! Number of branches     : 380427
+ ! Number of fails        : 199116
+ ! Total memory usage     : 21.1 MB (21.0 MB CP Optimizer + 0.1 MB Concert)
+ ! Time spent in solve    : 1.21s (1.21s engine + 0.00s extraction)
+ ! Search speed (br. / s) : 317022.5
+ ! -------------------------------------------------------------------------

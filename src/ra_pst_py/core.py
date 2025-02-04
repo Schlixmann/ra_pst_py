@@ -156,14 +156,17 @@ class RA_PST:
             for branch in temp["branches"][task]:
                 branchId = f'{instance_id}-{task}-{len(result["branches"])}'
                 result["tasks"][f'{instance_id}-{task}']["branches"].append(branchId)
+
                 newBranch = {
                     "task": f'{instance_id}-{task}',
                     "jobs": [],
                     "deletes": [f"{instance_id}-{element}" for element in branch["deletes"]],
                     "branch_no": branch["branch_no"],
                     "branchCost": 0,
-                    "release_time": 0
+                    "release_time": 0 
                 }
+                if task in task_release_dict.keys():
+                    newBranch["release_time"] = task_release_dict[task]
                 previousJob = None
                 for job in branch["jobs"]:
                     newJob = {
