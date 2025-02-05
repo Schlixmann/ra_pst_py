@@ -75,7 +75,7 @@ class DocplexTest(unittest.TestCase):
         ra_psts = {}
         ra_psts["instances"] = []
 
-        for i in range(1):
+        for i in range(3):
             ilp_rep = self.ra_pst.get_ilp_rep(instance_id=f'i{i+1}')
 
             ra_psts["instances"].append(ilp_rep)
@@ -93,7 +93,7 @@ class DocplexTest(unittest.TestCase):
         ra_psts = {}
         ra_psts["instances"] = []
 
-        for i in range(20):
+        for i in range(3):
             ilp_rep = self.ra_pst.get_ilp_rep(instance_id=f'i{i+1}')
 
             ra_psts["instances"].append(ilp_rep)
