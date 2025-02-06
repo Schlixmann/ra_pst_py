@@ -187,6 +187,28 @@ class Simulator():
             else:
                 result = cp_solver(self.schedule_filepath)
             self.save_schedule(result)
+
+    def single_instance_replanning(self, warmstart:bool = False):
+        while self.task_queue:
+            queue_object = self.task_queue.pop(0)
+            schedule_dict = self.get_current_schedule_dict()
+            instance_ilp_rep = self.get_current_instance_ilp_rep(schedule_dict, queue_object)
+            schedule_dict = self.add_ilp_rep_to_schedule(instance_ilp_rep, schedule_dict, queue_object)
+            schedule_dict["resources"] = list(set(schedule_dict["resources"]).union(instance_ilp_rep["resources"]))
+            if warmstart:
+                self.create_warmstart_file(schedule_dict, [queue_object])
+            self.save_schedule(schedule_dict)
+
+            # Get current timestamp: == release time of queue object
+            # Replannable tasks are all tasks that have a release time > current time
+            # set job to unfixed 
+            # create extra online cp_solver method
+
+            if warmstart:
+                result = cp_solver(self.schedule_filepath, "tmp/warmstart.json")
+            else:
+                result = cp_solver(self.schedule_filepath)
+            self.save_schedule(result)
         
     def all_instance_processing(self, warmstart:bool = False):
         # Generate dict needed for cp_solver
