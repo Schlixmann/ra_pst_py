@@ -158,7 +158,7 @@ def cp_solver(ra_pst_json, warm_start_json=None, log_file = "cpo_solver.log"):
         model.set_starting_point(starting_solution)
 
     with open("cpo_solver_old.log", "w") as f:
-        result = model.solve(FailLimit=100000000, TimeLimit=100, log_output=f)
+        result = model.solve(FailLimit=100000000, TimeLimit=200, log_output=f)
     # result.print_solution()
     intervals = []
     for ra_pst in ra_psts["instances"]:
@@ -201,6 +201,7 @@ def cp_solver(ra_pst_json, warm_start_json=None, log_file = "cpo_solver.log"):
     ra_psts["solution"] = {
         "objective": result.get_objective_value(),
         "optimality gap": solve_details.get('RelativeOptimalityGap', 'N/A'),
+        "lower_bound" : result.get_objective_bound(),
         "computing time": computing_time,
         "solver status": result.get_solve_status(),
         "branches": solve_details.get('NumberOfBranches', 'N/A'),
@@ -343,7 +344,8 @@ def cp_solver_alternative(ra_pst_json, warm_start_json=None, log_file = "cpo_sol
             bucket = job["release_time"] // 10  # Group by 10-time-unit intervals
             if bucket not in time_buckets:
                 time_buckets[bucket] = []
-            time_buckets[bucket].append({jobId: job["interval"]})
+            if "interval" in job.keys():
+                time_buckets[bucket].append({jobId: job["interval"]}) 
         
     # Each follow up bucket must also hold all intervals of previous bucket
     for bucketId, bucket in time_buckets.items():
@@ -357,10 +359,10 @@ def cp_solver_alternative(ra_pst_json, warm_start_json=None, log_file = "cpo_sol
         for r in ra_psts["resources"]:
             resource_intervals = []
             for ra_pst in ra_psts["instances"]:
+                bucket_keys = [list(job.keys())[0] for job in bucket]
                 if ra_pst["fixed"]:
-                    resource_intervals.extend([job["interval"] for job in ra_pst["jobs"].values() if (job["resource"] == r and job["selected"] and (job["interval"] in bucket))])
+                    resource_intervals.extend([job["interval"] for job in ra_pst["jobs"].values() if (job["resource"] == r and job["selected"] and (jobId in bucket_keys))])
                 else:
-                    bucket_keys = [list(job.keys())[0] for job in bucket]
                     resource_intervals.extend([job["interval"] for jobId, job in ra_pst["jobs"].items() if (job["resource"] == r and jobId in bucket_keys)])
             if len(resource_intervals) > 0:
                 model.add(no_overlap(resource_intervals))
@@ -634,14 +636,16 @@ def cp_subproblem(ra_psts):
 
 
 if __name__ == "__main__":
-    file = "cp_rep_test_all_big.json"    
+    file = "cp_rep_test.json"    
     print("Start")
     #result = cp_solver_decomposed(file)
-    x = cp_solver_alternative(file, warm_start_json=None)
-    with open("alterna_out.json", "w") as f:
-        json.dump(x, f)
+    #x = cp_solver_alternative(file, warm_start_json=None)
+    #with open("alterna_out.json", "w") as f:
+    #    json.dump(x, f)
     print("================= \n comparison \n=================")
-    #x, result2 = cp_solver(file)
+    x = cp_solver(file)
+    with open("alterna_out.json", "w") as f:
+        json.dump(x, f, indent=2)
 
     
 

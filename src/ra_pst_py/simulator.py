@@ -18,6 +18,7 @@ class AllocationTypeEnum(StrEnum):
     SINGLE_INSTANCE_CP_WARM = "single_instance_cp_warm"
     ALL_INSTANCE_CP = "all_instance_cp"
     ALL_INSTANCE_CP_WARM = "all_instance_cp_warm"
+    SINGLE_INSTANCE_CP_ONLINE = "single_instance_cp_online"
 
 class QueueObject():
     def __init__(self, instance: Instance, schedule_idx:int,  allocation_type: AllocationTypeEnum, task: etree._Element, release_time: float):
@@ -32,20 +33,28 @@ class Simulator():
         self.schedule_filepath = schedule_filepath
         # List of [{instance:RA_PST_instance, allocation_type:str(allocation_type)}]
         self.task_queue: list[QueueObject] = []  # List of QueueObject
+        self.expected_instances_queue: list[QueueObject] = [] # List of Queu objects only for online allocation.
         self.allocation_type: AllocationTypeEnum = None
         self.ns = None
         self.is_warmstart:bool = is_warmstart
 
-    def add_instance(self, instance: Instance, allocation_type: AllocationTypeEnum):  # TODO
+    def add_instance(self, instance: Instance, allocation_type: AllocationTypeEnum, expected_instance:bool=False):  # TODO
         """ 
         Adds a new instance that needs allocation
         """
         if self.is_warmstart: 
             schedule_idx = instance.id
         else:
-            schedule_idx = len(self.task_queue)
-        self.update_task_queue(QueueObject(
-            instance, schedule_idx, allocation_type, instance.current_task, instance.release_time))
+            if expected_instance:
+                schedule_idx = len(self.expected_instances_queue)
+            else:    
+                schedule_idx = len(self.task_queue)
+        if expected_instance is False:
+            self.update_task_queue(self.task_queue, QueueObject(
+                instance, schedule_idx, allocation_type, instance.current_task, instance.release_time))
+        else:
+            self.update_task_queue(self.expected_instances_queue, QueueObject(
+                instance, schedule_idx, allocation_type, instance.current_task, instance.release_time))
         #print(f"Instance added to simulator with allocation_type {allocation_type}")
 
     def set_namespace(self):
@@ -78,6 +87,9 @@ class Simulator():
         elif self.allocation_type == AllocationTypeEnum.SINGLE_INSTANCE_CP_WARM:
             # Create ra_psts for next instance in task_queue
             self.single_instance_processing(warmstart=True)
+        elif self.allocation_type == AllocationTypeEnum.SINGLE_INSTANCE_CP_ONLINE:
+            # Enable usage of expected Instances
+            self.single_instance_online()
         elif self.allocation_type == AllocationTypeEnum.ALL_INSTANCE_CP:
             self.all_instance_processing()
         elif self.allocation_type == AllocationTypeEnum.ALL_INSTANCE_CP_WARM:
@@ -86,18 +98,18 @@ class Simulator():
             raise NotImplementedError(
                 f"Allocation_type {self.allocation_type} has not been implemented yet")
         
-    def get_current_instance_ilp_rep(self, schedule:dict, queue_object:QueueObject):
-        if len(schedule["instances"]) > queue_object.schedule_idx:
+    def get_current_instance_ilp_rep(self, schedule:dict, queue_object:QueueObject, expected_instance:bool=False):
+        if len(schedule["instances"]) > queue_object.schedule_idx and expected_instance is False:
             return schedule["instances"][queue_object.schedule_idx]
         else:
             return queue_object.instance.get_ilp_rep()
 
-    def add_ilp_rep_to_schedule(self, ilp_rep:dict, schedule:dict, queue_object:QueueObject):
-        if len(schedule["instances"]) > queue_object.schedule_idx:
+    def add_ilp_rep_to_schedule(self, ilp_rep:dict, schedule:dict, queue_object:QueueObject, expected_instance:bool=False):
+        if len(schedule["instances"]) > queue_object.schedule_idx and expected_instance is False:
             schedule["instances"][queue_object.schedule_idx] = ilp_rep
         else:
             schedule["instances"].append(ilp_rep)
-            if schedule["instances"].index(ilp_rep) != queue_object.schedule_idx:
+            if schedule["instances"].index(ilp_rep) != queue_object.schedule_idx and expected_instance is False:
                 raise ValueError(f'QueueObject.schedule_idx <{queue_object.schedule_idx}> does not match the position in Schedule["instances"] <{schedule["instances"].index(ilp_rep)}>')
         schedule["resources"] = list(set(schedule["resources"]).union(ilp_rep["resources"]))
         return schedule
@@ -165,7 +177,7 @@ class Simulator():
             schedule["resources"] = list(set(schedule["resources"]).union(instance_ilp_rep["resources"]))
             self.save_schedule(schedule)
             if queue_object.instance.current_task != "end":
-                self.update_task_queue(queue_object)
+                self.update_task_queue(self.task_queue, queue_object)
 
         end = time.time()
         self.add_allocation_metadata(float(end-start))
@@ -210,6 +222,55 @@ class Simulator():
                 result = cp_solver(self.schedule_filepath)
             self.save_schedule(result)
         
+    def single_instance_online(self, considered_next = 2, warmstart = False):
+        if not self.expected_instances_queue:
+            raise ValueError("No expected instances set")
+        n = 0
+        while self.task_queue:
+            # create ilp_rep for instance to allocate
+            queue_object = self.task_queue.pop(0)
+            schedule_dict = self.get_current_schedule_dict()
+            instance_ilp_rep = self.get_current_instance_ilp_rep(schedule_dict, queue_object)
+
+            # add current ilp_rep_to_existing schedule
+            schedule_dict = self.add_ilp_rep_to_schedule(instance_ilp_rep, schedule_dict, queue_object)
+            schedule_dict["resources"] = list(set(schedule_dict["resources"]).union(instance_ilp_rep["resources"]))
+            self.save_schedule(schedule_dict)
+
+            # create ilp_rep for next expected instances
+            for i in range(considered_next):
+                if i == len(self.expected_instances_queue):
+                    break
+                queue_object = self.expected_instances_queue[i]
+                schedule_dict = self.get_current_schedule_dict()
+                instance_ilp_rep = self.get_current_instance_ilp_rep(schedule_dict, queue_object, expected_instance=True)
+                instance_ilp_rep["dummy"] = True
+
+                # add next expected ilp rep to schedule with marker "dummy"
+                schedule_dict = self.add_ilp_rep_to_schedule(instance_ilp_rep, schedule_dict, queue_object, expected_instance=True)
+                schedule_dict["resources"] = list(set(schedule_dict["resources"]).union(instance_ilp_rep["resources"]))
+                self.save_schedule(schedule_dict)
+
+            # remove first item of expected instance queue
+            self.expected_instances_queue.pop(0)
+                    
+
+            if warmstart:
+                self.create_warmstart_file(schedule_dict, [queue_object])
+            self.save_schedule(schedule_dict)
+
+            if warmstart:
+                result = cp_solver(self.schedule_filepath, "tmp/warmstart.json")
+            else:
+                result = cp_solver_alternative(self.schedule_filepath)
+            with open("test.json", "w") as f:
+                json.dump(result, f)
+            result["instances"] = [instance for instance in result["instances"] if "dummy" not in instance.keys()]
+            print(f"Instance {n} allocated")
+            self.save_schedule(result)
+            n += 1
+
+        
     def all_instance_processing(self, warmstart:bool = False):
         # Generate dict needed for cp_solver
         for queue_object in self.task_queue:
@@ -238,10 +299,10 @@ class Simulator():
         sim.simulate()
         print("Warmstart file created")
 
-    def update_task_queue(self, queue_object: QueueObject):
+    def update_task_queue(self, queue:list[QueueObject], queue_object: QueueObject):
         # instance, allocation_type, task, release_time = task
-        self.task_queue.append(queue_object)
-        self.task_queue.sort(key=lambda object: object.release_time)
+        queue.append(queue_object)
+        queue.sort(key=lambda object: object.release_time)
 
     def set_allocation_type(self):
         """
@@ -261,6 +322,8 @@ class Simulator():
             self.allocation_type = AllocationTypeEnum.SINGLE_INSTANCE_CP_WARM
         elif allocation_types == {AllocationTypeEnum.ALL_INSTANCE_CP_WARM}:
             self.allocation_type = AllocationTypeEnum.ALL_INSTANCE_CP_WARM
+        elif allocation_types == {AllocationTypeEnum.SINGLE_INSTANCE_CP_ONLINE}:
+            self.allocation_type = AllocationTypeEnum.SINGLE_INSTANCE_CP_ONLINE
         else:
             raise NotImplementedError(f"The allocation type combination {allocation_types} is not implemented")
 
