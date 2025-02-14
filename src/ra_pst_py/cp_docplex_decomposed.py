@@ -140,7 +140,7 @@ def cp_solver_decomposed_monotone_cuts(ra_pst_json, TimeLimit = None):
     return ra_psts
 
 
-def cp_solver_decomposed(ra_pst_json):
+def cp_solver_decomposed_strengthened_cuts(ra_pst_json, TimeLimit = None):
     """
     ra_pst_json input format:
     {
@@ -212,18 +212,19 @@ def cp_solver_decomposed(ra_pst_json):
 
     lower_bound = 0
     big_number = 0
-    all_jobs = []
-    optimized_branches = []
     for ra_pst in ra_psts["instances"]:
         for branch in ra_pst["branches"].values():
             big_number += branch["branchCost"]
     upper_bound = big_number
 
-    configurations = []
+    best_schedule = None
+    best_jobs = None
+
+    starting_time = time.time()
 
     counter = 0
     # Solve decomposed problem
-    while (upper_bound - lower_bound)/upper_bound > 0.01: # Gap of .1
+    while (upper_bound - lower_bound)/upper_bound > 0.1: # Gap of .1
         print(f"{counter:4.0f}: Lower bound: {lower_bound}, upper bound: {upper_bound}. Gap {100*(upper_bound-lower_bound)/upper_bound:.2f}%")
         # Solve master problem
         master_model.optimize()
@@ -235,12 +236,14 @@ def cp_solver_decomposed(ra_pst_json):
             for i, ra_pst in enumerate(ra_psts["instances"]):
                 selected_branches_extended.extend([branchId for branchId, branch in ra_pst["branches"].items() if int(branch["selected"].x)])
                 instance_resource_list = [ra_pst["jobs"][jobId]["resource"] for branchId, branch in ra_pst["branches"].items() if int(branch["selected"].x) for jobId in branch["jobs"] for _ in range(int(ra_pst["jobs"][jobId]["cost"]))]
+                # print(f'instance resource list: {instance_resource_list}')
                 configuration_branches.append({
                     "instance": i,
                     "branches": [branchId for branchId, branch in ra_pst["branches"].items() if int(branch["selected"].x)],
                     "resources": [{resource: instance_resource_list[t:].count(resource) for resource in ra_psts["resources"]} for t in range(len(instance_resource_list)+1)]
                     })
-            for r in range(2, len(ra_psts["instances"]) + 1):
+                # print(f'branch configuration: {configuration_branches[-1]}')
+            for r in range(max(2, len(ra_psts["instances"]) - 2*len(ra_psts["resources"])), len(ra_psts["instances"]) + 1):
                 for combination in itertools.combinations(configuration_branches, r):
                     instances = []
                     for c in combination:
@@ -249,33 +252,42 @@ def cp_solver_decomposed(ra_pst_json):
                     if len(instances) != r: continue
                     subproblem_lb = 0
                     # Calculate relative lower bound from t
-                    for t in range(int(lower_bound)):
-                        resources = {resource: 0 for resource in ra_psts["resources"]}
+                    min_resource_length = min([len(c["resources"]) for c in combination])
+                    for t in range(int(min(min_resource_length-1, lower_bound))):
+                        resources = {resource: t for resource in ra_psts["resources"]}
                         for c in combination:
-                            if t > len():
-                                pass
-
-
-                    master_model.addConstr(z >= subproblem_lb - (subproblem_lb - lower_bound) * gp.quicksum(1 - ra_psts[c["instance"]]["branches"][branchId]["selected"] for c in combination for branchId in c["branches"]))
-
-
+                            if t > len(c["resources"]): continue
+                            for resource, count in c["resources"][t].items():
+                                resources[resource] += count
+                        max_resources = max(resources.values())
+                        # print(f'Resources {t} | {max_resources} | {subproblem_lb}: {resources}')
+                        if max_resources > subproblem_lb:
+                            subproblem_lb = max_resources
+                    if subproblem_lb > lower_bound:
+                        # print(f"Subproblem lower bound: {subproblem_lb} - {lower_bound}")
+                        # Add strengthened cuts
+                        master_model.addConstr(z >= subproblem_lb - (subproblem_lb - lower_bound) * gp.quicksum(1 - ra_psts["instances"][c["instance"]]["branches"][branchId]["selected"] for c in combination for branchId in c["branches"]))
 
             schedule, all_jobs = cp_subproblem(ra_psts, selected_branches_extended)
             # Solved subproblem: Set new upper bound
             if schedule.get_objective_value() < upper_bound:
                 upper_bound = schedule.get_objective_value()
-                # Collapse when removing a branch
+                best_schedule = schedule
+                best_jobs = all_jobs
             master_model.addConstr(z >= schedule.get_objective_value() - (schedule.get_objective_value() - lower_bound) * gp.quicksum(1-branch["selected"] for ra_pst in ra_psts["instances"] for branchId, branch in ra_pst["branches"].items() if int(branch["selected"].x)))
 
         counter += 1
+        if TimeLimit is not None and time.time() - starting_time > TimeLimit:
+            print(f'Time limit reached...')
+            break
 
     # Output the current schedule
     for ra_pst in ra_psts["instances"]:
         for jobId, job in ra_pst["jobs"].items():
             job["selected"] = 0
             job["start"] = 0
-            for interval in all_jobs:
-                itv = schedule.get_var_solution(interval)
+            for interval in best_jobs:
+                itv = best_schedule.get_var_solution(interval)
                 if jobId == itv.get_name():
                     job["selected"] = 1
                     job["start"] = itv.get_start()
@@ -343,6 +355,6 @@ def cp_subproblem(ra_psts, branches):
     subproblem_model.add(no_overlap(resource_jobs[resource]) for resource in ra_psts["resources"] if len(resource_jobs[resource]) > 1)
     # Objective
     subproblem_model.add(minimize(max(end_of(interval) for interval in all_jobs )))
-    schedule = subproblem_model.solve(LogVerbosity='Quiet', TimeLimit=30)
+    schedule = subproblem_model.solve(LogVerbosity='Quiet', TimeLimit=100)
     return schedule, all_jobs
 

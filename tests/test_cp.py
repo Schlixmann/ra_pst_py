@@ -3,7 +3,7 @@ from src.ra_pst_py.instance import transform_ilp_to_branches, Instance
 from src.ra_pst_py.brute_force import BruteForceSearch
 from src.ra_pst_py.cp_google_or import conf_cp, conf_cp_scheduling
 from src.ra_pst_py.cp_docplex import cp_solver
-from src.ra_pst_py.cp_docplex_decomposed import cp_solver_decomposed, cp_solver_decomposed_monotone_cuts
+from src.ra_pst_py.cp_docplex_decomposed import cp_solver_decomposed_strengthened_cuts, cp_solver_decomposed_monotone_cuts
 
 from lxml import etree
 import unittest
@@ -63,7 +63,7 @@ class DocplexTest(unittest.TestCase):
     
     def test_cp(self):
         self.setUp()
-        result = cp_solver_decomposed("tests/test_data/ilp_rep.json")
+        result = cp_solver_decomposed_strengthened_cuts("tests/test_data/ilp_rep.json")
         # print([branch for branch in result["branches"] if branch["selected"] == 1])
         print(result["solution"]["objective"])
         with open("tests/test_data/cp_result.json", "w") as f:
@@ -94,14 +94,14 @@ class DocplexTest(unittest.TestCase):
         ra_psts = {}
         ra_psts["instances"] = []
 
-        for i in range(4):
+        for i in range(14):
             ilp_rep = self.ra_pst.get_ilp_rep(instance_id=f'i{i+1}')
 
             ra_psts["instances"].append(ilp_rep)
         ra_psts["resources"] = ilp_rep["resources"]
         with open("tests/test_data/ilp_rep.json", "w") as f:
             json.dump(ra_psts, f, indent=2)
-        result = cp_solver_decomposed_monotone_cuts("tests/test_data/ilp_rep.json", TimeLimit=10)
+        result = cp_solver_decomposed_strengthened_cuts("tests/test_data/ilp_rep.json", TimeLimit=300)
         # print([branch for branch in result["branches"] if branch["selected"] == 1])
         print(result["solution"]["objective"])
         with open("tests/test_data/cp_result.json", "w") as f:
