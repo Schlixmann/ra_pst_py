@@ -1,6 +1,6 @@
 from src.ra_pst_py.instance import Instance
 from src.ra_pst_py.core import Branch, RA_PST
-from src.ra_pst_py.cp_docplex import cp_solver, cp_solver_decomposed, cp_solver_alternative
+from src.ra_pst_py.cp_docplex import cp_solver, cp_solver_decomposed, cp_solver_alternative, cp_solver_alternative_new, cp_solver_alternative_online
 
 from enum import Enum, StrEnum
 from collections import defaultdict
@@ -14,11 +14,14 @@ import itertools
 
 class AllocationTypeEnum(StrEnum):
     HEURISTIC = "heuristic"
+    SINGLE_INSTANCE_HEURISTIC = "single_instance_heuristic"
     SINGLE_INSTANCE_CP = "single_instance_cp"
     SINGLE_INSTANCE_CP_WARM = "single_instance_cp_warm"
     ALL_INSTANCE_CP = "all_instance_cp"
     ALL_INSTANCE_CP_WARM = "all_instance_cp_warm"
     SINGLE_INSTANCE_CP_ONLINE = "single_instance_cp_online"
+    SINGLE_INSTANCE_CP_REPLAN = "single_instance_replan"
+    SINGLE_INSTANCE_CP_ROLLING = "single_instance_rolling"
 
 class QueueObject():
     def __init__(self, instance: Instance, schedule_idx:int,  allocation_type: AllocationTypeEnum, task: etree._Element, release_time: float):
@@ -42,6 +45,14 @@ class Simulator():
         """ 
         Adds a new instance that needs allocation
         """
+        if self.allocation_type is None:
+            if isinstance(allocation_type, AllocationTypeEnum):
+                self.allocation_type = allocation_type
+            elif isinstance(allocation_type, str):
+                self.allocation_type = AllocationTypeEnum(allocation_type)
+            else:
+                raise ValueError("Invalid allocation type")
+        
         if self.is_warmstart: 
             schedule_idx = instance.id
         else:
@@ -55,10 +66,10 @@ class Simulator():
         else:
             self.update_task_queue(self.expected_instances_queue, QueueObject(
                 instance, schedule_idx, allocation_type, instance.current_task, instance.release_time))
-        #print(f"Instance added to simulator with allocation_type {allocation_type}")
+
 
     def set_namespace(self):
-        # Check namespaces for ra-pst:
+        """ Sets the namespaces if it is not set yet """
         if not self.ns:
             self.ns = self.task_queue[0].instance.ns
     
@@ -76,7 +87,6 @@ class Simulator():
         # Prelims
         self.set_namespace()
         self.set_schedule_file()
-        self.set_allocation_type()
 
         if self.allocation_type == AllocationTypeEnum.HEURISTIC:
             #Start taskwise allocation with process tree heuristic
@@ -94,6 +104,12 @@ class Simulator():
             self.all_instance_processing()
         elif self.allocation_type == AllocationTypeEnum.ALL_INSTANCE_CP_WARM:
             self.all_instance_processing(warmstart=True)
+        elif self.allocation_type == AllocationTypeEnum.SINGLE_INSTANCE_CP_REPLAN:
+            self.single_instance_replan()
+        elif self.allocation_type == AllocationTypeEnum.SINGLE_INSTANCE_HEURISTIC:
+            self.single_instance_heuristic()
+        elif self.allocation_type == AllocationTypeEnum.SINGLE_INSTANCE_CP_ROLLING:
+            self.single_instance_rolling_horizon()
         else:
             raise NotImplementedError(
                 f"Allocation_type {self.allocation_type} has not been implemented yet")
@@ -182,6 +198,31 @@ class Simulator():
         end = time.time()
         self.add_allocation_metadata(float(end-start))
 
+    def single_instance_heuristic(self):
+        # TODO single_instance_heuristic()
+        # like single task process but do not update process until the end. 
+        # Make sure the deletion of a previous task is also prossible! 
+        start = time.time()
+        while self.task_queue:
+            queue_object = self.task_queue.pop(0)
+            while queue_object.instance.current_task != "end":
+                best_branch = queue_object.instance.allocate_next_task(self.schedule_filepath)
+                queue_object.release_time = sum(queue_object.instance.times[-1])
+                if not best_branch.check_validity():
+                    raise ValueError("Invalid Branch chosen")
+                schedule = self.get_current_schedule_dict()
+                instance_ilp_rep = self.get_current_instance_ilp_rep(schedule, queue_object)
+                instance_ilp_rep = self.add_branch_to_ilp_rep(best_branch, instance_ilp_rep, queue_object)
+                schedule = self.add_ilp_rep_to_schedule(instance_ilp_rep, schedule, queue_object)
+                #self.update_task_queue(self.task_queue, queue_object)
+
+                schedule["resources"] = list(set(schedule["resources"]).union(instance_ilp_rep["resources"]))
+                
+                if queue_object.release_time > schedule["objective"]:
+                    schedule["objective"] = queue_object.release_time          
+                self.save_schedule(schedule)    
+        end = time.time()
+        self.add_allocation_metadata(float(end-start))
     
     def single_instance_processing(self, warmstart:bool = False):
         while self.task_queue:
@@ -197,10 +238,10 @@ class Simulator():
             if warmstart:
                 result = cp_solver(self.schedule_filepath, "tmp/warmstart.json")
             else:
-                result = cp_solver(self.schedule_filepath)
-            self.save_schedule(result)
+                result = cp_solver(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log")
+            self.save_schedule(result)  
 
-    def single_instance_replanning(self, warmstart:bool = False):
+    def single_instance_replan(self, warmstart:bool = False):
         while self.task_queue:
             queue_object = self.task_queue.pop(0)
             schedule_dict = self.get_current_schedule_dict()
@@ -209,18 +250,49 @@ class Simulator():
             schedule_dict["resources"] = list(set(schedule_dict["resources"]).union(instance_ilp_rep["resources"]))
             if warmstart:
                 self.create_warmstart_file(schedule_dict, [queue_object])
+            # set "fixed" to false for all instances
+            for ra_pst in schedule_dict["instances"]:
+                ra_pst["fixed"] = False
             self.save_schedule(schedule_dict)
 
             # Get current timestamp: == release time of queue object
             # Replannable tasks are all tasks that have a release time > current time
             # set job to unfixed 
             # create extra online cp_solver method
+            release_time = queue_object.release_time
 
             if warmstart:
                 result = cp_solver(self.schedule_filepath, "tmp/warmstart.json")
             else:
-                result = cp_solver(self.schedule_filepath)
+                result = cp_solver_alternative_new(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", replan=True, release_time=release_time, timeout=50)
             self.save_schedule(result)
+
+    def single_instance_rolling_horizon(self, warmstart:bool = False, horizon_size:int=10):
+        release_time = 0
+        horizon = horizon_size
+        while self.task_queue:
+            queue_object = self.task_queue.pop(0)
+            schedule_dict = self.get_current_schedule_dict()
+            instance_ilp_rep = self.get_current_instance_ilp_rep(schedule_dict, queue_object)
+            schedule_dict = self.add_ilp_rep_to_schedule(instance_ilp_rep, schedule_dict, queue_object)
+            schedule_dict["resources"] = list(set(schedule_dict["resources"]).union(instance_ilp_rep["resources"]))
+            # set "fixed" to false for all instances
+            for ra_pst in schedule_dict["instances"]:
+                ra_pst["fixed"] = False
+            self.save_schedule(schedule_dict)
+
+            # Get current timestamp: == release time of queue object
+            # Replannable tasks are all tasks that have a release time > current time
+            # set job to unfixed 
+            # create extra online cp_solver method
+        while horizon < 500:
+            if warmstart:
+                result = cp_solver(self.schedule_filepath, "tmp/warmstart.json")
+            else:
+                result = cp_solver_alternative_online(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", replan=True, release_time=release_time, horizon=horizon, timeout=50)
+            self.save_schedule(result)
+            horizon += 10
+            release_time += 10
         
     def single_instance_online(self, considered_next = 2, warmstart = False):
         if not self.expected_instances_queue:
@@ -269,7 +341,6 @@ class Simulator():
             print(f"Instance {n} allocated")
             self.save_schedule(result)
             n += 1
-
         
     def all_instance_processing(self, warmstart:bool = False):
         # Generate dict needed for cp_solver
@@ -284,7 +355,7 @@ class Simulator():
             result = cp_solver(self.schedule_filepath, "tmp/warmstart.json")
         else:
             _, logfile = os.path.split(os.path.basename(self.schedule_filepath))
-            result = cp_solver_alternative(self.schedule_filepath, log_file=f"log_{logfile}.log")
+            result = cp_solver_alternative_new(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", timeout=200, break_symmetries=False)
         self.save_schedule(result)
             
     def create_warmstart_file(self, ra_psts:dict, queue_objects:list[QueueObject]):
@@ -303,29 +374,6 @@ class Simulator():
         # instance, allocation_type, task, release_time = task
         queue.append(queue_object)
         queue.sort(key=lambda object: object.release_time)
-
-    def set_allocation_type(self):
-        """
-        Check that all instances are either instance wise allocation or
-        Full Batch allocation. 
-        """
-        allocation_types = {item.allocation_type
-                            for item in self.task_queue}
-        # Determine the allocation type
-        if allocation_types == {AllocationTypeEnum.HEURISTIC}:
-            self.allocation_type = AllocationTypeEnum.HEURISTIC
-        elif allocation_types == {AllocationTypeEnum.SINGLE_INSTANCE_CP}:
-            self.allocation_type = AllocationTypeEnum.SINGLE_INSTANCE_CP
-        elif allocation_types == {AllocationTypeEnum.ALL_INSTANCE_CP}:
-            self.allocation_type = AllocationTypeEnum.ALL_INSTANCE_CP
-        elif allocation_types == {AllocationTypeEnum.SINGLE_INSTANCE_CP_WARM}:
-            self.allocation_type = AllocationTypeEnum.SINGLE_INSTANCE_CP_WARM
-        elif allocation_types == {AllocationTypeEnum.ALL_INSTANCE_CP_WARM}:
-            self.allocation_type = AllocationTypeEnum.ALL_INSTANCE_CP_WARM
-        elif allocation_types == {AllocationTypeEnum.SINGLE_INSTANCE_CP_ONLINE}:
-            self.allocation_type = AllocationTypeEnum.SINGLE_INSTANCE_CP_ONLINE
-        else:
-            raise NotImplementedError(f"The allocation type combination {allocation_types} is not implemented")
 
     def add_allocation_metadata(self, computing_time: float):
         with open(self.schedule_filepath, "r+") as f:

@@ -33,7 +33,7 @@ def show_schedule(path):
                         y=[resources[y]],
                         base=job["start"],
                         orientation="h",
-                        name=f"Sequence {sequences.index(instance)}",
+                        name=f"Sequence {sequences.index(instance)}, {len([job for job in instance['jobs'].values() if job['selected']])}",
                         legendgroup=f"Sequence {sequences.index(instance)}",  # Group legend entries
                         showlegend=first_job,
                         text=f"Task: {job_ref}<br>Branch: {job['branch']}",
@@ -68,7 +68,7 @@ def show_full_dir(path_to_dir:os.PathLike):
 
 if __name__ == "__main__":
     #show_schedule("out/schedule_heuristic.json")
-    show_schedule("alterna_out.json")
+    show_schedule("testsets5/testset5/evaluation/heuristic_new/000_(0.8, 0.2, 0.0)-skill_short_branch-3-uniform.xml.json")
     #show_schedule("out/schedule_single_instance_cp_warm.json")
     #show_schedule("out/schedule_all_instance_cp.json")
 

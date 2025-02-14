@@ -20,12 +20,12 @@ class RA_PST:
     """
 
     def __init__(self, process: etree._Element, resource: etree._Element):
-        self.id = str(uuid.uuid1())
-        self.process = process  # The ra_pst process xml
-        self.raw_process = copy.copy(process)
-        self.resource_url = resource
-        self.allocations = {}
-        self.solutions = []
+        self.id: str = str(uuid.uuid1())
+        self.process: etree._Element = process  # The ra_pst process xml
+        self.raw_process: etree._Element = copy.copy(process)
+        self.resource_data: etree._Element = resource
+        self.allocations = dict()
+        self.solutions = list()
         self.ns = {"cpee1": list(self.process.nsmap.values())[0]}
         self.ra_pst: etree._Element = None
         self.solver = None
@@ -33,12 +33,8 @@ class RA_PST:
         self.build_ra_pst()
         self.set_branches()
         self.transformed_items = []
-        self.problem_size = math.prod(
-            [
-                len([value for value in values if value.is_valid])
-                for key, values in self.branches.items()
-            ]
-        )
+        self.problem_size = None
+
 
     def get_ra_pst_str(self) -> str:
         if not self.ra_pst:
@@ -46,7 +42,7 @@ class RA_PST:
         return etree.tostring(self.ra_pst)
 
     def get_ra_pst_etree(self) -> str:
-        if not self.ra_pst:
+        if self.ra_pst is None:
             self.build_ra_pst()
         return self.ra_pst
 
@@ -62,8 +58,8 @@ class RA_PST:
             return [task.attrib[f"{attribute}"] for task in tasklist]
 
     def get_resourcelist(self) -> list:
-        "Returns list of all Resource-IDs in self.resource_url"
-        tree = self.resource_url
+        "Returns list of all Resource-IDs in self.resource_data"
+        tree = self.resource_data
         resources = tree.xpath(
             "//resource[not(descendant::cpee1:changepattern)]", namespaces=self.ns
         )
@@ -78,6 +74,14 @@ class RA_PST:
             return int(release_time_element[0].text)
         else: 
             return None
+    
+    def get_problem_size(self) -> int:
+        branches = [
+                len([branch for branch in branches if branch.check_validity()])
+                for taskId, branches in self.branches.items()
+            ]
+        size = math.prod(branches)
+        return size
 
     def get_ilp_rep(self, instance_id = 'i1') -> dict:
         """
@@ -218,7 +222,7 @@ class RA_PST:
         )
         for task in tasks:
             allocation = TaskAllocation(self, etree.tostring(task))
-            allocation.allocate_task(None, self.resource_url)
+            allocation.allocate_task(None, self.resource_data)
             self.allocations[task.xpath("@id")[0]] = allocation
 
     def build_ra_pst(self) -> None:
@@ -400,13 +404,13 @@ class TaskAllocation(RA_PST):
             "cpee1:call",
         ]
 
-    def allocate_task(self, root=None, resource_url: etree = None, excluded=[]):
+    def allocate_task(self, root=None, resource_data: etree = None, excluded=[]):
         """
         Builds the allocation tree for self.task.
 
         params:
         - root: the task to be allocated (initially = None since first task is self.task)
-        - resource_url: resource file as etree (etree)
+        - resource_data: resource file as etree (etree)
         - excluded: list, task that are already part of the branch
 
         returns:
@@ -417,13 +421,13 @@ class TaskAllocation(RA_PST):
             root = etree.fromstring(self.task)
             self.intermediate_trees.append(
                 copy.deepcopy(
-                    self.allocate_task(root, resource_url=resource_url, excluded=[root])
+                    self.allocate_task(root, resource_data=resource_data, excluded=[root])
                 )
             )
             return self.intermediate_trees[0]
         etree.SubElement(root, f"{{{self.ns['cpee1']}}}children")
         etree.register_namespace("ra_pst", self.ns["ra_pst"])
-        res_xml = copy.deepcopy(resource_url)
+        res_xml = copy.deepcopy(resource_data)
         self.add_resources_as_children(root, res_xml)
 
         # Check invalidity, raise error if a process task has no available resource
@@ -478,7 +482,7 @@ class TaskAllocation(RA_PST):
                         ).xpath(path, namespaces=self.ns)[0]
                         ex_branch.append(task)
                         profile.xpath("cpee1:children", namespaces=self.ns)[0].append(
-                            self.allocate_task(task, resource_url, excluded=ex_branch)
+                            self.allocate_task(task, resource_data, excluded=ex_branch)
                         )
                     elif change_pattern.xpath("@type")[0].lower() == "delete":
                         self.lock = True

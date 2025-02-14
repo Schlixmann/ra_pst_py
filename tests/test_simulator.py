@@ -23,8 +23,8 @@ class ScheduleTest(unittest.TestCase):
             resource_file="test_instances/instance_generator_resources.xml"
         )
         #self.ra_pst = build_rapst(
-        #    process_file="testsets/testset1/process/process.xml",
-        #    resource_file="testsets/testset1/resources/1_skill_short.xml"
+        #    process_file="tests/test_data/test_process_w_del_previous.xml",
+        #    resource_file="tests/test_data/resource_cp_tests_w_del/insert_before_w_del copy.xml"
         #)
         ilp_rep = self.ra_pst.get_ilp_rep()
         with open("tests/test_data/ilp_rep.json", "w") as f:
@@ -33,7 +33,7 @@ class ScheduleTest(unittest.TestCase):
 
     def test_single_task_heuristic(self):
         sched = Schedule()
-        release_times = [0]
+        release_times = [0,1,2]
         # Heuristic Single Task allocation
         show_tree_as_graph(self.ra_pst)
         allocation_type = AllocationTypeEnum.HEURISTIC
@@ -53,9 +53,9 @@ class ScheduleTest(unittest.TestCase):
         self.assertEqual(objective, target, "HEURISTIC: The found objective does not match the target value")
     
     def test_single_task_heuristic_new(self):
-        release_times = [0]
+        release_times = [0,1,2]
         # Heuristic Single Task allocation
-        show_tree_as_graph(self.ra_pst)
+        #show_tree_as_graph(self.ra_pst)
         allocation_type = AllocationTypeEnum.HEURISTIC
         file = f"out/schedule_{str(allocation_type)}.json"
         sim = Simulator(schedule_filepath=file)
@@ -71,6 +71,26 @@ class ScheduleTest(unittest.TestCase):
             objective = data["solution"]["objective"]
         target = 26
         self.assertEqual(objective, target, "HEURISTIC: The found objective does not match the target value")
+
+    def test_single_instance_heuristic(self):
+        release_times = [0,1,2]
+        # Heuristic Single Task allocation
+        #show_tree_as_graph(self.ra_pst)
+        allocation_type = AllocationTypeEnum.SINGLE_INSTANCE_HEURISTIC
+        file = f"out/schedule_{str(allocation_type)}.json"
+        sim = Simulator(schedule_filepath=file)
+        for i, release_time in enumerate(release_times):
+            instance = Instance(copy.deepcopy(self.ra_pst), {},id=i)
+            instance.add_release_time(release_time)
+            sim.add_instance(instance, allocation_type)
+        sim.simulate()
+        
+        with open(file, "r") as f:
+            data = json.load(f)
+            objective = data["solution"]["objective"]
+        target = 26
+        self.assertEqual(objective, target, "HEURISTIC: The found objective does not match the target value")
+        
 
     def test_multiinstance_cp_sim(self):
 
@@ -112,7 +132,7 @@ class ScheduleTest(unittest.TestCase):
     def test_single_instance_sim(self):
         sched = Schedule()
         show_tree_as_graph(self.ra_pst)
-        release_times = [0]
+        release_times = [0,1,2]
         # Heuristic Single Task allocation
         allocation_type = AllocationTypeEnum.SINGLE_INSTANCE_CP
         file = f"out/schedule_{str(allocation_type)}.json"
@@ -151,4 +171,46 @@ class ScheduleTest(unittest.TestCase):
             data = json.load(f)
             objective = data["solution"]["objective"]
         target = 23
+        self.assertEqual(objective, target, "SINGLE_INSTANCE_CP: The found objective does not match the target value")
+
+    def test_cp_replan(self):
+        release_times = [0]
+        # Heuristic Single Task allocation
+        allocation_type = AllocationTypeEnum.SINGLE_INSTANCE_CP_REPLAN
+        file = f"out/schedule_{str(allocation_type)}.json"
+        sim = Simulator(schedule_filepath=file)
+        for i, release_time in enumerate(release_times):
+            instance = Instance(copy.deepcopy(self.ra_pst), {}, id=i)
+            instance.add_release_time(release_time)
+            sim.add_instance(instance, allocation_type)
+
+        start = time.time()
+        sim.simulate()
+        end = time.time()
+        print("Elapsed time: ", end-start)
+        with open(file, "r") as f:
+            data = json.load(f)
+            objective = data["solution"]["objective"]
+        target = 15
+        self.assertEqual(objective, target, "SINGLE_INSTANCE_CP: The found objective does not match the target value")
+
+    def test_cp_rolling(self):
+        release_times = [0,1,2]
+        # Heuristic Single Task allocation
+        allocation_type = AllocationTypeEnum.SINGLE_INSTANCE_CP_ROLLING
+        file = f"out/schedule_{str(allocation_type)}.json"
+        sim = Simulator(schedule_filepath=file)
+        for i, release_time in enumerate(release_times):
+            instance = Instance(copy.deepcopy(self.ra_pst), {}, id=i)
+            instance.add_release_time(release_time)
+            sim.add_instance(instance, allocation_type)
+
+        start = time.time()
+        sim.simulate()
+        end = time.time()
+        print("Elapsed time: ", end-start)
+        with open(file, "r") as f:
+            data = json.load(f)
+            objective = data["solution"]["objective"]
+        target = 15
         self.assertEqual(objective, target, "SINGLE_INSTANCE_CP: The found objective does not match the target value")

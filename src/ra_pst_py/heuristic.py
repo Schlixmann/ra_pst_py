@@ -33,6 +33,7 @@ class TaskNode():
         self.deletion_savings:float = float(0)
         self.cp_type:CPType_Enum = None
         self.cp_direction: CPDirction_Enum = None
+        self.backwards_delete:bool = False
         if initialize:
             self.initialize_resource_attributes()
 
@@ -72,15 +73,37 @@ class TaskNode():
             start_element.text = str(self.earliest_start)
             end_element = etree.SubElement(self.task, f"{{{self.ns["cpee1"]}}}expected_end")
             end_element.text = str(self.earliest_start+self.duration)
-            for child in self.change_patterns:
-                child.add_all_times_to_branch()
+        else:
+            if self.deletion_savings < 0:
+                delete_element = etree.SubElement(self.task, f"{{{self.ns["cpee1"]}}}expected_delete")
+                delete_element.text = str(self.deletion_savings)
+        for child in self.change_patterns:
+            child.add_all_times_to_branch()
     
-    def get_interval(self) -> tuple:
+    def get_interval(self, ra_pst:RA_PST) -> tuple:
         starts = self.task.xpath("//cpee1:expected_start/text()", namespaces=self.ns)
         starts = sorted([float(start) for start in starts])
         ends = self.task.xpath("//cpee1:expected_end/text()", namespaces=self.ns)
         ends = sorted([float(end) for end in ends])
-        return (starts[0], ends[-1] - starts[0], self.deletion_savings,  ends[-1])
+        
+        # Find all <cpee1:expected_delete> nodes
+        # find self.task in ra_pst: 
+        task = [task for task in ra_pst.get_tasklist() if task.attrib["id"] == self.task.attrib["id"]][0]
+        nodes_to_delete = self.task.xpath("//cpee1:expected_delete/parent::*", namespaces=self.ns)
+        nodes_to_delete_ra_pst = []
+        for node in nodes_to_delete:
+            nodes_to_delete_ra_pst.extend([delete_task for delete_task in ra_pst.get_tasklist() if utils.get_label(delete_task) == utils.get_label(node)])
+        
+        filtered_deletes = []
+        for delete_task in nodes_to_delete_ra_pst:
+            if ra_pst.get_tasklist().index(delete_task) > ra_pst.get_tasklist().index(task):
+                filtered_deletes.append(utils.get_label(delete_task))
+            else:
+                warnings.warn("Previous tasks can not be deleted from the process")
+                self.backwards_delete = True
+
+        nodes_to_delete = sorted([float(delete_task.xpath("cpee1:expected_delete/text()", namespaces=self.ns)[0]) for delete_task in nodes_to_delete if utils.get_label(delete_task) in filtered_deletes])
+        return (starts[0], ends[-1] - starts[0], sum(nodes_to_delete),  ends[-1])
         
     def set_earliest_start(self, schedule_dict:dict) -> None:
         """
@@ -122,7 +145,7 @@ class TaskNode():
         else:
             return np.array([[self.release_time, np.inf]])
         
-    def calculate_finish_time(self, schedule_dict:dict, ra_pst:RA_PST):
+    def calculate_finish_time(self, schedule_dict:dict, ra_pst:RA_PST, backwards_delete:bool=False):
 
         self.set_change_patterns()
         if self.change_patterns:
@@ -160,7 +183,7 @@ class TaskNode():
                         branches = ra_pst.branches[affected_task.attrib["id"]]
                         min_deletion_savings.append(sorted([branch.get_branch_costs() for branch in branches])[0])
                     if min_deletion_savings:
-                        self.deletion_savings = -float(sorted(min_deletion_savings)[0])
+                        child_task_node.deletion_savings = -float(sorted(min_deletion_savings)[0])
                     child_task_node.duration = 0.0
                     child_task_node.earliest_start = 0.0
 
@@ -228,8 +251,10 @@ class TaskAllocator():
                 task_node.set_release_time(float(branch_release))
                 task_node.calculate_finish_time(schedule_dict, self.ra_pst)
                 task_node.add_all_times_to_branch()
-                branch.node = task_node.task
-                finish_times.append((branch, task_node.get_interval()))
+                branch.node = task_node.task    # Update branch node
+                interval = task_node.get_interval(self.ra_pst)
+                if not task_node.backwards_delete:
+                    finish_times.append((branch, interval))
 
         if not finish_times:
             raise ValueError("No valid branch for this task")

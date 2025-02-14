@@ -33,7 +33,7 @@ class ChangeOperation():
             return proc_tasks
 
         proc_tasks = process.xpath(
-            f"//*[@id='{core_task.attrib['id']}'][not(ancestor::changepattern)]", namespaces=self.ns)
+            f"//*[@id='{core_task.attrib['id']}'][not(ancestor::cpee1:changepattern)]", namespaces=self.ns)
         if len(proc_tasks) != 1:
             proc_tasks = list(filter(lambda x: utils.get_label(etree.tostring(
                 core_task)) == utils.get_label(etree.tostring(x)), proc_tasks))

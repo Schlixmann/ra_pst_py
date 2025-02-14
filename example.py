@@ -74,7 +74,7 @@ def run():
 
 if __name__ == "__main__":
     ra_pst = build_rapst(
-        process_file="testsets/testset1/process/process.xml",
+        process_file="",
         resource_file="testsets/testset1/resources/resources_050_random_uni_cost.xml"
     )
     ra_pst.save_ra_pst("out/test_050_random_uni_cost.xml")

@@ -39,7 +39,7 @@ class EvalPipeline():
         testsets_dir = Path(dirpath)
         for testset in testsets_dir.iterdir():
             if testset.is_dir():  # Ensure it's a directory
-                process_file = testset / "process/process.xml"  # Get the process file
+                process_file = testset / "process/BPM_TestSet_20.xml"  # Get the process file
                 resources_dir = testset / "resources"  # Get the resources directory
                 
                 if process_file.is_file() and resources_dir.exists():
@@ -47,21 +47,46 @@ class EvalPipeline():
                     for resource_file in resources_dir.iterdir():
                         if resource_file.is_file() and process_file.is_file():  # Ensure it's a file
                             ra_pst = build_rapst(process_file, resource_file)
-
+                            
+                            print(f"Problem Size per Instance: {ra_pst.get_problem_size()}")
                             
                             # Setup Simulator for each allocation_type
                             print(f"Start heuristic allocation of {resource_file.name}")
-                            schedule_path = testset / "evaluation" / "heuristic" / resource_file.name
+                            schedule_path = testset / "evaluation" / "heuristic_new" / resource_file.name
                             schedule_path.parent.mkdir(parents=True, exist_ok=True)
-                            self.setup_simulator(ra_pst, AllocationTypeEnum.HEURISTIC, path_to_dir=schedule_path, release_times=release_times)
+                            show_tree_as_graph(ra_pst, output_file=schedule_path, view=False)
+                            self.setup_simulator(ra_pst, "heuristic", path_to_dir=schedule_path, release_times=release_times)
+                            self.sim.simulate()
+
+                            # Setup Simulator for single instance heuristic
+                            print(f"Start single_instance_heuristic allocation of {resource_file.name}")
+                            schedule_path = testset / "evaluation" / "single_instance_heuristic" / resource_file.name
+                            schedule_path.parent.mkdir(parents=True, exist_ok=True)
+                            self.setup_simulator(ra_pst, AllocationTypeEnum.SINGLE_INSTANCE_HEURISTIC, path_to_dir=schedule_path, release_times=release_times)
                             self.sim.simulate()
                             
-                            # Setup Simulator for each allocation_type
+                            # Setup Simulator for single instance cp
                             print(f"Start single instance CP allocation of {resource_file.name}")
-                            schedule_path = testset / "evaluation" / "single_instance_cp" / resource_file.name
+                            schedule_path = testset / "evaluation" / "single_instance_cp_shift" / resource_file.name
                             schedule_path.parent.mkdir(parents=True, exist_ok=True)
-                            self.setup_simulator(ra_pst, AllocationTypeEnum.SINGLE_INSTANCE_CP_WARM, path_to_dir=schedule_path, release_times=release_times)
+                            self.setup_simulator(ra_pst, AllocationTypeEnum.SINGLE_INSTANCE_CP, path_to_dir=schedule_path, release_times=release_times)
                             self.sim.simulate()
+                            """
+                            # Setup Simulator for cp replan
+                            print(f"Start single instance CP replan allocation of {resource_file.name}")
+                            schedule_path = testset / "evaluation" / "single_instance_cp_replan" / resource_file.name
+                            schedule_path.parent.mkdir(parents=True, exist_ok=True)
+                            self.setup_simulator(ra_pst, AllocationTypeEnum.SINGLE_INSTANCE_CP_REPLAN, path_to_dir=schedule_path, release_times=release_times)
+                            self.sim.simulate()
+                            
+                            # Setup Simulator for CP_all 
+                            print(f"Start all instance CP allocation of {resource_file.name}")
+                            schedule_path = testset / "evaluation" / "all_instance_cp_new" / resource_file.name
+                            schedule_path.parent.mkdir(parents=True, exist_ok=True)
+                            self.setup_simulator(ra_pst, AllocationTypeEnum.ALL_INSTANCE_CP, path_to_dir=schedule_path, release_times=release_times)
+                            self.sim.simulate()
+                            print(f"Finish allocation of {resource_file.name}")
+                            
                             
                             print(f"Start all instance CP allocation Warm {resource_file.name}")
                             # Setup Simulator for each allocation_type
@@ -70,15 +95,7 @@ class EvalPipeline():
                             self.setup_simulator(ra_pst, AllocationTypeEnum.ALL_INSTANCE_CP_WARM, path_to_dir=schedule_path, release_times=release_times)
                             self.sim.simulate()
                             
-                            """
-                            print(f"Start all instance CP allocation of {resource_file.name}")
-                            # Setup Simulator for each allocation_type
-                            schedule_path = testset / "evaluation" / "all_instance_cp" / resource_file.name
-                            schedule_path.parent.mkdir(parents=True, exist_ok=True)
-                            self.setup_simulator(ra_pst, AllocationTypeEnum.ALL_INSTANCE_CP, path_to_dir=schedule_path)
-                            self.sim.simulate()
-                            print(f"Finish allocation of {resource_file.name}")
-                            
+
                             print(f"Start single instance CP online of {resource_file.name}")
                             # Setup Simulator for each allocation_type
                             schedule_path = testset / "evaluation" / "single_instance_online" / resource_file.name
@@ -96,14 +113,36 @@ def pos_random_normal(mean, sigma):
     return(x if x>=0 else pos_random_normal(mean,sigma))
 
 
+def generate_release_times(num_instances, mean_time_between_instances):
+    """
+    Generate release times for processes using an exponential distribution.
+
+    Args:
+        num_instances (int): The number of process instances to generate.
+        mean_time_between_instances (float): The average time between releases (in hours).
+
+    Returns:
+        list: Cumulative release times for the process instances (in hours).
+    """
+    # Sample time intervals from the exponential distribution
+    intervals = np.random.exponential(scale=mean_time_between_instances, size=num_instances).round()
+    
+    # Calculate cumulative release times
+    release_times = np.cumsum(intervals)
+    release_times = [int(time) for time in release_times]
+    return release_times
+
+
 if __name__ == "__main__":
-    release_times = [0,5,8,10,12,15]
+    #TODO write up a tracker of progress of simulation
+    release_times = [0,0,0,0,0,0]
+    release_times = generate_release_times(num_instances=10, mean_time_between_instances=3)
     expected_release_times = []
     for release_time in release_times:
         expected_release_times.append(pos_random_normal(release_time, 1))
     expected_release_times = [0,5,8,10,12,15]
     ep = EvalPipeline()
-    ep.run("testsets", release_times, expected_release_times=expected_release_times)
+    ep.run("testsets5", release_times, expected_release_times=expected_release_times)
     
 """
 if __name__ == "__main__":

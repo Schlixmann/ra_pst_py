@@ -1,0 +1,1072 @@
+{
+  "branches": [
+    {
+      "cps": [
+        "insert",
+        "delete"
+      ],
+      "resources": [
+        "res_2",
+        "res_1",
+        "res_3"
+      ],
+      "deletes": [
+        "a15"
+      ],
+      "costs": [
+        3,
+        1,
+        2
+      ],
+      "task": "a1",
+      "task_label": "a1"
+    },
+    {
+      "cps": [
+        "insert",
+        "insert",
+        "delete"
+      ],
+      "resources": [
+        "res_6",
+        "res_1",
+        "res_1",
+        "res_3"
+      ],
+      "deletes": [
+        "a1"
+      ],
+      "costs": [
+        3,
+        3,
+        4,
+        2
+      ],
+      "task": "a1",
+      "task_label": "a1"
+    },
+    {
+      "cps": [
+        "insert",
+        "insert"
+      ],
+      "resources": [
+        "res_5",
+        "res_2",
+        "res_4"
+      ],
+      "deletes": [],
+      "costs": [
+        4,
+        2,
+        3
+      ],
+      "task": "a1",
+      "task_label": "a1"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_3",
+        "res_4"
+      ],
+      "deletes": [],
+      "costs": [
+        4,
+        4
+      ],
+      "task": "a1",
+      "task_label": "a1"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_1",
+        "res_3"
+      ],
+      "deletes": [],
+      "costs": [
+        4,
+        1
+      ],
+      "task": "a1",
+      "task_label": "a1"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_2",
+        "res_2"
+      ],
+      "deletes": [],
+      "costs": [
+        3,
+        3
+      ],
+      "task": "a2",
+      "task_label": "a2"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_3",
+        "res_5"
+      ],
+      "deletes": [],
+      "costs": [
+        3,
+        5
+      ],
+      "task": "a2",
+      "task_label": "a2"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_4",
+        "res_1"
+      ],
+      "deletes": [],
+      "costs": [
+        3,
+        4
+      ],
+      "task": "a2",
+      "task_label": "a2"
+    },
+    {
+      "cps": [
+        "insert",
+        "insert"
+      ],
+      "resources": [
+        "res_5",
+        "res_6",
+        "res_3"
+      ],
+      "deletes": [],
+      "costs": [
+        3,
+        2,
+        4
+      ],
+      "task": "a2",
+      "task_label": "a2"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_6",
+        "res_3"
+      ],
+      "deletes": [],
+      "costs": [
+        3,
+        4
+      ],
+      "task": "a2",
+      "task_label": "a2"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_5",
+        "res_2"
+      ],
+      "deletes": [],
+      "costs": [
+        0,
+        3
+      ],
+      "task": "a3",
+      "task_label": "a3"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_1",
+        "res_6"
+      ],
+      "deletes": [],
+      "costs": [
+        3,
+        3
+      ],
+      "task": "a3",
+      "task_label": "a3"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_3",
+        "res_5"
+      ],
+      "deletes": [],
+      "costs": [
+        2,
+        2
+      ],
+      "task": "a3",
+      "task_label": "a3"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_4",
+        "res_6"
+      ],
+      "deletes": [],
+      "costs": [
+        3,
+        2
+      ],
+      "task": "a3",
+      "task_label": "a3"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_2",
+        "res_4"
+      ],
+      "deletes": [],
+      "costs": [
+        3,
+        3
+      ],
+      "task": "a3",
+      "task_label": "a3"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_4",
+        "res_4"
+      ],
+      "deletes": [],
+      "costs": [
+        3,
+        4
+      ],
+      "task": "a4",
+      "task_label": "a4"
+    },
+    {
+      "cps": [
+        "insert",
+        "delete"
+      ],
+      "resources": [
+        "res_2",
+        "res_4",
+        "res_5"
+      ],
+      "deletes": [
+        "a16"
+      ],
+      "costs": [
+        2,
+        3,
+        4
+      ],
+      "task": "a4",
+      "task_label": "a4"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_3",
+        "res_1"
+      ],
+      "deletes": [],
+      "costs": [
+        2,
+        4
+      ],
+      "task": "a4",
+      "task_label": "a4"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_1",
+        "res_5"
+      ],
+      "deletes": [],
+      "costs": [
+        2,
+        2
+      ],
+      "task": "a4",
+      "task_label": "a4"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_5",
+        "res_4"
+      ],
+      "deletes": [],
+      "costs": [
+        3,
+        2
+      ],
+      "task": "a4",
+      "task_label": "a4"
+    },
+    {
+      "cps": [
+        "insert",
+        "insert",
+        "delete"
+      ],
+      "resources": [
+        "res_6",
+        "res_6",
+        "res_1",
+        "res_1"
+      ],
+      "deletes": [
+        "a16"
+      ],
+      "costs": [
+        4,
+        2,
+        4,
+        2
+      ],
+      "task": "a5",
+      "task_label": "a5"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_4",
+        "res_2"
+      ],
+      "deletes": [],
+      "costs": [
+        3,
+        3
+      ],
+      "task": "a5",
+      "task_label": "a5"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_1",
+        "res_1"
+      ],
+      "deletes": [],
+      "costs": [
+        3,
+        2
+      ],
+      "task": "a5",
+      "task_label": "a5"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_3",
+        "res_4"
+      ],
+      "deletes": [],
+      "costs": [
+        2,
+        3
+      ],
+      "task": "a5",
+      "task_label": "a5"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_2",
+        "res_4"
+      ],
+      "deletes": [],
+      "costs": [
+        3,
+        3
+      ],
+      "task": "a5",
+      "task_label": "a5"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_6",
+        "res_5"
+      ],
+      "deletes": [],
+      "costs": [
+        4,
+        4
+      ],
+      "task": "a6",
+      "task_label": "a6"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_2",
+        "res_2"
+      ],
+      "deletes": [],
+      "costs": [
+        3,
+        4
+      ],
+      "task": "a6",
+      "task_label": "a6"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_1",
+        "res_3"
+      ],
+      "deletes": [],
+      "costs": [
+        5,
+        3
+      ],
+      "task": "a6",
+      "task_label": "a6"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_5",
+        "res_6"
+      ],
+      "deletes": [],
+      "costs": [
+        3,
+        3
+      ],
+      "task": "a6",
+      "task_label": "a6"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_4",
+        "res_4"
+      ],
+      "deletes": [],
+      "costs": [
+        2,
+        2
+      ],
+      "task": "a6",
+      "task_label": "a6"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_4",
+        "res_2"
+      ],
+      "deletes": [],
+      "costs": [
+        4,
+        3
+      ],
+      "task": "a7",
+      "task_label": "a7"
+    },
+    {
+      "cps": [
+        "insert",
+        "insert",
+        "delete"
+      ],
+      "resources": [
+        "res_2",
+        "res_1",
+        "res_3",
+        "res_3"
+      ],
+      "deletes": [
+        "a6"
+      ],
+      "costs": [
+        3,
+        2,
+        3,
+        3
+      ],
+      "task": "a7",
+      "task_label": "a7"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_1",
+        "res_2"
+      ],
+      "deletes": [],
+      "costs": [
+        2,
+        1
+      ],
+      "task": "a7",
+      "task_label": "a7"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_5",
+        "res_1"
+      ],
+      "deletes": [],
+      "costs": [
+        3,
+        4
+      ],
+      "task": "a7",
+      "task_label": "a7"
+    },
+    {
+      "cps": [
+        "insert",
+        "insert"
+      ],
+      "resources": [
+        "res_6",
+        "res_2",
+        "res_4"
+      ],
+      "deletes": [],
+      "costs": [
+        4,
+        5,
+        5
+      ],
+      "task": "a8",
+      "task_label": "a8"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_1",
+        "res_1"
+      ],
+      "deletes": [],
+      "costs": [
+        4,
+        1
+      ],
+      "task": "a8",
+      "task_label": "a8"
+    },
+    {
+      "cps": [
+        "insert",
+        "insert",
+        "delete"
+      ],
+      "resources": [
+        "res_3",
+        "res_5",
+        "res_2",
+        "res_3"
+      ],
+      "deletes": [
+        "a1"
+      ],
+      "costs": [
+        3,
+        1,
+        3,
+        3
+      ],
+      "task": "a9",
+      "task_label": "a9"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_4",
+        "res_5"
+      ],
+      "deletes": [],
+      "costs": [
+        3,
+        1
+      ],
+      "task": "a9",
+      "task_label": "a9"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_1",
+        "res_1"
+      ],
+      "deletes": [],
+      "costs": [
+        3,
+        4
+      ],
+      "task": "a10",
+      "task_label": "a10"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_2",
+        "res_4"
+      ],
+      "deletes": [],
+      "costs": [
+        4,
+        4
+      ],
+      "task": "a10",
+      "task_label": "a10"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_6",
+        "res_2"
+      ],
+      "deletes": [],
+      "costs": [
+        4,
+        4
+      ],
+      "task": "a11",
+      "task_label": "a11"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_5",
+        "res_4"
+      ],
+      "deletes": [],
+      "costs": [
+        2,
+        3
+      ],
+      "task": "a11",
+      "task_label": "a11"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_5",
+        "res_2"
+      ],
+      "deletes": [],
+      "costs": [
+        4,
+        3
+      ],
+      "task": "a12",
+      "task_label": "a12"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_2",
+        "res_1"
+      ],
+      "deletes": [],
+      "costs": [
+        3,
+        4
+      ],
+      "task": "a12",
+      "task_label": "a12"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_5",
+        "res_1"
+      ],
+      "deletes": [],
+      "costs": [
+        3,
+        1
+      ],
+      "task": "a13",
+      "task_label": "a13"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_6",
+        "res_3"
+      ],
+      "deletes": [],
+      "costs": [
+        2,
+        2
+      ],
+      "task": "a13",
+      "task_label": "a13"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_1",
+        "res_2"
+      ],
+      "deletes": [],
+      "costs": [
+        3,
+        2
+      ],
+      "task": "a14",
+      "task_label": "a14"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_4",
+        "res_5"
+      ],
+      "deletes": [],
+      "costs": [
+        4,
+        2
+      ],
+      "task": "a14",
+      "task_label": "a14"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_1",
+        "res_2"
+      ],
+      "deletes": [],
+      "costs": [
+        3,
+        2
+      ],
+      "task": "a15",
+      "task_label": "a15"
+    },
+    {
+      "cps": [
+        "insert",
+        "insert",
+        "delete"
+      ],
+      "resources": [
+        "res_2",
+        "res_6",
+        "res_5",
+        "res_2"
+      ],
+      "deletes": [
+        "a17"
+      ],
+      "costs": [
+        4,
+        5,
+        4,
+        3
+      ],
+      "task": "a15",
+      "task_label": "a15"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_6",
+        "res_2"
+      ],
+      "deletes": [],
+      "costs": [
+        2,
+        3
+      ],
+      "task": "a16",
+      "task_label": "a16"
+    },
+    {
+      "cps": [
+        "insert",
+        "insert",
+        "insert"
+      ],
+      "resources": [
+        "res_2",
+        "res_1",
+        "res_2",
+        "res_6"
+      ],
+      "deletes": [],
+      "costs": [
+        4,
+        3,
+        2,
+        2
+      ],
+      "task": "a16",
+      "task_label": "a16"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_6",
+        "res_4"
+      ],
+      "deletes": [],
+      "costs": [
+        3,
+        2
+      ],
+      "task": "a17",
+      "task_label": "a17"
+    },
+    {
+      "cps": [
+        "insert",
+        "delete"
+      ],
+      "resources": [
+        "res_2",
+        "res_1",
+        "res_1"
+      ],
+      "deletes": [
+        "a17"
+      ],
+      "costs": [
+        3,
+        5,
+        4
+      ],
+      "task": "a17",
+      "task_label": "a17"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_2",
+        "res_5"
+      ],
+      "deletes": [],
+      "costs": [
+        4,
+        5
+      ],
+      "task": "a18",
+      "task_label": "a18"
+    },
+    {
+      "cps": [
+        "insert",
+        "insert"
+      ],
+      "resources": [
+        "res_4",
+        "res_5",
+        "res_6"
+      ],
+      "deletes": [],
+      "costs": [
+        4,
+        2,
+        3
+      ],
+      "task": "a18",
+      "task_label": "a18"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_4",
+        "res_2"
+      ],
+      "deletes": [],
+      "costs": [
+        3,
+        4
+      ],
+      "task": "a19",
+      "task_label": "a19"
+    },
+    {
+      "cps": [
+        "insert",
+        "delete"
+      ],
+      "resources": [
+        "res_6",
+        "res_2",
+        "res_1"
+      ],
+      "deletes": [
+        "a15"
+      ],
+      "costs": [
+        3,
+        3,
+        4
+      ],
+      "task": "a19",
+      "task_label": "a19"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_3",
+        "res_5"
+      ],
+      "deletes": [],
+      "costs": [
+        4,
+        3
+      ],
+      "task": "a20",
+      "task_label": "a20"
+    },
+    {
+      "cps": [
+        "insert"
+      ],
+      "resources": [
+        "res_6",
+        "res_6"
+      ],
+      "deletes": [],
+      "costs": [
+        5,
+        3
+      ],
+      "task": "a20",
+      "task_label": "a20"
+    }
+  ],
+  "resources": [
+    "res_3",
+    "res_2",
+    "res_4",
+    "res_5",
+    "res_6",
+    "res_1"
+  ],
+  "tasks": {
+    "a1": "a1",
+    "a2": "a2",
+    "a3": "a3",
+    "a4": "a4",
+    "a5": "a5",
+    "a6": "a6",
+    "a7": "a7",
+    "a8": "a8",
+    "a9": "a9",
+    "a10": "a10",
+    "a11": "a11",
+    "a12": "a12",
+    "a13": "a13",
+    "a14": "a14",
+    "a15": "a15",
+    "a16": "a16",
+    "a17": "a17",
+    "a18": "a18",
+    "a19": "a19",
+    "a20": "a20"
+  }
+}
