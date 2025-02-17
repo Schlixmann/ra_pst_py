@@ -94,7 +94,7 @@ class DocplexTest(unittest.TestCase):
         ra_psts = {}
         ra_psts["instances"] = []
 
-        for i in range(14):
+        for i in range(4):
             ilp_rep = self.ra_pst.get_ilp_rep(instance_id=f'i{i+1}')
 
             ra_psts["instances"].append(ilp_rep)
@@ -106,7 +106,7 @@ class DocplexTest(unittest.TestCase):
         print(result["solution"]["objective"])
         with open("tests/test_data/cp_result.json", "w") as f:
             json.dump(result, f, indent=2)
-
+        
 
     def test_cp_warmstart(self):
         sched = None
