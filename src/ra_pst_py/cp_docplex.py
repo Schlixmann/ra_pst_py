@@ -126,6 +126,7 @@ def cp_solver(ra_pst_json, warm_start_json=None):
     #         model.add(sum([presence_of(ra_pst["jobs"][ra_pst["branches"][branchId]["jobs"][0]]["interval"]) for branchId in task["branches"]]) == 1-max(deletes_task))
 
     for ra_pst in ra_psts["instances"]:
+        if ra_pst["fixed"]: continue
         for branchId, branch in ra_pst["branches"].items():
             independent_branches = []
             for branch_2_id, branch_2 in ra_pst["branches"].items():

@@ -60,6 +60,7 @@ def cp_solver_decomposed_monotone_cuts(ra_pst_json, TimeLimit = None):
     z = master_model.addVar()
     # Branch variables
     for ra_pst in ra_psts["instances"]:
+        if ra_pst["fixed"]: continue
         for branchId, branch in ra_pst["branches"].items():
             branch["selected"] = master_model.addVar(vtype=(GRB.BINARY), name=branchId)
     # Add constraints
@@ -203,6 +204,7 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, TimeLimit = None):
     z = master_model.addVar()
     # Branch variables
     for ra_pst in ra_psts["instances"]:
+        if ra_pst["fixed"]: continue
         for branchId, branch in ra_pst["branches"].items():
             branch["selected"] = master_model.addVar(vtype=(GRB.BINARY), name=branchId)
     # Add constraints
@@ -368,12 +370,22 @@ def cp_subproblem(ra_psts, branches):
             if not branchId in branches: continue
             for jobId in branch["jobs"]:
                 interval_var = subproblem_model.interval_var(name=jobId, optional=False, size=int(ra_pst["jobs"][jobId]["cost"]))
-                if previous_branch_job is not None:
-                    subproblem_model.add(end_before_start(previous_branch_job, interval_var))
-                resource_jobs[ra_pst["jobs"][jobId]["resource"]].append(interval_var)
-                resource_costs[ra_pst["jobs"][jobId]["resource"]] += int(ra_pst["jobs"][jobId]["cost"])
-                previous_branch_job = interval_var
-                all_jobs.append(interval_var)
+                if ra_pst["fixed"]:
+                    job = ra_pst["jobs"][jobId]
+                    if job["start"] is not None:
+                        start_hr = int(job["start"])
+                        end_hr = int(job["start"]) + int(job["cost"])
+                        interval_var.set_start_min(start_hr)
+                        interval_var.set_start_max(start_hr)
+                        interval_var.set_end_min(end_hr)
+                        interval_var.set_end_max(end_hr)
+                else:
+                    if previous_branch_job is not None:
+                        subproblem_model.add(end_before_start(previous_branch_job, interval_var))
+                    resource_jobs[ra_pst["jobs"][jobId]["resource"]].append(interval_var)
+                    resource_costs[ra_pst["jobs"][jobId]["resource"]] += int(ra_pst["jobs"][jobId]["cost"])
+                    previous_branch_job = interval_var
+                    all_jobs.append(interval_var)
     
     # No overlap between jobs on the same resource
     subproblem_model.add(no_overlap(resource_jobs[resource]) for resource in ra_psts["resources"] if len(resource_jobs[resource]) > 1)
