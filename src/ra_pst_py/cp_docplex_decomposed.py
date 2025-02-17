@@ -90,7 +90,7 @@ def cp_solver_decomposed_monotone_cuts(ra_pst_json, TimeLimit = None):
 
     counter = 0
     # Solve decomposed problem
-    while (upper_bound - lower_bound)/upper_bound > 0.1: # Gap of .1
+    while (upper_bound - lower_bound)/upper_bound > 0.001: # Gap of .1
         print(f"{counter:4.0f}: Lower bound: {lower_bound}, upper bound: {upper_bound}. Gap {100*(upper_bound-lower_bound)/upper_bound:.2f}%")
         # Solve master problem
         master_model.optimize()
@@ -224,7 +224,7 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, TimeLimit = None):
 
     counter = 0
     # Solve decomposed problem
-    while (upper_bound - lower_bound)/upper_bound > 0.1: # Gap of .1
+    while (upper_bound - lower_bound)/upper_bound > 0.001: # Gap of .1
         print(f"{counter:4.0f}: Lower bound: {lower_bound}, upper bound: {upper_bound}. Gap {100*(upper_bound-lower_bound)/upper_bound:.2f}%")
         # Solve master problem
         master_model.optimize()
@@ -243,7 +243,8 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, TimeLimit = None):
                     "resources": [{resource: instance_resource_list[t:].count(resource) for resource in ra_psts["resources"]} for t in range(len(instance_resource_list)+1)]
                     })
                 # print(f'branch configuration: {configuration_branches[-1]}')
-            for r in range(max(2, len(ra_psts["instances"]) - 2*len(ra_psts["resources"])), len(ra_psts["instances"]) + 1):
+            for r in range(len(ra_psts["instances"]), 1, -1):
+                added_cut = False
                 for combination in itertools.combinations(configuration_branches, r):
                     instances = []
                     for c in combination:
@@ -267,6 +268,8 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, TimeLimit = None):
                         # print(f"Subproblem lower bound: {subproblem_lb} - {lower_bound}")
                         # Add strengthened cuts
                         master_model.addConstr(z >= subproblem_lb - (subproblem_lb - lower_bound) * gp.quicksum(1 - ra_psts["instances"][c["instance"]]["branches"][branchId]["selected"] for c in combination for branchId in c["branches"]))
+                        added_cut = True
+                if not added_cut: break
 
             schedule, all_jobs = cp_subproblem(ra_psts, selected_branches_extended)
             # Solved subproblem: Set new upper bound
