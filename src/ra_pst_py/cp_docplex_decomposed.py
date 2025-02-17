@@ -42,6 +42,14 @@ def cp_solver_decomposed_monotone_cuts(ra_pst_json, TimeLimit = None):
     """
     with open(ra_pst_json, "r") as f:
         ra_psts = json.load(f)
+
+    # Fix taskIds for deletes: 
+    for i, instance in enumerate(ra_psts["instances"]):
+        if "fixed" not in instance.keys():
+            instance["fixed"] = False
+        inst_prefix = str(list(instance["tasks"].keys())[0]).split("-")[0]
+        for key, value in instance["branches"].items():
+            value["deletes"] = [str(inst_prefix) + f"-{element}"for element in value["deletes"]]
     
     #-----------------------------------------------------------------------------
     # Build the model
@@ -177,6 +185,14 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, TimeLimit = None):
     """
     with open(ra_pst_json, "r") as f:
         ra_psts = json.load(f)
+
+    # Fix taskIds for deletes: 
+    for i, instance in enumerate(ra_psts["instances"]):
+        if "fixed" not in instance.keys():
+            instance["fixed"] = False
+        inst_prefix = str(list(instance["tasks"].keys())[0]).split("-")[0]
+        for key, value in instance["branches"].items():
+            value["deletes"] = [str(inst_prefix) + f"-{element}"for element in value["deletes"]]
     
     #-----------------------------------------------------------------------------
     # Build the model
@@ -243,7 +259,7 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, TimeLimit = None):
                     "resources": [{resource: instance_resource_list[t:].count(resource) for resource in ra_psts["resources"]} for t in range(len(instance_resource_list)+1)]
                     })
                 # print(f'branch configuration: {configuration_branches[-1]}')
-            for r in range(len(ra_psts["instances"]), 1, -1):
+            for r in range(len(ra_psts["instances"])-1, 1, -1):
                 added_cut = False
                 for combination in itertools.combinations(configuration_branches, r):
                     instances = []
@@ -264,6 +280,11 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, TimeLimit = None):
                         # print(f'Resources {t} | {max_resources} | {subproblem_lb}: {resources}')
                         if max_resources > subproblem_lb:
                             subproblem_lb = max_resources
+                    # branches = []
+                    # for c in combination:
+                    #     branches.extend(c["branches"])
+                    # sub_schedule, sub_all_jobs = cp_subproblem(ra_psts, branches)
+                    # subproblem_lb = sub_schedule.get_objective_value()
                     if subproblem_lb > lower_bound:
                         # print(f"Subproblem lower bound: {subproblem_lb} - {lower_bound}")
                         # Add strengthened cuts
