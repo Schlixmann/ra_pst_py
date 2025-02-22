@@ -12,6 +12,9 @@ out/*
 testset*
 eval_archive*
 ra_pst.xml
+alterna_out.json
+test.json
+process.xml
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
