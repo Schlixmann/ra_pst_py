@@ -20,9 +20,7 @@ class AllocationTypeEnum(StrEnum):
     SINGLE_INSTANCE_CP_WARM = "single_instance_cp_warm"
     ALL_INSTANCE_CP = "all_instance_cp"
     ALL_INSTANCE_CP_WARM = "all_instance_cp_warm"
-    
     SINGLE_INSTANCE_CP_REPLAN = "single_instance_replan"
-
     SINGLE_INSTANCE_ILP = "single_instance_ilp"
     ALL_INSTANCE_ILP = "all_instance_ilp"
 
@@ -86,7 +84,6 @@ class Simulator():
 
     def simulate(self):
         """
-        TODO: refactor so that different allocation types are possible
         within one Simulator. e.g. Heuristic + single instance cp
         """
         # Prelims
@@ -180,6 +177,9 @@ class Simulator():
         return schedule
 
     def single_task_processing(self):
+        """
+        Calls the heuristic allocation one task at a time. The queue object holds the current task. 
+        """
         start = time.time()
         while self.task_queue:
             queue_object = self.task_queue.pop(0)
@@ -203,6 +203,9 @@ class Simulator():
         self.add_allocation_metadata(float(end-start))
 
     def single_instance_heuristic(self):
+        """
+        Calls heuristic allocation for each task in an instance before going over to the next instance
+        """
         # TODO single_instance_heuristic()
         # like single task process but do not update process until the end. 
         # Make sure the deletion of a previous task is also prossible! 
@@ -229,6 +232,11 @@ class Simulator():
         self.add_allocation_metadata(float(end-start))
     
     def single_instance_processing(self, warmstart:bool = False):
+        """
+        Allocates each instance on arrival. 
+        Already scheduled instances are in the schedule and are added to the cp as fixed. 
+        Allowance for rescheduling can be set through self.sigma.
+        """
         while self.task_queue:
             queue_object = self.task_queue.pop(0)
             schedule_dict = self.get_current_schedule_dict()
@@ -247,6 +255,10 @@ class Simulator():
 
 
     def single_instance_replan(self, warmstart:bool = False):
+        """
+        Deprecated: 
+        Allowed full replaning of scheduled instances.
+        """
         while self.task_queue:
             queue_object = self.task_queue.pop(0)
             schedule_dict = self.get_current_schedule_dict()
@@ -274,14 +286,21 @@ class Simulator():
 
 
     def single_instance_ilp(self):
+        """
+        Allocates an instance that was previously configured through the ILP
+        ILP configuration and scheduling is done in this method
+        """
         queue_object = self.task_queue.pop(0)
         schedule_dict = self.get_current_schedule_dict()
         instance_ilp_rep = self.get_current_instance_ilp_rep(schedule_dict, queue_object)
         schedule_dict = self.add_ilp_rep_to_schedule(instance_ilp_rep, schedule_dict, queue_object)
         self.save_schedule(schedule_dict)
+
+        # Get optimal configuration through ILP
         result = configuration_ilp(self.schedule_filepath)
         with open("tmp/ilp_rep.json", "w") as f:
             json.dump(result, f, indent=2)
+
         schedule_dict = self.ilp_to_schedule_file(result, schedule_dict, queue_object.instance.id)
         self.save_schedule(schedule_dict)
         schedule_dict = cp_solver_scheduling_only(self.schedule_filepath, timeout=200, sigma=self.sigma)
@@ -299,8 +318,11 @@ class Simulator():
             schedule_dict = cp_solver_scheduling_only(self.schedule_filepath, timeout=200, sigma=self.sigma)
             self.save_schedule(schedule_dict)
     
-    
+
     def all_instance_ilp(self):
+        """
+        Schedules all instances simultaneously based on the optimal configuration found with ILP
+        """
         queue_object = self.task_queue.pop(0)
         schedule_dict = self.get_current_schedule_dict()
         instance_ilp_rep = self.get_current_instance_ilp_rep(schedule_dict, queue_object)
@@ -327,6 +349,10 @@ class Simulator():
         
         
     def all_instance_processing(self, warmstart:bool = False):
+        """
+        Schedules all instances simultaneously and also creates the optimal configurations. 
+        Integrated CP for scheduling.
+        """
         # Generate dict needed for cp_solver
         for queue_object in self.task_queue:
             schedule_dict = self.get_current_schedule_dict()
