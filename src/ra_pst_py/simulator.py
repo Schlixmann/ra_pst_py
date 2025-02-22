@@ -1,6 +1,6 @@
 from src.ra_pst_py.instance import Instance
 from src.ra_pst_py.core import Branch, RA_PST
-from src.ra_pst_py.cp_docplex import cp_solver, cp_solver_decomposed, cp_solver_alternative, cp_solver_alternative_new, cp_solver_alternative_online, cp_solver_scheduling_only
+from src.ra_pst_py.cp_docplex import cp_solver, cp_solver_decomposed, cp_solver_alternative_new, cp_solver_scheduling_only
 from src.ra_pst_py.ilp import configuration_ilp
 
 from enum import Enum, StrEnum
@@ -20,9 +20,9 @@ class AllocationTypeEnum(StrEnum):
     SINGLE_INSTANCE_CP_WARM = "single_instance_cp_warm"
     ALL_INSTANCE_CP = "all_instance_cp"
     ALL_INSTANCE_CP_WARM = "all_instance_cp_warm"
-    SINGLE_INSTANCE_CP_ONLINE = "single_instance_cp_online"
+    
     SINGLE_INSTANCE_CP_REPLAN = "single_instance_replan"
-    SINGLE_INSTANCE_CP_ROLLING = "single_instance_rolling"
+
     SINGLE_INSTANCE_ILP = "single_instance_ilp"
     ALL_INSTANCE_ILP = "all_instance_ilp"
 
@@ -102,9 +102,6 @@ class Simulator():
         elif self.allocation_type == AllocationTypeEnum.SINGLE_INSTANCE_CP_WARM:
             # Create ra_psts for next instance in task_queue
             self.single_instance_processing(warmstart=True)
-        elif self.allocation_type == AllocationTypeEnum.SINGLE_INSTANCE_CP_ONLINE:
-            # Enable usage of expected Instances
-            self.single_instance_online()
         elif self.allocation_type == AllocationTypeEnum.ALL_INSTANCE_CP:
             self.all_instance_processing()
         elif self.allocation_type == AllocationTypeEnum.ALL_INSTANCE_CP_WARM:
@@ -113,8 +110,6 @@ class Simulator():
             self.single_instance_replan()
         elif self.allocation_type == AllocationTypeEnum.SINGLE_INSTANCE_HEURISTIC:
             self.single_instance_heuristic()
-        elif self.allocation_type == AllocationTypeEnum.SINGLE_INSTANCE_CP_ROLLING:
-            self.single_instance_rolling_horizon()
         elif self.allocation_type == AllocationTypeEnum.SINGLE_INSTANCE_ILP:
             self.single_instance_ilp()
         elif self.allocation_type == AllocationTypeEnum.ALL_INSTANCE_ILP:
@@ -250,6 +245,7 @@ class Simulator():
                 result = cp_solver(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", sigma=self.sigma, timeout=25)
             self.save_schedule(result)  
 
+
     def single_instance_replan(self, warmstart:bool = False):
         while self.task_queue:
             queue_object = self.task_queue.pop(0)
@@ -276,80 +272,6 @@ class Simulator():
                 result = cp_solver_alternative_new(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", replan=True, release_time=release_time, timeout=50)
             self.save_schedule(result)
 
-    def single_instance_rolling_horizon(self, warmstart:bool = False, horizon_size:int=10):
-        release_time = 0
-        horizon = horizon_size
-        while self.task_queue:
-            queue_object = self.task_queue.pop(0)
-            schedule_dict = self.get_current_schedule_dict()
-            instance_ilp_rep = self.get_current_instance_ilp_rep(schedule_dict, queue_object)
-            schedule_dict = self.add_ilp_rep_to_schedule(instance_ilp_rep, schedule_dict, queue_object)
-            schedule_dict["resources"] = list(set(schedule_dict["resources"]).union(instance_ilp_rep["resources"]))
-            # set "fixed" to false for all instances
-            for ra_pst in schedule_dict["instances"]:
-                ra_pst["fixed"] = False
-            self.save_schedule(schedule_dict)
-
-            # Get current timestamp: == release time of queue object
-            # Replannable tasks are all tasks that have a release time > current time
-            # set job to unfixed 
-            # create extra online cp_solver method
-        while horizon < 500:
-            if warmstart:
-                result = cp_solver(self.schedule_filepath, "tmp/warmstart.json")
-            else:
-                result = cp_solver_alternative_online(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", replan=True, release_time=release_time, horizon=horizon, timeout=50)
-            self.save_schedule(result)
-            horizon += 10
-            release_time += 10
-        
-    def single_instance_online(self, considered_next = 2, warmstart = False):
-        if not self.expected_instances_queue:
-            raise ValueError("No expected instances set")
-        n = 0
-        while self.task_queue:
-            # create ilp_rep for instance to allocate
-            queue_object = self.task_queue.pop(0)
-            schedule_dict = self.get_current_schedule_dict()
-            instance_ilp_rep = self.get_current_instance_ilp_rep(schedule_dict, queue_object)
-
-            # add current ilp_rep_to_existing schedule
-            schedule_dict = self.add_ilp_rep_to_schedule(instance_ilp_rep, schedule_dict, queue_object)
-            schedule_dict["resources"] = list(set(schedule_dict["resources"]).union(instance_ilp_rep["resources"]))
-            self.save_schedule(schedule_dict)
-
-            # create ilp_rep for next expected instances
-            for i in range(considered_next):
-                if i == len(self.expected_instances_queue):
-                    break
-                queue_object = self.expected_instances_queue[i]
-                schedule_dict = self.get_current_schedule_dict()
-                instance_ilp_rep = self.get_current_instance_ilp_rep(schedule_dict, queue_object, expected_instance=True)
-                instance_ilp_rep["dummy"] = True
-
-                # add next expected ilp rep to schedule with marker "dummy"
-                schedule_dict = self.add_ilp_rep_to_schedule(instance_ilp_rep, schedule_dict, queue_object, expected_instance=True)
-                schedule_dict["resources"] = list(set(schedule_dict["resources"]).union(instance_ilp_rep["resources"]))
-                self.save_schedule(schedule_dict)
-
-            # remove first item of expected instance queue
-            self.expected_instances_queue.pop(0)
-                    
-
-            if warmstart:
-                self.create_warmstart_file(schedule_dict, [queue_object])
-            self.save_schedule(schedule_dict)
-
-            if warmstart:
-                result = cp_solver(self.schedule_filepath, "tmp/warmstart.json")
-            else:
-                result = cp_solver_alternative(self.schedule_filepath)
-            with open("test.json", "w") as f:
-                json.dump(result, f)
-            result["instances"] = [instance for instance in result["instances"] if "dummy" not in instance.keys()]
-            print(f"Instance {n} allocated")
-            self.save_schedule(result)
-            n += 1
 
     def single_instance_ilp(self):
         queue_object = self.task_queue.pop(0)
@@ -376,6 +298,7 @@ class Simulator():
             self.save_schedule(schedule_dict)
             schedule_dict = cp_solver_scheduling_only(self.schedule_filepath, timeout=200, sigma=self.sigma)
             self.save_schedule(schedule_dict)
+    
     
     def all_instance_ilp(self):
         queue_object = self.task_queue.pop(0)
@@ -476,9 +399,6 @@ class Simulator():
                 schedule_job["selected"] = True
         
         return schedule_dict
-
-
-
 
 
 if __name__ == "__main__":
