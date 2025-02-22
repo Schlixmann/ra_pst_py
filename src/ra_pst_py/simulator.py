@@ -1,6 +1,7 @@
 from src.ra_pst_py.instance import Instance
 from src.ra_pst_py.core import Branch, RA_PST
-from src.ra_pst_py.cp_docplex import cp_solver, cp_solver_decomposed, cp_solver_alternative, cp_solver_alternative_new, cp_solver_alternative_online
+from src.ra_pst_py.cp_docplex import cp_solver, cp_solver_decomposed, cp_solver_alternative, cp_solver_alternative_new, cp_solver_alternative_online, cp_solver_scheduling_only
+from src.ra_pst_py.ilp import configuration_ilp
 
 from enum import Enum, StrEnum
 from collections import defaultdict
@@ -22,6 +23,9 @@ class AllocationTypeEnum(StrEnum):
     SINGLE_INSTANCE_CP_ONLINE = "single_instance_cp_online"
     SINGLE_INSTANCE_CP_REPLAN = "single_instance_replan"
     SINGLE_INSTANCE_CP_ROLLING = "single_instance_rolling"
+    SINGLE_INSTANCE_ILP = "single_instance_ilp"
+    ALL_INSTANCE_ILP = "all_instance_ilp"
+
 
 class QueueObject():
     def __init__(self, instance: Instance, schedule_idx:int,  allocation_type: AllocationTypeEnum, task: etree._Element, release_time: float):
@@ -32,7 +36,7 @@ class QueueObject():
         self.release_time = release_time
 
 class Simulator():
-    def __init__(self, schedule_filepath: str = "out/sim_schedule.json", is_warmstart:bool = False) -> None:
+    def __init__(self, schedule_filepath: str = "out/sim_schedule.json", is_warmstart:bool = False, sigma:int = 0) -> None:
         self.schedule_filepath = schedule_filepath
         # List of [{instance:RA_PST_instance, allocation_type:str(allocation_type)}]
         self.task_queue: list[QueueObject] = []  # List of QueueObject
@@ -40,6 +44,7 @@ class Simulator():
         self.allocation_type: AllocationTypeEnum = None
         self.ns = None
         self.is_warmstart:bool = is_warmstart
+        self.sigma = sigma
 
     def add_instance(self, instance: Instance, allocation_type: AllocationTypeEnum, expected_instance:bool=False):  # TODO
         """ 
@@ -110,6 +115,10 @@ class Simulator():
             self.single_instance_heuristic()
         elif self.allocation_type == AllocationTypeEnum.SINGLE_INSTANCE_CP_ROLLING:
             self.single_instance_rolling_horizon()
+        elif self.allocation_type == AllocationTypeEnum.SINGLE_INSTANCE_ILP:
+            self.single_instance_ilp()
+        elif self.allocation_type == AllocationTypeEnum.ALL_INSTANCE_ILP:
+            self.all_instance_ilp()
         else:
             raise NotImplementedError(
                 f"Allocation_type {self.allocation_type} has not been implemented yet")
@@ -238,7 +247,7 @@ class Simulator():
             if warmstart:
                 result = cp_solver(self.schedule_filepath, "tmp/warmstart.json")
             else:
-                result = cp_solver(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log")
+                result = cp_solver(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", sigma=self.sigma, timeout=25)
             self.save_schedule(result)  
 
     def single_instance_replan(self, warmstart:bool = False):
@@ -341,6 +350,58 @@ class Simulator():
             print(f"Instance {n} allocated")
             self.save_schedule(result)
             n += 1
+
+    def single_instance_ilp(self):
+        queue_object = self.task_queue.pop(0)
+        schedule_dict = self.get_current_schedule_dict()
+        instance_ilp_rep = self.get_current_instance_ilp_rep(schedule_dict, queue_object)
+        schedule_dict = self.add_ilp_rep_to_schedule(instance_ilp_rep, schedule_dict, queue_object)
+        self.save_schedule(schedule_dict)
+        result = configuration_ilp(self.schedule_filepath)
+        with open("tmp/ilp_rep.json", "w") as f:
+            json.dump(result, f, indent=2)
+        schedule_dict = self.ilp_to_schedule_file(result, schedule_dict, queue_object.instance.id)
+        self.save_schedule(schedule_dict)
+        schedule_dict = cp_solver_scheduling_only(self.schedule_filepath, timeout=200, sigma=self.sigma)
+        schedule_dict["ilp_objective"] = result["objective"]
+        schedule_dict["ilp_runtime"] = result["runtime"]
+        self.save_schedule(schedule_dict)
+
+        while self.task_queue:
+            queue_object = self.task_queue.pop(0)
+            schedule_dict = self.get_current_schedule_dict()
+            instance_ilp_rep = self.get_current_instance_ilp_rep(schedule_dict, queue_object)
+            schedule_dict = self.add_ilp_rep_to_schedule(instance_ilp_rep, schedule_dict, queue_object)
+            schedule_dict = self.ilp_to_schedule_file(result, schedule_dict, queue_object.instance.id)
+            self.save_schedule(schedule_dict)
+            schedule_dict = cp_solver_scheduling_only(self.schedule_filepath, timeout=200, sigma=self.sigma)
+            self.save_schedule(schedule_dict)
+    
+    def all_instance_ilp(self):
+        queue_object = self.task_queue.pop(0)
+        schedule_dict = self.get_current_schedule_dict()
+        instance_ilp_rep = self.get_current_instance_ilp_rep(schedule_dict, queue_object)
+        schedule_dict = self.add_ilp_rep_to_schedule(instance_ilp_rep, schedule_dict, queue_object)
+        self.save_schedule(schedule_dict)
+        result = configuration_ilp(self.schedule_filepath)
+        with open("tmp/ilp_rep.json", "w") as f:
+            json.dump(result, f, indent=2)
+        schedule_dict = self.ilp_to_schedule_file(result, schedule_dict, queue_object.instance.id)
+        schedule_dict["ilp_objective"] = result["objective"]
+        schedule_dict["ilp_runtime"] = result["runtime"]
+        self.save_schedule(schedule_dict)
+
+        while self.task_queue:
+            queue_object = self.task_queue.pop(0)
+            schedule_dict = self.get_current_schedule_dict()
+            instance_ilp_rep = self.get_current_instance_ilp_rep(schedule_dict, queue_object)
+            schedule_dict = self.add_ilp_rep_to_schedule(instance_ilp_rep, schedule_dict, queue_object)
+            schedule_dict = self.ilp_to_schedule_file(result, schedule_dict, queue_object.instance.id)
+            self.save_schedule(schedule_dict)
+        
+        schedule_dict = cp_solver_scheduling_only(self.schedule_filepath, timeout=200, sigma=self.sigma)
+        self.save_schedule(schedule_dict)
+        
         
     def all_instance_processing(self, warmstart:bool = False):
         # Generate dict needed for cp_solver
@@ -355,7 +416,7 @@ class Simulator():
             result = cp_solver(self.schedule_filepath, "tmp/warmstart.json")
         else:
             _, logfile = os.path.split(os.path.basename(self.schedule_filepath))
-            result = cp_solver_alternative_new(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", timeout=200, break_symmetries=False)
+            result = cp_solver(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", timeout=100, break_symmetries=False)
         self.save_schedule(result)
             
     def create_warmstart_file(self, ra_psts:dict, queue_objects:list[QueueObject]):
@@ -398,6 +459,26 @@ class Simulator():
             f.seek(0)  # Reset file pointer to the beginning
             json.dump(ra_psts, f, indent=2)
             f.truncate()
+    
+    def ilp_to_schedule_file(self, ilp_rep, schedule_dict, instance_id):
+        selected_branches = [branch for branchId, branch in ilp_rep["branches"].items() if branch["selected"] == 1.0]
+
+        selected_jobs = []
+        for branch in selected_branches:
+            for jobId in branch["jobs"]:
+                parts = jobId.split("-")
+                parts[0], parts[1] = str(instance_id), str(instance_id)
+                jobId = "-".join(parts)
+                selected_jobs.append(jobId)
+
+        for schedule_jobId, schedule_job in schedule_dict["instances"][instance_id]["jobs"].items():
+            if schedule_jobId in selected_jobs:
+                schedule_job["selected"] = True
+        
+        return schedule_dict
+
+
+
 
 
 if __name__ == "__main__":
