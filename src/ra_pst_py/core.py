@@ -8,6 +8,9 @@ import uuid
 import warnings
 import copy
 import math
+import numpy as np
+import statistics
+import itertools
 from collections import defaultdict
 
 
@@ -34,6 +37,8 @@ class RA_PST:
         self.set_branches()
         self.transformed_items = []
         self.problem_size = None
+        self.flex_factor = None
+
 
 
     def get_ra_pst_str(self) -> str:
@@ -82,6 +87,76 @@ class RA_PST:
             ]
         size = math.prod(branches)
         return size
+    
+    def get_flex_factor(self):
+        """
+        Describes the flexibility possible within the RA-PST. 
+        Flex_factor = (sum_branches/no_of_tasks) * (1-unevenness)
+        unevenness = standard_deviaton branches per task / mean of branches per task
+
+        returns: 
+            self.flex_factor: 
+        """
+        if self.flex_factor is None:
+            sum_branches = len([branch for task_branches in self.branches.values() for branch in task_branches  if branch.check_validity()])
+            no_of_tasks = len(self.get_tasklist())
+
+            # unevenness_factor = stand. dev. of branches / mean(no of branches)
+            mean_branches = sum_branches/no_of_tasks
+            std_branches = np.std([len(branches) for task, branches in self.branches.items()])
+            unevenness = std_branches/mean_branches if mean_branches > 0 else 0
+
+            self.flex_factor = mean_branches * (1 - unevenness)
+        
+
+        return self.flex_factor
+    
+    def get_enthropy(self):
+        entropy_per_task = {}
+        for task, branches in self.branches.items():
+            costs_per_branch = [branch.get_branch_costs() for branch in branches if branch.check_validity(ra_pst=self)]
+            inverted_costs = 1/np.array(costs_per_branch)
+            probabilities = inverted_costs / inverted_costs.sum()
+
+            entropy_per_task[task] = -np.sum(probabilities * np.log(probabilities))
+    
+        return np.mean(list(entropy_per_task.values()))
+    
+    def get_resource_tightness(self):
+        """"as"""
+        resource_list = self.get_resourcelist()
+        resource_tree = self.resource_data
+        resource_dict = {}
+        
+        all_available_tasks = []
+        # Tasks in RA-PST:
+        for branches_p_task in self.branches.values():
+            all_available_tasks.extend([branch.get_tasklist() for branch in branches_p_task])
+        all_available_tasks = list(itertools.chain(*all_available_tasks))
+        all_available_tasks = [utils.get_label(task) for task in all_available_tasks]
+        all_available_tasks = list(set(all_available_tasks))
+        for resource in resource_list:
+            resource_dict[resource] = {}
+            resource_dict[resource]["costs"] = [float(cost) for cost in resource_tree.xpath(f"resource[@id='{resource}']/resprofile/measures/cost/text()", namespaces=self.ns)]
+            resource_dict[resource]["tasks"] = list(set(resource_tree.xpath(f"resource[@id='{resource}']/resprofile/@task", namespaces=self.ns)))
+            resource_dict[resource]["task_proportion"] = len(resource_dict[resource]["tasks"]) / len(all_available_tasks)
+
+        std_costs = np.std([statistics.mean(values["costs"]) for key,values  in resource_dict.items()])
+        mean_costs = statistics.mean([statistics.mean(values["costs"]) for key,values  in resource_dict.items()])
+        cost_uniform = 1-(std_costs / mean_costs) if mean_costs > 0 else 0
+                      
+
+        probabilities = [values["task_proportion"] for resource, values in resource_dict.items()]
+        entropy = -sum(p * np.log(p) for p in probabilities if p > 0)
+        max_entropy = np.log(len(resource_list))
+        usage_distribution = entropy/max_entropy if max_entropy > 0 else 0
+
+        resource_flexibility = cost_uniform * usage_distribution
+        return resource_flexibility
+    
+    def get_avg_cost(self):
+        costs = [int(cost) for cost in self.ra_pst.xpath("//cpee1:cost/text()", namespaces=self.ns)]
+        return statistics.mean(costs) if len(costs) > 0 else 0 
 
     def get_ilp_rep(self, instance_id = 'i1') -> dict:
         """
@@ -638,7 +713,7 @@ class Branch:
         attributes_list = self.node.xpath(f"//cpee1:resprofile/cpee1:measures/cpee1:{attribute}", namespaces = self.ns)
         return sum([float(element.text) for element in attributes_list])
 
-    def check_validity(self) -> bool:
+    def check_validity(self, ra_pst:RA_PST=None) -> bool:
         #TODO if delete task does not exist become invalid.
         self.is_valid = True
         empty_children = self.node.xpath(
@@ -650,7 +725,9 @@ class Branch:
                 "preceding-sibling::cpee1:changepattern[@type='delete']",
                 namespaces=self.ns,
             ):
-                
+                if ra_pst is not None:
+                    if child.xpath("cpee1:manipulate || cpee1:call", namespaces=self.n)[0].attrib["id"] not in ra_pst.get_tasklist("id"):
+                        self.is_valid = False
                 # if child.xpath("preceding-sibling::*[not(@type='delete')]", namespaces=self.ns):
                 continue
             else:

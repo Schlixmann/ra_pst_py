@@ -36,6 +36,9 @@ def configuration_ilp(ra_pst_json):
     with open(ra_pst_json) as f:
         ra_pst = json.load(f)
 
+    if "instances" in ra_pst.keys():
+        ra_pst = ra_pst["instances"][0]
+        
     model = gp.Model('RA-PST configuration')
 
     # Variables:
@@ -56,9 +59,10 @@ def configuration_ilp(ra_pst_json):
         model.addConstr(gp.quicksum(branch["selected"] for branch in ra_pst["branches"].values() if taskId == branch["task"]) == 1 - task["deleted"])
 
     # If a branch is selected that deletes a task, the task is not chosen
-    for taskId, task in ra_pst["tasks"].items():
-        if taskId in branch["deletes"]:
-            model.addConstr(task["deleted"] >= branch["selected"] for branch in ra_pst["branches"].values())
+    # TODO check correctness
+    for branchId, branch in ra_pst["branches"].items():
+        for taskId_del in branch["deletes"]:
+            (model.addConstr(task["deleted"] >= branch["selected"]) for taskId, task in ra_pst["tasks"].items() if taskId == taskId_del)
 
     # If none of the branches that deletes the task is chosen, the task can not be set to deleted
     for taskId, task in ra_pst["tasks"].items():
@@ -66,6 +70,7 @@ def configuration_ilp(ra_pst_json):
 
     model.optimize()
     ra_pst["objective"] = model.objVal
+    ra_pst["runtime"] = model.Runtime
 
     for task in ra_pst["tasks"].values():
         task["deleted"] = task["deleted"].x
