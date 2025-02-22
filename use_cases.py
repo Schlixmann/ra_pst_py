@@ -11,6 +11,7 @@ from pathlib import Path
 import numpy as np
 from lxml import etree
 import xmltodict
+from tqdm import tqdm
 import json
 
 class EvalPipeline():
@@ -128,7 +129,7 @@ class EvalPipeline():
             
             if process_file.is_file() and resources_dir.exists():
                 # Iterate over each file in the resources directory
-                for resource_file in resources_dir.iterdir():
+                for resource_file in tqdm(resources_dir.iterdir()):
                     if resource_file.is_file() and process_file.is_file():  # Ensure it's a file
                         ra_pst = build_rapst(process_file, resource_file)
                         #show_tree_as_graph(ra_pst)
@@ -261,9 +262,9 @@ def generate_release_times(num_instances, mean_time_between_instances):
 
 if __name__ == "__main__":
 
-    root_path = Path("testsets_random_fin")
+    root_path = Path("testsets_random")
     subdirectories =  [folder for folder in root_path.iterdir() if folder.is_dir()]
-    #subdirectories = subdirectories[0:2]
+    subdirectories = subdirectories[0:2]
     print(subdirectories)
 
 

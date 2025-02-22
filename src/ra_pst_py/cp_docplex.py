@@ -98,27 +98,26 @@ def cp_solver(ra_pst_json, warm_start_json=None, log_file = "cpo_solver.log", ti
                 job["interval"].set_start_min(min_time)
                 job_intervals.append(job["interval"])
 
-            # Precedence constraints
-            for jobId, job in ra_pst["jobs"].items():
-                for jobId2 in job["after"]:
+        # Precedence constraints
+        for jobId, job in ra_pst["jobs"].items():
+            for jobId2 in job["after"]:
+                if ra_pst["fixed"]:
+                    if ra_pst["jobs"][jobId]["selected"] & ra_pst["jobs"][jobId2]["selected"]:
+                        model.add(end_before_start(ra_pst["jobs"][jobId2]["interval"], ra_pst["jobs"][jobId]["interval"]))
+                else:    
                     model.add(end_before_start(ra_pst["jobs"][jobId2]["interval"], ra_pst["jobs"][jobId]["interval"]))
                     
      # No overlap between jobs on the same resource   
-    all_resource_intervals = []
-    opt_res_intervals = []
     for r in ra_psts["resources"]:
         resource_intervals = []
         for ra_pst in ra_psts["instances"]:
             if ra_pst["fixed"]:
                 resource_intervals.extend([job["interval"] for job in ra_pst["jobs"].values() if (job["resource"] == r and job["selected"])])
-                all_resource_intervals.extend([job["interval"] for job in ra_pst["jobs"].values() if (job["resource"] == r and job["selected"])])
             else:
                 resource_intervals.extend([job["interval"] for job in ra_pst["jobs"].values() if job["resource"] == r])
-                opt_res_intervals.extend([job["interval"] for job in ra_pst["jobs"].values() if job["resource"] == r])
         if len(resource_intervals) > 0:
             model.add(no_overlap(resource_intervals))
     
-    print(len(all_resource_intervals))
 
     model.add(minimize(max([end_of(interval) for interval in job_intervals])))
 
@@ -707,9 +706,13 @@ def cp_solver_scheduling_only(ra_pst_json, warm_start_json=None, log_file = "cpo
                 job["interval"].set_start_min(min_time)
                 job_intervals.append(job["interval"])
 
-            # Precedence constraints
-            for jobId, job in ra_pst["jobs"].items():
-                for jobId2 in job["after"]:
+        # Precedence constraints
+        for jobId, job in ra_pst["jobs"].items():
+            for jobId2 in job["after"]:
+                if ra_pst["fixed"]:
+                    if ra_pst["jobs"][jobId]["selected"] & ra_pst["jobs"][jobId2]["selected"]:
+                        model.add(end_before_start(ra_pst["jobs"][jobId2]["interval"], ra_pst["jobs"][jobId]["interval"]))
+                else:    
                     model.add(end_before_start(ra_pst["jobs"][jobId2]["interval"], ra_pst["jobs"][jobId]["interval"]))
                     
      # No overlap between jobs on the same resource   
