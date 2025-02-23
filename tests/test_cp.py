@@ -2,7 +2,7 @@ from src.ra_pst_py.builder import build_rapst, show_tree_as_graph
 from src.ra_pst_py.instance import transform_ilp_to_branches, Instance
 from src.ra_pst_py.brute_force import BruteForceSearch
 from src.ra_pst_py.cp_google_or import conf_cp, conf_cp_scheduling
-from src.ra_pst_py.cp_docplex import cp_solver, cp_solver_decomposed
+from src.ra_pst_py.cp_docplex import cp_solver, cp_solver_decomposed, cp_solver_decomposed_strengthened_cuts
 from src.ra_pst_py.ilp import configuration_ilp
 
 from lxml import etree
@@ -49,11 +49,7 @@ class DocplexTest(unittest.TestCase):
         # Initialize shared variables for tests
         self.ra_pst = build_rapst(
             process_file="test_instances/paper_process_short.xml",
-            resource_file="test_instances/offer_resources_many_invalid_branches.xml"
-        )
-        self.ra_pst = build_rapst(
-            process_file="test_instances/instance_generator_process.xml",
-            resource_file="test_instances/instance_generator_resources.xml"
+            resource_file="test_instances/offer_resources_plain_fully_synthetic_small.xml"
         )
         self.ra_pst = build_rapst(
             process_file="testsets/30_generated/process/BPM_TestSet_30.xml",
@@ -107,7 +103,7 @@ class DocplexTest(unittest.TestCase):
         ra_psts["resources"] = ilp_rep["resources"]
         with open("tests/test_data/ilp_rep.json", "w") as f:
             json.dump(ra_psts, f, indent=2)
-        result = cp_solver_decomposed("tests/test_data/ilp_rep.json")
+        result = cp_solver_decomposed_strengthened_cuts("tests/test_data/ilp_rep.json", TimeLimit=2400)
         # print([branch for branch in result["branches"] if branch["selected"] == 1])
         print(result["solution"]["objective"])
         with open("tests/test_data/cp_result.json", "w") as f:
