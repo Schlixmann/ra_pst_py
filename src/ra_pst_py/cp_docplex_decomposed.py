@@ -191,9 +191,9 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, TimeLimit = None):
     for i, instance in enumerate(ra_psts["instances"]):
         if "fixed" not in instance.keys():
             instance["fixed"] = False
-        inst_prefix = str(list(instance["tasks"].keys())[0]).split("-")[0]
-        for key, value in instance["branches"].items():
-            value["deletes"] = [str(inst_prefix) + f"-{element}"for element in value["deletes"]]
+        #inst_prefix = str(list(instance["tasks"].keys())[0]).split("-")[0]
+        #for key, value in instance["branches"].items():
+        #    value["deletes"] = [str(inst_prefix) + f"-{element}"for element in value["deletes"]]
     
     #-----------------------------------------------------------------------------
     # Build the model
@@ -204,7 +204,7 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, TimeLimit = None):
     z = master_model.addVar()
     # Branch variables
     for ra_pst in ra_psts["instances"]:
-        if ra_pst["fixed"]: continue
+        if ra_pst["fixed"]: continue 
         for branchId, branch in ra_pst["branches"].items():
             branch["selected"] = master_model.addVar(vtype=(GRB.BINARY), name=branchId)
     # Add constraints
@@ -318,6 +318,9 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, TimeLimit = None):
                     job["selected"] = 1
                     job["start"] = itv.get_start()
                     break
+        #if ra_pst["fixed"] is False:
+        #    ra_pst["fixed"] = True
+        
     for ra_pst in ra_psts["instances"]:
         for branchId, branch in ra_pst["branches"].items():
             del branch["selected"]
