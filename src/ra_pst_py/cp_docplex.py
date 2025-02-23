@@ -123,24 +123,38 @@ def cp_solver(ra_pst_json, warm_start_json=None, log_file = "cpo_solver.log", ti
 
     # Configuration constraints
     # Select exactly one branch from each non-deleted task
-    for ra_pst in ra_psts["instances"]:
-        if not ra_pst["fixed"]:
-            for taskId, task in ra_pst["tasks"].items():
-                task_jobs = []
-                branch_jobs = []
-                for branchId in task["branches"]:
-                    for jobId in ra_pst["branches"][branchId]["jobs"]:
-                        if len(branch_jobs) > 0:
-                            model.add(equal(presence_of(ra_pst["jobs"][jobId]["interval"]), presence_of(ra_pst["jobs"][branch_jobs[-1]]["interval"])))
-                        for jobId2 in task_jobs:
-                            model.add(if_then(presence_of(ra_pst["jobs"][jobId]["interval"]), logical_not(presence_of(ra_pst["jobs"][jobId2]["interval"]))))
-                        branch_jobs.append(jobId)
-                    task_jobs.extend(branch_jobs)
-                    branch_jobs = []
-                deletes_task = [presence_of(ra_pst["jobs"][branch["jobs"][0]]["interval"]) for branch in ra_pst["branches"].values() if taskId in branch["deletes"]]
-                deletes_task.append(0)
-                model.add(sum([presence_of(ra_pst["jobs"][ra_pst["branches"][branchId]["jobs"][0]]["interval"]) for branchId in task["branches"]]) == 1-max(deletes_task))
+    #for ra_pst in ra_psts["instances"]:
+    #    if not ra_pst["fixed"]:
+    #        for taskId, task in ra_pst["tasks"].items():
+    #            task_jobs = []
+    #            branch_jobs = []
+    #            for branchId in task["branches"]:
+    #                for jobId in ra_pst["branches"][branchId]["jobs"]:
+    #                    if len(branch_jobs) > 0:
+    #                        model.add(equal(presence_of(ra_pst["jobs"][jobId]["interval"]), presence_of(ra_pst["jobs"][branch_jobs[-1]]["interval"])))
+    #                    for jobId2 in task_jobs:
+    #                        model.add(if_then(presence_of(ra_pst["jobs"][jobId]["interval"]), logical_not(presence_of(ra_pst["jobs"][jobId2]["interval"]))))
+    #                    branch_jobs.append(jobId)
+    #                task_jobs.extend(branch_jobs)
+    #                branch_jobs = []
+    #            deletes_task = [presence_of(ra_pst["jobs"][branch["jobs"][0]]["interval"]) for branch in ra_pst["branches"].values() if taskId in branch["deletes"]]
+    #            deletes_task.append(0)
+    #            model.add(sum([presence_of(ra_pst["jobs"][ra_pst["branches"][branchId]["jobs"][0]]["interval"]) for branchId in task["branches"]]) == 1-max(deletes_task))
 
+    for ra_pst in ra_psts["instances"]:
+        if ra_pst["fixed"]: continue
+        for branchId, branch in ra_pst["branches"].items():
+            independent_branches = []
+            for branch_2_id, branch_2 in ra_pst["branches"].items():
+                if branch_2["task"] == branch["task"] or branch["task"] in branch_2["deletes"]:
+                    independent_branches.append(branch_2_id)
+            # master_model.add(sum([ra_pst["branches"][b_id]["selected"] for b_id in independent_branches]) == 1)
+            model.add(sum([presence_of(ra_pst["jobs"][ra_pst["branches"][b_id]["jobs"][0]]["interval"]) for b_id in independent_branches]) == 1)
+            branch_jobs = []
+            for jobId in branch["jobs"]:
+                if len(branch_jobs) > 0:
+                    model.add(equal(presence_of(ra_pst["jobs"][jobId]["interval"]), presence_of(ra_pst["jobs"][branch_jobs[-1]]["interval"])))
+                branch_jobs.append(jobId)
 
     if warm_start_json:
         starting_solution = CpoModelSolution()
