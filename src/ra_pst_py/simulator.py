@@ -250,7 +250,7 @@ class Simulator():
             if warmstart:
                 result = cp_solver(self.schedule_filepath, "tmp/warmstart.json")
             else:
-                result = cp_solver(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", sigma=self.sigma, timeout=25)
+                result = cp_solver(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", sigma=self.sigma, timeout=100)
             self.save_schedule(result)  
 
 
@@ -281,7 +281,7 @@ class Simulator():
             if warmstart:
                 result = cp_solver(self.schedule_filepath, "tmp/warmstart.json")
             else:
-                result = cp_solver_alternative_new(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", replan=True, release_time=release_time, timeout=50)
+                result = cp_solver_alternative_new(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", replan=True, release_time=release_time, timeout=100)
             self.save_schedule(result)
 
 
@@ -303,7 +303,7 @@ class Simulator():
 
         schedule_dict = self.ilp_to_schedule_file(result, schedule_dict, queue_object.instance.id)
         self.save_schedule(schedule_dict)
-        schedule_dict = cp_solver_scheduling_only(self.schedule_filepath, timeout=200, sigma=self.sigma)
+        schedule_dict = cp_solver_scheduling_only(self.schedule_filepath, timeout=100, sigma=self.sigma)
         schedule_dict["ilp_objective"] = result["objective"]
         schedule_dict["ilp_runtime"] = result["runtime"]
         self.save_schedule(schedule_dict)
@@ -315,7 +315,7 @@ class Simulator():
             schedule_dict = self.add_ilp_rep_to_schedule(instance_ilp_rep, schedule_dict, queue_object)
             schedule_dict = self.ilp_to_schedule_file(result, schedule_dict, queue_object.instance.id)
             self.save_schedule(schedule_dict)
-            schedule_dict = cp_solver_scheduling_only(self.schedule_filepath, timeout=200, sigma=self.sigma)
+            schedule_dict = cp_solver_scheduling_only(self.schedule_filepath, timeout=100, sigma=self.sigma)
             self.save_schedule(schedule_dict)
     
 
@@ -344,7 +344,7 @@ class Simulator():
             schedule_dict = self.ilp_to_schedule_file(result, schedule_dict, queue_object.instance.id)
             self.save_schedule(schedule_dict)
         
-        schedule_dict = cp_solver_scheduling_only(self.schedule_filepath, timeout=200, sigma=self.sigma)
+        schedule_dict = cp_solver_scheduling_only(self.schedule_filepath, timeout=100, sigma=self.sigma)
         self.save_schedule(schedule_dict)
         
         

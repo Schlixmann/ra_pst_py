@@ -68,7 +68,7 @@ def show_full_dir(path_to_dir:os.PathLike):
 
 if __name__ == "__main__":
     #show_schedule("out/schedule_heuristic.json")
-    show_schedule("testsets5/testset5/evaluation/heuristic_new/000_(0.8, 0.2, 0.0)-skill_short_branch-3-uniform.xml.json")
+    show_schedule("testsets_random/10_instantArr/evaluation/heuristic/(0.8, 0.2, 0.0)-skill_short_branch-3-early-resource_based-3-1-10.json")
     #show_schedule("out/schedule_single_instance_cp_warm.json")
     #show_schedule("out/schedule_all_instance_cp.json")
 

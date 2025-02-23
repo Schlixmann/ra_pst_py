@@ -3,6 +3,7 @@ from src.ra_pst_py.instance import transform_ilp_to_branches, Instance
 from src.ra_pst_py.brute_force import BruteForceSearch
 from src.ra_pst_py.cp_google_or import conf_cp, conf_cp_scheduling
 from src.ra_pst_py.cp_docplex import cp_solver, cp_solver_decomposed
+from src.ra_pst_py.ilp import configuration_ilp
 
 from lxml import etree
 import unittest
@@ -18,6 +19,8 @@ class CPTest(unittest.TestCase):
             process_file="test_instances/paper_process_short.xml",
             resource_file="test_instances/offer_resources_many_invalid_branches_sched.xml"
         )
+
+
         ilp_rep = self.ra_pst.get_ilp_rep()
         with open("tests/test_data/ilp_rep.json", "w") as f:
             json.dump(ilp_rep, f, indent=2)
@@ -51,6 +54,10 @@ class DocplexTest(unittest.TestCase):
         self.ra_pst = build_rapst(
             process_file="test_instances/instance_generator_process.xml",
             resource_file="test_instances/instance_generator_resources.xml"
+        )
+        self.ra_pst = build_rapst(
+            process_file="testsets/30_generated/process/BPM_TestSet_30.xml",
+            resource_file="testsets/30_generated/resources/(0.8, 0.2, 0.0)-skill_short_branch-3-early-resource_based-30.xml"
         )
         ilp_rep = self.ra_pst.get_ilp_rep()
         ilp_dict = {"instances" : []}
@@ -145,5 +152,12 @@ class DocplexTest(unittest.TestCase):
             json.dump(result2, f, indent=2)
 
 
-        
+    def test_ilp(self):
+        ilp_rep = self.ra_pst.get_ilp_rep()
+        show_tree_as_graph(self.ra_pst)
+        with open("test.json" , "w") as f:
+            json.dump(ilp_rep, f, indent=2)
+        result = configuration_ilp("test.json")
+        with open("test.json", "w") as f:
+            json.dump(result, f, indent=2)
 
