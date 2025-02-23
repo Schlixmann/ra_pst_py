@@ -239,3 +239,44 @@ class ScheduleTest(unittest.TestCase):
             objective = data["solution"]["objective"]
         target = 15
         self.assertEqual(objective, target, "SINGLE_INSTANCE_CP: The found objective does not match the target value")
+
+    def test_multiinstance_cp_decomposed(self):
+
+        sched = Schedule()
+
+        release_times = [0,1,2]
+        # Heuristic Single Task allocation
+        allocation_type = AllocationTypeEnum.ALL_INSTANCE_CP
+        file = f"out/schedule_{str(allocation_type)}.json"
+        sim = Simulator(schedule_filepath=file)
+        for i, release_time in enumerate(release_times):
+            instance = Instance(copy.deepcopy(self.ra_pst), {}, sched, id=i)
+            instance.add_release_time(release_time)
+            sim.add_instance(instance, allocation_type)
+        sim.simulate()
+        with open(file, "r") as f:
+            data = json.load(f)
+            objective = data["solution"]["objective"]
+        target = 21
+        self.assertEqual(objective, target, "ALL_INSTANCE_CP: The found objective does not match the target value")
+
+    def test_single_instance_cp_decomposed(self):
+        release_times = [0,1,2]
+        # Heuristic Single Task allocation
+        allocation_type = AllocationTypeEnum.SINGLE_INSTANCE_CP
+        file = f"out/schedule_{str(allocation_type)}.json"
+        sim = Simulator(schedule_filepath=file)
+        for i, release_time in enumerate(release_times):
+            instance = Instance(copy.deepcopy(self.ra_pst), {}, id=i)
+            instance.add_release_time(release_time)
+            sim.add_instance(instance, allocation_type)
+
+        start = time.time()
+        sim.simulate()
+        end = time.time()
+        print("Elapsed time: ", end-start)
+        with open(file, "r") as f:
+            data = json.load(f)
+            objective = data["solution"]["objective"]
+        target = 23
+        self.assertEqual(objective, target, "SINGLE_INSTANCE_CP: The found objective does not match the target value")

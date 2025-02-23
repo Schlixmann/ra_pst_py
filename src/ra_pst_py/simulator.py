@@ -1,6 +1,7 @@
 from src.ra_pst_py.instance import Instance
 from src.ra_pst_py.core import Branch, RA_PST
 from src.ra_pst_py.cp_docplex import cp_solver, cp_solver_decomposed, cp_solver_alternative_new, cp_solver_scheduling_only
+from src.ra_pst_py.cp_docplex_decomposed import cp_solver_decomposed_strengthened_cuts
 from src.ra_pst_py.ilp import configuration_ilp
 
 from enum import Enum, StrEnum
@@ -102,7 +103,7 @@ class Simulator():
         elif self.allocation_type == AllocationTypeEnum.ALL_INSTANCE_CP:
             self.all_instance_processing()
         elif self.allocation_type == AllocationTypeEnum.ALL_INSTANCE_CP_WARM:
-            self.all_instance_processing(warmstart=True)
+            self.all_instance_processing(warmstart=False, decomposed=True)
         elif self.allocation_type == AllocationTypeEnum.SINGLE_INSTANCE_CP_REPLAN:
             self.single_instance_replan()
         elif self.allocation_type == AllocationTypeEnum.SINGLE_INSTANCE_HEURISTIC:
@@ -231,7 +232,7 @@ class Simulator():
         end = time.time()
         self.add_allocation_metadata(float(end-start))
     
-    def single_instance_processing(self, warmstart:bool = False):
+    def single_instance_processing(self, warmstart:bool = False, decomposed:bool=False):
         """
         Allocates each instance on arrival. 
         Already scheduled instances are in the schedule and are added to the cp as fixed. 
@@ -243,14 +244,14 @@ class Simulator():
             instance_ilp_rep = self.get_current_instance_ilp_rep(schedule_dict, queue_object)
             schedule_dict = self.add_ilp_rep_to_schedule(instance_ilp_rep, schedule_dict, queue_object)
             schedule_dict["resources"] = list(set(schedule_dict["resources"]).union(instance_ilp_rep["resources"]))
-            if warmstart:
-                self.create_warmstart_file(schedule_dict, [queue_object])
+            #if warmstart:
+            #    self.create_warmstart_file(schedule_dict, [queue_object])
             self.save_schedule(schedule_dict)
 
             if warmstart:
-                result = cp_solver(self.schedule_filepath, "tmp/warmstart.json")
+                result = cp_solver_decomposed_strengthened_cuts(self.schedule_filepath, TimeLimit=100)
             else:
-                result = cp_solver(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", sigma=self.sigma, timeout=100)
+                result = cp_solver(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", sigma=self.sigma, timeout=300)
             self.save_schedule(result)  
 
 
@@ -348,7 +349,7 @@ class Simulator():
         self.save_schedule(schedule_dict)
         
         
-    def all_instance_processing(self, warmstart:bool = False):
+    def all_instance_processing(self, warmstart:bool = False, decomposed:bool=False):
         """
         Schedules all instances simultaneously and also creates the optimal configurations. 
         Integrated CP for scheduling.
@@ -363,6 +364,8 @@ class Simulator():
         if warmstart:
             self.create_warmstart_file(schedule_dict, self.task_queue)
             result = cp_solver(self.schedule_filepath, "tmp/warmstart.json")
+        elif decomposed:
+            result = cp_solver_decomposed_strengthened_cuts(self.schedule_filepath, TimeLimit=100)
         else:
             _, logfile = os.path.split(os.path.basename(self.schedule_filepath))
             result = cp_solver(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", timeout=100, break_symmetries=False)
