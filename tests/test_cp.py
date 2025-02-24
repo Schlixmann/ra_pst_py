@@ -78,14 +78,14 @@ class DocplexTest(unittest.TestCase):
         ra_psts = {}
         ra_psts["instances"] = []
 
-        for i in range(1):
+        for i in range(4):
             ilp_rep = self.ra_pst.get_ilp_rep(instance_id=f'i{i+1}')
 
             ra_psts["instances"].append(ilp_rep)
         ra_psts["resources"] = ilp_rep["resources"]
         with open("tests/test_data/ilp_rep.json", "w") as f:
             json.dump(ra_psts, f, indent=2)
-        result = cp_solver("tests/test_data/ilp_rep.json")
+        result = cp_solver("tests/test_data/ilp_rep.json", TimeLimit=300)
         # print([branch for branch in result["branches"] if branch["selected"] == 1])
         print(result["solution"]["objective"])
         with open("tests/test_data/cp_result.json", "w") as f:
@@ -103,7 +103,7 @@ class DocplexTest(unittest.TestCase):
         ra_psts["resources"] = ilp_rep["resources"]
         with open("tests/test_data/ilp_rep.json", "w") as f:
             json.dump(ra_psts, f, indent=2)
-        result = cp_solver_decomposed_strengthened_cuts("tests/test_data/ilp_rep.json", TimeLimit=2400)
+        result = cp_solver_decomposed_strengthened_cuts("tests/test_data/ilp_rep.json", TimeLimit=1300)
         # print([branch for branch in result["branches"] if branch["selected"] == 1])
         print(result["solution"]["objective"])
         with open("tests/test_data/cp_result.json", "w") as f:

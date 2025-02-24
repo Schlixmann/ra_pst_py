@@ -54,8 +54,6 @@ def cp_solver_decomposed_monotone_cuts(ra_pst_json, TimeLimit = None):
     #-----------------------------------------------------------------------------
     # Build the model
     #-----------------------------------------------------------------------------
-    master_model, z = ilp_masterproblem(ra_psts)
-
     lower_bound = 0
     big_number = 0
     all_jobs = []
@@ -63,6 +61,8 @@ def cp_solver_decomposed_monotone_cuts(ra_pst_json, TimeLimit = None):
         for branch in ra_pst["branches"].values():
             big_number += branch["branchCost"]
     upper_bound = big_number
+
+    master_model, z, E, Q, Y = ilp_masterproblem(ra_psts, upper_bound)
 
     start_time = time.time()
 
@@ -80,7 +80,7 @@ def cp_solver_decomposed_monotone_cuts(ra_pst_json, TimeLimit = None):
             # Iterate through instances to include 
             selected_branches_extended = []
             for ra_pst in ra_psts["instances"]:
-                selected_branches_extended.extend([branchId for branchId, branch in ra_pst["branches"].items() if int(branch["selected"].x)])
+                selected_branches_extended.extend([branchId for branchId, branch in ra_pst["branches"].items() if branch["selected"].x])
             schedule, all_jobs = cp_subproblem(ra_psts, selected_branches_extended)
             # Solved subproblem: Set new upper bound
             if schedule.get_objective_value() < upper_bound:
@@ -170,14 +170,14 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, TimeLimit = None):
     #-----------------------------------------------------------------------------
     # Build the model
     #-----------------------------------------------------------------------------
-    master_model, z = ilp_masterproblem(ra_psts)
-
     lower_bound = 0
     big_number = 0
     for ra_pst in ra_psts["instances"]:
         for branch in ra_pst["branches"].values():
             big_number += branch["branchCost"]
     upper_bound = big_number
+
+    master_model, z, E, Q, Y = ilp_masterproblem(ra_psts, upper_bound)
 
     best_schedule = None
     best_jobs = None
@@ -196,12 +196,12 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, TimeLimit = None):
             configuration_branches = []
             selected_branches_extended = []
             for i, ra_pst in enumerate(ra_psts["instances"]):
-                selected_branches_extended.extend([branchId for branchId, branch in ra_pst["branches"].items() if int(branch["selected"].x)])
-                instance_resource_list = [ra_pst["jobs"][jobId]["resource"] for branchId, branch in ra_pst["branches"].items() if int(branch["selected"].x) for jobId in branch["jobs"] for _ in range(int(ra_pst["jobs"][jobId]["cost"]))]
+                selected_branches_extended.extend([branchId for branchId, branch in ra_pst["branches"].items() if branch["selected"].x])
+                instance_resource_list = [ra_pst["jobs"][jobId]["resource"] for branchId, branch in ra_pst["branches"].items() if branch["selected"].x for jobId in branch["jobs"] for _ in range(int(ra_pst["jobs"][jobId]["cost"]))]
                 # print(f'instance resource list: {instance_resource_list}')
                 configuration_branches.append({
                     "instance": i,
-                    "branches": [branchId for branchId, branch in ra_pst["branches"].items() if int(branch["selected"].x)],
+                    "branches": [branchId for branchId, branch in ra_pst["branches"].items() if branch["selected"].x],
                     "resources": [{resource: instance_resource_list[t:].count(resource) for resource in ra_psts["resources"]} for t in range(len(instance_resource_list)+1)]
                     })
                 # print(f'branch configuration: {configuration_branches[-1]}')
@@ -226,11 +226,6 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, TimeLimit = None):
                         # print(f'Resources {t} | {max_resources} | {subproblem_lb}: {resources}')
                         if max_resources > subproblem_lb:
                             subproblem_lb = max_resources
-                    # branches = []
-                    # for c in combination:
-                    #     branches.extend(c["branches"])
-                    # sub_schedule, sub_all_jobs = cp_subproblem(ra_psts, branches)
-                    # subproblem_lb = sub_schedule.get_objective_value()
                     if subproblem_lb > lower_bound:
                         # print(f"Subproblem lower bound: {subproblem_lb} - {lower_bound}")
                         # Add strengthened cuts
@@ -250,8 +245,9 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, TimeLimit = None):
         if TimeLimit is not None and time.time() - starting_time > TimeLimit:
             print(f'Time limit reached...')
             break
+        # for resourceId, e in E.items():
+        #     print(f'E_{resourceId}: {e.X}')
 
-    # Output the current schedule
     for ra_pst in ra_psts["instances"]:
         for jobId, job in ra_pst["jobs"].items():
             job["selected"] = 0
@@ -261,6 +257,7 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, TimeLimit = None):
                 if jobId == itv.get_name():
                     job["selected"] = 1
                     job["start"] = itv.get_start()
+                    print(f'Job {jobId} on resource {job["resource"]} selected at {job["start"]} to {job["start"] + job["cost"]}')
                     break
         #if ra_pst["fixed"] is False:
         #    ra_pst["fixed"] = True
@@ -279,27 +276,6 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, TimeLimit = None):
 
     return ra_psts
 
-
-def lexicographic_counter(n, max_values, skipped):
-    # Apply skip logic by setting max to 0 where skipped is True
-    max_values = [0 if skipped[i] else max_values[i] for i in range(n)]
-    
-    # Initialize the counter list
-    counter = [0] * n
-    
-    while True:
-        yield counter[:]
-        
-        # Increment logic (like a lexicographic counter)
-        for i in range(n):
-            if counter[i] < max_values[i]:
-                counter[i] += 1
-                break  # Stop once we increment
-            else:
-                counter[i] = 0  # Reset and carry over
-                if i == n - 1:
-                    return  # If last index overflows, we're done
-                
 
 def ilp_masterproblem(ra_psts, upper_bound):
     master_model = gp.Model('master')
@@ -351,19 +327,19 @@ def ilp_masterproblem(ra_psts, upper_bound):
     # Constraints
     for ra_pst in ra_psts["instances"]:
         for branchId, branch in ra_pst["branches"].items():
-            master_model.addConstr(Y[ra_pst["jobs"][jobId]["resource"]] >= branch["selected"])
             for jobId in branch["jobs"]:
+                master_model.addConstr(Y[ra_pst["jobs"][jobId]["resource"]] >= branch["selected"])
                 master_model.addConstr(Q[ra_pst["jobs"][jobId]["resource"]][branchId] <= branch["selected"])
     for resource in ra_psts["resources"]:
-        master_model.addConstr(gp.quicksum(Q[resource][branchId] for ra_pst in ra_psts["instances"] for branchId, branch in ra_pst["branches"] if resource in branch["resources"]) == Y[resource])
+        master_model.addConstr(gp.quicksum(Q[resource][branchId] for ra_pst in ra_psts["instances"] for branchId, branch in ra_pst["branches"].items() if resource in branch["resources"]) == Y[resource])
         for ra_pst in ra_psts["instances"]:
-            for i in range(len(ra_pst["branches"])):
-                master_model.addConstr(E[resource] >= gp.quicksum(ra_pst["branches"][b]["branchCost"] * ra_pst["branches"][b]["selected"] for b in range(i)) + branch["release_times"][resource]*branch["selected"] - upper_bound(1 - Q[resource][branchId]))
+            for i, branch in enumerate(ra_pst["branches"].values()):
+                master_model.addConstr(E[resource] >= gp.quicksum(branchPred["branchCost"] * branchPred["selected"] for b, branchPred in enumerate(ra_pst["branches"].values()) if b < i) + branch["release_times"][resource]*branch["selected"] - upper_bound*(1 - Q[resource][branchId]))
     # Get the maximum bin size of the selected branches
     master_model.addConstrs(z >= E[r] + gp.quicksum(branch["selected"] * branch["branch_jobs"][r] for ra_pst in ra_psts["instances"] for branch in ra_pst["branches"].values()) for r in ra_psts["resources"])
     # Objective
     master_model.setObjective(z, GRB.MINIMIZE)
-    return master_model, z
+    return master_model, z, E, Q, Y
 
 
 def cp_subproblem(ra_psts, branches):
