@@ -318,8 +318,9 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, TimeLimit = None):
                     job["selected"] = 1
                     job["start"] = itv.get_start()
                     break
-        #if ra_pst["fixed"] is False:
-        #    ra_pst["fixed"] = True
+                
+        if ra_pst["fixed"] is False:
+            ra_pst["fixed"] = True
         
     for ra_pst in ra_psts["instances"]:
         for branchId, branch in ra_pst["branches"].items():

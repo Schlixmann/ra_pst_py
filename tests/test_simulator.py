@@ -23,8 +23,8 @@ class ScheduleTest(unittest.TestCase):
 #            resource_file="test_instances/instance_generator_resources.xml"
 #        )
         self.ra_pst = build_rapst(
-            process_file="testsets/20_instantArr/process/BPM_TestSet_20.xml",
-            resource_file="testsets/20_instantArr/resources/(0.6, 0.4, 0.0)-skill_short_branch-3-early-normal-20.xml"
+            process_file="test_instances/tests_decomposed/Process_BPM_TestSet_30.xml",
+            resource_file="test_instances/tests_decomposed/(0.8, 0.2, 0.0)-skill_short_branch-3-early-resource_based-3-1-30.xml"
         )
 #        self.ra_pst = build_rapst(
 #            process_file="testsets_random/10_instantArr/process/BPM_TestSet_10.xml",
@@ -260,10 +260,11 @@ class ScheduleTest(unittest.TestCase):
         target = 21
         self.assertEqual(objective, target, "ALL_INSTANCE_CP: The found objective does not match the target value")
 
+
     def test_single_instance_cp_decomposed(self):
         release_times = [0,1,2]
         # Heuristic Single Task allocation
-        allocation_type = AllocationTypeEnum.SINGLE_INSTANCE_CP
+        allocation_type = AllocationTypeEnum.SINGLE_INSTANCE_CP_WARM
         file = f"out/schedule_{str(allocation_type)}.json"
         sim = Simulator(schedule_filepath=file)
         for i, release_time in enumerate(release_times):
