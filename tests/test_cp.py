@@ -2,7 +2,8 @@ from src.ra_pst_py.builder import build_rapst, show_tree_as_graph
 from src.ra_pst_py.instance import transform_ilp_to_branches, Instance
 from src.ra_pst_py.brute_force import BruteForceSearch
 from src.ra_pst_py.cp_google_or import conf_cp, conf_cp_scheduling
-from src.ra_pst_py.cp_docplex import cp_solver, cp_solver_decomposed, cp_solver_decomposed_strengthened_cuts
+from src.ra_pst_py.cp_docplex import cp_solver, cp_solver_decomposed
+from src.ra_pst_py.cp_docplex_decomposed import cp_solver_decomposed_monotone_cuts, cp_solver_decomposed_strengthened_cuts
 from src.ra_pst_py.ilp import configuration_ilp
 
 from lxml import etree
