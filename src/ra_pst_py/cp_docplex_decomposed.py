@@ -252,8 +252,9 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, TimeLimit = None):
                     job["start"] = itv.get_start()
                     print(f'Job {jobId} on resource {job["resource"]} selected at {job["start"]} to {job["start"] + job["cost"]}')
                     break
-        #if ra_pst["fixed"] is False:
-        #    ra_pst["fixed"] = True
+                
+        if ra_pst["fixed"] is False:
+            ra_pst["fixed"] = True
         
     for ra_pst in ra_psts["instances"]:
         for branchId, branch in ra_pst["branches"].items():
