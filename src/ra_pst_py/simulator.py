@@ -251,7 +251,7 @@ class Simulator():
             if warmstart:
                 result = cp_solver_decomposed_strengthened_cuts(self.schedule_filepath, TimeLimit=100)
             else:
-                result = cp_solver(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", sigma=self.sigma, timeout=300)
+                result = cp_solver(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", sigma=self.sigma, timeout=100)
             self.save_schedule(result)  
 
 

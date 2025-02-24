@@ -41,6 +41,12 @@ class EvalPipeline():
         
 
     def add_ilp_data(self, schedule_path):
+        """ Only if ilp is used. 
+        Adds the objective and the runtime of the ILP to the schedule
+        
+        Parameters: 
+            schedule_path: Path to the schedule file
+        """
         schedule_path = schedule_path.with_suffix(".json")
         with open(schedule_path, "r") as f:
             schedule = json.load(f)
@@ -49,10 +55,26 @@ class EvalPipeline():
         ilp_runtime = schedule["ilp_runtime"]
         schedule["solution"]["ilp_objective"] = ilp_objective
         schedule["solution"]["ilp_runtime"] = ilp_runtime
+
         with open(schedule_path, "w") as f:
             json.dump(schedule, f, indent=2)
 
     def add_metadata_to_schedule(self, resource_xml, schedule_path, ra_pst:RA_PST=None):
+        """ Adds metadata of the problem to the schdedule. 
+        Metadata is mainly derived from the RA-PST. 
+        Important Data: 
+            metadata = metadata dict from resource file
+            instance_problem_size = product(branches_per_task)
+            release_times = release times of each instance
+            flex_factor = Flexibility factor in process (currently unused)
+            enthropy = Entropy in RA-PST.
+
+        Parameters: 
+            resource_xml: path to resource file
+            schedule_path: path to schedule file
+            ra_pst: RA-PST object for instances
+            """
+        
         tree = etree.parse(resource_xml)
         root = tree.getroot()
 
@@ -95,6 +117,13 @@ class EvalPipeline():
             json.dump(schedule, f, indent=2)
     
     def combine_info_during_solving(self, schedule_path):
+        """ Adds solution_combined info dict for the schedule, which tracks metadata
+        for each solver run (only for single instance solving)
+        
+        parameters:
+            schedule_path: path of schedule file
+        
+        """
         schedule_path = schedule_path.with_suffix(".json")
         with open(schedule_path, "r") as f:
             schedule = json.load(f)
@@ -121,9 +150,16 @@ class EvalPipeline():
             json.dump(schedule, f, indent=2)
 
 
-
     def run(self, dirpath: os.PathLike, release_times: list, expected_release_times: list = []):
+        """ Executes different solution approaches for all subdirs of dirpath. 
+            Gets the process from subfolder "process" 
+            and resource description from subfolder "resource"
 
+
+        parameters:
+            dirpath: path of directory containing resource and process files
+            release_times: release times of every single instance
+        """
         if dirpath.is_dir():  # Ensure it's a directory
             process_file = next(Path(dirpath/"process").iterdir())  # Get the process file
             resources_dir = Path(dirpath/"resources")  # Get the resources directory
@@ -190,6 +226,14 @@ class EvalPipeline():
                         print("==============")
                         
     def run_release_spread(self, dirpath: os.PathLike, release_times: list, i:int=0):
+        """ Runs the different solution approaches for a directory. 
+        Uses the Same RA-PST each time, 
+
+        parameters: 
+            dirpath: path to dir where process and resource file are stored
+            release_times: list of release times for the process instances
+        
+        """
 
         if dirpath.is_dir():  # Ensure it's a directory
             process_file = next(Path(dirpath/"process").iterdir())  # Get the process file
