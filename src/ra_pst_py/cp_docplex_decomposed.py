@@ -190,8 +190,8 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, warm_start_json=None, lo
     counter = 0
     # Solve decomposed problem
     while (upper_bound - lower_bound)/upper_bound > 0.001: # Gap of .1
-        # if counter > 0:
-        #     print("\033[A\033[K", end="")  # Move up one line and clear it
+        if counter > 0:
+            print("\033[A\033[K", end="")  # Move up one line and clear it
         print(f"{counter:4.0f}: Lower bound: {lower_bound:.0f}, upper bound: {upper_bound:.0f}. Gap {100*(upper_bound-lower_bound)/upper_bound:.2f}%")
         # Solve master problem
         master_model.optimize()
