@@ -1,7 +1,7 @@
 from src.ra_pst_py.instance import Instance
 from src.ra_pst_py.core import Branch, RA_PST
 from src.ra_pst_py.cp_docplex import cp_solver, cp_solver_decomposed, cp_solver_alternative_new, cp_solver_scheduling_only
-from src.ra_pst_py.cp_docplex_decomposed import cp_solver_decomposed_strengthened_cuts
+from src.ra_pst_py.cp_docplex_decomposed import cp_solver_decomposed_strengthened_cuts, cp_subproblem
 from src.ra_pst_py.ilp import configuration_ilp
 
 from enum import Enum, StrEnum
@@ -249,7 +249,7 @@ class Simulator():
             self.save_schedule(schedule_dict)
 
             if warmstart:
-                result = cp_solver_decomposed_strengthened_cuts(self.schedule_filepath, TimeLimit=100)
+                result = cp_solver_decomposed_strengthened_cuts(self.schedule_filepath, TimeLimit=3000)
             else:
                 result = cp_solver(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", sigma=self.sigma, timeout=100)
             self.save_schedule(result)  
@@ -344,10 +344,9 @@ class Simulator():
             schedule_dict = self.add_ilp_rep_to_schedule(instance_ilp_rep, schedule_dict, queue_object)
             schedule_dict = self.ilp_to_schedule_file(result, schedule_dict, queue_object.instance.id)
             self.save_schedule(schedule_dict)
-        
+
         schedule_dict = cp_solver_scheduling_only(self.schedule_filepath, timeout=100, sigma=self.sigma)
         self.save_schedule(schedule_dict)
-        
         
     def all_instance_processing(self, warmstart:bool = False, decomposed:bool=False):
         """
@@ -365,10 +364,10 @@ class Simulator():
             self.create_warmstart_file(schedule_dict, self.task_queue)
             result = cp_solver(self.schedule_filepath, "tmp/warmstart.json")
         elif decomposed:
-            result = cp_solver_decomposed_strengthened_cuts(self.schedule_filepath, TimeLimit=100)
+            result = cp_solver_decomposed_strengthened_cuts(self.schedule_filepath, TimeLimit=3000)
         else:
             _, logfile = os.path.split(os.path.basename(self.schedule_filepath))
-            result = cp_solver(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", timeout=100, break_symmetries=False)
+            result = cp_solver(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", timeout=3000, break_symmetries=False)
         self.save_schedule(result)
             
     def create_warmstart_file(self, ra_psts:dict, queue_objects:list[QueueObject]):

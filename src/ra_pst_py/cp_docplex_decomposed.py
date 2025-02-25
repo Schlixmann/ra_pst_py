@@ -243,7 +243,7 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, TimeLimit = None):
     counter = 0
     # Solve decomposed problem
     while (upper_bound - lower_bound)/upper_bound > 0.001: # Gap of .1
-        print(f"{counter:4.0f}: Lower bound: {lower_bound}, upper bound: {upper_bound}. Gap {100*(upper_bound-lower_bound)/upper_bound:.2f}%")
+        print(f"{counter:4.0f}: Lower bound: {lower_bound}, upper bound: {upper_bound}. Gap {100*(upper_bound-lower_bound)/upper_bound:.2f}%. Elapsed time: {int(time.time() - starting_time)}")
         # Solve master problem
         master_model.optimize()
         lower_bound = master_model.objVal
@@ -318,7 +318,7 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, TimeLimit = None):
                     job["selected"] = 1
                     job["start"] = itv.get_start()
                     break
-                
+
         if ra_pst["fixed"] is False:
             ra_pst["fixed"] = True
         
@@ -330,6 +330,7 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, TimeLimit = None):
     ra_psts["solution"] = {
         "objective": upper_bound,
         "solver status": '?',
+        "lower_bound": lower_bound
     }
                 
     print(f"Lower bound: {lower_bound}, upper bound: {upper_bound}. Gap {100*(upper_bound-lower_bound)/upper_bound:.2f}%")
@@ -359,6 +360,7 @@ def lexicographic_counter(n, max_values, skipped):
                 
 
 def cp_subproblem(ra_psts, branches):
+    print("start subproblem")
     # Solve sub-problem
     resource_jobs = {}
     resource_costs = {}
@@ -395,6 +397,38 @@ def cp_subproblem(ra_psts, branches):
     subproblem_model.add(no_overlap(resource_jobs[resource]) for resource in ra_psts["resources"] if len(resource_jobs[resource]) > 1)
     # Objective
     subproblem_model.add(minimize(max(end_of(interval) for interval in all_jobs )))
-    schedule = subproblem_model.solve(LogVerbosity='Quiet', TimeLimit=100)
+    schedule = subproblem_model.solve(LogVerbosity="Quiet" , TimeLimit=100)
+    solve_details = schedule.get_solver_infos()
+    print(f"Scheduling Step finished after {solve_details.get('TotalTime', 'N/A')}")
+    create_schedule(ra_psts, schedule, all_jobs)
     return schedule, all_jobs
 
+def create_schedule(ra_psts, result, all_jobs):
+    all_job_names = {job.get_name():job for job in all_jobs}
+    intervals = []
+    for ra_pst in ra_psts["instances"]:
+        if not ra_pst["fixed"]:
+            for jobId, job in ra_pst["jobs"].items():
+                if jobId not in all_job_names: continue
+                itv = result.get_var_solution(all_job_names[jobId])
+                job["selected"] = itv.is_present()
+                job["start"] = itv.get_start()
+                #del job["interval"]
+
+        else:
+            for jobId, job in ra_pst["jobs"].items():
+                if "interval" in job.keys():
+                    itv = result.get_var_solution(ra_pst["jobs"][jobId]["interval"])
+                    job["start"] = itv.get_start()
+                    del job["interval"]
+        for branchId, branch in ra_pst["branches"].items():
+            if "selected" in branch.keys():
+                del branch["selected"]
+        ra_pst["fixed"] = True
+    
+        for jobId, job in ra_pst["jobs"].items():
+            if job["selected"]:
+                intervals.append(job)
+    
+    return ra_psts
+    

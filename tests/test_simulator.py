@@ -3,6 +3,8 @@ from src.ra_pst_py.simulator import Simulator, AllocationTypeEnum
 from src.ra_pst_py.heuristic import TaskAllocator
 from src.ra_pst_py.instance import Instance
 from src.ra_pst_py.schedule import Schedule, print_schedule
+from src.ra_pst_py.cp_docplex import cp_solver_scheduling_only
+from src.ra_pst_py.cp_docplex_decomposed import cp_subproblem
 
 from lxml import etree
 import unittest
@@ -24,12 +26,12 @@ class ScheduleTest(unittest.TestCase):
 #        )
         self.ra_pst = build_rapst(
             process_file="test_instances/tests_decomposed/Process_BPM_TestSet_30.xml",
-            resource_file="test_instances/tests_decomposed/(0.8, 0.2, 0.0)-skill_short_branch-3-early-resource_based-3-1-30.xml"
+            resource_file="testsets_random/30_instantArr/resources/(1, 0, 0.0)-random-3-early-normal-3-1-30.xml"
         )
-#        self.ra_pst = build_rapst(
-#            process_file="testsets_random/10_instantArr/process/BPM_TestSet_10.xml",
-#            resource_file="testsets_random/10_instantArr/resources/(0.8, 0.2, 0.0)-skill_short_branch-3-early-resource_based-2-1-10.xml"
-#        )
+        #self.ra_pst = build_rapst(
+        #    process_file="testsets_decomposed_paper/30_instantArr/process/BPM_TestSet_30.xml",
+        #    resource_file="testsets_decomposed_paper/30_instantArr/resources/00_(0.8, 0.2, 0.0)-random-3-early-normal-3-1-30.xml"
+        #)
         ilp_rep = self.ra_pst.get_ilp_rep()
         with open("tests/test_data/ilp_rep.json", "w") as f:
             json.dump(ilp_rep, f, indent=2)
@@ -243,10 +245,28 @@ class ScheduleTest(unittest.TestCase):
     def test_multiinstance_cp_decomposed(self):
 
         sched = Schedule()
-
-        release_times = [0,1,2]
+        release_times = [0,1,2,4,5,6,7,8,9]
         # Heuristic Single Task allocation
-        allocation_type = AllocationTypeEnum.ALL_INSTANCE_CP
+        allocation_type = AllocationTypeEnum.ALL_INSTANCE_CP_WARM
+        file = f"out/schedule_{str(allocation_type)}.json"
+        sim = Simulator(schedule_filepath=file)
+        for i, release_time in enumerate(release_times):
+            instance = Instance(copy.deepcopy(self.ra_pst), {}, sched, id=i)
+            instance.add_release_time(release_time)
+            sim.add_instance(instance, allocation_type)
+        sim.simulate()
+        with open(file, "r") as f:
+            data = json.load(f)
+            objective = data["solution"]["objective"]
+        target = 21
+        self.assertEqual(objective, target, "ALL_INSTANCE_CP: The found objective does not match the target value")
+
+    def test_multiinstance_ilp(self):
+
+        sched = Schedule()
+        release_times = [0,1,2,4,5,6,7,8,9]
+        # Heuristic Single Task allocation
+        allocation_type = AllocationTypeEnum.ALL_INSTANCE_ILP
         file = f"out/schedule_{str(allocation_type)}.json"
         sim = Simulator(schedule_filepath=file)
         for i, release_time in enumerate(release_times):
@@ -281,3 +301,28 @@ class ScheduleTest(unittest.TestCase):
             objective = data["solution"]["objective"]
         target = 23
         self.assertEqual(objective, target, "SINGLE_INSTANCE_CP: The found objective does not match the target value")
+
+
+    def test_ilp_scheduling_vs_subproblem(self):
+        schedule_file = "tests/test_comparison_data/cp_sched_vs_sub/schedule_all_instance_ilp3.json"
+
+        result_sched = cp_solver_scheduling_only(schedule_file)
+
+        with open(schedule_file, "r") as f:
+            schedule_dict = json.load(f)
+        
+        branches = set()
+        #schedule_dict = cp_solver_scheduling_only(self.schedule_filepath, timeout=100, sigma=self.sigma)
+        for instance in schedule_dict["instances"]:
+            instance["fixed"]=False
+            for jobId, job in instance["jobs"].items():
+                job["fixed"]=False
+                if job["selected"]:
+                    for branchId, branch in instance["branches"].items():
+                        if jobId in branch["jobs"]:
+                            branch["selected"] = True
+                            branches.add(branchId)
+
+        result_sub, all_jobs = cp_subproblem(schedule_dict, branches)
+        solve_details = result_sub.get_solver_infos()
+        print(f"CP_Sched: {result_sched["solution"]["objective"]} in {result_sched["solution"]["computing time"]}, Subproblem: {result_sub.get_objective_value()} in {solve_details.get('TotalTime', 'N/A')}")

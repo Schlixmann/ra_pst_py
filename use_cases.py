@@ -166,7 +166,7 @@ class EvalPipeline():
             
             if process_file.is_file() and resources_dir.exists():
                 # Iterate over each file in the resources directory
-                for resource_file in tqdm(resources_dir.iterdir()):
+                for resource_file in tqdm(sorted(resources_dir.iterdir(), reverse=True)):
                     if resource_file.is_file() and process_file.is_file():  # Ensure it's a file
                         ra_pst = build_rapst(process_file, resource_file)
                         ra_psts = [ra_pst for _ in range(len(release_times))]
@@ -176,6 +176,7 @@ class EvalPipeline():
                         # Sigma mean(Task_cost)
                         sigma = round(ra_pst.get_avg_cost())
                         
+                        """
                         # Setup Simulator for each allocation_type
                         print(f"Start heuristic allocation of {resource_file.name}")
                         schedule_path = dirpath / "evaluation" / "heuristic" / resource_file.name
@@ -203,24 +204,34 @@ class EvalPipeline():
                         self.add_ilp_data(schedule_path)
                         self.add_metadata_to_schedule(resource_file, schedule_path, ra_pst)
                         self.combine_info_during_solving(schedule_path)
-                        
+                        """
+
                         # Setup Simulator for scheduling optimal ilp
                         print(f"Start all_instance_ILP + CP allocation of {resource_file.name}")
-                        schedule_path = dirpath / "evaluation" / "all_instance_ilp" / resource_file.name
+                        schedule_path = dirpath / "evaluation" / "all_instance_ilp_new" / resource_file.name
                         schedule_path.parent.mkdir(parents=True, exist_ok=True)
                         self.setup_simulator(ra_psts, AllocationTypeEnum.ALL_INSTANCE_ILP, path_to_dir=schedule_path, release_times=release_times)
                         self.sim.simulate()
                         self.add_ilp_data(schedule_path)
                         self.add_metadata_to_schedule(resource_file, schedule_path, ra_pst)
                         
+                        """
+                        # Setup Simulator for CP_all 
+                        print(f"Start all_instance_CP_decomposed allocation of {resource_file.name}")
+                        schedule_path = dirpath / "evaluation" / "all_instance_cp_decomp" / resource_file.name
+                        schedule_path.parent.mkdir(parents=True, exist_ok=True)
+                        self.setup_simulator(ra_psts, AllocationTypeEnum.ALL_INSTANCE_CP_WARM, path_to_dir=schedule_path, release_times=release_times)
+                        self.sim.simulate()
+                        self.add_metadata_to_schedule(resource_file, schedule_path, ra_pst)
+
                         # Setup Simulator for CP_all 
                         print(f"Start all_instance_CP allocation of {resource_file.name}")
-                        schedule_path = dirpath / "evaluation" / "all_instance_cp" / resource_file.name
+                        schedule_path = dirpath / "evaluation" / "all_instance_cp_test" / resource_file.name
                         schedule_path.parent.mkdir(parents=True, exist_ok=True)
                         self.setup_simulator(ra_psts, AllocationTypeEnum.ALL_INSTANCE_CP, path_to_dir=schedule_path, release_times=release_times)
                         self.sim.simulate()
                         self.add_metadata_to_schedule(resource_file, schedule_path, ra_pst)
-                        
+                        """
                         print("==============")
                         print(f"Finish allocation of {resource_file.name}")
                         print("==============")
@@ -394,10 +405,16 @@ def generate_release_times(num_instances, mean_time_between_instances):
 
 if __name__ == "__main__":
 
-    root_path = Path("testsets_multi_instance")
+    root_path = Path("testsets_decomposed_paper")
     subdirectories =  [folder for folder in root_path.iterdir() if folder.is_dir()]
-    #subdirectories = subdirectories[2:6]
+    subdirectories = subdirectories[2:3]
     print(subdirectories)
+    for folder in subdirectories:
+        #release_times = generate_release_times(num_instances=10, mean_time_between_instances=random.randint(5, 50))
+        release_times = [0,0,0,0,0,0,0,0,0,0]
+        ep = EvalPipeline()
+        ep.run(folder, release_times)
+
 
     """
     num_instances = 10
@@ -419,7 +436,7 @@ if __name__ == "__main__":
             release_times = generate_release_times(num_instances=num_instances, mean_time_between_instances=random.randint(5, 50))
             ep = EvalPipeline()
             ep.run_release_spread(folder, release_times, i = i)
-    """
+    
 
     root_path = Path("testsets_multi_instance")
     subdirectories =  [folder for folder in root_path.iterdir() if folder.is_dir()]
@@ -433,3 +450,4 @@ if __name__ == "__main__":
             ep = EvalPipeline()
             ep.run_random_ra_psts(folder, release_times, i = i)
 
+    """

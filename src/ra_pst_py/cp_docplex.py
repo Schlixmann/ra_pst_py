@@ -680,7 +680,9 @@ def cp_solver_scheduling_only(ra_pst_json, warm_start_json=None, log_file = "cpo
 
     model = CpoModel()
     job_intervals = []
+    selected_jobs = []
     fixed_intervals = 0
+    active_intervals = 0
 
     for ra_pst in ra_psts["instances"]:
         min_time = 0
@@ -710,25 +712,34 @@ def cp_solver_scheduling_only(ra_pst_json, warm_start_json=None, log_file = "cpo
             for jobId, job in ra_pst["jobs"].items():
                 if job["selected"] == True:
                     job["interval"] = model.interval_var(name=jobId, optional=False, size=int(job["cost"]))
-                else:
-                    job["interval"] = model.interval_var(name=jobId, optional=True, size=int(0))
-                    model.add(presence_of(job["interval"]) == 0)
+                    # Start time must be > than release time if a release time for instance is given
+                    #if job["release_time"]:
+                    #    min_time = job["release_time"]
+                    active_intervals += 1
+                    job_intervals.append(job["interval"])
+                    selected_jobs.append(jobId)
+
+                #else:
+                #    job["interval"] = model.interval_var(name=jobId, optional=True, size=int(0))
+                #    model.add(presence_of(job["interval"]) == 0)
                     
-                # Start time must be > than release time if a release time for instance is given
-                if job["release_time"]:
-                    min_time = job["release_time"]
-                job["interval"].set_start_min(min_time)
-                job_intervals.append(job["interval"])
+
+                #job["interval"].set_start_min(min_time)
+                    
 
         # Precedence constraints
+        precedence_counter = 0
         for jobId, job in ra_pst["jobs"].items():
+            if not "interval" in job.keys(): continue
             for jobId2 in job["after"]:
-                if ra_pst["fixed"]:
-                    if ra_pst["jobs"][jobId]["selected"] & ra_pst["jobs"][jobId2]["selected"]:
+                if jobId2 in selected_jobs:
+                    if ra_pst["fixed"]:
+                        if ra_pst["jobs"][jobId]["selected"] & ra_pst["jobs"][jobId2]["selected"]:
+                            model.add(end_before_start(ra_pst["jobs"][jobId2]["interval"], ra_pst["jobs"][jobId]["interval"]))
+                    else:    
                         model.add(end_before_start(ra_pst["jobs"][jobId2]["interval"], ra_pst["jobs"][jobId]["interval"]))
-                else:    
-                    model.add(end_before_start(ra_pst["jobs"][jobId2]["interval"], ra_pst["jobs"][jobId]["interval"]))
-                    
+                        precedence_counter +=1
+                        
      # No overlap between jobs on the same resource   
     for r in ra_psts["resources"]:
         resource_intervals = []
@@ -736,7 +747,7 @@ def cp_solver_scheduling_only(ra_pst_json, warm_start_json=None, log_file = "cpo
             if ra_pst["fixed"]:
                 resource_intervals.extend([job["interval"] for job in ra_pst["jobs"].values() if (job["resource"] == r and job["selected"])])
             else:
-                resource_intervals.extend([job["interval"] for job in ra_pst["jobs"].values() if job["resource"] == r])
+                resource_intervals.extend([job["interval"] for job in ra_pst["jobs"].values() if job["resource"] == r if "interval" in job.keys()])
         if len(resource_intervals) > 0:
             model.add(no_overlap(resource_intervals))
     
@@ -755,6 +766,7 @@ def cp_solver_scheduling_only(ra_pst_json, warm_start_json=None, log_file = "cpo
     for ra_pst in ra_psts["instances"]:
         if not ra_pst["fixed"]:
             for jobId, job in ra_pst["jobs"].items():
+                if not "interval" in job.keys(): continue
                 itv = result.get_var_solution(ra_pst["jobs"][jobId]["interval"])
                 job["selected"] = itv.is_present()
                 job["start"] = itv.get_start()
