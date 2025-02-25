@@ -1,6 +1,7 @@
 from docplex.cp.model import *
 import json
 import random
+from math import comb
 
 import gurobipy as gp
 from gurobipy import GRB
@@ -210,7 +211,6 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, TimeLimit = None):
             for r in range(len(ra_psts["instances"]), 1, -1):
                 added_cut = False
                 for combination in itertools.combinations(configuration_branches, r):
-                    resource_lower_bounds = {resource: 0 for resource in ra_psts["resources"]}
                     max_length = max(len(c["resources"]) for c in combination)
                     resource_lb = [max([t + sum(c["resources"][t][resource] for c in combination if t < len(c["resources"])) for t in range(max_length)]) for resource in ra_psts["resources"]]
 
@@ -225,14 +225,13 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, TimeLimit = None):
                             full_resource_lb = subproblem_lb
                 if not added_cut: break
 
-            if full_resource_lb <= lower_bound or random.random() < 0.1:
-                schedule, all_jobs = cp_subproblem(ra_psts, selected_branches_extended)
-                # Solved subproblem: Set new upper bound
-                if schedule.get_objective_value() < upper_bound:
-                    upper_bound = schedule.get_objective_value()
-                    best_schedule = schedule
-                    best_jobs = all_jobs
-                master_model.addConstr(z >= schedule.get_objective_value() - (schedule.get_objective_value() - lower_bound) * gp.quicksum(1-branch["selected"] for ra_pst in ra_psts["instances"] for branchId, branch in ra_pst["branches"].items() if int(branch["selected"].x)))
+            schedule, all_jobs = cp_subproblem(ra_psts, selected_branches_extended, lower_bound=full_resource_lb)
+            # Solved subproblem: Set new upper bound
+            if schedule.get_objective_value() < upper_bound:
+                upper_bound = schedule.get_objective_value()
+                best_schedule = schedule
+                best_jobs = all_jobs
+            master_model.addConstr(z >= schedule.get_objective_value() - (schedule.get_objective_value() - lower_bound) * gp.quicksum(1-branch["selected"] for ra_pst in ra_psts["instances"] for branchId, branch in ra_pst["branches"].items() if int(branch["selected"].x)))
 
         counter += 1
         if TimeLimit is not None and time.time() - starting_time > TimeLimit:
@@ -250,7 +249,7 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, TimeLimit = None):
                 if jobId == itv.get_name():
                     job["selected"] = 1
                     job["start"] = itv.get_start()
-                    print(f'Job {jobId} on resource {job["resource"]} selected at {job["start"]} to {job["start"] + job["cost"]}')
+                    # print(f'Job {jobId} on resource {job["resource"]} selected at {job["start"]} to {job["start"] + job["cost"]}')
                     break
 
         
@@ -335,8 +334,7 @@ def ilp_masterproblem(ra_psts, upper_bound):
     return master_model, z, E, Q, Y
 
 
-def cp_subproblem(ra_psts, branches):
-    print("start subproblem")
+def cp_subproblem(ra_psts, branches, lower_bound=0):
     # Solve sub-problem
     resource_jobs = {}
     resource_costs = {}
@@ -358,7 +356,7 @@ def cp_subproblem(ra_psts, branches):
                         start_hr = int(job["start"])
                         end_hr = int(job["start"]) + int(job["cost"])
                         interval_var.set_start_min(start_hr)
-                        interval_var.set_start_max(start_hr)
+                        interval_var.set_start_max(start_hr + sigma)
                         interval_var.set_end_min(end_hr)
                         interval_var.set_end_max(end_hr)
                 else:
@@ -372,10 +370,17 @@ def cp_subproblem(ra_psts, branches):
     # No overlap between jobs on the same resource
     subproblem_model.add(no_overlap(resource_jobs[resource]) for resource in ra_psts["resources"] if len(resource_jobs[resource]) > 1)
     # Objective
-    subproblem_model.add(minimize(max(end_of(interval) for interval in all_jobs )))
+    makespan = max(end_of(interval) for interval in all_jobs)
+    subproblem_model.add(makespan >= lower_bound)
+    subproblem_model.add(minimize(makespan))
+    # Solve model
     print(f'Solving CP subproblem...')
     start_time = time.time()
-    schedule = subproblem_model.solve(LogVerbosity='Quiet', TimeLimit=100)
+    schedule = subproblem_model.solve(
+        LogVerbosity='Quiet', 
+        TimeLimit=100,
+        SearchType='IterativeDiving'
+        )
     print(f'Solved CP subproblem in {time.time() - start_time} seconds')
     return schedule, all_jobs
 
