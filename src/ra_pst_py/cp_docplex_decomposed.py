@@ -211,21 +211,10 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, TimeLimit = None):
                 added_cut = False
                 for combination in itertools.combinations(configuration_branches, r):
                     resource_lower_bounds = {resource: 0 for resource in ra_psts["resources"]}
-                    instance_count = [0 for _ in range(len(ra_psts["instances"]))]
-                    instance_jobs = [[{"cost": ra_psts["instances"][c["instance"]]["jobs"][jobId]["cost"], "resource": ra_psts["instances"][c["instance"]]["jobs"][jobId]["resource"]} for branchId in c["branches"] for jobId in ra_psts["instances"][c["instance"]]["branches"][branchId]["jobs"]] for c in combination]
-                    i = 0
-                    next_job = True
-                    while next_job:
-                        next_job = False
-                        for instance in range(len(instance_jobs)):
-                            if i >= len(instance_jobs[instance]): continue
-                            next_job = True
-                            if resource_lower_bounds[instance_jobs[instance][i]["resource"]] < instance_count[instance]:
-                                resource_lower_bounds[instance_jobs[instance][i]["resource"]] = instance_count[instance]
-                            resource_lower_bounds[instance_jobs[instance][i]["resource"]] += instance_jobs[instance][i]["cost"]
-                            instance_count[instance] += instance_jobs[instance][i]["cost"]
-                        i += 1
-                    subproblem_lb = max(resource_lower_bounds.values())
+                    max_length = max(len(c["resources"]) for c in combination)
+                    resource_lb = [max([t + sum(c["resources"][t][resource] for c in combination if t < len(c["resources"])) for t in range(max_length)]) for resource in ra_psts["resources"]]
+
+                    subproblem_lb = max(resource_lb)
 
                     if subproblem_lb > lower_bound:
                         # print(f"Subproblem lower bound: {subproblem_lb} - {lower_bound}")
@@ -386,6 +375,6 @@ def cp_subproblem(ra_psts, branches):
     print(f'Solving CP subproblem...')
     start_time = time.time()
     schedule = subproblem_model.solve(LogVerbosity='Quiet', TimeLimit=100)
-    print(f'Solved CP subproblem in {time.time() - start_time}s')
+    print(f'Solved CP subproblem in {time.time() - start_time} seconds')
     return schedule, all_jobs
 
