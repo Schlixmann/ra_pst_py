@@ -26,7 +26,7 @@ class ScheduleTest(unittest.TestCase):
 #        )
         self.ra_pst = build_rapst(
             process_file="test_instances/tests_decomposed/Process_BPM_TestSet_30.xml",
-            resource_file="testsets_random/30_instantArr/resources/(1, 0, 0.0)-random-3-early-normal-3-1-30.xml"
+            resource_file="test_instances/tests_decomposed/(0.8, 0.2, 0.0)-skill_short_branch-3-early-resource_based-3-1-30.xml"
         )
         #self.ra_pst = build_rapst(
         #    process_file="testsets_decomposed_paper/30_instantArr/process/BPM_TestSet_30.xml",
@@ -284,7 +284,7 @@ class ScheduleTest(unittest.TestCase):
     def test_single_instance_cp_decomposed(self):
         release_times = [0,1,2]
         # Heuristic Single Task allocation
-        allocation_type = AllocationTypeEnum.SINGLE_INSTANCE_CP_WARM
+        allocation_type = AllocationTypeEnum.SINGLE_INSTANCE_CP_DECOMPOSED
         file = f"out/schedule_{str(allocation_type)}.json"
         sim = Simulator(schedule_filepath=file)
         for i, release_time in enumerate(release_times):
@@ -325,4 +325,4 @@ class ScheduleTest(unittest.TestCase):
 
         result_sub, all_jobs = cp_subproblem(schedule_dict, branches)
         solve_details = result_sub.get_solver_infos()
-        print(f"CP_Sched: {result_sched["solution"]["objective"]} in {result_sched["solution"]["computing time"]}, Subproblem: {result_sub.get_objective_value()} in {solve_details.get('TotalTime', 'N/A')}")
+        print(f"CP_Sched: {result_sched['solution']['objective']} in {result_sched['solution']['computing time']}, Subproblem: {result_sub.get_objective_value()} in {solve_details.get('TotalTime', 'N/A')}")

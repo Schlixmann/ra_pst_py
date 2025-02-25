@@ -356,7 +356,7 @@ def cp_subproblem(ra_psts, branches, lower_bound=0):
                         start_hr = int(job["start"])
                         end_hr = int(job["start"]) + int(job["cost"])
                         interval_var.set_start_min(start_hr)
-                        interval_var.set_start_max(start_hr + sigma)
+                        interval_var.set_start_max(start_hr) # + sigma
                         interval_var.set_end_min(end_hr)
                         interval_var.set_end_max(end_hr)
                 else:
@@ -374,14 +374,14 @@ def cp_subproblem(ra_psts, branches, lower_bound=0):
     subproblem_model.add(makespan >= lower_bound)
     subproblem_model.add(minimize(makespan))
     # Solve model
-    print(f'Solving CP subproblem...')
+    # print(f'Solving CP subproblem...')
     start_time = time.time()
     schedule = subproblem_model.solve(
         LogVerbosity='Quiet', 
         TimeLimit=100,
         SearchType='IterativeDiving'
         )
-    print(f'Solved CP subproblem in {time.time() - start_time} seconds')
+    # print(f'Solved CP subproblem in {time.time() - start_time} seconds')
     return schedule, all_jobs
 
 def create_schedule(ra_psts, result, all_jobs):
