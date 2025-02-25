@@ -18,7 +18,7 @@ class AllocationTypeEnum(StrEnum):
     HEURISTIC = "heuristic"
     SINGLE_INSTANCE_HEURISTIC = "single_instance_heuristic"
     SINGLE_INSTANCE_CP = "single_instance_cp"
-    SINGLE_INSTANCE_CP_WARM = "single_instance_cp_warm"
+    SINGLE_INSTANCE_CP_DECOMPOSED = "single_instance_cp_decomposed"
     ALL_INSTANCE_CP = "all_instance_cp"
     ALL_INSTANCE_CP_WARM = "all_instance_cp_warm"
     SINGLE_INSTANCE_CP_REPLAN = "single_instance_replan"
@@ -97,9 +97,9 @@ class Simulator():
         elif self.allocation_type == AllocationTypeEnum.SINGLE_INSTANCE_CP:
             # Create ra_psts for next instance in task_queue
             self.single_instance_processing()
-        elif self.allocation_type == AllocationTypeEnum.SINGLE_INSTANCE_CP_WARM:
+        elif self.allocation_type == AllocationTypeEnum.SINGLE_INSTANCE_CP_DECOMPOSED:
             # Create ra_psts for next instance in task_queue
-            self.single_instance_processing(warmstart=True)
+            self.single_instance_processing(decomposed=True)
         elif self.allocation_type == AllocationTypeEnum.ALL_INSTANCE_CP:
             self.all_instance_processing()
         elif self.allocation_type == AllocationTypeEnum.ALL_INSTANCE_CP_WARM:
@@ -232,7 +232,7 @@ class Simulator():
         end = time.time()
         self.add_allocation_metadata(float(end-start))
     
-    def single_instance_processing(self, warmstart:bool = False, decomposed:bool=False):
+    def single_instance_processing(self, decomposed:bool=False):
         """
         Allocates each instance on arrival. 
         Already scheduled instances are in the schedule and are added to the cp as fixed. 
@@ -248,11 +248,11 @@ class Simulator():
             #    self.create_warmstart_file(schedule_dict, [queue_object])
             self.save_schedule(schedule_dict)
 
-            if warmstart:
-                result = cp_solver_decomposed_strengthened_cuts(self.schedule_filepath, TimeLimit=3000)
+            if decomposed:
+                result = cp_solver_decomposed_strengthened_cuts(self.schedule_filepath, TimeLimit=10)
             else:
                 result = cp_solver(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", sigma=self.sigma, timeout=100)
-            self.save_schedule(result)  
+            self.save_schedule(result)
 
 
     def single_instance_replan(self, warmstart:bool = False):
@@ -364,7 +364,7 @@ class Simulator():
             self.create_warmstart_file(schedule_dict, self.task_queue)
             result = cp_solver(self.schedule_filepath, "tmp/warmstart.json")
         elif decomposed:
-            result = cp_solver_decomposed_strengthened_cuts(self.schedule_filepath, TimeLimit=3000)
+            result = cp_solver_decomposed_strengthened_cuts(self.schedule_filepath, TimeLimit=10)
         else:
             _, logfile = os.path.split(os.path.basename(self.schedule_filepath))
             result = cp_solver(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", timeout=3000, break_symmetries=False)
