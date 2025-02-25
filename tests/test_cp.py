@@ -53,8 +53,8 @@ class DocplexTest(unittest.TestCase):
             resource_file="test_instances/offer_resources_plain_fully_synthetic_small.xml"
         )
         self.ra_pst = build_rapst(
-            process_file="testsets/30_generated/process/BPM_TestSet_30.xml",
-            resource_file="testsets/30_generated/resources/(0.8, 0.2, 0.0)-skill_short_branch-3-early-resource_based-30.xml"
+            process_file="test_instances/tests_decomposed/Process_BPM_TestSet_30.xml",
+            resource_file="test_instances/tests_decomposed/(0.8, 0.2, 0.0)-skill_short_branch-3-early-resource_based-3-1-30.xml"
         )
         ilp_rep = self.ra_pst.get_ilp_rep()
         ilp_dict = {"instances" : []}
@@ -97,14 +97,14 @@ class DocplexTest(unittest.TestCase):
         ra_psts = {}
         ra_psts["instances"] = []
 
-        for i in range(20):
+        for i in range(30):
             ilp_rep = self.ra_pst.get_ilp_rep(instance_id=f'i{i+1}')
 
             ra_psts["instances"].append(ilp_rep)
         ra_psts["resources"] = ilp_rep["resources"]
         with open("tests/test_data/ilp_rep.json", "w") as f:
             json.dump(ra_psts, f, indent=2)
-        result = cp_solver_decomposed_strengthened_cuts("tests/test_data/ilp_rep.json", TimeLimit=1300)
+        result = cp_solver_decomposed_strengthened_cuts("tests/test_data/ilp_rep.json", TimeLimit=3000)
         # print([branch for branch in result["branches"] if branch["selected"] == 1])
         print(result["solution"]["objective"])
         with open("tests/test_data/cp_result.json", "w") as f:
