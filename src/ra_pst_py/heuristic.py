@@ -67,15 +67,15 @@ class TaskNode():
     
     def add_all_times_to_branch(self):
         if self.cp_type != CPType_Enum.DELETE:
-            release_time = etree.SubElement(self.task, f"{{{self.ns["cpee1"]}}}release_time")
+            release_time = etree.SubElement(self.task, f"{{{self.ns['cpee1']}}}release_time")
             release_time.text = str(self.release_time)
-            start_element = etree.SubElement(self.task, f"{{{self.ns["cpee1"]}}}expected_start")
+            start_element = etree.SubElement(self.task, f"{{{self.ns['cpee1']}}}expected_start")
             start_element.text = str(self.earliest_start)
-            end_element = etree.SubElement(self.task, f"{{{self.ns["cpee1"]}}}expected_end")
+            end_element = etree.SubElement(self.task, f"{{{self.ns['cpee1']}}}expected_end")
             end_element.text = str(self.earliest_start+self.duration)
         else:
             if self.deletion_savings < 0:
-                delete_element = etree.SubElement(self.task, f"{{{self.ns["cpee1"]}}}expected_delete")
+                delete_element = etree.SubElement(self.task, f"{{{self.ns['cpee1']}}}expected_delete")
                 delete_element.text = str(self.deletion_savings)
         for child in self.change_patterns:
             child.add_all_times_to_branch()
