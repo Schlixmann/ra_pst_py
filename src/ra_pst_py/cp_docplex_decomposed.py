@@ -378,6 +378,8 @@ def cp_subproblem(ra_psts, branches, lower_bound=0, sigma:int=0):
             if not branchId in branches: continue
             for jobId in branch["jobs"]:
                 interval_var = subproblem_model.interval_var(name=jobId, optional=False, size=int(ra_pst["jobs"][jobId]["cost"]))
+                if "release_time" in ra_pst["jobs"][jobId].keys():
+                    interval_var.set_start_min(ra_pst["jobs"][jobId]["release_time"])
                 if ra_pst["fixed"]:
                     job = ra_pst["jobs"][jobId]
                     if job["start"] is not None:
