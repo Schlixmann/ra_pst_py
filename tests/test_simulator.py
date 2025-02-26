@@ -28,10 +28,18 @@ class ScheduleTest(unittest.TestCase):
             process_file="test_instances/tests_decomposed/Process_BPM_TestSet_30.xml",
             resource_file="test_instances/tests_decomposed/(0.8, 0.2, 0.0)-skill_short_branch-3-early-resource_based-3-1-30.xml"
         )
+        self.ra_pst = build_rapst(
+            process_file="testsets_decomposed_paper/10_instantArr/process/BPM_TestSet_10.xml",
+            resource_file="testsets_decomposed_paper/10_instantArr/resources/simple-10.xml"
+        )
         #self.ra_pst = build_rapst(
         #    process_file="testsets_decomposed_paper/30_instantArr/process/BPM_TestSet_30.xml",
         #    resource_file="testsets_decomposed_paper/30_instantArr/resources/00_(0.8, 0.2, 0.0)-random-3-early-normal-3-1-30.xml"
         #)
+        self.ra_pst = build_rapst(
+            process_file="testsets_decomposed_paper/10_instantArr/process/BPM_TestSet_10.xml",
+            resource_file="testsets_decomposed_paper/10_instantArr/resources/(0.8, 0.2, 0.0)-skill_short_branch-3-early-resource_based-3-1-10.xml"
+        )
         ilp_rep = self.ra_pst.get_ilp_rep()
         with open("tests/test_data/ilp_rep.json", "w") as f:
             json.dump(ilp_rep, f, indent=2)
@@ -101,8 +109,8 @@ class ScheduleTest(unittest.TestCase):
     def test_multiinstance_cp_sim(self):
 
         sched = Schedule()
-
-        release_times = [0,1,2]
+        show_tree_as_graph(self.ra_pst)
+        release_times = [0 for _ in range(8)]
         # Heuristic Single Task allocation
         allocation_type = AllocationTypeEnum.ALL_INSTANCE_CP
         file = f"out/schedule_{str(allocation_type)}.json"

@@ -357,12 +357,15 @@ def ilp_masterproblem(ra_psts, upper_bound):
                 master_model.addConstr(E[resource] >= gp.quicksum(branchPred["branchCost"] * branchPred["selected"] for b, branchPred in enumerate(ra_pst["branches"].values()) if b < i) + branch["release_times"][resource]*branch["selected"] - upper_bound*(1 - Q[resource][branchId]))
     # Get the maximum bin size of the selected branches
     master_model.addConstrs(z >= E[r] + gp.quicksum(branch["selected"] * branch["branch_jobs"][r] for ra_pst in ra_psts["instances"] for branch in ra_pst["branches"].values()) for r in ra_psts["resources"])
+    for ra_pst in ra_psts["instances"]:
+        master_model.addConstr(z >= gp.quicksum(branch["selected"]*branch["branchCost"] for branch in ra_pst["branches"].values()))
     # Objective
     master_model.setObjective(z, GRB.MINIMIZE)
     return master_model, z, E, Q, Y
 
 
 def cp_subproblem(ra_psts, branches, lower_bound=0, sigma:int=0):
+    print("start subproblem")
     # Solve sub-problem
     resource_jobs = {}
     resource_costs = {}
@@ -372,6 +375,7 @@ def cp_subproblem(ra_psts, branches, lower_bound=0, sigma:int=0):
         resource_costs[resource] = 0
     subproblem_model = CpoModel(name="subproblem")
     for ra_pst in ra_psts["instances"]:
+        instance_jobs = []
         previous_branch_job = None
         for branchId, branch in ra_pst["branches"].items():
             # print(f'branch {branchId}: {int(branch["selected"].x)}')
@@ -396,6 +400,8 @@ def cp_subproblem(ra_psts, branches, lower_bound=0, sigma:int=0):
                 resource_costs[ra_pst["jobs"][jobId]["resource"]] += int(ra_pst["jobs"][jobId]["cost"])
                 previous_branch_job = interval_var
                 all_jobs.append(interval_var)
+                instance_jobs.append(interval_var)
+        subproblem_model.add(no_overlap(instance_jobs))
     
     # No overlap between jobs on the same resource
     subproblem_model.add(no_overlap(resource_jobs[resource]) for resource in ra_psts["resources"] if len(resource_jobs[resource]) > 1)
@@ -404,14 +410,18 @@ def cp_subproblem(ra_psts, branches, lower_bound=0, sigma:int=0):
     subproblem_model.add(makespan >= lower_bound)
     subproblem_model.add(minimize(makespan))
     # Solve model
-    # print(f'Solving CP subproblem...')
+    print(f'Solving CP subproblem... {len(all_jobs)}')
     start_time = time.time()
     schedule = subproblem_model.solve(
         LogVerbosity='Quiet', 
-        TimeLimit=100,
+        TimeLimit=5,
+        OptimalityTolerance=0.05,
         SearchType='IterativeDiving'
         )
-    # print(f'Solved CP subproblem in {time.time() - start_time} seconds')
+    if schedule.get_solve_status() == "Infeasible":
+        raise ValueError("Infeasible model")
+    
+    print(f'Solved CP subproblem in {schedule.get_solve_time()} seconds, objective = {schedule.get_objective_value()}, Bounds: {schedule.get_objective_bound()}, Gap: {schedule.get_objective_value()-schedule.get_objective_bound()}, {schedule.get_objective_gap()}')
     return schedule, all_jobs
 
 def create_schedule(ra_psts, result, all_jobs):

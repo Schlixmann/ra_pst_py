@@ -35,7 +35,7 @@ def show_schedule(path):
                         orientation="h",
                         name=f"Sequence {sequences.index(instance)}, {len([job for job in instance['jobs'].values() if job['selected']])}",
                         legendgroup=f"Sequence {sequences.index(instance)}",  # Group legend entries
-                        showlegend=first_job,
+                        #showlegend=first_job,
                         text=f"Task: {job_ref}<br>Branch: {job['branch']}",
                         hoverinfo="text",
                         marker=dict(color=colors[int(sequences.index(instance))]),
@@ -68,9 +68,9 @@ def show_full_dir(path_to_dir:os.PathLike):
 
 if __name__ == "__main__":
     #show_schedule("out/schedule_heuristic.json")
-    show_schedule("out/schedule_all_instance_ilp.json")
-    show_schedule("json.test")
-    #show_schedule("out/schedule_single_instance_cp_warm.json")
+    #show_schedule("out/schedule_all_instance_ilp.json")
+    #show_schedule("tests/test_data/cp_result.json")
+    show_schedule("out/schedule_all_instance_cp.json")
     #show_schedule("out/schedule_all_instance_cp.json")
 
     #show_full_dir("evaluation/paper_process_first_invalids")

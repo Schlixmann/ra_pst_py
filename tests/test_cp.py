@@ -53,8 +53,16 @@ class DocplexTest(unittest.TestCase):
             resource_file="test_instances/offer_resources_plain_fully_synthetic_small.xml"
         )
         self.ra_pst = build_rapst(
-            process_file="test_instances/tests_decomposed/Process_BPM_TestSet_30.xml",
-            resource_file="test_instances/tests_decomposed/(0.8, 0.2, 0.0)-skill_short_branch-3-early-resource_based-3-1-30.xml"
+            process_file="testsets_decomposed_paper/10_instantArr/process/BPM_TestSet_10.xml",
+            resource_file="testsets_decomposed_paper/10_instantArr/resources/simple-10.xml"
+        )
+        self.ra_pst = build_rapst(
+            process_file="testsets_decomposed_paper/10_instantArr/process/BPM_TestSet_2_Clinic.xml",
+            resource_file="testsets_decomposed_paper/10_instantArr/resources/Clinig_res.xml"
+        )
+        self.ra_pst = build_rapst(
+            process_file="testsets_decomposed_paper/10_instantArr/process/BPM_TestSet_10.xml",
+            resource_file="testsets_decomposed_paper/10_instantArr/resources/(0.8, 0.2, 0.0)-skill_short_branch-3-early-resource_based-3-1-10.xml"
         )
         ilp_rep = self.ra_pst.get_ilp_rep()
         ilp_dict = {"instances" : []}
@@ -96,15 +104,16 @@ class DocplexTest(unittest.TestCase):
         self.setUp()
         ra_psts = {}
         ra_psts["instances"] = []
-
-        for i in range(30):
+        show_tree_as_graph(self.ra_pst)
+        print(self.ra_pst.get_problem_size())
+        for i in range(8):
             ilp_rep = self.ra_pst.get_ilp_rep(instance_id=f'i{i+1}')
 
             ra_psts["instances"].append(ilp_rep)
         ra_psts["resources"] = ilp_rep["resources"]
         with open("tests/test_data/ilp_rep.json", "w") as f:
             json.dump(ra_psts, f, indent=2)
-        result = cp_solver_decomposed_strengthened_cuts("tests/test_data/ilp_rep.json", TimeLimit=3000)
+        result = cp_solver_decomposed_strengthened_cuts("tests/test_data/ilp_rep.json", TimeLimit=600)
         # print([branch for branch in result["branches"] if branch["selected"] == 1])
         print(result["solution"]["objective"])
         with open("tests/test_data/cp_result.json", "w") as f:

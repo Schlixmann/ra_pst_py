@@ -367,7 +367,7 @@ class Simulator():
             result = cp_solver_decomposed_strengthened_cuts(self.schedule_filepath, TimeLimit=10)
         else:
             _, logfile = os.path.split(os.path.basename(self.schedule_filepath))
-            result = cp_solver(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", timeout=3000, break_symmetries=False)
+            result = cp_solver(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", timeout=600, break_symmetries=False)
         self.save_schedule(result)
             
     def create_warmstart_file(self, ra_psts:dict, queue_objects:list[QueueObject]):
