@@ -355,8 +355,41 @@ def ilp_masterproblem(ra_psts, upper_bound):
         for ra_pst in ra_psts["instances"]:
             for i, branch in enumerate(ra_pst["branches"].values()):
                 master_model.addConstr(E[resource] >= gp.quicksum(branchPred["branchCost"] * branchPred["selected"] for b, branchPred in enumerate(ra_pst["branches"].values()) if b < i) + branch["release_times"][resource]*branch["selected"] - upper_bound*(1 - Q[resource][branchId]))
+    # Find the minimum tail time of any selected job on resource r. 
+    Y2 = {}
+    E2 = {}
+    Q2 = {}
+    for resource in ra_psts["resources"]:
+        Y2[resource] = master_model.addVar(vtype=(GRB.BINARY), name=f'Y2_{resource}')
+        E2[resource] = master_model.addVar(vtype=(GRB.CONTINUOUS), name=f'E2_{resource}')
+        Q2[resource] = {}
+    for ra_pst in ra_psts["instances"]:
+        for branchId, branch in ra_pst["branches"].items():
+            past_resources = []
+            branch_cost = 0
+            release_times = {resource: 0 for resource in ra_psts["resources"]}
+            for jobId in branch["jobs"]:
+                if ra_pst["jobs"][jobId]["resource"] in past_resources: continue
+                past_resources.append(ra_pst["jobs"][jobId]["resource"])
+                release_times[ra_pst["jobs"][jobId]["resource"]] = branch_cost
+                branch_cost += ra_pst["jobs"][jobId]["cost"]
+            branch["resources"] = past_resources
+            branch["release_times"] = release_times
+            for resource in ra_psts["resources"]:
+                Q2[resource][branchId] = master_model.addVar(vtype=(GRB.CONTINUOUS), name=f'Q2_{resource}_{branchId}')
+    # Constraints
+    for ra_pst in ra_psts["instances"]:
+        for branchId, branch in ra_pst["branches"].items():
+            for jobId in branch["jobs"]:
+                master_model.addConstr(Y2[ra_pst["jobs"][jobId]["resource"]] >= branch["selected"])
+                master_model.addConstr(Q2[ra_pst["jobs"][jobId]["resource"]][branchId] <= branch["selected"])
+    for resource in ra_psts["resources"]:
+        master_model.addConstr(gp.quicksum(Q2[resource][branchId] for ra_pst in ra_psts["instances"] for branchId, branch in ra_pst["branches"].items() if resource in branch["resources"]) == Y2[resource])
+        for ra_pst in ra_psts["instances"]:
+            for i, branch in enumerate(ra_pst["branches"].values()):
+                master_model.addConstr(E2[resource] >= gp.quicksum(branchPred["branchCost"] * branchPred["selected"] for b, branchPred in enumerate(ra_pst["branches"].values()) if b >= i) - branch["release_times"][resource]*branch["selected"] - upper_bound*(1 - Q2[resource][branchId]))
     # Get the maximum bin size of the selected branches
-    master_model.addConstrs(z >= E[r] + gp.quicksum(branch["selected"] * branch["branch_jobs"][r] for ra_pst in ra_psts["instances"] for branch in ra_pst["branches"].values()) for r in ra_psts["resources"])
+    master_model.addConstrs(z >= E[r] + E2[r] + gp.quicksum(branch["selected"] * branch["branch_jobs"][r] for ra_pst in ra_psts["instances"] for branch in ra_pst["branches"].values()) for r in ra_psts["resources"])
     # Objective
     master_model.setObjective(z, GRB.MINIMIZE)
     return master_model, z, E, Q, Y
@@ -364,15 +397,12 @@ def ilp_masterproblem(ra_psts, upper_bound):
 
 def cp_subproblem(ra_psts, branches, lower_bound=0, sigma:int=0):
     # Solve sub-problem
-    resource_jobs = {}
-    resource_costs = {}
+    resource_jobs = {resource: [] for resource in ra_psts["resources"]}
     all_jobs = []
-    for resource in ra_psts["resources"]:
-        resource_jobs[resource] = []
-        resource_costs[resource] = 0
     subproblem_model = CpoModel(name="subproblem")
     for ra_pst in ra_psts["instances"]:
-        previous_branch_job = None
+        previous_branch_jobs = []
+        instance_cost = 0
         for branchId, branch in ra_pst["branches"].items():
             # print(f'branch {branchId}: {int(branch["selected"].x)}')
             if not branchId in branches: continue
@@ -389,13 +419,12 @@ def cp_subproblem(ra_psts, branches, lower_bound=0, sigma:int=0):
                         interval_var.set_start_max(start_hr + sigma)
                         interval_var.set_end_min(end_hr)
                         interval_var.set_end_max(end_hr + sigma)
-                else:
-                    if previous_branch_job is not None:
-                        subproblem_model.add(end_before_start(previous_branch_job, interval_var))
+                for previous_branch_job in previous_branch_jobs:
+                    subproblem_model.add(end_before_start(previous_branch_job, interval_var))
                 resource_jobs[ra_pst["jobs"][jobId]["resource"]].append(interval_var)
-                resource_costs[ra_pst["jobs"][jobId]["resource"]] += int(ra_pst["jobs"][jobId]["cost"])
-                previous_branch_job = interval_var
+                previous_branch_jobs.append(interval_var)
                 all_jobs.append(interval_var)
+                instance_cost += int(ra_pst["jobs"][jobId]["cost"])
     
     # No overlap between jobs on the same resource
     subproblem_model.add(no_overlap(resource_jobs[resource]) for resource in ra_psts["resources"] if len(resource_jobs[resource]) > 1)
@@ -408,8 +437,9 @@ def cp_subproblem(ra_psts, branches, lower_bound=0, sigma:int=0):
     start_time = time.time()
     schedule = subproblem_model.solve(
         LogVerbosity='Quiet', 
-        TimeLimit=100,
-        SearchType='IterativeDiving'
+        TimeLimit=5,
+        SearchType='IterativeDiving',
+        OptimalityTolerance=0.05
         )
     # print(f'Solved CP subproblem in {time.time() - start_time} seconds')
     return schedule, all_jobs
