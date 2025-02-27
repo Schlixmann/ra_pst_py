@@ -49,9 +49,6 @@ def cp_solver_decomposed_monotone_cuts(ra_pst_json, TimeLimit = None):
     for i, instance in enumerate(ra_psts["instances"]):
         if "fixed" not in instance.keys():
             instance["fixed"] = False
-        inst_prefix = str(list(instance["tasks"].keys())[0]).split("-")[0]
-        for key, value in instance["branches"].items():
-            value["deletes"] = [str(inst_prefix) + f"-{element}"for element in value["deletes"]]
     
     #-----------------------------------------------------------------------------
     # Build the model
@@ -73,8 +70,12 @@ def cp_solver_decomposed_monotone_cuts(ra_pst_json, TimeLimit = None):
 
     counter = 0
     # Solve decomposed problem
+    schedule = None
     while (upper_bound - lower_bound)/upper_bound > 0.001: # Gap of .1
-        print(f"{counter:4.0f}: Lower bound: {lower_bound}, upper bound: {upper_bound}. Gap {100*(upper_bound-lower_bound)/upper_bound:.2f}%")
+        #print(f"{counter:4.0f}: Lower bound: {lower_bound}, upper bound: {upper_bound}. Gap {100*(upper_bound-lower_bound)/upper_bound:.2f}%")
+        if counter > 0:
+            print("\033[A\033[K", end="")  # Move up one line and clear it
+        print(f"{counter:4.0f} Montone: Lower bound: {lower_bound:.0f}, upper bound: {upper_bound:.0f}. Gap {100*(upper_bound-lower_bound)/upper_bound:.2f}%")
         # Solve master problem
         master_model.optimize()
         lower_bound = master_model.objVal
@@ -91,8 +92,7 @@ def cp_solver_decomposed_monotone_cuts(ra_pst_json, TimeLimit = None):
                 best_schedule = schedule
                 best_jobs = all_jobs
             # Add monotone cut
-            master_model.addConstr(z >= schedule.get_objective_value() - (schedule.get_objective_value() - lower_bound) * gp.quicksum(1-branch["selected"] for ra_pst in ra_psts["instances"] for branchId, branch in ra_pst["branches"].items() if int(branch["selected"].x)))
-
+            master_model.addConstr(z >= schedule.get_objective_value() - (schedule.get_objective_value() - lower_bound) * gp.quicksum(1-branch["selected"] for ra_pst in ra_psts["instances"] for branchId, branch in ra_pst["branches"].items() if branch["selected"].x))
         counter += 1
         if TimeLimit is not None and time.time() - start_time > TimeLimit:
             break
@@ -116,6 +116,7 @@ def cp_solver_decomposed_monotone_cuts(ra_pst_json, TimeLimit = None):
     ra_psts["solution"] = {
         "objective": upper_bound,
         "solver status": '?',
+        "lower_bound": lower_bound
     }
                 
     print(f"Lower bound: {lower_bound}, upper bound: {upper_bound}. Gap {100*(upper_bound-lower_bound)/upper_bound:.2f}%")
@@ -192,7 +193,7 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, warm_start_json=None, lo
     while (upper_bound - lower_bound)/upper_bound > 0.001: # Gap of .1
         if counter > 0:
             print("\033[A\033[K", end="")  # Move up one line and clear it
-        print(f"{counter:4.0f}: Lower bound: {lower_bound:.0f}, upper bound: {upper_bound:.0f}. Gap {100*(upper_bound-lower_bound)/upper_bound:.2f}%")
+        print(f"{counter:4.0f}, Strengthened: Lower bound: {lower_bound:.0f}, upper bound: {upper_bound:.0f}. Gap {100*(upper_bound-lower_bound)/upper_bound:.2f}%")
         # Solve master problem
         master_model.optimize()
         lower_bound = master_model.objVal
@@ -252,7 +253,7 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, warm_start_json=None, lo
                 best_schedule = schedule
                 best_jobs = all_jobs
                 best_branches = selected_branches_extended
-            master_model.addConstr(z >= schedule.get_objective_value() - (schedule.get_objective_value() - lower_bound) * gp.quicksum(1-branch["selected"] for ra_pst in ra_psts["instances"] for branchId, branch in ra_pst["branches"].items() if not ra_pst["fixed"] and int(branch["selected"].x)))
+            master_model.addConstr(z >= schedule.get_objective_value() - (schedule.get_objective_value() - lower_bound) * gp.quicksum(1-branch["selected"] for ra_pst in ra_psts["instances"] for branchId, branch in ra_pst["branches"].items() if not ra_pst["fixed"] and branch["selected"].x))
 
         counter += 1
         if TimeLimit is not None and time.time() - starting_time > TimeLimit:
@@ -260,7 +261,8 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, warm_start_json=None, lo
             break
         # for resourceId, e in E.items():
         #     print(f'E_{resourceId}: {e.X}')
-
+    
+    computing_time = time.time() - starting_time
     for ra_pst in ra_psts["instances"]:
         if ra_pst["fixed"]: continue
         for jobId, job in ra_pst["jobs"].items():
@@ -275,25 +277,35 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, warm_start_json=None, lo
                     job["start"] = itv.get_start()
                     # print(f'Job {jobId} on resource {job["resource"]} selected at {job["start"]} to {job["start"] + job["cost"]}')
                     break
-    
+
+    total_branch_costs = []
     for ra_pst in ra_psts["instances"]:
         if ra_pst["fixed"]: continue
         for branchId, branch in ra_pst["branches"].items():
             if branchId in best_branches:
                 branch["selected"] = 1
+                total_branch_costs.append(branch["branchCost"])
                 continue
             branch["selected"] = 0
         ra_pst["fixed"] = True
 
     # solve_details = result.get_solver_infos()
+    ra_psts["instances"][-1]["solution"] = {
+        "objective": upper_bound,
+        "solver status": '?',
+        "lower_bound": lower_bound,
+        "computing time" : computing_time, 
+        "total interval length" : sum(total_branch_costs)
+    }
     ra_psts["solution"] = {
         "objective": upper_bound,
         "solver status": '?',
-        "lower_bound": lower_bound
+        "lower_bound": lower_bound,
+        "computing time" : computing_time, 
+        "total interval length" : sum(total_branch_costs)
     }
                 
     print(f"Lower bound: {lower_bound}, upper bound: {upper_bound}. Gap {100*(upper_bound-lower_bound)/upper_bound:.2f}%")
-
     return ra_psts
 
 
@@ -396,12 +408,13 @@ def ilp_masterproblem(ra_psts, upper_bound):
 
 
 def cp_subproblem(ra_psts, branches, lower_bound=0, sigma:int=0):
-    print("start subproblem")
+    #print("start subproblem")
     # Solve sub-problem
     resource_jobs = {resource: [] for resource in ra_psts["resources"]}
     all_jobs = []
     subproblem_model = CpoModel(name="subproblem")
     for ra_pst in ra_psts["instances"]:
+        instance_jobs = []
         previous_branch_jobs = []
         instance_cost = 0
         for branchId, branch in ra_pst["branches"].items():
@@ -426,6 +439,8 @@ def cp_subproblem(ra_psts, branches, lower_bound=0, sigma:int=0):
                 previous_branch_jobs.append(interval_var)
                 all_jobs.append(interval_var)
                 instance_cost += int(ra_pst["jobs"][jobId]["cost"])
+                instance_jobs.append(interval_var)
+        subproblem_model.add(no_overlap(instance_jobs))
     
     # No overlap between jobs on the same resource
     subproblem_model.add(no_overlap(resource_jobs[resource]) for resource in ra_psts["resources"] if len(resource_jobs[resource]) > 1)
@@ -434,7 +449,7 @@ def cp_subproblem(ra_psts, branches, lower_bound=0, sigma:int=0):
     subproblem_model.add(makespan >= lower_bound)
     subproblem_model.add(minimize(makespan))
     # Solve model
-    print(f'Solving CP subproblem... {len(all_jobs)}')
+    #print(f'Solving CP subproblem... {len(all_jobs)}')
     start_time = time.time()
     schedule = subproblem_model.solve(
         LogVerbosity='Quiet', 
@@ -445,7 +460,7 @@ def cp_subproblem(ra_psts, branches, lower_bound=0, sigma:int=0):
     if schedule.get_solve_status() == "Infeasible":
         raise ValueError("Infeasible model")
     
-    print(f'Solved CP subproblem in {schedule.get_solve_time()} seconds, objective = {schedule.get_objective_value()}, Bounds: {schedule.get_objective_bound()}, Gap: {schedule.get_objective_value()-schedule.get_objective_bound()}, {schedule.get_objective_gap()}')
+    #print(f'Solved CP subproblem in {schedule.get_solve_time()} seconds, objective = {schedule.get_objective_value()}, Bounds: {schedule.get_objective_bound()}, Gap: {schedule.get_objective_value()-schedule.get_objective_bound()}, {schedule.get_objective_gap()}')
     return schedule, all_jobs
 
 def create_schedule(ra_psts, result, all_jobs):

@@ -80,6 +80,7 @@
           "branch_no": 0,
           "branchCost": 1.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 1.0,
             "res_3": 0,
@@ -110,6 +111,7 @@
           "branch_no": 1,
           "branchCost": 9.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -141,6 +143,7 @@
           "branch_no": 0,
           "branchCost": 11.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -170,6 +173,7 @@
           "branch_no": 1,
           "branchCost": 13.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 6.0,
@@ -198,6 +202,7 @@
           "branch_no": 0,
           "branchCost": 5.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 5.0,
             "res_3": 0,
@@ -225,6 +230,7 @@
           "branch_no": 1,
           "branchCost": 8.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -252,6 +258,7 @@
           "branch_no": 0,
           "branchCost": 7.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 7.0,
@@ -279,6 +286,7 @@
           "branch_no": 1,
           "branchCost": 4.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -310,6 +318,7 @@
           "branch_no": 0,
           "branchCost": 21.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 8.0,
@@ -339,6 +348,7 @@
           "branch_no": 1,
           "branchCost": 2.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -369,6 +379,7 @@
           "branch_no": 0,
           "branchCost": 21.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 7.0,
             "res_3": 7.0,
@@ -400,6 +411,7 @@
           "branch_no": 1,
           "branchCost": 7.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 7.0,
@@ -430,6 +442,7 @@
           "branch_no": 0,
           "branchCost": 22.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 3.0,
             "res_3": 0,
@@ -458,6 +471,7 @@
           "branch_no": 1,
           "branchCost": 4.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -485,6 +499,7 @@
           "branch_no": 0,
           "branchCost": 7.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 7.0,
@@ -515,6 +530,7 @@
           "branch_no": 1,
           "branchCost": 12.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -543,6 +559,7 @@
           "branch_no": 0,
           "branchCost": 3.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 3.0,
             "res_3": 0,
@@ -570,6 +587,7 @@
           "branch_no": 1,
           "branchCost": 8.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -597,6 +615,7 @@
           "branch_no": 0,
           "branchCost": 6.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -624,6 +643,7 @@
           "branch_no": 1,
           "branchCost": 7.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -685,7 +705,7 @@
             "i1-i1-a1-1-2"
           ],
           "release_time": 0,
-          "start": 8,
+          "start": 22,
           "selected": 1
         },
         "i1-i1-a2-2-4": {
@@ -698,7 +718,7 @@
             "i1-i1-a1-1-2"
           ],
           "release_time": 0,
-          "start": 15,
+          "start": 29,
           "selected": 1
         },
         "i1-i1-a2-3-5": {
@@ -739,7 +759,7 @@
             "i1-i1-a2-3-6"
           ],
           "release_time": 0,
-          "start": 19,
+          "start": 34,
           "selected": 1
         },
         "i1-i1-a3-5-8": {
@@ -770,8 +790,8 @@
             "i1-i1-a3-5-8"
           ],
           "release_time": 0,
-          "start": 24,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "i1-i1-a4-7-10": {
           "branch": "i1-a4-7",
@@ -787,8 +807,8 @@
             "i1-i1-a4-6-9"
           ],
           "release_time": 0,
-          "start": 0,
-          "selected": 0
+          "start": 40,
+          "selected": 1
         },
         "i1-i1-a5-8-11": {
           "branch": "i1-a5-8",
@@ -862,7 +882,7 @@
             "i1-i1-a5-8-13"
           ],
           "release_time": 0,
-          "start": 33,
+          "start": 44,
           "selected": 1
         },
         "i1-i1-a6-10-15": {
@@ -966,7 +986,7 @@
             "i1-i1-a6-10-18"
           ],
           "release_time": 0,
-          "start": 38,
+          "start": 47,
           "selected": 1
         },
         "i1-i1-a7-12-20": {
@@ -1181,8 +1201,8 @@
             "i1-i1-a8-15-27"
           ],
           "release_time": 0,
-          "start": 50,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "i1-i1-a9-17-29": {
           "branch": "i1-a9-17",
@@ -1208,8 +1228,8 @@
             "i1-i1-a9-16-28"
           ],
           "release_time": 0,
-          "start": 0,
-          "selected": 0
+          "start": 55,
+          "selected": 1
         },
         "i1-i1-a10-18-30": {
           "branch": "i1-a10-18",
@@ -1265,12 +1285,12 @@
             "i1-i1-a10-18-30"
           ],
           "release_time": 0,
-          "start": 53,
+          "start": 63,
           "selected": 1
         }
       },
       "instanceId": "i1",
-      "fixed": false
+      "fixed": true
     },
     {
       "tasks": {
@@ -1352,6 +1372,7 @@
           "branch_no": 0,
           "branchCost": 1.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 1.0,
             "res_3": 0,
@@ -1382,6 +1403,7 @@
           "branch_no": 1,
           "branchCost": 9.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -1413,6 +1435,7 @@
           "branch_no": 0,
           "branchCost": 11.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -1442,6 +1465,7 @@
           "branch_no": 1,
           "branchCost": 13.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 6.0,
@@ -1470,6 +1494,7 @@
           "branch_no": 0,
           "branchCost": 5.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 5.0,
             "res_3": 0,
@@ -1497,6 +1522,7 @@
           "branch_no": 1,
           "branchCost": 8.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -1524,6 +1550,7 @@
           "branch_no": 0,
           "branchCost": 7.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 7.0,
@@ -1551,6 +1578,7 @@
           "branch_no": 1,
           "branchCost": 4.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -1582,6 +1610,7 @@
           "branch_no": 0,
           "branchCost": 21.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 8.0,
@@ -1611,6 +1640,7 @@
           "branch_no": 1,
           "branchCost": 2.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -1641,6 +1671,7 @@
           "branch_no": 0,
           "branchCost": 21.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 7.0,
             "res_3": 7.0,
@@ -1672,6 +1703,7 @@
           "branch_no": 1,
           "branchCost": 7.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 7.0,
@@ -1702,6 +1734,7 @@
           "branch_no": 0,
           "branchCost": 22.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 3.0,
             "res_3": 0,
@@ -1730,6 +1763,7 @@
           "branch_no": 1,
           "branchCost": 4.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -1757,6 +1791,7 @@
           "branch_no": 0,
           "branchCost": 7.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 7.0,
@@ -1787,6 +1822,7 @@
           "branch_no": 1,
           "branchCost": 12.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -1815,6 +1851,7 @@
           "branch_no": 0,
           "branchCost": 3.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 3.0,
             "res_3": 0,
@@ -1842,6 +1879,7 @@
           "branch_no": 1,
           "branchCost": 8.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -1869,6 +1907,7 @@
           "branch_no": 0,
           "branchCost": 6.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -1896,6 +1935,7 @@
           "branch_no": 1,
           "branchCost": 7.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -1922,7 +1962,7 @@
           "cost": 1.0,
           "after": [],
           "release_time": 0,
-          "start": 3,
+          "start": 4,
           "selected": 1
         },
         "i2-i2-a1-1-1": {
@@ -1970,7 +2010,7 @@
             "i2-i2-a1-1-2"
           ],
           "release_time": 0,
-          "start": 41,
+          "start": 46,
           "selected": 1
         },
         "i2-i2-a2-3-5": {
@@ -2011,7 +2051,7 @@
             "i2-i2-a2-3-6"
           ],
           "release_time": 0,
-          "start": 45,
+          "start": 50,
           "selected": 1
         },
         "i2-i2-a3-5-8": {
@@ -2059,7 +2099,7 @@
             "i2-i2-a4-6-9"
           ],
           "release_time": 0,
-          "start": 51,
+          "start": 55,
           "selected": 1
         },
         "i2-i2-a5-8-11": {
@@ -2134,7 +2174,7 @@
             "i2-i2-a5-8-13"
           ],
           "release_time": 0,
-          "start": 55,
+          "start": 59,
           "selected": 1
         },
         "i2-i2-a6-10-15": {
@@ -2238,7 +2278,7 @@
             "i2-i2-a6-10-18"
           ],
           "release_time": 0,
-          "start": 59,
+          "start": 61,
           "selected": 1
         },
         "i2-i2-a7-12-20": {
@@ -2453,7 +2493,7 @@
             "i2-i2-a8-15-27"
           ],
           "release_time": 0,
-          "start": 66,
+          "start": 68,
           "selected": 1
         },
         "i2-i2-a9-17-29": {
@@ -2508,7 +2548,7 @@
             "i2-i2-a9-17-29"
           ],
           "release_time": 0,
-          "start": 69,
+          "start": 71,
           "selected": 1
         },
         "i2-i2-a10-19-31": {
@@ -2542,7 +2582,7 @@
         }
       },
       "instanceId": "i2",
-      "fixed": false
+      "fixed": true
     },
     {
       "tasks": {
@@ -2624,6 +2664,7 @@
           "branch_no": 0,
           "branchCost": 1.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 1.0,
             "res_3": 0,
@@ -2654,6 +2695,7 @@
           "branch_no": 1,
           "branchCost": 9.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -2685,6 +2727,7 @@
           "branch_no": 0,
           "branchCost": 11.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -2714,6 +2757,7 @@
           "branch_no": 1,
           "branchCost": 13.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 6.0,
@@ -2742,6 +2786,7 @@
           "branch_no": 0,
           "branchCost": 5.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 5.0,
             "res_3": 0,
@@ -2769,6 +2814,7 @@
           "branch_no": 1,
           "branchCost": 8.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -2796,6 +2842,7 @@
           "branch_no": 0,
           "branchCost": 7.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 7.0,
@@ -2823,6 +2870,7 @@
           "branch_no": 1,
           "branchCost": 4.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -2854,6 +2902,7 @@
           "branch_no": 0,
           "branchCost": 21.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 8.0,
@@ -2883,6 +2932,7 @@
           "branch_no": 1,
           "branchCost": 2.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -2913,6 +2963,7 @@
           "branch_no": 0,
           "branchCost": 21.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 7.0,
             "res_3": 7.0,
@@ -2944,6 +2995,7 @@
           "branch_no": 1,
           "branchCost": 7.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 7.0,
@@ -2974,6 +3026,7 @@
           "branch_no": 0,
           "branchCost": 22.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 3.0,
             "res_3": 0,
@@ -3002,6 +3055,7 @@
           "branch_no": 1,
           "branchCost": 4.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -3029,6 +3083,7 @@
           "branch_no": 0,
           "branchCost": 7.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 7.0,
@@ -3059,6 +3114,7 @@
           "branch_no": 1,
           "branchCost": 12.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -3087,6 +3143,7 @@
           "branch_no": 0,
           "branchCost": 3.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 3.0,
             "res_3": 0,
@@ -3114,6 +3171,7 @@
           "branch_no": 1,
           "branchCost": 8.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -3141,6 +3199,7 @@
           "branch_no": 0,
           "branchCost": 6.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -3168,6 +3227,7 @@
           "branch_no": 1,
           "branchCost": 7.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -3229,7 +3289,7 @@
             "i3-i3-a1-1-2"
           ],
           "release_time": 0,
-          "start": 22,
+          "start": 8,
           "selected": 1
         },
         "i3-i3-a2-2-4": {
@@ -3242,7 +3302,7 @@
             "i3-i3-a1-1-2"
           ],
           "release_time": 0,
-          "start": 29,
+          "start": 15,
           "selected": 1
         },
         "i3-i3-a2-3-5": {
@@ -3283,7 +3343,7 @@
             "i3-i3-a2-3-6"
           ],
           "release_time": 0,
-          "start": 34,
+          "start": 19,
           "selected": 1
         },
         "i3-i3-a3-5-8": {
@@ -3314,8 +3374,8 @@
             "i3-i3-a3-5-8"
           ],
           "release_time": 0,
-          "start": 0,
-          "selected": 0
+          "start": 32,
+          "selected": 1
         },
         "i3-i3-a4-7-10": {
           "branch": "i3-a4-7",
@@ -3331,8 +3391,8 @@
             "i3-i3-a4-6-9"
           ],
           "release_time": 0,
-          "start": 45,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "i3-i3-a5-8-11": {
           "branch": "i3-a5-8",
@@ -3406,7 +3466,7 @@
             "i3-i3-a5-8-13"
           ],
           "release_time": 0,
-          "start": 49,
+          "start": 50,
           "selected": 1
         },
         "i3-i3-a6-10-15": {
@@ -3510,7 +3570,7 @@
             "i3-i3-a6-10-18"
           ],
           "release_time": 0,
-          "start": 52,
+          "start": 54,
           "selected": 1
         },
         "i3-i3-a7-12-20": {
@@ -3725,7 +3785,7 @@
             "i3-i3-a8-15-27"
           ],
           "release_time": 0,
-          "start": 59,
+          "start": 61,
           "selected": 1
         },
         "i3-i3-a9-17-29": {
@@ -3809,12 +3869,12 @@
             "i3-i3-a10-18-30"
           ],
           "release_time": 0,
-          "start": 67,
+          "start": 70,
           "selected": 1
         }
       },
       "instanceId": "i3",
-      "fixed": false
+      "fixed": true
     },
     {
       "tasks": {
@@ -3896,6 +3956,7 @@
           "branch_no": 0,
           "branchCost": 1.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 1.0,
             "res_3": 0,
@@ -3926,6 +3987,7 @@
           "branch_no": 1,
           "branchCost": 9.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -3957,6 +4019,7 @@
           "branch_no": 0,
           "branchCost": 11.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -3986,6 +4049,7 @@
           "branch_no": 1,
           "branchCost": 13.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 6.0,
@@ -4014,6 +4078,7 @@
           "branch_no": 0,
           "branchCost": 5.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 5.0,
             "res_3": 0,
@@ -4041,6 +4106,7 @@
           "branch_no": 1,
           "branchCost": 8.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -4068,6 +4134,7 @@
           "branch_no": 0,
           "branchCost": 7.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 7.0,
@@ -4095,6 +4162,7 @@
           "branch_no": 1,
           "branchCost": 4.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -4126,6 +4194,7 @@
           "branch_no": 0,
           "branchCost": 21.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 8.0,
@@ -4155,6 +4224,7 @@
           "branch_no": 1,
           "branchCost": 2.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -4185,6 +4255,7 @@
           "branch_no": 0,
           "branchCost": 21.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 7.0,
             "res_3": 7.0,
@@ -4216,6 +4287,7 @@
           "branch_no": 1,
           "branchCost": 7.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 7.0,
@@ -4246,6 +4318,7 @@
           "branch_no": 0,
           "branchCost": 22.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 3.0,
             "res_3": 0,
@@ -4274,6 +4347,7 @@
           "branch_no": 1,
           "branchCost": 4.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -4301,6 +4375,7 @@
           "branch_no": 0,
           "branchCost": 7.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 7.0,
@@ -4331,6 +4406,7 @@
           "branch_no": 1,
           "branchCost": 12.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -4359,6 +4435,7 @@
           "branch_no": 0,
           "branchCost": 3.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 3.0,
             "res_3": 0,
@@ -4386,6 +4463,7 @@
           "branch_no": 1,
           "branchCost": 8.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -4413,6 +4491,7 @@
           "branch_no": 0,
           "branchCost": 6.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -4440,6 +4519,7 @@
           "branch_no": 1,
           "branchCost": 7.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -4466,7 +4546,7 @@
           "cost": 1.0,
           "after": [],
           "release_time": 0,
-          "start": 4,
+          "start": 3,
           "selected": 1
         },
         "i4-i4-a1-1-1": {
@@ -4603,7 +4683,7 @@
             "i4-i4-a4-6-9"
           ],
           "release_time": 0,
-          "start": 35,
+          "start": 34,
           "selected": 1
         },
         "i4-i4-a5-8-11": {
@@ -4678,7 +4758,7 @@
             "i4-i4-a5-8-13"
           ],
           "release_time": 0,
-          "start": 39,
+          "start": 38,
           "selected": 1
         },
         "i4-i4-a6-10-15": {
@@ -4782,7 +4862,7 @@
             "i4-i4-a6-10-18"
           ],
           "release_time": 0,
-          "start": 45,
+          "start": 40,
           "selected": 1
         },
         "i4-i4-a7-12-20": {
@@ -4997,8 +5077,8 @@
             "i4-i4-a8-15-27"
           ],
           "release_time": 0,
-          "start": 53,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "i4-i4-a9-17-29": {
           "branch": "i4-a9-17",
@@ -5024,8 +5104,8 @@
             "i4-i4-a9-16-28"
           ],
           "release_time": 0,
-          "start": 0,
-          "selected": 0
+          "start": 47,
+          "selected": 1
         },
         "i4-i4-a10-18-30": {
           "branch": "i4-a10-18",
@@ -5052,8 +5132,8 @@
             "i4-i4-a9-17-29"
           ],
           "release_time": 0,
-          "start": 0,
-          "selected": 0
+          "start": 55,
+          "selected": 1
         },
         "i4-i4-a10-19-31": {
           "branch": "i4-a10-19",
@@ -5081,12 +5161,12 @@
             "i4-i4-a10-18-30"
           ],
           "release_time": 0,
-          "start": 60,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         }
       },
       "instanceId": "i4",
-      "fixed": false
+      "fixed": true
     },
     {
       "tasks": {
@@ -5168,6 +5248,7 @@
           "branch_no": 0,
           "branchCost": 1.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 1.0,
             "res_3": 0,
@@ -5198,6 +5279,7 @@
           "branch_no": 1,
           "branchCost": 9.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -5229,6 +5311,7 @@
           "branch_no": 0,
           "branchCost": 11.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -5258,6 +5341,7 @@
           "branch_no": 1,
           "branchCost": 13.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 6.0,
@@ -5286,6 +5370,7 @@
           "branch_no": 0,
           "branchCost": 5.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 5.0,
             "res_3": 0,
@@ -5313,6 +5398,7 @@
           "branch_no": 1,
           "branchCost": 8.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -5340,6 +5426,7 @@
           "branch_no": 0,
           "branchCost": 7.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 7.0,
@@ -5367,6 +5454,7 @@
           "branch_no": 1,
           "branchCost": 4.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -5398,6 +5486,7 @@
           "branch_no": 0,
           "branchCost": 21.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 8.0,
@@ -5427,6 +5516,7 @@
           "branch_no": 1,
           "branchCost": 2.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -5457,6 +5547,7 @@
           "branch_no": 0,
           "branchCost": 21.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 7.0,
             "res_3": 7.0,
@@ -5488,6 +5579,7 @@
           "branch_no": 1,
           "branchCost": 7.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 7.0,
@@ -5518,6 +5610,7 @@
           "branch_no": 0,
           "branchCost": 22.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 3.0,
             "res_3": 0,
@@ -5546,6 +5639,7 @@
           "branch_no": 1,
           "branchCost": 4.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -5573,6 +5667,7 @@
           "branch_no": 0,
           "branchCost": 7.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 7.0,
@@ -5603,6 +5698,7 @@
           "branch_no": 1,
           "branchCost": 12.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -5631,6 +5727,7 @@
           "branch_no": 0,
           "branchCost": 3.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 3.0,
             "res_3": 0,
@@ -5658,6 +5755,7 @@
           "branch_no": 1,
           "branchCost": 8.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -5685,6 +5783,7 @@
           "branch_no": 0,
           "branchCost": 6.0,
           "release_time": 0,
+          "selected": 0,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -5712,6 +5811,7 @@
           "branch_no": 1,
           "branchCost": 7.0,
           "release_time": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_5": 0,
             "res_3": 0,
@@ -6054,7 +6154,7 @@
             "i5-i5-a6-10-18"
           ],
           "release_time": 0,
-          "start": 31,
+          "start": 25,
           "selected": 1
         },
         "i5-i5-a7-12-20": {
@@ -6296,7 +6396,7 @@
             "i5-i5-a9-16-28"
           ],
           "release_time": 0,
-          "start": 38,
+          "start": 32,
           "selected": 1
         },
         "i5-i5-a10-18-30": {
@@ -6353,12 +6453,19 @@
             "i5-i5-a10-18-30"
           ],
           "release_time": 0,
-          "start": 46,
+          "start": 40,
           "selected": 1
         }
       },
       "instanceId": "i5",
-      "fixed": false
+      "fixed": true,
+      "solution": {
+        "objective": 77,
+        "solver status": "?",
+        "lower_bound": 46.999999995199744,
+        "computing time": 52.741034507751465,
+        "total interval length": 216.0
+      }
     }
   ],
   "resources": [
@@ -6369,8 +6476,10 @@
     "res_1"
   ],
   "solution": {
-    "objective": 75,
+    "objective": 77,
     "solver status": "?",
-    "lower_bound": 46.0
+    "lower_bound": 46.999999995199744,
+    "computing time": 52.741034507751465,
+    "total interval length": 216.0
   }
 }

@@ -185,7 +185,16 @@ class EvalPipeline():
                         self.setup_simulator(ra_psts, "heuristic", path_to_dir=schedule_path, release_times=release_times)
                         self.sim.simulate()
                         self.add_metadata_to_schedule(resource_file, schedule_path, ra_pst)
-                        
+                        """
+                        # Setup Simulator for single instance cp with shift
+                        print(f"Start single instance decomposed CP allocation of {resource_file.name}")
+                        schedule_path = dirpath / "evaluation" / "single_instance_decomp_sigma_shift" / resource_file.name
+                        schedule_path.parent.mkdir(parents=True, exist_ok=True)
+                        self.setup_simulator(ra_psts, AllocationTypeEnum.SINGLE_INSTANCE_CP_DECOMPOSED, path_to_dir=schedule_path, release_times=release_times, sigma=sigma)
+                        self.sim.simulate()
+                        self.add_metadata_to_schedule(resource_file, schedule_path, ra_pst)
+                        self.combine_info_during_solving(schedule_path)
+
                         # Setup Simulator for single instance cp with shift
                         print(f"Start single instance CP allocation of {resource_file.name}")
                         schedule_path = dirpath / "evaluation" / "single_instance_cp_sigma_shift" / resource_file.name
@@ -195,6 +204,7 @@ class EvalPipeline():
                         self.add_metadata_to_schedule(resource_file, schedule_path, ra_pst)
                         self.combine_info_during_solving(schedule_path)
 
+                        """
                         # Setup Simulator for scheduling ilp
                         print(f"Start single instance ILP+CP allocation of {resource_file.name}")
                         schedule_path = dirpath / "evaluation" / "single_instance_ilp_sigma_shift" / resource_file.name
@@ -204,7 +214,7 @@ class EvalPipeline():
                         self.add_ilp_data(schedule_path)
                         self.add_metadata_to_schedule(resource_file, schedule_path, ra_pst)
                         self.combine_info_during_solving(schedule_path)
-                        """
+                        
 
                         # Setup Simulator for scheduling optimal ilp
                         print(f"Start all_instance_ILP + CP allocation of {resource_file.name}")
@@ -215,7 +225,7 @@ class EvalPipeline():
                         self.add_ilp_data(schedule_path)
                         self.add_metadata_to_schedule(resource_file, schedule_path, ra_pst)
                         
-                        """
+                        
                         # Setup Simulator for CP_all 
                         print(f"Start all_instance_CP_decomposed allocation of {resource_file.name}")
                         schedule_path = dirpath / "evaluation" / "all_instance_cp_decomp" / resource_file.name
@@ -407,11 +417,11 @@ if __name__ == "__main__":
 
     root_path = Path("testsets_decomposed_paper")
     subdirectories =  [folder for folder in root_path.iterdir() if folder.is_dir()]
-    subdirectories = subdirectories[2:3]
+    subdirectories = subdirectories[0:1]
     print(subdirectories)
     for folder in subdirectories:
         #release_times = generate_release_times(num_instances=10, mean_time_between_instances=random.randint(5, 50))
-        release_times = [0,0,0,0,0,0,0,0,0,0]
+        release_times = [0 for _ in range(10)]
         ep = EvalPipeline()
         ep.run(folder, release_times)
 

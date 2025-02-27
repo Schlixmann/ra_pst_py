@@ -70,7 +70,7 @@ if __name__ == "__main__":
     #show_schedule("out/schedule_heuristic.json")
     #show_schedule("out/schedule_all_instance_ilp.json")
     #show_schedule("tests/test_data/cp_result.json")
-    show_schedule("out/schedule_all_instance_cp.json")
+    show_schedule("tests/test_data/cp_result.json")
     #show_schedule("out/schedule_all_instance_cp.json")
 
     #show_full_dir("evaluation/paper_process_first_invalids")

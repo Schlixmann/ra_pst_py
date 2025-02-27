@@ -249,7 +249,7 @@ class Simulator():
             self.save_schedule(schedule_dict)
 
             if decomposed:
-                result = cp_solver_decomposed_strengthened_cuts(self.schedule_filepath, TimeLimit=10)
+                result = cp_solver_decomposed_strengthened_cuts(self.schedule_filepath, TimeLimit=100)
             else:
                 result = cp_solver(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", sigma=self.sigma, timeout=100)
             self.save_schedule(result)
@@ -364,10 +364,10 @@ class Simulator():
             self.create_warmstart_file(schedule_dict, self.task_queue)
             result = cp_solver(self.schedule_filepath, "tmp/warmstart.json")
         elif decomposed:
-            result = cp_solver_decomposed_strengthened_cuts(self.schedule_filepath, TimeLimit=10)
+            result = cp_solver_decomposed_strengthened_cuts(self.schedule_filepath, TimeLimit=2000)
         else:
             _, logfile = os.path.split(os.path.basename(self.schedule_filepath))
-            result = cp_solver(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", timeout=600, break_symmetries=False)
+            result = cp_solver(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", timeout=2000, break_symmetries=False)
         self.save_schedule(result)
             
     def create_warmstart_file(self, ra_psts:dict, queue_objects:list[QueueObject]):
