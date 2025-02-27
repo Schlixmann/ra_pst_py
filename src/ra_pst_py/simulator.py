@@ -44,7 +44,7 @@ class Simulator():
         self.ns = None
         self.is_warmstart:bool = None
         self.sigma = sigma
-        self.time_limit = time_limit
+        self.time_limit:int = time_limit
 
     def add_instance(self, instance: Instance, allocation_type: AllocationTypeEnum, expected_instance:bool=False):  # TODO
         """ 
@@ -346,7 +346,7 @@ class Simulator():
             schedule_dict = self.ilp_to_schedule_file(result, schedule_dict, queue_object.instance.id)
             self.save_schedule(schedule_dict)
 
-        schedule_dict = cp_solver_scheduling_only(self.schedule_filepath, timeout=100, sigma=self.sigma)
+        schedule_dict = cp_solver_scheduling_only(self.schedule_filepath, timeout=self.time_limit, sigma=self.sigma)
         self.save_schedule(schedule_dict)
         
     def all_instance_processing(self, warmstart:bool = False, decomposed:bool=False):
@@ -365,10 +365,10 @@ class Simulator():
             self.create_warmstart_file(schedule_dict, self.task_queue)
             result = cp_solver(self.schedule_filepath, "tmp/warmstart.json")
         elif decomposed:
-            result = cp_solver_decomposed_strengthened_cuts(self.schedule_filepath, TimeLimit=2000)
+            result = cp_solver_decomposed_strengthened_cuts(self.schedule_filepath, TimeLimit=self.time_limit)
         else:
             _, logfile = os.path.split(os.path.basename(self.schedule_filepath))
-            result = cp_solver(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", timeout=2000, break_symmetries=False)
+            result = cp_solver(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", timeout=self.time_limit, break_symmetries=False)
         self.save_schedule(result)
             
     def create_warmstart_file(self, ra_psts:dict, queue_objects:list[QueueObject]):

@@ -30,6 +30,7 @@ class Instance():
         self.allocated_tasks = set()
         self.times = []
         self.release_time:int = release_time
+        self.add_release_time(release_time=release_time)
 
     def add_release_time(self, release_time:float):
         """ """
@@ -37,7 +38,6 @@ class Instance():
         child = etree.SubElement(task1, f"{{{self.ns['cpee1']}}}release_time")
         child.text = str(release_time)
         task1 = etree.fromstring(etree.tostring(task1)) # save with namespaces
-        self.release_time = float(release_time)
         
     def get_ilp_rep(self) -> dict:
         """Returns the RA-PST of the instance as dict for an ILP or CP"""
