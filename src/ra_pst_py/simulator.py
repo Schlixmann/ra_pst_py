@@ -20,7 +20,7 @@ class AllocationTypeEnum(StrEnum):
     SINGLE_INSTANCE_CP = "single_instance_cp"
     SINGLE_INSTANCE_CP_DECOMPOSED = "single_instance_cp_decomposed"
     ALL_INSTANCE_CP = "all_instance_cp"
-    ALL_INSTANCE_CP_WARM = "all_instance_cp_warm"
+    ALL_INSTANCE_CP_DECOMPOSED = "all_instance_cp_decomposed"
     SINGLE_INSTANCE_CP_REPLAN = "single_instance_replan"
     SINGLE_INSTANCE_ILP = "single_instance_ilp"
     ALL_INSTANCE_ILP = "all_instance_ilp"
@@ -35,15 +35,16 @@ class QueueObject():
         self.release_time = release_time
 
 class Simulator():
-    def __init__(self, schedule_filepath: str = "out/sim_schedule.json", is_warmstart:bool = False, sigma:int = 0) -> None:
+    def __init__(self, schedule_filepath:str, sigma:int, time_limit:int) -> None:
         self.schedule_filepath = schedule_filepath
         # List of [{instance:RA_PST_instance, allocation_type:str(allocation_type)}]
         self.task_queue: list[QueueObject] = []  # List of QueueObject
         self.expected_instances_queue: list[QueueObject] = [] # List of Queu objects only for online allocation.
         self.allocation_type: AllocationTypeEnum = None
         self.ns = None
-        self.is_warmstart:bool = is_warmstart
+        self.is_warmstart:bool = None
         self.sigma = sigma
+        self.time_limit = time_limit
 
     def add_instance(self, instance: Instance, allocation_type: AllocationTypeEnum, expected_instance:bool=False):  # TODO
         """ 
@@ -102,7 +103,7 @@ class Simulator():
             self.single_instance_processing(decomposed=True)
         elif self.allocation_type == AllocationTypeEnum.ALL_INSTANCE_CP:
             self.all_instance_processing()
-        elif self.allocation_type == AllocationTypeEnum.ALL_INSTANCE_CP_WARM:
+        elif self.allocation_type == AllocationTypeEnum.ALL_INSTANCE_CP_DECOMPOSED:
             self.all_instance_processing(warmstart=False, decomposed=True)
         elif self.allocation_type == AllocationTypeEnum.SINGLE_INSTANCE_CP_REPLAN:
             self.single_instance_replan()

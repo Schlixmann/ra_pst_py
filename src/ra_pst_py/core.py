@@ -71,7 +71,7 @@ class RA_PST:
         return [resource.attrib["id"] for resource in resources]
 
     def get_first_release_time(self) -> int:
-        "Returns release time of first task"
+        " Returns release time of first task "
         first_task = self.get_tasklist()[0]
         # find release_time of first_task
         release_time_element = first_task.xpath("descendant::cpee1:release_time", namespaces=self.ns)
@@ -117,7 +117,6 @@ class RA_PST:
             costs_per_branch = [branch.get_branch_costs() for branch in branches if branch.check_validity(ra_pst=self)]
             inverted_costs = 1/np.array(costs_per_branch)
             probabilities = inverted_costs / inverted_costs.sum()
-
             entropy_per_task[task] = -np.sum(probabilities * np.log(probabilities))
     
         return np.mean(list(entropy_per_task.values()))

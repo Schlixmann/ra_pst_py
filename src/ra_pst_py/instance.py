@@ -14,7 +14,7 @@ import os
 CURRENT_MIN_DATE = "2024-01-01T00:00" # Placeholder for scheduling heuristics
 
 class Instance():
-    def __init__(self, ra_pst, branches_to_apply:dict, schedule:Schedule=None, id=None):
+    def __init__(self, ra_pst, branches_to_apply:dict, schedule:Schedule=None, id=None, release_time:int = None):
         self.id = id
         self.ra_pst:RA_PST = ra_pst
         self.ns = ra_pst.ns
@@ -29,7 +29,7 @@ class Instance():
         self.allocator = TaskAllocator(self.ra_pst, self.change_op)
         self.allocated_tasks = set()
         self.times = []
-        self.release_time:float = None
+        self.release_time:int = release_time
 
     def add_release_time(self, release_time:float):
         """ """
