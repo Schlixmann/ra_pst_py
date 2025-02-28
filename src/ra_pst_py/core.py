@@ -241,7 +241,7 @@ class RA_PST:
                     "deletes": [f"{instance_id}-{element}" for element in branch["deletes"]],
                     "branch_no": branch["branch_no"],
                     "branchCost": 0,
-                    "release_time": 0 
+                    "release_time": release_time if release_time is not None else 0 
                 }
                 if task in task_release_dict.keys():
                     newBranch["release_time"] = task_release_dict[task]
@@ -252,7 +252,7 @@ class RA_PST:
                         "resource": job[0],
                         "cost": float(job[1]),
                         "after": [],
-                        "release_time": 0, 
+                        "release_time": release_time if release_time is not None else 0, 
                         "start": None,
                         "selected": False
                     }
@@ -262,12 +262,13 @@ class RA_PST:
                         newJob["after"].append(b["jobs"][-1])
                     newBranch["branchCost"] += float(job[1])
                     if task in task_release_dict.keys():
-                        newJob["release_time"] = task_release_dict[task]
+                        newJob["release_time"] = task_release_dict[task] 
                     jobId = f'{instance_id}-{branchId}-{len(result["jobs"])}'
                     newBranch["jobs"].append(jobId)
                     result["jobs"][jobId] = newJob
                     previousJob = jobId
                 result["branches"][branchId] = newBranch
+        result["release_time"] = release_time
         result["instanceId"] = instance_id
         return result
 

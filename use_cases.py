@@ -688,7 +688,7 @@ if __name__ == "__main__":
     for folder in subdirectories:
         ep = EvalPipeline()
         #ep.run_same_release(folder, allocation_types, num_instances=8)
-        ep.run_same_release(folder, allocation_types, num_instances=8, time_limit=10, suffix="_3600")
+        ep.run_generated_release(folder, allocation_types, num_instances=8, time_limit=15, suffix="_3600_gen")
 
     """
     num_instances = 10
