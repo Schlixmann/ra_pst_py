@@ -174,7 +174,9 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, warm_start_json=None, lo
     # Build the model
     #-----------------------------------------------------------------------------
     lower_bound = 0
-    big_number = 0
+    max_release_time = max([ra_pst["release_time"] for ra_pst in ra_psts["instances"]])
+    
+    big_number = max_release_time if max_release_time else 0
     for ra_pst in ra_psts["instances"]:
         for branch in ra_pst["branches"].values():
             big_number += branch["branchCost"]
@@ -333,7 +335,7 @@ def ilp_masterproblem(ra_psts, upper_bound):
             for jobId in branch["jobs"]:
                 branch_jobs[ra_pst["jobs"][jobId]["resource"]] += ra_pst["jobs"][jobId]["cost"]
             branch["branch_jobs"] = branch_jobs
-        master_model.addConstr(z >= gp.quicksum(branch["branchCost"] * branch["selected"] for branch in ra_pst["branches"].values()))
+        master_model.addConstr(z >= gp.quicksum(branch["branchCost"] * branch["selected"] for branch in ra_pst["branches"].values()) + ra_pst["release_time"]) 
     # Find the minimum release time of any selected job on resource r. 
     Y = {}
     E = {}
