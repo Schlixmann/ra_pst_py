@@ -175,7 +175,7 @@ class EvalPipeline:
             json.dump(schedule, f, indent=2)
 
     def run_same_release(
-        self, dirpath: os.PathLike, allocation_types: list = [], num_instances:int=10, time_limit:int=100, sigma:int = None, suffix:str=""
+        self, dirpath: os.PathLike, allocation_types: list = [], num_instances:int=10, time_limit:int=100, sigma:int = None, suffix:str="", add_metadata:bool=True,
     ):
         """
         Executes various solution approaches for all subdirectories within `dirpath`.
@@ -239,6 +239,7 @@ class EvalPipeline:
                         sigma=sigma,
                         time_limit=time_limit,
                         suffix=suffix,
+                        add_metadata=add_metadata
                     )
 
                 print("==============")
@@ -366,10 +367,15 @@ class EvalPipeline:
             ra_psts = []
             instances = []
             spread = 5 if spread is None else spread
+
+            #currently not used
             release_times = self.generate_release_times(num_instances, spread)
+            
+            selected_files = []
             for i in range(num_instances):
                 # Select random resource file
                 resource_file = random.choice(resource_files)
+                selected_files.append(resource_file.name)
                 if not resource_file.is_file():
                     raise ValueError("Resource file is not a file")
 
@@ -377,7 +383,8 @@ class EvalPipeline:
                 ra_pst = build_rapst(process_file, resource_file)         
                 
                 # Build rapst instances:
-                instances.append(Instance(copy.deepcopy(ra_pst), {}, id=i, release_time=release_times[i]))
+                #instances.append(Instance(copy.deepcopy(ra_pst), {}, id=i, release_time=release_times[i]))
+                instances.append(Instance(copy.deepcopy(ra_pst), {}, id=i, release_time=0))
 
                 # Print problem size of ra_pst
             print(f"I instances generated")
@@ -398,7 +405,20 @@ class EvalPipeline:
                     add_metadata=add_metadata,
                     different_instances=True
                 )
-
+                schedule_path = (
+                dirpath
+                / "evaluation"
+                / f"{str(atype)}{suffix}"
+                / f"{resource_file.stem}.json"
+                )
+                with open(schedule_path, "r") as f:
+                    schedule_dict = json.load(f)
+                schedule_dict["metadata"]["picked_instances"] = selected_files
+                
+                with open(schedule_path, "w") as f:
+                    json.dump(schedule_dict, f, indent=2)
+        
+        
             print("==============")
             print(f"Finish allocation of {resource_file.name}")
             print("==============")
@@ -605,7 +625,7 @@ def pos_random_normal(mean, sigma):
 
 if __name__ == "__main__":
     # Main path of testsets
-    root_path = Path("testsets_random_paper_smaller")
+    root_path = Path("testsets_decomposed_final_8")
 
     # Filter for subdirectories
     subdirectories = sorted([folder for folder in root_path.iterdir() if folder.is_dir()])
@@ -620,26 +640,37 @@ if __name__ == "__main__":
         AllocationTypeEnum.ALL_INSTANCE_CP_DECOMPOSED,
         AllocationTypeEnum.ALL_INSTANCE_ILP
     ]
-
     
     # run with random instance picking
     for folder in subdirectories_random:
         ep = EvalPipeline()
         #ep.run_same_release(folder, allocation_types, num_instances=8)
-        ep.run_random_instances(folder, allocation_types, num_instances=8, time_limit=200, suffix="_3600_gen")
+        ep.run_random_instances(folder, allocation_types, num_instances=8, time_limit=7200, suffix="_7200_gen")
 
     # run clinic set, no metadata
     for folder in clinic_set:
         ep = EvalPipeline()
-        ep.run_generated_release(folder, allocation_types, num_instances=8, time_limit=200, suffix="_3600_gen", add_metadata=False)
+        ep.run_same_release(folder, allocation_types, num_instances=8, time_limit=7200, suffix="_7200_gen", add_metadata=False)
 
     # run same release time pipeline for folder
     for folder in subdirectories_gen:
         ep = EvalPipeline()
         #ep.run_same_release(folder, allocation_types, num_instances=8)
-        ep.run_generated_release(folder, allocation_types, num_instances=8, time_limit=200, suffix="_3600_gen")
+        ep.run_same_release(folder, allocation_types, num_instances=8, time_limit=7200, suffix="_7200_gen")
+
+    # run with random instance picking
+    for folder in subdirectories_random:
+        ep = EvalPipeline()
+        #ep.run_same_release(folder, allocation_types, num_instances=8)
+        ep.run_random_instances(folder, allocation_types, num_instances=8, time_limit=7200, suffix="_7200_gen")
     
     """
+    print("===========")
+    print("RUN ONLINE TESTS")
+    print("===========")
+    # Main path of testsets
+    root_path = Path("testsets_decomposed_final_8")
+    
     # Run online tests
     for folder in subdirectories:
         ep = EvalPipeline()

@@ -70,7 +70,8 @@ if __name__ == "__main__":
     #show_schedule("out/schedule_heuristic.json")
     #show_schedule("out/schedule_all_instance_ilp.json")
     #show_schedule("tests/test_data/cp_result.json")
-    show_schedule("testsets_decomposed_pipe/10_instantArr/evaluation/all_instance_cp3600/simple-10.json")
+    show_schedule("testsets_random_paper_smaller/20_generated/evaluation/heuristic/(1, 0, 0.0)-skill_short_branch-3-early-resource_based-4-1-20.json")
+    #show_schedule("testsets_decomposed_pipe/10_instantArr/evaluation/all_instance_cp_3600_gen/simple-10.json")
     #show_schedule("out/schedule_all_instance_cp.json")
 
     #show_full_dir("evaluation/paper_process_first_invalids")

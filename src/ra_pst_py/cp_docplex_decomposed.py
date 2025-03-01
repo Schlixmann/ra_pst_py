@@ -175,7 +175,6 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, warm_start_json=None, lo
     #-----------------------------------------------------------------------------
     lower_bound = 0
     max_release_time = max([ra_pst["release_time"] for ra_pst in ra_psts["instances"]])
-    
     big_number = max_release_time if max_release_time else 0
     for ra_pst in ra_psts["instances"]:
         for branch in ra_pst["branches"].values():
