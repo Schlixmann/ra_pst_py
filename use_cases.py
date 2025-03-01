@@ -291,7 +291,7 @@ class EvalPipeline:
 
                 # generate release times:
                 avg_task_cost = round(ra_pst.get_avg_cost())
-                spread = random.randint(avg_task_cost, avg_task_cost) if sigma is None else spread
+                spread = avg_task_cost/2 if sigma is None else spread
                 release_times = self.generate_release_times(num_instances, spread)
                 # Build rapst instances:
                 instances = [
@@ -365,7 +365,7 @@ class EvalPipeline:
             
             ra_psts = []
             instances = []
-            spread = 5 if sigma is None else spread
+            spread = 5 if spread is None else spread
             release_times = self.generate_release_times(num_instances, spread)
             for i in range(num_instances):
                 # Select random resource file
@@ -395,7 +395,8 @@ class EvalPipeline:
                     sigma=sigma,
                     time_limit=time_limit,
                     suffix=suffix,
-                    add_metadata=add_metadata
+                    add_metadata=add_metadata,
+                    different_instances=True
                 )
 
             print("==============")
@@ -411,7 +412,8 @@ class EvalPipeline:
         sigma=0,
         time_limit=100,
         suffix: str = "",
-        add_metadata:bool = True
+        add_metadata:bool = True, 
+        different_instances:bool = False
     ):
         """Setup and run simulation for a given allocation type."""
         schedule_path = (
@@ -436,7 +438,7 @@ class EvalPipeline:
         print("____________")
         print(f"Start {str(allocation_type)} allocation of {resource_file.name}")
         print("------------")
-        self.sim.simulate()
+        self.sim.simulate(different_instances=different_instances)
 
         # Add ILP data if applicable
         if allocation_type in {
@@ -580,7 +582,7 @@ class EvalPipeline:
 
         Args:
             num_instances (int): The number of process instances to generate.
-            mean_time_between_instances (float): The average time between releases (in hours).
+            spread (float): The average time between releases (in hours).
 
         Returns:
             list: Cumulative release times for the process instances (in hours).
@@ -603,21 +605,28 @@ def pos_random_normal(mean, sigma):
 
 if __name__ == "__main__":
     # Main path of testsets
-    root_path = Path("testsets_decomposed_final_8")
+    root_path = Path("testsets_random_paper_smaller")
 
     # Filter for subdirectories
     subdirectories = sorted([folder for folder in root_path.iterdir() if folder.is_dir()])
     subdirectories_gen = [subdirectories[i] for i in [0,1]]
     subdirectories_random = [subdirectories[i] for i in [3]]
     clinic_set = [subdirectories[i] for i in [2]]
-    print(subdirectories_gen, subdirectories_random)
+    print(subdirectories_gen, subdirectories_random, clinic_set)
     
     # Filter chosen allocation types
     allocation_types = [
-        AllocationTypeEnum.ALL_INSTANCE_ILP,
-        AllocationTypeEnum.ALL_INSTANCE_CP_DECOMPOSED,
         AllocationTypeEnum.ALL_INSTANCE_CP,
+        AllocationTypeEnum.ALL_INSTANCE_CP_DECOMPOSED,
+        AllocationTypeEnum.ALL_INSTANCE_ILP
     ]
+
+    
+    # run with random instance picking
+    for folder in subdirectories_random:
+        ep = EvalPipeline()
+        #ep.run_same_release(folder, allocation_types, num_instances=8)
+        ep.run_random_instances(folder, allocation_types, num_instances=8, time_limit=200, suffix="_3600_gen")
 
     # run clinic set, no metadata
     for folder in clinic_set:
@@ -630,44 +639,11 @@ if __name__ == "__main__":
         #ep.run_same_release(folder, allocation_types, num_instances=8)
         ep.run_generated_release(folder, allocation_types, num_instances=8, time_limit=200, suffix="_3600_gen")
     
-    # run with random instance picking
-    for folder in subdirectories_random:
+    """
+    # Run online tests
+    for folder in subdirectories:
         ep = EvalPipeline()
         #ep.run_same_release(folder, allocation_types, num_instances=8)
-        ep.run_random_instances(folder, allocation_types, num_instances=8, time_limit=200, suffix="_3600_gen")
-
+        ep.run_generated_release(folder, allocation_types, num_instances=8, time_limit=200, suffix="")
     """
-    num_instances = 10
-    for folder in subdirectories:
-        if folder.name.split('_')[-1] == 'generated' :
-            release_times = generate_release_times(num_instances=num_instances, mean_time_between_instances=3)
-            ep = EvalPipeline()
-            ep.run(folder, release_times)
-        
-        else:
-            release_times = [0 for _ in range(num_instances)]
-            ep = EvalPipeline()
-            ep.run(folder, release_times)
-    
-
-    num_instances = 10
-    for folder in subdirectories:
-        for i in range(num_instances):
-            release_times = generate_release_times(num_instances=num_instances, mean_time_between_instances=random.randint(5, 50))
-            ep = EvalPipeline()
-            ep.run_release_spread(folder, release_times, i = i)
-    
-
-    root_path = Path("testsets_multi_instance")
-    subdirectories =  [folder for folder in root_path.iterdir() if folder.is_dir()]
-    #subdirectories = subdirectories[2:6]
-    print(subdirectories)
-
-    num_instances = 10
-    for folder in subdirectories:
-        for i in range(5):
-            release_times = generate_release_times(num_instances=num_instances, mean_time_between_instances=random.randint(5, 50))
-            ep = EvalPipeline()
-            ep.run_random_ra_psts(folder, release_times, i = i)
-
-    """
+   

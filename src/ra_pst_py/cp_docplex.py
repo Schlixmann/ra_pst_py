@@ -713,8 +713,9 @@ def cp_solver_scheduling_only(ra_pst_json, warm_start_json=None, log_file = "cpo
                 if job["selected"] == True:
                     job["interval"] = model.interval_var(name=jobId, optional=False, size=int(job["cost"]))
                     # Start time must be > than release time if a release time for instance is given
-                    #if job["release_time"]:
-                    #    min_time = job["release_time"]
+                    if job["release_time"]:
+                        min_time = job["release_time"]
+                    job["interval"].set_start_min(min_time)
                     active_intervals += 1
                     job_intervals.append(job["interval"])
                     selected_jobs.append(jobId)
@@ -722,9 +723,6 @@ def cp_solver_scheduling_only(ra_pst_json, warm_start_json=None, log_file = "cpo
                 #else:
                 #    job["interval"] = model.interval_var(name=jobId, optional=True, size=int(0))
                 #    model.add(presence_of(job["interval"]) == 0)
-                    
-
-                #job["interval"].set_start_min(min_time)
                     
 
         # Precedence constraints

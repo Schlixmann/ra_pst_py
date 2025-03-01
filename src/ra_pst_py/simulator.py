@@ -84,7 +84,7 @@ class Simulator():
             os.makedirs(os.path.dirname(self.schedule_filepath), exist_ok=True)
             with open(self.schedule_filepath, "w"): pass
 
-    def simulate(self):
+    def simulate(self, different_instances:bool=False):
         """
         within one Simulator. e.g. Heuristic + single instance cp
         """
@@ -110,9 +110,9 @@ class Simulator():
         elif self.allocation_type == AllocationTypeEnum.SINGLE_INSTANCE_HEURISTIC:
             self.single_instance_heuristic()
         elif self.allocation_type == AllocationTypeEnum.SINGLE_INSTANCE_ILP:
-            self.single_instance_ilp()
+            self.single_instance_ilp(different_instances=different_instances)
         elif self.allocation_type == AllocationTypeEnum.ALL_INSTANCE_ILP:
-            self.all_instance_ilp()
+            self.all_instance_ilp(different_instances=different_instances)
         else:
             raise NotImplementedError(
                 f"Allocation_type {self.allocation_type} has not been implemented yet")
@@ -287,7 +287,7 @@ class Simulator():
             self.save_schedule(result)
 
 
-    def single_instance_ilp(self):
+    def single_instance_ilp(self, different_instances:bool=False):
         """
         Allocates an instance that was previously configured through the ILP
         ILP configuration and scheduling is done in this method
@@ -315,13 +315,17 @@ class Simulator():
             schedule_dict = self.get_current_schedule_dict()
             instance_ilp_rep = self.get_current_instance_ilp_rep(schedule_dict, queue_object)
             schedule_dict = self.add_ilp_rep_to_schedule(instance_ilp_rep, schedule_dict, queue_object)
+            if different_instances:
+                with open("tmp/ilp_rep.json", "w") as f:
+                    json.dump(instance_ilp_rep, f, indent=2)
+                result = configuration_ilp("tmp/ilp_rep.json")
             schedule_dict = self.ilp_to_schedule_file(result, schedule_dict, queue_object.instance.id)
             self.save_schedule(schedule_dict)
             schedule_dict = cp_solver_scheduling_only(self.schedule_filepath, timeout=100, sigma=self.sigma)
             self.save_schedule(schedule_dict)
     
 
-    def all_instance_ilp(self):
+    def all_instance_ilp(self, different_instances:bool=False):
         """
         Schedules all instances simultaneously based on the optimal configuration found with ILP
         """
@@ -343,6 +347,10 @@ class Simulator():
             schedule_dict = self.get_current_schedule_dict()
             instance_ilp_rep = self.get_current_instance_ilp_rep(schedule_dict, queue_object)
             schedule_dict = self.add_ilp_rep_to_schedule(instance_ilp_rep, schedule_dict, queue_object)
+            if different_instances:
+                with open("tmp/ilp_rep.json", "w") as f:
+                    json.dump(instance_ilp_rep, f, indent=2)
+                result = configuration_ilp("tmp/ilp_rep.json")
             schedule_dict = self.ilp_to_schedule_file(result, schedule_dict, queue_object.instance.id)
             self.save_schedule(schedule_dict)
 
