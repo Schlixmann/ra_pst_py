@@ -291,7 +291,7 @@ class EvalPipeline:
 
                 # generate release times:
                 avg_task_cost = round(ra_pst.get_avg_cost())
-                spread = avg_task_cost/2 if sigma is None else spread
+                spread = avg_task_cost if sigma is None else spread
                 release_times = self.generate_release_times(num_instances, spread)
                 # Build rapst instances:
                 instances = [
