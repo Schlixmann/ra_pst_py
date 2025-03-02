@@ -10,6 +10,7 @@ tmp/*
 branch_raw.xml
 out/*
 testset*
+!testsets_decomposed_final_8
 eval_archive*
 ra_pst.xml
 alterna_out.json
