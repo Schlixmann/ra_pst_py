@@ -11,6 +11,7 @@ branch_raw.xml
 out/*
 testset*
 !testsets_decomposed_final_8
+!testsets_online_final_freeze
 eval_archive*
 ra_pst.xml
 alterna_out.json

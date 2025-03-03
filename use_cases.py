@@ -319,13 +319,26 @@ class EvalPipeline:
                         add_metadata=add_metadata
                     )
 
+                    if atype in [AllocationTypeEnum.SINGLE_INSTANCE_CP]:
+                        no_sig_suffix = suffix + "_no_sigma"
+                        self.execute_simulation(
+                            instances,
+                            dirpath,
+                            atype,
+                            resource_file,
+                            sigma=0,
+                            time_limit=time_limit,
+                            suffix=no_sig_suffix,
+                            add_metadata=add_metadata
+                        )
+
                 print("==============")
                 print(f"Finish allocation of {resource_file.name}")
                 print("==============")
 
     
     def run_random_instances(
-        self, dirpath: os.PathLike, allocation_types: list = [], num_instances:int=10, time_limit:int=100, sigma:int = None, suffix:str="", spread:int=None, add_metadata:bool=True
+        self, dirpath: os.PathLike, allocation_types: list = [], num_instances:int=10, time_limit:int=100, sigma:int = None, suffix:str="", spread:int=None, add_metadata:bool=True, res_file_suffix:str="", spread_release:bool=True, selected_resource_files:list[Path]=[]
     ):
         """
         Executes various solution approaches for all subdirectories within `dirpath`.
@@ -366,31 +379,33 @@ class EvalPipeline:
             
             ra_psts = []
             instances = []
-            spread = 5 if spread is None else spread
-
-            #currently not used
-            release_times = self.generate_release_times(num_instances, spread)
+            spread = 5 if spread is None else spread          
             
             selected_files = []
             for i in range(num_instances):
                 # Select random resource file
-                resource_file = random.choice(resource_files)
+                resource_file = random.choice(resource_files) if not selected_resource_files else selected_resource_files.pop(0)
                 selected_files.append(resource_file.name)
                 if not resource_file.is_file():
                     raise ValueError("Resource file is not a file")
 
                 # Build rapst from resource_file
-                ra_pst = build_rapst(process_file, resource_file)         
-                
+                ra_psts.append(build_rapst(process_file, resource_file))
+
+
+            spread = round(statistics.mean([ra_pst.get_avg_cost() for ra_pst in ra_psts])) if spread is None else spread
+            release_times = self.generate_release_times(num_instances, spread) if spread_release else [0 for _ in range(num_instances)]
+
+            for i in range(num_instances):
                 # Build rapst instances:
                 #instances.append(Instance(copy.deepcopy(ra_pst), {}, id=i, release_time=release_times[i]))
-                instances.append(Instance(copy.deepcopy(ra_pst), {}, id=i, release_time=0))
+                instances.append(Instance(copy.deepcopy(ra_psts[i]), {}, id=i, release_time=release_times[i]))
 
                 # Print problem size of ra_pst
-            print(f"I instances generated")
+            print(f"{i} instances generated")
 
             # Sigma mean(Task_cost)
-            sigma = round(ra_pst.get_avg_cost()) if sigma is None else sigma
+            sigma = round(statistics.mean([ra_pst.get_avg_cost() for ra_pst in ra_psts])) if sigma is None else sigma
 
             # Run for each allocation_type
             for atype in allocation_types:
@@ -403,13 +418,14 @@ class EvalPipeline:
                     time_limit=time_limit,
                     suffix=suffix,
                     add_metadata=add_metadata,
-                    different_instances=True
+                    different_instances=True,
+                    res_file_suffix = res_file_suffix
                 )
                 schedule_path = (
                 dirpath
                 / "evaluation"
                 / f"{str(atype)}{suffix}"
-                / f"{resource_file.stem}.json"
+                / f"{resource_file.stem}{res_file_suffix}.json"
                 )
                 with open(schedule_path, "r") as f:
                     schedule_dict = json.load(f)
@@ -417,6 +433,34 @@ class EvalPipeline:
                 
                 with open(schedule_path, "w") as f:
                     json.dump(schedule_dict, f, indent=2)
+
+                    if atype in [AllocationTypeEnum.SINGLE_INSTANCE_CP]:
+                        print("No_Sigma allocation")
+                        no_sig_suffix = suffix + "_no_sigma"
+                        self.execute_simulation(
+                            instances,
+                            dirpath,
+                            atype,
+                            resource_file,
+                            sigma=0,
+                            time_limit=time_limit,
+                            suffix=no_sig_suffix,
+                            add_metadata=add_metadata,
+                            different_instances=True,
+                            res_file_suffix = res_file_suffix
+                        )
+                        schedule_path = (
+                        dirpath
+                        / "evaluation"
+                        / f"{str(atype)}{no_sig_suffix}"
+                        / f"{resource_file.stem}{res_file_suffix}.json"
+                        )
+                        with open(schedule_path, "r") as f:
+                            schedule_dict = json.load(f)
+                        schedule_dict["metadata"]["picked_instances"] = selected_files
+                        
+                        with open(schedule_path, "w") as f:
+                            json.dump(schedule_dict, f, indent=2)
         
         
             print("==============")
@@ -433,14 +477,15 @@ class EvalPipeline:
         time_limit=100,
         suffix: str = "",
         add_metadata:bool = True, 
-        different_instances:bool = False
+        different_instances:bool = False,
+        res_file_suffix:str = ""
     ):
         """Setup and run simulation for a given allocation type."""
         schedule_path = (
             directory
             / "evaluation"
             / f"{str(allocation_type)}{suffix}"
-            / f"{resource_file.stem}.json"
+            / f"{resource_file.stem}{res_file_suffix}.json"
         )
         # Ensure the parent directory exists
         schedule_path.parent.mkdir(parents=True, exist_ok=True)
@@ -481,121 +526,6 @@ class EvalPipeline:
             self.combine_info_during_solving(schedule_path)
 
 
-    def run_random_ra_psts(self, dirpath: os.PathLike, release_times: list, i: int = 0):
-        if dirpath.is_dir():  # Ensure it's a directory
-            process_file = next(
-                Path(dirpath / "process").iterdir()
-            )  # Get the process file
-            resources_dir = Path(dirpath / "resources")  # Get the resources directory
-
-            if process_file.is_file() and resources_dir.exists():
-                # Draw len(release_times) many resource files from resources dir
-                ra_psts = []
-                resource_files = [res_file for res_file in resources_dir.iterdir()]
-                for _ in range(len(release_times)):
-                    resource_file = random.choice(resource_files)
-                    ra_psts.append(build_rapst(process_file, resource_file))
-
-                # Sigma mean(Task_cost)
-                sigma = round(
-                    statistics.mean(
-                        [round(ra_pst.get_avg_cost()) for ra_pst in ra_psts]
-                    )
-                )
-
-                # Setup Simulator for each allocation_type
-                print(f"Start heuristic allocation of {resource_file.name}")
-                schedule_path = dirpath / "evaluation" / "heuristic" / f"multi_int_{i}"
-                schedule_path.parent.mkdir(parents=True, exist_ok=True)
-                # show_tree_as_graph(ra_pst, output_file=schedule_path, view=False)
-                self.setup_simulator(
-                    ra_psts,
-                    "heuristic",
-                    path_to_dir=schedule_path,
-                    release_times=release_times,
-                )
-                self.sim.simulate()
-                self.add_metadata_to_schedule(resource_file, schedule_path)
-
-                # Setup Simulator for single instance cp with shift
-                print(f"Start single instance CP allocation of {resource_file.name}")
-                schedule_path = (
-                    dirpath
-                    / "evaluation"
-                    / "single_instance_cp_sigma_shift"
-                    / f"multi_int_{i}"
-                )
-                schedule_path.parent.mkdir(parents=True, exist_ok=True)
-                self.setup_simulator(
-                    ra_psts,
-                    AllocationTypeEnum.SINGLE_INSTANCE_CP,
-                    path_to_dir=schedule_path,
-                    release_times=release_times,
-                    sigma=sigma,
-                )
-                self.sim.simulate()
-                self.add_metadata_to_schedule(resource_file, schedule_path)
-                self.combine_info_during_solving(schedule_path)
-
-                # Setup Simulator for scheduling ilp
-                print(
-                    f"Start single instance ILP+CP allocation of {resource_file.name}"
-                )
-                schedule_path = (
-                    dirpath
-                    / "evaluation"
-                    / "single_instance_ilp_sigma_shift"
-                    / f"multi_int_{i}"
-                )
-                schedule_path.parent.mkdir(parents=True, exist_ok=True)
-                self.setup_simulator(
-                    ra_psts,
-                    AllocationTypeEnum.SINGLE_INSTANCE_ILP,
-                    path_to_dir=schedule_path,
-                    release_times=release_times,
-                    sigma=sigma,
-                )
-                self.sim.simulate()
-                self.add_ilp_data(schedule_path)
-                self.add_metadata_to_schedule(resource_file, schedule_path)
-                self.combine_info_during_solving(schedule_path)
-
-                # Setup Simulator for scheduling optimal ilp
-                print(f"Start all_instance_ILP + CP allocation of {resource_file.name}")
-                schedule_path = (
-                    dirpath / "evaluation" / "all_instance_ilp" / f"multi_int_{i}"
-                )
-                schedule_path.parent.mkdir(parents=True, exist_ok=True)
-                self.setup_simulator(
-                    ra_psts,
-                    AllocationTypeEnum.ALL_INSTANCE_ILP,
-                    path_to_dir=schedule_path,
-                    release_times=release_times,
-                )
-                self.sim.simulate()
-                self.add_ilp_data(schedule_path)
-                self.add_metadata_to_schedule(resource_file, schedule_path)
-
-                # Setup Simulator for CP_all
-                print(f"Start all_instance_CP allocation of {resource_file.name}")
-                schedule_path = (
-                    dirpath / "evaluation" / "all_instance_cp" / f"multi_int_{i}"
-                )
-                schedule_path.parent.mkdir(parents=True, exist_ok=True)
-                self.setup_simulator(
-                    ra_psts,
-                    AllocationTypeEnum.ALL_INSTANCE_CP,
-                    path_to_dir=schedule_path,
-                    release_times=release_times,
-                )
-                self.sim.simulate()
-                self.add_metadata_to_schedule(resource_file, schedule_path)
-
-                print("==============")
-                print(f"Finish allocation of {resource_file.name + str(i)}")
-                print("==============")
-
-
     def generate_release_times(self, num_instances:int, spread:int):
         """
         Generate release times for processes using an exponential distribution.
@@ -607,14 +537,16 @@ class EvalPipeline:
         Returns:
             list: Cumulative release times for the process instances (in hours).
         """
+        release_times = [0]
         # Sample time intervals from the exponential distribution
         intervals = np.random.exponential(
-            scale=spread, size=num_instances
+            scale=spread, size=num_instances-1
         ).round()
-
+        #intervals = np.round(intervals).astype(int)
         # Calculate cumulative release times
-        release_times = np.cumsum(intervals)
-        release_times = [int(time) for time in release_times]
+        release_times.extend(np.cumsum(intervals))
+        release_times = [round(time) for time in release_times]
+        
         return release_times
 
 
@@ -624,57 +556,100 @@ def pos_random_normal(mean, sigma):
 
 
 if __name__ == "__main__":
-    # Main path of testsets
-    root_path = Path("testsets_decomposed_final_8")
 
-    # Filter for subdirectories
-    subdirectories = sorted([folder for folder in root_path.iterdir() if folder.is_dir()])
-    subdirectories_gen = [subdirectories[i] for i in [0,1]]
-    subdirectories_random = [subdirectories[i] for i in [3]]
-    clinic_set = [subdirectories[i] for i in [2]]
-    print(subdirectories_gen, subdirectories_random, clinic_set)
-    
-    # Filter chosen allocation types
-    allocation_types = [
-        AllocationTypeEnum.ALL_INSTANCE_CP,
-        AllocationTypeEnum.ALL_INSTANCE_CP_DECOMPOSED,
-        AllocationTypeEnum.ALL_INSTANCE_ILP
-    ]
-    
-    # run with random instance picking
-    for folder in subdirectories_random:
-        ep = EvalPipeline()
-        #ep.run_same_release(folder, allocation_types, num_instances=8)
-        ep.run_random_instances(folder, allocation_types, num_instances=8, time_limit=7200, suffix="_7200_gen")
+    offline=True
+    online =False
 
-    # run clinic set, no metadata
-    for folder in clinic_set:
-        ep = EvalPipeline()
-        ep.run_same_release(folder, allocation_types, num_instances=8, time_limit=7200, suffix="_7200_gen", add_metadata=False)
 
-    # run same release time pipeline for folder
-    for folder in subdirectories_gen:
-        ep = EvalPipeline()
-        #ep.run_same_release(folder, allocation_types, num_instances=8)
-        ep.run_same_release(folder, allocation_types, num_instances=8, time_limit=7200, suffix="_7200_gen")
+    if offline:
+        # Main path of testsets
+        root_path = Path("testsets_decomposed_final_8_playground")
 
-    # run with random instance picking
-    for folder in subdirectories_random:
-        ep = EvalPipeline()
-        #ep.run_same_release(folder, allocation_types, num_instances=8)
-        ep.run_random_instances(folder, allocation_types, num_instances=8, time_limit=7200, suffix="_7200_gen")
+        # Filter for subdirectories
+        subdirectories = sorted([folder for folder in root_path.iterdir() if folder.is_dir()])
+        subdirectories_gen = [subdirectories[i] for i in [0]]
+        subdirectories_random = [subdirectories[i] for i in [3]]
+        clinic_set = [subdirectories[i] for i in [2]]
+        print(subdirectories_gen, subdirectories_random, clinic_set)
+        
+        # Filter chosen allocation types
+        allocation_types = [
+            #AllocationTypeEnum.ALL_INSTANCE_CP,
+            AllocationTypeEnum.ALL_INSTANCE_CP_DECOMPOSED,
+            #AllocationTypeEnum.ALL_INSTANCE_ILP
+        ]
+
+        # run clinic set, no metadata
+        for folder in clinic_set:
+            ep = EvalPipeline()
+            #ep.run_same_release(folder, allocation_types, num_instances=8, time_limit=600, suffix="_600", add_metadata=False)
+
+        # run same release time pipeline for folder
+        for folder in subdirectories_gen:
+            ep = EvalPipeline()
+            #ep.run_same_release(folder, allocation_types, num_instances=8)
+            #ep.run_same_release(folder, allocation_types, num_instances=8, time_limit=600, suffix="_600")
+
+        # run with random instance picking
+        eval_path = root_path / "random_instances" / "evaluation"/ "all_instance_ilp_7200_gen"
+        json_files = list(eval_path.glob("*.json"))
+        resource_path = root_path/ "random_instances" / "resources"
+        selected_resource_files = []
+        for file in json_files:
+            with open(file, "r") as f:
+                data = json.load(f)
+            path_list = [resource_path / Path(file_string) for file_string in data["metadata"]["picked_instances"]]
+            selected_resource_files.append(path_list)
+
+        print("Start random 1")
+        for i in range(2):
+            for folder in subdirectories_random:
+                ep = EvalPipeline()
+                #ep.run_same_release(folder, allocation_types, num_instances=8)
+                ep.run_random_instances(folder, allocation_types, num_instances=8, time_limit=7200, suffix="_7200_gen", res_file_suffix=f"_{i}", spread_release=False, selected_resource_files=selected_resource_files[i])
+
+        print("Start random 2")
+        # run with random instance picking
+        for folder in subdirectories_random:
+            ep = EvalPipeline()
+            #ep.run_same_release(folder, allocation_types, num_instances=8)
+            #ep.run_random_instances(folder, allocation_types, num_instances=8, time_limit=7200, suffix="_7200_gen", spread_release=False)
     
-    """
-    print("===========")
-    print("RUN ONLINE TESTS")
-    print("===========")
-    # Main path of testsets
-    root_path = Path("testsets_decomposed_final_8")
+    if online:
     
-    # Run online tests
-    for folder in subdirectories:
-        ep = EvalPipeline()
-        #ep.run_same_release(folder, allocation_types, num_instances=8)
-        ep.run_generated_release(folder, allocation_types, num_instances=8, time_limit=200, suffix="")
-    """
+        print("===========")
+        print("RUN ONLINE TESTS")
+        print("===========")
+        
+        
+        # Folder with online testsets
+        root_path = Path("testsets_online_final")
+
+        # Filter for subdirectories
+        subdirectories = sorted([folder for folder in root_path.iterdir() if folder.is_dir()])
+        subdirectories_normal = [subdirectories[i] for i in [0,2,4]]
+        subdirectories_random = [subdirectories[i] for i in [1,3,5]]
+
+            # Filter chosen allocation types
+        allocation_types = [
+            AllocationTypeEnum.ALL_INSTANCE_CP,
+            AllocationTypeEnum.HEURISTIC,
+            AllocationTypeEnum.SINGLE_INSTANCE_CP,
+            AllocationTypeEnum.SINGLE_INSTANCE_CP,
+            AllocationTypeEnum.SINGLE_INSTANCE_ILP,
+            AllocationTypeEnum.ALL_INSTANCE_ILP
+        ]
+        
+        # Run online tests
+        for folder in subdirectories_normal:
+            ep = EvalPipeline()
+            #ep.run_same_release(folder, allocation_types, num_instances=8)
+            ep.run_generated_release(folder, allocation_types, num_instances=8, time_limit=100, suffix="")
+        
+        # Run online tests
+        for i in range(2):
+            for folder in subdirectories_random:
+                ep = EvalPipeline()
+                #ep.run_same_release(folder, allocation_types, num_instances=8)
+                ep.run_random_instances(folder, allocation_types, num_instances=8, time_limit=100, suffix="", res_file_suffix=f"_{i}", spread_release=True)
    
