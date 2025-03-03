@@ -174,7 +174,10 @@ def cp_solver_decomposed_strengthened_cuts(ra_pst_json, warm_start_json=None, lo
     # Build the model
     #-----------------------------------------------------------------------------
     lower_bound = 0
-    max_release_time = max([ra_pst["release_time"] for ra_pst in ra_psts["instances"]])
+    max_release_time = 0
+    for ra_pst in ra_psts["instances"]:
+        if ra_pst["release_time"] is not None:
+            max_release_time = max(max_release_time, ra_pst["release_time"])
     big_number = max_release_time if max_release_time else 0
     for ra_pst in ra_psts["instances"]:
         for branch in ra_pst["branches"].values():
@@ -334,7 +337,10 @@ def ilp_masterproblem(ra_psts, upper_bound):
             for jobId in branch["jobs"]:
                 branch_jobs[ra_pst["jobs"][jobId]["resource"]] += ra_pst["jobs"][jobId]["cost"]
             branch["branch_jobs"] = branch_jobs
-        master_model.addConstr(z >= gp.quicksum(branch["branchCost"] * branch["selected"] for branch in ra_pst["branches"].values()) + ra_pst["release_time"]) 
+        if ra_pst["release_time"] is not None:
+            master_model.addConstr(z >= gp.quicksum(branch["branchCost"] * branch["selected"] for branch in ra_pst["branches"].values()) + ra_pst["release_time"]) 
+        else:
+            master_model.addConstr(z >= gp.quicksum(branch["branchCost"] * branch["selected"] for branch in ra_pst["branches"].values()))
     # Find the minimum release time of any selected job on resource r. 
     Y = {}
     E = {}
@@ -454,9 +460,7 @@ def cp_subproblem(ra_psts, branches, lower_bound=0, sigma:int=0):
     start_time = time.time()
     schedule = subproblem_model.solve(
         LogVerbosity='Quiet', 
-        TimeLimit=5,
-        SearchType='IterativeDiving',
-        OptimalityTolerance=0.05
+        TimeLimit=5
         )
     if schedule.get_solve_status() == "Infeasible":
         raise ValueError("Infeasible model")
