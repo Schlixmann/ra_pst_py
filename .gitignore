@@ -12,6 +12,7 @@ out/*
 testset*
 !testsets_decomposed_final_8
 !testsets_online_final_freeze
+!testsets_decomposed_final_8_freeze_new_decomp
 eval_archive*
 ra_pst.xml
 alterna_out.json

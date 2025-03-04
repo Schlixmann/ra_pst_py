@@ -563,11 +563,11 @@ if __name__ == "__main__":
 
     if offline:
         # Main path of testsets
-        root_path = Path("testsets_decomposed_final_8_playground")
+        root_path = Path("testsets_decomposed_final_8_freeze_new_decomp")
 
         # Filter for subdirectories
         subdirectories = sorted([folder for folder in root_path.iterdir() if folder.is_dir()])
-        subdirectories_gen = [subdirectories[i] for i in [0]]
+        subdirectories_gen = [subdirectories[i] for i in [0,1]]
         subdirectories_random = [subdirectories[i] for i in [3]]
         clinic_set = [subdirectories[i] for i in [2]]
         print(subdirectories_gen, subdirectories_random, clinic_set)
@@ -582,13 +582,13 @@ if __name__ == "__main__":
         # run clinic set, no metadata
         for folder in clinic_set:
             ep = EvalPipeline()
-            #ep.run_same_release(folder, allocation_types, num_instances=8, time_limit=600, suffix="_600", add_metadata=False)
+            ep.run_same_release(folder, allocation_types, num_instances=8, time_limit=7200, suffix="_7200", add_metadata=False)
 
         # run same release time pipeline for folder
         for folder in subdirectories_gen:
             ep = EvalPipeline()
             #ep.run_same_release(folder, allocation_types, num_instances=8)
-            #ep.run_same_release(folder, allocation_types, num_instances=8, time_limit=600, suffix="_600")
+            ep.run_same_release(folder, allocation_types, num_instances=8, time_limit=7200, suffix="_7200")
 
         # run with random instance picking
         eval_path = root_path / "random_instances" / "evaluation"/ "all_instance_ilp_7200_gen"
@@ -606,14 +606,7 @@ if __name__ == "__main__":
             for folder in subdirectories_random:
                 ep = EvalPipeline()
                 #ep.run_same_release(folder, allocation_types, num_instances=8)
-                ep.run_random_instances(folder, allocation_types, num_instances=8, time_limit=7200, suffix="_7200_gen", res_file_suffix=f"_{i}", spread_release=False, selected_resource_files=selected_resource_files[i])
-
-        print("Start random 2")
-        # run with random instance picking
-        for folder in subdirectories_random:
-            ep = EvalPipeline()
-            #ep.run_same_release(folder, allocation_types, num_instances=8)
-            #ep.run_random_instances(folder, allocation_types, num_instances=8, time_limit=7200, suffix="_7200_gen", spread_release=False)
+                ep.run_random_instances(folder, allocation_types, num_instances=8, time_limit=7200, suffix="_7200", res_file_suffix=f"_{i}", spread_release=False, selected_resource_files=selected_resource_files[i])
     
     if online:
     

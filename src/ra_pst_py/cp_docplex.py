@@ -172,7 +172,7 @@ def cp_solver(ra_pst_json, warm_start_json=None, log_file = "cpo_solver.log", ti
         model.set_starting_point(starting_solution)
 
     with open(log_file, "w") as f:
-        result = model.solve(FailLimit=100000000, TimeLimit=timeout, log_output=f)
+        result = model.solve(TimeLimit=timeout, log_output=f)
     # result.print_solution()
     if result.get_solve_status() == "Infeasible":
         raise ValueError("Infeasible model")
