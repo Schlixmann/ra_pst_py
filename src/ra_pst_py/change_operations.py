@@ -49,7 +49,7 @@ class ChangeOperation():
         else:
             return proc_tasks[0]
 
-    def add_res_allocation(self, task, branch):
+    def add_res_allocation(self, task, branch:etree._Element):
         """ Ads the resources & expetec times of a branch to the RA-PST_instance
         
         Parameters: 

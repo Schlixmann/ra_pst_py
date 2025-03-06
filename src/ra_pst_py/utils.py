@@ -34,3 +34,16 @@ def get_next_task(tasks_iter, instance=None):
         else:
             break
     return task
+
+
+def get_process_task(ra_pst:etree._Element, task:etree._Element, ns=None):
+    task_id = task.attrib["id"]
+    tasks = ra_pst.xpath(f"//cpee1:manipulate[@id='{task_id}'][not(ancestor::cpee1:children) and not(ancestor::cpee1:allocation)] |" 
+                         f"//cpee1:call[@id='{task_id}'][not(ancestor::cpee1:children) and not(ancestor::cpee1:allocation)]", 
+                        namespaces=ns)
+    task_label = get_label(task)
+    tasks = [task for task in tasks if get_label(task) == task_label]
+    if len(tasks) > 1:
+        raise ValueError ("More than one task with same ID and label")
+    return tasks[0]
+    

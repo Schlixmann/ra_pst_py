@@ -1,6 +1,6 @@
 # Import modules
 from . import utils
-from src.ra_pst_py.change_operations import ChangeOperationError
+from src.ra_pst_py.change_operations import ChangeOperationError, ChangeOperation
 
 # Import external packages
 from lxml import etree
@@ -837,6 +837,87 @@ class Branch:
             f.write(etree.tostring(ra_pst))
         # print("Checkpoint for application")
         return ra_pst
+    
+    def apply_to_process_refactor(
+        self,
+        instance,
+        earliest_possible_start=None,
+        delete:bool = False
+    ) -> etree: #Should be instance
+        """
+        -> Find task to allocate in process
+        -> apply change operations
+        """
+        ns = instance.ns
+        change_operation = ChangeOperation(copy.deepcopy(instance.ra_pst.ra_pst))
+        new_node = copy.deepcopy(self.node)
+
+        for element in new_node.xpath(
+            "(//cpee1:manipulate | //cpee1:call)[parent::cpee1:children]",
+            namespaces=self.ns,
+        ):
+            exp_ready_element = etree.SubElement(
+                element, f"{{{self.ns['cpee1']}}}expectedready"
+            )
+
+        tasks = copy.deepcopy(self.node).xpath(
+            "//*[self::cpee1:call or self::cpee1:manipulate][not(ancestor::changepattern) and not(ancestor::cpee1:changepattern)and not(ancestor::cpee1:allocation)]",
+            namespaces=ns,
+        )
+        
+        if delete:
+            return instance.ra_pst
+
+        # Allocate resource to anchor task
+        if self.node.xpath("cpee1:children/*", namespaces=ns):
+            task = utils.get_process_task(instance.ra_pst.ra_pst, self.node, ns=ns)
+            change_operation.add_res_allocation(task, self.node)
+            tasks.pop(0)
+
+        delay_deletes = []
+        for task in tasks:
+            try:
+                if task.xpath("@type = 'delete'"):
+                    delay_deletes.append(task)
+                else:
+                    anchor = task.xpath(
+                        "ancestor::cpee1:manipulate | ancestor::cpee1:call",
+                        namespaces=ns,
+                    )[-1]
+                    instance.ra_pst.ra_pst, invalid = (
+                        change_operation.ChangeOperationFactory(
+                            instance.ra_pst.ra_pst,
+                            anchor,
+                            task,
+                            self.node,
+                            cptype=task.attrib["type"],
+                            earliest_possible_start=earliest_possible_start,
+                        )
+                    )
+
+            except ChangeOperationError:
+                instance.invalid_branches = True
+
+        for task in delay_deletes:
+            try:
+                anchor = task.xpath(
+                    "ancestor::cpee1:manipulate | ancestor::cpee1:call", namespaces=ns
+                )[-1]
+                instance.ra_pst.ra_pst, invalid = change_operation.ChangeOperationFactory(
+                    instance.ra_pst.ra_pst,
+                    anchor,
+                    task,
+                    self.node,
+                    cptype=task.attrib["type"],
+                    earliest_possible_start=earliest_possible_start,
+                )
+
+            except ChangeOperationError:
+                instance.invalid_branches = True
+
+        with open("tmp/process.xml", "wb") as f:
+            f.write(etree.tostring(instance.ra_pst.process))
+        return instance.ra_pst
 
     def get_tasklist(self, attribute=None):
         "Returns list of all Task-Ids in self.ra_pst"

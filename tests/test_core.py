@@ -1,5 +1,6 @@
 from src.ra_pst_py.core import RA_PST, ResourceError
 from src.ra_pst_py.file_parser import parse_process_file, parse_resource_file
+from src.ra_pst_py.instance import Instance
 
 import unittest
 from lxml import etree
@@ -90,3 +91,6 @@ class CoreTest(unittest.TestCase):
         print(ilp_branches["tasks"])
         print(ilp_branches["resources"])
         print(ilp_branches["branches"])
+
+
+

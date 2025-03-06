@@ -201,3 +201,20 @@ def compare_task_w_jobs(ra_pst, ilp, instance_id):
 
 
     return task_nodes, jobs
+
+class BranchTest(unittest.TestCase):
+     def test_apply_branches(self):
+        ra_pst = build_rapst(
+            process_file="tests/test_data/test_process.xml",
+            resource_file=f"tests/test_data/resource_cp_tests/insert_after_before.xml",
+        )
+        show_tree_as_graph(ra_pst)
+        instance = Instance(ra_pst=ra_pst, branches_to_apply={}, id=0)
+        for task_id in instance.ra_pst.get_tasklist(attribute="id"):
+            branch = instance.ra_pst.get_branches()[task_id][0]
+            allocated_ra_pst = branch.apply_to_process_refactor(instance)
+        
+        self.assertEqual(instance.ra_pst, allocated_ra_pst)
+        show_tree_as_graph(instance.ra_pst)
+        instance.ra_pst.save_ra_pst("test.xml")
+
