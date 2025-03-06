@@ -649,7 +649,7 @@ if __name__ == "__main__":
         for folder in subdirectories_normal:
             ep = EvalPipeline()
             #ep.run_same_release(folder, allocation_types, num_instances=8)
-            #ep.run_generated_release(folder, allocation_types, num_instances=8, time_limit=100, suffix="", fixed_release_times=get_release_times)
+            ep.run_generated_release(folder, allocation_types, num_instances=8, time_limit=100, suffix="", fixed_release_times=get_release_times)
         
         # Run online tests
                 # run with random instance picking
