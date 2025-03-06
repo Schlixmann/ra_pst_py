@@ -248,7 +248,7 @@ class EvalPipeline:
 
 
     def run_generated_release(
-        self, dirpath: os.PathLike, allocation_types: list = [], num_instances:int=10, time_limit:int=100, sigma:int = None, suffix:str="", spread:int=None, add_metadata:bool=True,
+        self, dirpath: os.PathLike, allocation_types: list = [], num_instances:int=10, time_limit:int=100, sigma:int = None, suffix:str="", spread:int=None, add_metadata:bool=True, fixed_release_times:callable = None
     ):
         """
         Executes various solution approaches for all subdirectories within `dirpath`.
@@ -293,7 +293,7 @@ class EvalPipeline:
                 # generate release times:
                 avg_task_cost = round(ra_pst.get_avg_cost())
                 spread = avg_task_cost if sigma is None else spread
-                release_times = self.generate_release_times(num_instances, spread)
+                release_times = self.generate_release_times(num_instances, spread) if not fixed_release_times else fixed_release_times(dirpath, resource_file)
                 # Build rapst instances:
                 instances = [
                     Instance(copy.deepcopy(ra_pst), {}, id=i, release_time=release_time)
@@ -319,7 +319,7 @@ class EvalPipeline:
                         add_metadata=add_metadata
                     )
 
-                    if atype in [AllocationTypeEnum.SINGLE_INSTANCE_CP]:
+                    if atype in [AllocationTypeEnum.SINGLE_INSTANCE_CP, AllocationTypeEnum.SINGLE_INSTANCE_CP_DECOMPOSED]:
                         no_sig_suffix = suffix + "_no_sigma"
                         self.execute_simulation(
                             instances,
@@ -338,7 +338,7 @@ class EvalPipeline:
 
     
     def run_random_instances(
-        self, dirpath: os.PathLike, allocation_types: list = [], num_instances:int=10, time_limit:int=100, sigma:int = None, suffix:str="", spread:int=None, add_metadata:bool=True, res_file_suffix:str="", spread_release:bool=True, selected_resource_files:list[Path]=[]
+        self, dirpath: os.PathLike, allocation_types: list = [], num_instances:int=10, time_limit:int=100, sigma:int = None, suffix:str="", spread:int=None, add_metadata:bool=True, res_file_suffix:str="", spread_release:bool=True, selected_resource_files:list[Path]=[], fixed_release_times:list=[]
     ):
         """
         Executes various solution approaches for all subdirectories within `dirpath`.
@@ -394,7 +394,11 @@ class EvalPipeline:
 
 
             spread = round(statistics.mean([ra_pst.get_avg_cost() for ra_pst in ra_psts])) if spread is None else spread
-            release_times = self.generate_release_times(num_instances, spread) if spread_release else [0 for _ in range(num_instances)]
+
+            if not fixed_release_times:
+                release_times = self.generate_release_times(num_instances, spread) if spread_release else [0 for _ in range(num_instances)]
+            else:
+                release_times = fixed_release_times
 
             for i in range(num_instances):
                 # Build rapst instances:
@@ -434,7 +438,7 @@ class EvalPipeline:
                 with open(schedule_path, "w") as f:
                     json.dump(schedule_dict, f, indent=2)
 
-                    if atype in [AllocationTypeEnum.SINGLE_INSTANCE_CP]:
+                    if atype in [AllocationTypeEnum.SINGLE_INSTANCE_CP, AllocationTypeEnum.SINGLE_INSTANCE_CP_DECOMPOSED]:
                         print("No_Sigma allocation")
                         no_sig_suffix = suffix + "_no_sigma"
                         self.execute_simulation(
@@ -554,11 +558,18 @@ def pos_random_normal(mean, sigma):
     x = round(np.random.normal(mean, sigma))
     return x if x >= 0 else pos_random_normal(mean, sigma)
 
+def get_release_times(dirpath:Path, resource_file:Path):
+    file_name = Path(resource_file.stem + ".json")
+    eval_file = dirpath / "evaluation" / "single_instance_cp" / file_name
+    with open(eval_file, "r") as f:
+        data = json.load(f)
+    return data["metadata"]["release_times"]
+
 
 if __name__ == "__main__":
 
-    offline=True
-    online =False
+    offline=False
+    online =True
 
 
     if offline:
@@ -590,7 +601,7 @@ if __name__ == "__main__":
             #ep.run_same_release(folder, allocation_types, num_instances=8)
             ep.run_same_release(folder, allocation_types, num_instances=8, time_limit=7200, suffix="_7200")
 
-        # run with random instance picking
+        # set instances for random instance
         eval_path = root_path / "random_instances" / "evaluation"/ "all_instance_ilp_7200_gen"
         json_files = list(eval_path.glob("*.json"))
         resource_path = root_path/ "random_instances" / "resources"
@@ -616,7 +627,7 @@ if __name__ == "__main__":
         
         
         # Folder with online testsets
-        root_path = Path("testsets_online_final")
+        root_path = Path("testsets_online_final_playground")
 
         # Filter for subdirectories
         subdirectories = sorted([folder for folder in root_path.iterdir() if folder.is_dir()])
@@ -625,24 +636,48 @@ if __name__ == "__main__":
 
             # Filter chosen allocation types
         allocation_types = [
-            AllocationTypeEnum.ALL_INSTANCE_CP,
-            AllocationTypeEnum.HEURISTIC,
-            AllocationTypeEnum.SINGLE_INSTANCE_CP,
-            AllocationTypeEnum.SINGLE_INSTANCE_CP,
-            AllocationTypeEnum.SINGLE_INSTANCE_ILP,
-            AllocationTypeEnum.ALL_INSTANCE_ILP
+            #AllocationTypeEnum.ALL_INSTANCE_CP,
+            #AllocationTypeEnum.HEURISTIC,
+            #AllocationTypeEnum.SINGLE_INSTANCE_CP,
+            #AllocationTypeEnum.SINGLE_INSTANCE_CP,
+            #AllocationTypeEnum.SINGLE_INSTANCE_ILP,
+            AllocationTypeEnum.SINGLE_INSTANCE_CP_DECOMPOSED,
+            #AllocationTypeEnum.ALL_INSTANCE_ILP
         ]
         
         # Run online tests
         for folder in subdirectories_normal:
             ep = EvalPipeline()
             #ep.run_same_release(folder, allocation_types, num_instances=8)
-            ep.run_generated_release(folder, allocation_types, num_instances=8, time_limit=100, suffix="")
+            #ep.run_generated_release(folder, allocation_types, num_instances=8, time_limit=100, suffix="", fixed_release_times=get_release_times)
         
         # Run online tests
-        for i in range(2):
-            for folder in subdirectories_random:
+                # run with random instance picking
+        eval_path = root_path / "random_instances" / "evaluation"/ "all_instance_ilp_7200_gen"
+        json_files = list(eval_path.glob("*.json"))
+        resource_path = root_path/ "random_instances" / "resources"
+        selected_resource_files = []
+        for file in json_files:
+            with open(file, "r") as f:
+                data = json.load(f)
+            path_list = [resource_path / Path(file_string) for file_string in data["metadata"]["picked_instances"]]
+            selected_resource_files.append(path_list)
+        
+
+        for folder in subdirectories_random:
+            eval_path = folder / "evaluation" / "single_instance_cp"
+            json_files = list(eval_path.glob("*.json"))
+            resource_path = folder/ "resources"
+            selected_resource_files = []
+            fixed_release_times = []
+            for file in json_files:
+                with open(file, "r") as f:
+                    data = json.load(f)
+                path_list = [resource_path / Path(file_string) for file_string in data["metadata"]["picked_instances"]]
+                selected_resource_files.append(path_list)
+                fixed_release_times.append(data["metadata"]["release_times"])
+            
+            for i in range(2):
                 ep = EvalPipeline()
                 #ep.run_same_release(folder, allocation_types, num_instances=8)
-                ep.run_random_instances(folder, allocation_types, num_instances=8, time_limit=100, suffix="", res_file_suffix=f"_{i}", spread_release=True)
-   
+                ep.run_random_instances(folder, allocation_types, num_instances=8, time_limit=100, suffix="", res_file_suffix=f"_{i}", spread_release=True, selected_resource_files=selected_resource_files[i], fixed_release_times=fixed_release_times[i])

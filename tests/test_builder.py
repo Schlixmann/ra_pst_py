@@ -42,3 +42,13 @@ class BuilderTest(unittest.TestCase):
         ra_pst = self.ra_pst
         show_tree_as_graph(ra_pst)
         print(ra_pst.get_enthropy())
+
+    
+    def test_show_tree(self):
+        ra_pst = build_rapst(
+            process_file="testsets_decomposed_final_8_freeze/5_tasks/process/BPM_TestSet_5.xml",
+            resource_file="testsets_decomposed_final_8_freeze/5_tasks/resources/(0.8, 0.2, 0.0)-skill_short_branch-3-early-resource_based-3-1-10.xml"
+        )
+
+        print(ra_pst.get_problem_size())
+        show_tree_as_graph(ra_pst)
