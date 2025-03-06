@@ -1355,5 +1355,36 @@
     "branches": 618699,
     "propagations": "N/A",
     "total interval length": 350.0
+  },
+  "metadata": {
+    "tasks": "2",
+    "branches": "5",
+    "used_branches": "5",
+    "resources": "4",
+    "resource_importance": {
+      "res_1": "1",
+      "res_2": "0",
+      "res_3": "0",
+      "res_4": "0",
+      "res_5": "0"
+    },
+    "config": {
+      "testset": "clinic"
+    },
+    "instance_problem_size": 4,
+    "release_times": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "flex_factor": 0,
+    "enthropy": 0,
+    "optimal_makespan": 0,
+    "parallelity": 1.0
   }
 }
