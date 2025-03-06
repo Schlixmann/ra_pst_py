@@ -39,8 +39,6 @@ class RA_PST:
         self.problem_size = None
         self.flex_factor = None
 
-
-
     def get_ra_pst_str(self) -> str:
         if not self.ra_pst:
             self.build_ra_pst()
@@ -87,6 +85,10 @@ class RA_PST:
             ]
         size = math.prod(branches)
         return size
+
+    def get_branches(self) -> dict:
+        """ Returns self.branches as dict"""
+        return self.branches
     
     def get_flex_factor(self):
         """
@@ -107,7 +109,6 @@ class RA_PST:
             unevenness = std_branches/mean_branches if mean_branches > 0 else 0
 
             self.flex_factor = mean_branches * (1 - unevenness)
-        
 
         return self.flex_factor
     
@@ -271,9 +272,6 @@ class RA_PST:
         result["release_time"] = release_time
         result["instanceId"] = instance_id
         return result
-
-    def get_optimized_instance(self, branch_list):
-        pass
 
     def save_ra_pst(self, path: str):
         """

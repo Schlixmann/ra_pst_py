@@ -46,7 +46,7 @@ class InstanceTest(unittest.TestCase):
             process_file="tests/test_data/test_instance_data/BPM_TestSet_10.xml",
             resource_file="tests/test_data/test_instance_data/(0.6, 0.4, 0.0)-random-3-uniform-resource_based-2-1-10.xml",
         )
-        show_tree_as_graph(ra_pst)
+        #show_tree_as_graph(ra_pst)
         for i in range(8):
             self.instance = Instance(copy.deepcopy(ra_pst), {}, id=i)
             schedule_file = "tests/test_data/test_instance_data/(0.6, 0.4, 0.0)-random-3-uniform-resource_based-2-1-10.json"

@@ -240,9 +240,12 @@ class Instance():
                 raise ValueError(f"The number of branches in the scheduled instance {len(instance["tasks"][instance_task_id]["branches"])} " 
                                 f"does not match the number of branches in the Instance {len(valid_branches)}")
             
-            # Get branch_idx out of all branches for task
+            # Get branch_idx out of all valid branches for task
             branch_idx = instance["tasks"][instance_task_id]["branches"].index(branchId)
-            branch_map[task_id] = branch_idx
+
+            # Get valid branches for task: 
+            branch_to_apply = [branch for branch in self.ra_pst.get_branches()[task_id] if branch.check_validity()][branch_idx]
+            branch_map[task_id] = self.ra_pst.branches[task_id].index(branch_to_apply)
         
         return branch_map
 
