@@ -33,7 +33,7 @@ class ChangeOperation():
             return proc_tasks
 
         proc_tasks = process.xpath(
-            f"//*[@id='{core_task.attrib['id']}'][not(ancestor::cpee1:changepattern)]", namespaces=self.ns)
+            f"//*[@id='{core_task.attrib['id']}'][not(ancestor::cpee1:changepattern)][not(ancestor::cpee1:allocation)][not(ancestor::cpee1:children)]", namespaces=self.ns)
         if len(proc_tasks) != 1:
             proc_tasks = list(filter(lambda x: utils.get_label(etree.tostring(
                 core_task)) == utils.get_label(etree.tostring(x)), proc_tasks))
@@ -567,7 +567,7 @@ class Delete(ChangeOperation):
                                 x.xpath("@id", namespaces=self.ns)[0])
 
                     except TypeError:
-                        # print(inst.__str__())
+                        #print(inst.__str__())
                         pass
                 try:
                     if pos_deletes:

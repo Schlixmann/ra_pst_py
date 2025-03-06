@@ -6,9 +6,10 @@ from src.ra_pst_py.core import RA_PST, Branch
 from . import utils 
 
 import numpy as np
-import pathlib
+from pathlib import Path
 from lxml import etree
 import os
+import json
 
 
 CURRENT_MIN_DATE = "2024-01-01T00:00" # Placeholder for scheduling heuristics
@@ -108,13 +109,14 @@ class Instance():
         branch_no = self.ra_pst.branches[task_id].index(branch)
         self.applied_branches[task_id] = branch_no
         
-    def get_optimal_instance(self):
-        self.apply_branches()
-        self.ra_pst.process = etree.fromstring(etree.tostring(self.ra_pst.process))
-        self.optimal_process = self.ra_pst.process
+    def get_optimal_instance_from_schedule(self, schedule_file):
+        
+        branches_to_apply = self.transform_ilp_to_branchmap(schedule_file)
+        self.optimal_process = self.apply_branches(branches_to_apply)
+        return self.optimal_process
 
     def save_optimal_process(self, path):
-        path = pathlib.Path(path)        
+        path = Path(path)        
         path.parent.mkdir(parents=True, exist_ok=True)
         if not path.name.endswith(".xml"):
             path = path.with_suffix(".xml")
@@ -122,16 +124,31 @@ class Instance():
         etree.indent(tree, space="\t", level=0)
         tree.write(path)
 
-    def apply_branches(self, tasks_to_apply:list = None, current_time = CURRENT_MIN_DATE):
+    def apply_branches(self, branches_to_apply:dict=None, current_time = CURRENT_MIN_DATE):
+        if branches_to_apply:
+            if not isinstance(branches_to_apply, dict):
+                raise TypeError(f"Input must be a dict")
+            self.branches_to_apply = branches_to_apply
+        if not self.branches_to_apply:
+            raise ValueError(f"No branches to apply specified.")
+        if len(self.branches_to_apply) != len(self.ra_pst.get_tasklist(attribute="id")):
+            raise ValueError(f"Len of branches_to_apply does not fit task lengths. Remark also deleted tasks need an empty branch")
+        
         while True:
             if not self.current_task == "end":
                 task, task_id = self.current_task, self.current_task.attrib["id"]
             if task_id in self.branches_to_apply.keys():
                 branch_no = self.branches_to_apply[task_id]
+                if isinstance(branch_no, list):
+                    self.current_task = utils.get_next_task(self.tasks_iter, self)
+                    if self.current_task == "end":
+                        pass
+                    else:
+                        continue
             elif self.current_task == "end":
                     pass
             else:
-                print("will be deleted")
+                #print("will be deleted")
                 self.current_task = utils.get_next_task(self.tasks_iter, self)
                 if self.current_task == "end":
                     pass
@@ -160,9 +177,12 @@ class Instance():
                     if self.ra_pst.process.xpath(f"//*[@id='{task.attrib['id']}'][not(ancestor::cpee1:children) and not(ancestor::cpee1:allocation) and not(ancestor::RA_RPST)]", namespaces=self.ns):
                         self.ra_pst.process = branch.apply_to_process(
                             self.change_op.ra_pst, solution=self, earliest_possible_start=current_time, change_op=self.change_op)  # apply delays
+                        self.change_op.ra_pst = self.ra_pst.process
+
                 self.is_final = True
                 break
-            self.ra_pst.process = self.change_op.ra_pst
+        self.ra_pst.process = self.change_op.ra_pst
+        return self.ra_pst.process
 
     def check_validity(self):  
         tasks = self.optimal_process.xpath(
@@ -186,6 +206,46 @@ class Instance():
             return np.nan
         else:
             return operator([float(value.text) for value in values])
+        
+    def transform_ilp_to_branchmap(self, ilp_path:os.PathLike|str):
+        """
+        Transform the branch dict received from ILP into a branch dict for the RA_PST.
+        Form: {task_id:branch_to_allocate}
+        """
+        if isinstance(ilp_path, (str, os.PathLike, Path)):
+            with open(ilp_path) as f:
+                data = json.load(f)
+        else:
+            raise TypeError("No valid type, must be path to a file")
+
+        # Check for instanceId in data
+        if not any(instance["instanceId"] == self.id for instance in data["instances"]):
+            raise ValueError("InstanceId not found in Schedule")
+        instance = next((instance for instance in data["instances"] if instance["instanceId"] == self.id), None)
+        if instance is None:
+            raise ValueError(f"InstanceId {self.id} not found in Schedule")
+        
+        branch_map = {task_id : [] for task_id in self.ra_pst.get_tasklist(attribute = "id")}
+        selected_branches = list(set(job["branch"] for jobId, job in instance["jobs"].items() if job["selected"]))
+                           
+        for branchId in selected_branches:
+            selected_branch = instance["branches"][branchId]
+            instance_task_id = selected_branch["task"]
+            task_id = selected_branch["task"].split("-")[-1]
+
+
+            # Compare len ilp_rep branches with instance branches
+            valid_branches = [branch for branch in self.ra_pst.branches[task_id] if branch.check_validity()]
+            if len(valid_branches) != len(instance["tasks"][instance_task_id]["branches"]):
+                raise ValueError(f"The number of branches in the scheduled instance {len(instance["tasks"][instance_task_id]["branches"])} " 
+                                f"does not match the number of branches in the Instance {len(valid_branches)}")
+            
+            # Get branch_idx out of all branches for task
+            branch_idx = instance["tasks"][instance_task_id]["branches"].index(branchId)
+            branch_map[task_id] = branch_idx
+        
+        return branch_map
+
 
 def transform_ilp_to_branches(ra_pst:RA_PST, ilp_rep):
     """
