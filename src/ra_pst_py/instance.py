@@ -74,10 +74,8 @@ class Instance():
             start_time = task.xpath("cpee1:expected_start", namespaces=self.ns)[0].text
             end_time = task.xpath("cpee1:expected_end", namespaces=self.ns)[0].text
             duration = float(end_time) - float(start_time)
-            
-            #self.allocator.add_task((self, task, start_time), resource, duration, branch_no, schedule_filepath)
-
             alloc_times.append((start_time, duration))
+
         # Apply best branch to processmodel
         self.branches_to_apply[self.current_task.attrib["id"]] = best_branch
         self.apply_single_branch(self.current_task, best_branch)       
@@ -85,7 +83,7 @@ class Instance():
         # Set new release time for following task
         self.current_task = utils.get_next_task(self.tasks_iter, self)
         if self.current_task == "end":
-            self.optimal_process = self.ra_pst.process
+            self.optimal_process = self.ra_pst.ra_pst
             return best_branch
         if self.current_task.xpath("cpee1:release_time", namespaces=self.ns):
             self.current_task.xpath("cpee1:release_time", namespaces=self.ns)[0].text = str(sum(times))
@@ -103,9 +101,9 @@ class Instance():
         if branch.node.xpath("//*[@type='delete']"):
             #self.delayed_deletes.append((branch, task, current_time))
             delete = False
-        self.ra_pst.process = branch.apply_to_process(
-            self.change_op.ra_pst, solution=self, earliest_possible_start=current_time, change_op=self.change_op, delete=delete)  # build branch
-        self.change_op.ra_pst = self.ra_pst.process
+        self.ra_pst = branch.apply_to_process(
+            self, earliest_possible_start=current_time, delete=delete)  # build branch
+        self.change_op.ra_pst = self.ra_pst.ra_pst
         branch_no = self.ra_pst.branches[task_id].index(branch)
         self.applied_branches[task_id] = branch_no
         

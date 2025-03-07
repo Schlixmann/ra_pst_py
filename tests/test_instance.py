@@ -17,7 +17,12 @@ class InstanceTest(unittest.TestCase):
             process_file="test_instances/paper_process.xml",
             resource_file="test_instances/offer_resources_many_invalid_branches.xml",
         )
-        self.instance = Instance(self.ra_pst, {}, id=1)
+        
+        self.ra_pst = build_rapst(
+            process_file="test_instances/paper_process_short.xml",
+            resource_file="test_instances/offer_resources_many_invalid_branches.xml",
+        )
+        #self.instance = Instance(self.ra_pst, {}, id=1)
 
     def test_transform_ilp_to_branchmap(self):
         ra_pst = build_rapst(
@@ -63,35 +68,17 @@ class InstanceTest(unittest.TestCase):
             self.assertEqual(len(tasks), len(jobs))
 
     def test_taskwise_allocation(self):
-        instances_to_sim = [self.ra_pst, copy.deepcopy(self.ra_pst)]
-        release_times = [0, 23]
-
-        created_instances = []
-        for instance in instances_to_sim:
-            task1 = instance.get_tasklist()[0]
-            child = etree.SubElement(task1, f"{{{instance.ns['cpee1']}}}release_time")
-            child.text = str(release_times.pop(0))
-            task1 = etree.fromstring(etree.tostring(task1))
-            created_instances.append([instance, "heuristic"])
-        instances_to_sim = created_instances
-        sim = Simulator()
-        sim.initialize(instances_to_sim, "heuristic")
-        sched = Schedule()
-        for i, task in enumerate(sim.task_queue):
-            sched.add_task((11, task[1], 0 + i * 10), "r_1", 7 + i * 7)
-        for i, task in enumerate(sim.task_queue):
-            sched.add_task((10, task[1], 0 + i * 10), "r_5", 10 + i * 5)
-            print(sched.schedule)
-        print(sched.get_timeslot_matrix(0, "res1"))
-
         show_tree_as_graph(self.ra_pst)
-        instance = Instance(self.ra_pst, {}, sched)
-        while instance.optimal_process is None:
-            instance.allocate_next_task()
-        print(instance.branches_to_apply)
+        instance = Instance(self.ra_pst, {}, id=1, release_time=0)
+
+        while instance.current_task != "end":
+            instance.allocate_next_task("tests/test_comparison_data/taskwise_sched_solution/test_schedule.json")
+
+        print(instance.applied_branches)
         print("Times: \t ", instance.times)
 
-        instance.save_optimal_process("out/instance_test.xml")
+        instance.save_optimal_process("tests/outcome/test_process.xml")
+        show_tree_as_graph(instance.optimal_process, res_option="allocation")
 
     def test_allocation_options(self):
         """build new ra_pst for all files in tests/test_data/resource_cp_tests.

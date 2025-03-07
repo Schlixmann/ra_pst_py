@@ -864,7 +864,7 @@ class Branch:
         instance,
         earliest_possible_start=None,
         delete:bool = False
-    ) -> etree: #Should be instance
+    ) -> RA_PST: #Should be instance
         """
         -> Find task to allocate in process
         -> apply change operations
