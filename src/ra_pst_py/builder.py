@@ -6,30 +6,30 @@ from src.ra_pst_py.cp_google_or import conf_cp
 #from src.ra_pst_py.instance import transform_ilp_to_branches, Instance
 
 import json
-import pathlib
+from pathlib import Path
 
 
-def build_rapst(process_file, resource_file) -> RA_PST:
+def build_rapst(process_file, resource_file, config:dict=None) -> RA_PST:
     """Build an RA_PST object from file (str, etree._Element)"""
     process_data = parse_process_file(process_file)
     resource_data = parse_resource_file(resource_file)
-    ra_pst = RA_PST(process_data, resource_data)
+    ra_pst = RA_PST(process_data, resource_data, config)
     return ra_pst
 
 
-def get_rapst_etree(process_file, resource_file):
+def get_rapst_etree(process_file, resource_file, config:dict=None):
     """Returns only etree._Element form of ra_pst"""
-    ra_pst = build_rapst(process_file, resource_file)
+    ra_pst = build_rapst(process_file, resource_file, config)
     return ra_pst.ra_pst
 
 
-def get_rapst_str(process_file, resource_file):
+def get_rapst_str(process_file, resource_file, config:dict=None):
     """Returns only string form of ra_pst"""
-    ra_pst = build_rapst(process_file, resource_file)
+    ra_pst = build_rapst(process_file, resource_file, config)
     return ra_pst.get_ra_pst_str()
 
 
-def show_tree_as_graph(ra_pst, format="png", output_file="graphs/output_graph", view=True, res_option="children"):
+def show_tree_as_graph(ra_pst, format="png", output_file="graphs/output_graph", view=True, res_option="children", config:dict|Path=None):
     """Creates graphical representation from RA-PST description or Object
 
     Args:
@@ -42,7 +42,7 @@ def show_tree_as_graph(ra_pst, format="png", output_file="graphs/output_graph", 
     else:
         tree_xml = ra_pst
     process_data = parse_process_file(tree_xml)
-    graph = TreeGraph()
+    graph = TreeGraph(config)
     graph.show(process_data, format, output_file, view, res_option)
 
 

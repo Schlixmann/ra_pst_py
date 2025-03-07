@@ -20,7 +20,6 @@ class BuilderTest(unittest.TestCase):
         ra_pst = build_rapst(process_file="tests/test_data/test_process.xml", resource_file="tests/test_data/test_resource.xml")
         ra_pst.save_ra_pst("tests/outcome/build_ra_pst.xml")
         created = etree.parse("tests/outcome/build_ra_pst.xml")
-
         self.assertEqual(etree.tostring(created), etree.tostring(target))
 
     def test_get_ilp_branches(self):
@@ -40,7 +39,7 @@ class BuilderTest(unittest.TestCase):
 
     def test_enthropy(self):
         ra_pst = self.ra_pst
-        show_tree_as_graph(ra_pst)
+        #show_tree_as_graph(ra_pst)
         print(ra_pst.get_enthropy())
 
     
@@ -49,6 +48,5 @@ class BuilderTest(unittest.TestCase):
             process_file="testsets_decomposed_final_8_freeze/5_tasks/process/BPM_TestSet_5.xml",
             resource_file="testsets_decomposed_final_8_freeze/5_tasks/resources/(0.8, 0.2, 0.0)-skill_short_branch-3-early-resource_based-3-1-10.xml"
         )
-
         print(ra_pst.get_problem_size())
         show_tree_as_graph(ra_pst)
