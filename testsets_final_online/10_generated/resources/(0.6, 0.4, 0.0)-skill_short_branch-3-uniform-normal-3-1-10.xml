@@ -1,0 +1,531 @@
+<resources>
+	<resource id="res_5" name="res_5">
+		<resprofile task="a6" id="role_3545" name="role_3545" role="role_3545">
+			<measures>
+				<cost>4</cost>
+			</measures>
+			<changepattern type="delete">
+				<parameters>
+					<direction>any</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="a3" label="a3">
+						<resources allocated_to="not_allocated">
+							<resource>role_3546</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+		<resprofile task="a7" id="role_3550" name="role_3550" role="role_3550">
+			<measures>
+				<cost>4</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>after</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="task_1298" label="task_1298">
+						<resources allocated_to="not_allocated">
+							<resource>role_3551</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+	</resource>
+	<resource id="res_2" name="res_2">
+		<resprofile task="a1" id="role_3518" name="role_3518" role="role_3518">
+			<measures>
+				<cost>5</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="a2" id="role_3523" name="role_3523" role="role_3523">
+			<measures>
+				<cost>3</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="task_1295" id="role_3526" name="role_3526" role="role_3526">
+			<measures>
+				<cost>6</cost>
+			</measures>
+			<changepattern type="delete">
+				<parameters>
+					<direction>any</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="a6" label="a6">
+						<resources allocated_to="not_allocated">
+							<resource>role_3527</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+		<resprofile task="task_1295" id="role_3527" name="role_3527" role="role_3527">
+			<measures>
+				<cost>5</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="task_1296" id="role_3531" name="role_3531" role="role_3531">
+			<measures>
+				<cost>4</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="a5" id="role_3537" name="role_3537" role="role_3537">
+			<measures>
+				<cost>6</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="task_1297" id="role_3540" name="role_3540" role="role_3540">
+			<measures>
+				<cost>3</cost>
+			</measures>
+			<changepattern type="delete">
+				<parameters>
+					<direction>any</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="a6" label="a6">
+						<resources allocated_to="not_allocated">
+							<resource>role_3541</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+		<resprofile task="task_1297" id="role_3549" name="role_3549" role="role_3549">
+			<measures>
+				<cost>5</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="a8" id="role_3554" name="role_3554" role="role_3554">
+			<measures>
+				<cost>5</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="a9" id="role_3561" name="role_3561" role="role_3561">
+			<measures>
+				<cost>6</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="a10" id="role_3562" name="role_3562" role="role_3562">
+			<measures>
+				<cost>7</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="task_1301" id="role_3564" name="role_3564" role="role_3564">
+			<measures>
+				<cost>4</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>after</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="task_1302" label="task_1302">
+						<resources allocated_to="not_allocated">
+							<resource>role_3565</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+		<resprofile task="task_1302" id="role_3566" name="role_3566" role="role_3566">
+			<measures>
+				<cost>4</cost>
+			</measures>
+		</resprofile>
+	</resource>
+	<resource id="res_3" name="res_3">
+		<resprofile task="a1" id="role_3519" name="role_3519" role="role_3519">
+			<measures>
+				<cost>5</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="task_1293" id="role_3521" name="role_3521" role="role_3521">
+			<measures>
+				<cost>6</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="a3" id="role_3528" name="role_3528" role="role_3528">
+			<measures>
+				<cost>4</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="a4" id="role_3536" name="role_3536" role="role_3536">
+			<measures>
+				<cost>6</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="a6" id="role_3542" name="role_3542" role="role_3542">
+			<measures>
+				<cost>2</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="task_1297" id="role_3544" name="role_3544" role="role_3544">
+			<measures>
+				<cost>6</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="a7" id="role_3547" name="role_3547" role="role_3547">
+			<measures>
+				<cost>3</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="task_1300" id="role_3557" name="role_3557" role="role_3557">
+			<measures>
+				<cost>6</cost>
+			</measures>
+			<changepattern type="delete">
+				<parameters>
+					<direction>any</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="a2" label="a2">
+						<resources allocated_to="not_allocated">
+							<resource>role_3558</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+		<resprofile task="a9" id="role_3560" name="role_3560" role="role_3560">
+			<measures>
+				<cost>6</cost>
+			</measures>
+		</resprofile>
+	</resource>
+	<resource id="res_4" name="res_4">
+		<resprofile task="a1" id="role_3520" name="role_3520" role="role_3520">
+			<measures>
+				<cost>5</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>before</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="task_1293" label="task_1293">
+						<resources allocated_to="not_allocated">
+							<resource>role_3521</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+		<resprofile task="a2" id="role_3524" name="role_3524" role="role_3524">
+			<measures>
+				<cost>4</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>before</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="task_1294" label="task_1294">
+						<resources allocated_to="not_allocated">
+							<resource>role_3525</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+		<resprofile task="a3" id="role_3529" name="role_3529" role="role_3529">
+			<measures>
+				<cost>5</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>after</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="task_1296" label="task_1296">
+						<resources allocated_to="not_allocated">
+							<resource>role_3530</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+		<resprofile task="a4" id="role_3533" name="role_3533" role="role_3533">
+			<measures>
+				<cost>4</cost>
+			</measures>
+			<changepattern type="delete">
+				<parameters>
+					<direction>any</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="a10" label="a10">
+						<resources allocated_to="not_allocated">
+							<resource>role_3534</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+		<resprofile task="a5" id="role_3539" name="role_3539" role="role_3539">
+			<measures>
+				<cost>3</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>after</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="task_1297" label="task_1297">
+						<resources allocated_to="not_allocated">
+							<resource>role_3540</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+		<resprofile task="a6" id="role_3543" name="role_3543" role="role_3543">
+			<measures>
+				<cost>6</cost>
+			</measures>
+			<changepattern type="delete">
+				<parameters>
+					<direction>any</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="a4" label="a4">
+						<resources allocated_to="not_allocated">
+							<resource>role_3544</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+		<resprofile task="a7" id="role_3548" name="role_3548" role="role_3548">
+			<measures>
+				<cost>7</cost>
+			</measures>
+			<changepattern type="delete">
+				<parameters>
+					<direction>any</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="a5" label="a5">
+						<resources allocated_to="not_allocated">
+							<resource>role_3549</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+		<resprofile task="a8" id="role_3555" name="role_3555" role="role_3555">
+			<measures>
+				<cost>4</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>after</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="task_1299" label="task_1299">
+						<resources allocated_to="not_allocated">
+							<resource>role_3556</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+		<resprofile task="a10" id="role_3563" name="role_3563" role="role_3563">
+			<measures>
+				<cost>6</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>after</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="task_1301" label="task_1301">
+						<resources allocated_to="not_allocated">
+							<resource>role_3564</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+	</resource>
+	<resource id="res_1" name="res_1">
+		<resprofile task="a2" id="role_3522" name="role_3522" role="role_3522">
+			<measures>
+				<cost>5</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="task_1294" id="role_3525" name="role_3525" role="role_3525">
+			<measures>
+				<cost>3</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>before</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="task_1295" label="task_1295">
+						<resources allocated_to="not_allocated">
+							<resource>role_3526</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+		<resprofile task="task_1296" id="role_3530" name="role_3530" role="role_3530">
+			<measures>
+				<cost>4</cost>
+			</measures>
+			<changepattern type="delete">
+				<parameters>
+					<direction>any</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="a6" label="a6">
+						<resources allocated_to="not_allocated">
+							<resource>role_3531</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+		<resprofile task="a3" id="role_3532" name="role_3532" role="role_3532">
+			<measures>
+				<cost>5</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="task_1296" id="role_3534" name="role_3534" role="role_3534">
+			<measures>
+				<cost>5</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="a4" id="role_3535" name="role_3535" role="role_3535">
+			<measures>
+				<cost>6</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="a5" id="role_3538" name="role_3538" role="role_3538">
+			<measures>
+				<cost>5</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="task_1297" id="role_3541" name="role_3541" role="role_3541">
+			<measures>
+				<cost>6</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="task_1297" id="role_3546" name="role_3546" role="role_3546">
+			<measures>
+				<cost>6</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="task_1298" id="role_3551" name="role_3551" role="role_3551">
+			<measures>
+				<cost>5</cost>
+			</measures>
+			<changepattern type="delete">
+				<parameters>
+					<direction>any</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="a1" label="a1">
+						<resources allocated_to="not_allocated">
+							<resource>role_3552</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+		<resprofile task="task_1298" id="role_3552" name="role_3552" role="role_3552">
+			<measures>
+				<cost>6</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="a8" id="role_3553" name="role_3553" role="role_3553">
+			<measures>
+				<cost>4</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="task_1299" id="role_3556" name="role_3556" role="role_3556">
+			<measures>
+				<cost>4</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>after</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="task_1300" label="task_1300">
+						<resources allocated_to="not_allocated">
+							<resource>role_3557</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+		<resprofile task="task_1300" id="role_3558" name="role_3558" role="role_3558">
+			<measures>
+				<cost>6</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="a9" id="role_3559" name="role_3559" role="role_3559">
+			<measures>
+				<cost>4</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="task_1302" id="role_3565" name="role_3565" role="role_3565">
+			<measures>
+				<cost>6</cost>
+			</measures>
+			<changepattern type="delete">
+				<parameters>
+					<direction>any</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="a7" label="a7">
+						<resources allocated_to="not_allocated">
+							<resource>role_3566</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+	</resource>
+	<metadata>
+		<tasks>10</tasks>
+		<branches>30</branches>
+		<used_branches>29</used_branches>
+		<resources>5</resources>
+		<resource_importance>
+			<res_1>7.555555555555555</res_1>
+			<res_2>6.75</res_2>
+			<res_3>6.285714285714286</res_3>
+			<res_4>4.888888888888889</res_4>
+			<res_5>4.0</res_5>
+		</resource_importance>
+		<config>
+			<testset>process_testset/BPM_TestSet_10.xml</testset>
+			<max_branch_depth>3</max_branch_depth>
+			<nest_percentage>0.4</nest_percentage>
+			<cp_distribution>0.6</cp_distribution>
+			<cp_distribution>0.4</cp_distribution>
+			<cp_distribution>0.0</cp_distribution>
+			<resources>res_1</resources>
+			<resources>res_2</resources>
+			<resources>res_3</resources>
+			<resources>res_4</resources>
+			<resources>res_5</resources>
+			<branches_per_task>3</branches_per_task>
+			<max_branches_per_task>5</max_branches_per_task>
+			<min_branches_per_task>1</min_branches_per_task>
+			<branch_distribution>uniform</branch_distribution>
+			<cost_allocation>normal</cost_allocation>
+			<resource_allocation_type>skill_short_branch</resource_allocation_type>
+			<resource_skill_factor>0.6</resource_skill_factor>
+			<single_resource_option_per_task>true</single_resource_option_per_task>
+		</config>
+	</metadata>
+</resources>

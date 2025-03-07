@@ -1,0 +1,76 @@
+<resources>
+	<resource id="res_1" name="doctor">
+		<resprofile task="report" id="role_9" name="Doctor" role="role_9">
+			<measures>
+				<cost>20</cost>
+			</measures>
+		</resprofile>
+		<resprofile task="read" id="role_10" name="Doctor_read" role="rp3">
+			<measures>
+				<cost>10</cost>
+			</measures>
+		</resprofile>
+	</resource>
+	<resource id="res_2" name="intern">
+		<resprofile task="report" id="intern" name="intern" role="intern">
+			<measures>
+				<cost>50</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>after</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="a1a" label="read">
+						<resources allocated_to="not_allocated">
+							<resource>rp3</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+	</resource>
+	<resource id="res_3" name="intern">
+		<resprofile task="report" id="intern" name="intern" role="intern">
+			<measures>
+				<cost>50</cost>
+			</measures>
+			<changepattern type="insert">
+				<parameters>
+					<direction>after</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="a1a" label="read">
+						<resources allocated_to="not_allocated">
+							<resource>rp3</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+	</resource>
+	<resource id="res_4" name="Headdoctor">
+		<resprofile task="report" id="role_12" name="Headdoctor" role="Headdoctor">
+			<measures>
+				<cost>50</cost>
+			</measures>
+			<changepattern type="delete">
+				<parameters>
+					<direction>any</direction>
+				</parameters>
+				<description xmlns="http://cpee.org/ns/description/1.0">
+					<manipulate id="a3" label="se">
+						<resources allocated_to="not_allocated">
+							<resource>Headdoctor</resource>
+						</resources>
+					</manipulate>
+				</description>
+			</changepattern>
+		</resprofile>
+		<resprofile task="approve" id="role_10" name="Doctor_appr" role="rp3">
+			<measures>
+				<cost>5</cost>
+			</measures>
+		</resprofile>
+	</resource>
+</resources>

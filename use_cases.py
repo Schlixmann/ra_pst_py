@@ -560,7 +560,7 @@ def pos_random_normal(mean, sigma):
 
 def get_release_times(dirpath:Path, resource_file:Path):
     file_name = Path(resource_file.stem + ".json")
-    eval_file = dirpath / "evaluation" / "single_instance_cp" / file_name
+    eval_file = dirpath / "comparison" / file_name
     with open(eval_file, "r") as f:
         data = json.load(f)
     return data["metadata"]["release_times"]
@@ -574,7 +574,7 @@ if __name__ == "__main__":
 
     if offline:
         # Main path of testsets
-        root_path = Path("testsets_decomposed_final_8_freeze_new_decomp")
+        root_path = Path("testsets_final_offline")
 
         # Filter for subdirectories
         subdirectories = sorted([folder for folder in root_path.iterdir() if folder.is_dir()])
@@ -585,9 +585,9 @@ if __name__ == "__main__":
         
         # Filter chosen allocation types
         allocation_types = [
-            #AllocationTypeEnum.ALL_INSTANCE_CP,
+            AllocationTypeEnum.ALL_INSTANCE_CP,
             AllocationTypeEnum.ALL_INSTANCE_CP_DECOMPOSED,
-            #AllocationTypeEnum.ALL_INSTANCE_ILP
+            AllocationTypeEnum.ALL_INSTANCE_ILP
         ]
 
         # run clinic set, no metadata
@@ -602,7 +602,7 @@ if __name__ == "__main__":
             ep.run_same_release(folder, allocation_types, num_instances=8, time_limit=7200, suffix="_7200")
 
         # set instances for random instance
-        eval_path = root_path / "random_instances" / "evaluation"/ "all_instance_ilp_7200_gen"
+        eval_path = root_path / "random_instances" / "comparison"
         json_files = list(eval_path.glob("*.json"))
         resource_path = root_path/ "random_instances" / "resources"
         selected_resource_files = []
@@ -627,7 +627,7 @@ if __name__ == "__main__":
         
         
         # Folder with online testsets
-        root_path = Path("testsets_online_final_playground")
+        root_path = Path("testsets_final_online")
 
         # Filter for subdirectories
         subdirectories = sorted([folder for folder in root_path.iterdir() if folder.is_dir()])
@@ -636,13 +636,13 @@ if __name__ == "__main__":
 
             # Filter chosen allocation types
         allocation_types = [
-            #AllocationTypeEnum.ALL_INSTANCE_CP,
-            #AllocationTypeEnum.HEURISTIC,
-            #AllocationTypeEnum.SINGLE_INSTANCE_CP,
-            #AllocationTypeEnum.SINGLE_INSTANCE_CP,
-            #AllocationTypeEnum.SINGLE_INSTANCE_ILP,
+            AllocationTypeEnum.ALL_INSTANCE_CP,
+            AllocationTypeEnum.HEURISTIC,
+            AllocationTypeEnum.SINGLE_INSTANCE_CP,
+            AllocationTypeEnum.SINGLE_INSTANCE_CP,
+            AllocationTypeEnum.SINGLE_INSTANCE_ILP,
             AllocationTypeEnum.SINGLE_INSTANCE_CP_DECOMPOSED,
-            #AllocationTypeEnum.ALL_INSTANCE_ILP
+            AllocationTypeEnum.ALL_INSTANCE_ILP
         ]
         
         # Run online tests
@@ -653,7 +653,7 @@ if __name__ == "__main__":
         
         # Run online tests
                 # run with random instance picking
-        eval_path = root_path / "random_instances" / "evaluation"/ "all_instance_ilp_7200_gen"
+        eval_path = root_path / "random_instances" / "comparison"
         json_files = list(eval_path.glob("*.json"))
         resource_path = root_path/ "random_instances" / "resources"
         selected_resource_files = []
@@ -665,7 +665,7 @@ if __name__ == "__main__":
         
 
         for folder in subdirectories_random:
-            eval_path = folder / "evaluation" / "single_instance_cp"
+            eval_path = folder / "comparison"
             json_files = list(eval_path.glob("*.json"))
             resource_path = folder/ "resources"
             selected_resource_files = []

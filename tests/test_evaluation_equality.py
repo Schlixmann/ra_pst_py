@@ -8,7 +8,7 @@ from pathlib import Path
 class EvaluationTest(unittest.TestCase):
     def test_equality_of_release_times(self):
         # Test that release times in all online files are same
-        directory = Path("testsets_online_final_decomp")
+        directory = Path("testsets_final_online")
         subfolder = "evaluation"
         
         for folder in sorted(directory.iterdir()):
@@ -33,7 +33,7 @@ class EvaluationTest(unittest.TestCase):
     
     def test_equality_of_ra_pst(self):
         # Test that release times in all online files are same
-        directory = Path("testsets_online_final_decomp")
+        directory = Path("testsets_final_online")
         subfolder = "evaluation"
         
         folder_random = [folder for folder in directory.iterdir() if "random" in folder.name]

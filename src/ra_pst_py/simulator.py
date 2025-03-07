@@ -250,9 +250,9 @@ class Simulator():
             self.save_schedule(schedule_dict)
 
             if decomposed:
-                result = cp_solver_decomposed_strengthened_cuts(self.schedule_filepath, TimeLimit=100)
+                result = cp_solver_decomposed_strengthened_cuts(self.schedule_filepath, TimeLimit=self.time_limit)
             else:
-                result = cp_solver(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", sigma=self.sigma, timeout=100)
+                result = cp_solver(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", sigma=self.sigma, timeout=self.time_limit)
             self.save_schedule(result)
 
 
@@ -305,7 +305,7 @@ class Simulator():
 
         schedule_dict = self.ilp_to_schedule_file(result, schedule_dict, queue_object.instance.id)
         self.save_schedule(schedule_dict)
-        schedule_dict = cp_solver_scheduling_only(self.schedule_filepath, timeout=100, sigma=self.sigma)
+        schedule_dict = cp_solver_scheduling_only(self.schedule_filepath, timeout=self.time_limit, sigma=self.sigma)
         schedule_dict["ilp_objective"] = result["objective"]
         schedule_dict["ilp_runtime"] = result["runtime"]
         self.save_schedule(schedule_dict)
@@ -321,7 +321,7 @@ class Simulator():
                 result = configuration_ilp("tmp/ilp_rep.json")
             schedule_dict = self.ilp_to_schedule_file(result, schedule_dict, queue_object.instance.id)
             self.save_schedule(schedule_dict)
-            schedule_dict = cp_solver_scheduling_only(self.schedule_filepath, timeout=100, sigma=self.sigma)
+            schedule_dict = cp_solver_scheduling_only(self.schedule_filepath, timeout=self.time_limit, sigma=self.sigma)
             self.save_schedule(schedule_dict)
     
 
