@@ -869,7 +869,7 @@ class Branch:
         -> Find task to allocate in process
         -> apply change operations
         """
-        change_operation = ChangeOperation(copy.deepcopy(instance.ra_pst.ra_pst), self.config)
+        change_operation = ChangeOperation(copy.deepcopy(instance.ra_pst.process), self.config)
         new_node = copy.deepcopy(self.node)
 
         for element in new_node.xpath(
@@ -890,7 +890,7 @@ class Branch:
 
         # Allocate resource to anchor task
         if self.node.xpath(f'{self.ns_key}:{self.rapst_branch}/*', namespaces=self.ns):
-            task = utils.get_process_task(instance.ra_pst.ra_pst, self.node, ns=self.ns)
+            task = utils.get_process_task(instance.ra_pst.process, self.node, ns=self.ns)
             change_operation.add_res_allocation(task, self.node)
             tasks.pop(0)
 
@@ -904,9 +904,9 @@ class Branch:
                         "ancestor::cpee1:manipulate | ancestor::cpee1:call",
                         namespaces=self.ns,
                     )[-1]
-                    instance.ra_pst.ra_pst, invalid = (
+                    instance.ra_pst.process, invalid = (
                         change_operation.ChangeOperationFactory(
-                            instance.ra_pst.ra_pst,
+                            instance.ra_pst.process,
                             anchor,
                             task,
                             self.node,
@@ -923,8 +923,8 @@ class Branch:
                 anchor = task.xpath(
                     "ancestor::cpee1:manipulate | ancestor::cpee1:call", namespaces=self.ns
                 )[-1]
-                instance.ra_pst.ra_pst, invalid = change_operation.ChangeOperationFactory(
-                    instance.ra_pst.ra_pst,
+                instance.ra_pst.process, invalid = change_operation.ChangeOperationFactory(
+                    instance.ra_pst.process,
                     anchor,
                     task,
                     self.node,
@@ -936,7 +936,7 @@ class Branch:
                 instance.invalid_branches = True
 
         with open("tmp/process.xml", "wb") as f:
-            f.write(etree.tostring(instance.ra_pst.ra_pst))
+            f.write(etree.tostring(instance.ra_pst.process))
         return instance.ra_pst
 
     def get_tasklist(self, attribute=None):

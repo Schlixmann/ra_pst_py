@@ -27,7 +27,7 @@ def get_next_task(tasks_iter, instance=None):
         
         # check that next task was not deleted:
         elif instance: 
-            if not instance.ra_pst.ra_pst.xpath(f"//*[@id='{task.attrib['id']}'][not(ancestor::cpee1:children) and not(ancestor::cpee1:allocation) and not(ancestor::RA_RPST)]", namespaces=ns):
+            if not instance.ra_pst.process.xpath(f"//*[@id='{task.attrib['id']}'][not(ancestor::cpee1:children) and not(ancestor::cpee1:allocation) and not(ancestor::RA_RPST)]", namespaces=ns):
                 pass
             else:
                 break
