@@ -17,10 +17,13 @@ class BuilderTest(unittest.TestCase):
     
     def test_build_rapst(self):
         target = etree.parse("tests/test_comparison_data/allocation.xml")
+        
         ra_pst = build_rapst(process_file="tests/test_data/test_process.xml", resource_file="tests/test_data/test_resource.xml")
         ra_pst.save_ra_pst("tests/outcome/build_ra_pst.xml")
         created = etree.parse("tests/outcome/build_ra_pst.xml")
+        show_tree_as_graph(ra_pst)
         self.assertEqual(etree.tostring(created), etree.tostring(target))
+
 
     def test_get_ilp_branches(self):
         ra_pst = build_rapst(process_file="tests/test_data/test_process.xml", resource_file="tests/test_data/test_resource.xml")
@@ -44,9 +47,11 @@ class BuilderTest(unittest.TestCase):
 
     
     def test_show_tree(self):
+        config = {"ns_key": "cpee1", "rapst_branch": "haha", "allocation_node": "allocation"}
         ra_pst = build_rapst(
             process_file="testsets_decomposed_final_8_freeze/5_tasks/process/BPM_TestSet_5.xml",
-            resource_file="testsets_decomposed_final_8_freeze/5_tasks/resources/(0.8, 0.2, 0.0)-skill_short_branch-3-early-resource_based-3-1-10.xml"
+            resource_file="testsets_decomposed_final_8_freeze/5_tasks/resources/(0.8, 0.2, 0.0)-skill_short_branch-3-early-resource_based-3-1-10.xml",
+            config=config
         )
         print(ra_pst.get_problem_size())
-        show_tree_as_graph(ra_pst)
+        show_tree_as_graph(ra_pst, config=config)

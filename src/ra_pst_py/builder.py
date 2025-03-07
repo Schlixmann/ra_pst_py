@@ -29,7 +29,7 @@ def get_rapst_str(process_file, resource_file, config:dict=None):
     return ra_pst.get_ra_pst_str()
 
 
-def show_tree_as_graph(ra_pst, format="png", output_file="graphs/output_graph", view=True, res_option="children", config:dict|Path=None):
+def show_tree_as_graph(ra_pst, format="png", output_file="graphs/output_graph", view=True, res_option=None, config:dict|Path=None):
     """Creates graphical representation from RA-PST description or Object
 
     Args:
