@@ -39,5 +39,10 @@
 				<cost>5</cost>
 			</measures>
 		</resprofile>
+		<resprofile id="role_1" name="role_1" role="level3" task="decide_on_proposal">
+			<measures>
+				<cost>5</cost>
+			</measures>
+		</resprofile>
 	</resource>
 </resources>

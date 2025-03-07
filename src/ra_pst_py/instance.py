@@ -130,6 +130,9 @@ class Instance():
             raise ValueError(f"No branches to apply specified.")
         if len(self.branches_to_apply) != len(self.ra_pst.get_tasklist(attribute="id")):
             raise ValueError(f"Len of branches_to_apply does not fit task lengths. Remark also deleted tasks need an empty branch")
+        if self.current_task == "end" and self.optimal_process is not None:
+            print("Optimal Process already created")
+            return self.optimal_process
         
         while True:
             if not self.current_task == "end":

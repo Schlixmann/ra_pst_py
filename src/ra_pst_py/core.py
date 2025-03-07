@@ -89,7 +89,7 @@ class RA_PST:
         # find release_time of first_task
         release_time_element = first_task.xpath("descendant::cpee1:release_time", namespaces=self.ns)
         if release_time_element:
-            return int(release_time_element[0].text)
+            return int(float(release_time_element[0].text))
         else: 
             return None
     

@@ -40,6 +40,11 @@ class ScheduleTest(unittest.TestCase):
             process_file="testsets_decomposed_paper/10_instantArr/process/BPM_TestSet_10.xml",
             resource_file="testsets_decomposed_paper/10_instantArr/resources/(0.8, 0.2, 0.0)-skill_short_branch-3-early-resource_based-3-1-10.xml"
         )
+
+        self.ra_pst = build_rapst(
+            process_file="test_instances/instance_generator_process.xml",
+            resource_file="test_instances/instance_generator_resources.xml"
+        )
         ilp_rep = self.ra_pst.get_ilp_rep()
         with open("tests/test_data/ilp_rep.json", "w") as f:
             json.dump(ilp_rep, f, indent=2)
@@ -52,10 +57,9 @@ class ScheduleTest(unittest.TestCase):
         show_tree_as_graph(self.ra_pst)
         allocation_type = AllocationTypeEnum.HEURISTIC
         file = f"out/schedule_{str(allocation_type)}.json"
-        sim = Simulator(schedule_filepath=file)
+        sim = Simulator(schedule_filepath=file, sigma=0, time_limit=100)
         for i, release_time in enumerate(release_times):
-            instance = Instance(copy.deepcopy(self.ra_pst), {}, sched, id=i)
-            instance.add_release_time(release_time)
+            instance = Instance(copy.deepcopy(self.ra_pst), {}, sched, id=i, release_time=release_time)
             sim.add_instance(instance, allocation_type)
 
         sim.simulate()
@@ -72,10 +76,10 @@ class ScheduleTest(unittest.TestCase):
         #show_tree_as_graph(self.ra_pst)
         allocation_type = AllocationTypeEnum.HEURISTIC
         file = f"out/schedule_{str(allocation_type)}.json"
-        sim = Simulator(schedule_filepath=file)
+        sim = Simulator(schedule_filepath=file, sigma=0, time_limit=100)
         for i, release_time in enumerate(release_times):
-            instance = Instance(copy.deepcopy(self.ra_pst), {},id=i)
-            instance.add_release_time(release_time)
+            instance = Instance(copy.deepcopy(self.ra_pst), {},id=i, release_time=release_time)
+            #instance.add_release_time(release_time)
             sim.add_instance(instance, allocation_type)
 
         sim.simulate()
