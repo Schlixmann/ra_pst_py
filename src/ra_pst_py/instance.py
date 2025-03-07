@@ -22,7 +22,7 @@ class Instance():
         self.branches_to_apply = branches_to_apply
         self.applied_branches = {}
         self.delayed_deletes = []
-        self.change_op = ChangeOperation(ra_pst=self.ra_pst.process)
+        self.change_op = ChangeOperation(ra_pst=self.ra_pst.ra_pst, config=self.ra_pst.config)
         self.tasks_iter = iter(self.ra_pst.get_tasklist())  # iterator
         self.current_task = utils.get_next_task(self.tasks_iter, self)
         self.optimal_process = None
@@ -110,7 +110,6 @@ class Instance():
         self.applied_branches[task_id] = branch_no
         
     def get_optimal_instance_from_schedule(self, schedule_file):
-        
         branches_to_apply = self.transform_ilp_to_branchmap(schedule_file)
         self.optimal_process = self.apply_branches(branches_to_apply)
         return self.optimal_process
@@ -148,7 +147,7 @@ class Instance():
             elif self.current_task == "end":
                     pass
             else:
-                #print("will be deleted")
+                # Will be deleted
                 self.current_task = utils.get_next_task(self.tasks_iter, self)
                 if self.current_task == "end":
                     pass
@@ -164,9 +163,9 @@ class Instance():
                     self.delayed_deletes.append((branch, task, current_time))
                     delete = True
                 #TODO add branch invalidities on branch building!
-                self.ra_pst.process = branch.apply_to_process(
-                    self.change_op.ra_pst, solution=self, earliest_possible_start=current_time, change_op=self.change_op, delete=delete)  # build branch
-                self.change_op.ra_pst = self.ra_pst.process
+                self.ra_pst = branch.apply_to_process(
+                    self, earliest_possible_start=current_time, delete=delete)  # build branch
+                self.change_op.ra_pst = self.ra_pst.ra_pst
                 self.applied_branches[task_id] = branch_no
 
                 # gets next tasks and checks for deletes
@@ -174,15 +173,15 @@ class Instance():
             else:
                 for branch, task, current_time in self.delayed_deletes:
                     # TODO fix deleted task time propagation
-                    if self.ra_pst.process.xpath(f"//*[@id='{task.attrib['id']}'][not(ancestor::cpee1:children) and not(ancestor::cpee1:allocation) and not(ancestor::RA_RPST)]", namespaces=self.ns):
-                        self.ra_pst.process = branch.apply_to_process(
-                            self.change_op.ra_pst, solution=self, earliest_possible_start=current_time, change_op=self.change_op)  # apply delays
-                        self.change_op.ra_pst = self.ra_pst.process
+                    if self.ra_pst.ra_pst.xpath(f"//*[@id='{task.attrib['id']}'][not(ancestor::cpee1:children) and not(ancestor::cpee1:allocation) and not(ancestor::RA_RPST)]", namespaces=self.ns):
+                        self.ra_pst = branch.apply_to_process(
+                            self, earliest_possible_start=current_time)  # apply delays
+                        #self.change_op.ra_pst = self.ra_pst.ra_pst
 
                 self.is_final = True
                 break
-        self.ra_pst.process = self.change_op.ra_pst
-        return self.ra_pst.process
+        #self.ra_pst.ra_pst = self.change_op.ra_pst
+        return self.ra_pst.ra_pst
 
     def check_validity(self):  
         tasks = self.optimal_process.xpath(

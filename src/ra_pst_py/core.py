@@ -26,12 +26,11 @@ class RA_PST:
 
     def __init__(self, process: etree._Element, resource: etree._Element, config:Path=None):
         self.id: str = str(uuid.uuid1())
-        self.process: etree._Element = process  # The ra_pst process xml
+        self.process: etree._Element = process  # The ra_pst process xml, will be adapted and changed when allocated
         self.raw_process: etree._Element = copy.copy(process)
         self.resource_data: etree._Element = resource
         self.allocations = dict()
         self.solutions = list()
-        self.ra_pst: etree._Element = None
         self.solver = None
         self.branches: dict[list[Branch]] = defaultdict(list)
         if config is None:
@@ -43,8 +42,7 @@ class RA_PST:
         self.ns_key = self.config.get("ns_key", "cpee1")
         self.rapst_branch = self.config.get("rapst_branch", f"{self.ns_key}:children")
         self.allocation_node = self.config.get("allocation_node", f"{self.ns_key}:allocation")
-        
-        self.build_ra_pst()
+        self.ra_pst: etree._Element = self.build_ra_pst(self.process) # Will not be changed, holds all branches
         self.set_branches()
         self.transformed_items = []
         self.problem_size = None
@@ -298,16 +296,12 @@ class RA_PST:
         etree.indent(tree, space="\t", level=0)
         tree.write(path)
 
-    def allocate_process(self):
+    def allocate_process(self, process):
         """
         This method calls the allocation of each task in the process
         """
-        self.ns = {
-            "cpee1": list(self.process.nsmap.values())[0],
-            "ra_pst": "http://cpee.org/ns/ra_pst",
-        }
 
-        tasks = self.process.xpath(
+        tasks = process.xpath(
             "//cpee1:call|//cpee1:manipulate", namespaces=self.ns
         )
         for task in tasks:
@@ -315,7 +309,7 @@ class RA_PST:
             allocation.allocate_task(None, self.resource_data)
             self.allocations[task.xpath("@id")[0]] = allocation
 
-    def build_ra_pst(self) -> None:
+    def build_ra_pst(self, process) -> None:
         """
         Build the RA-pst from self.allocations
         - The Allocation trees are part of the Cpee-Tree und the tag ra_pst
@@ -325,7 +319,7 @@ class RA_PST:
             RA-pst as xml String in CPEE-Tree format.
         """
         if not self.allocations:
-            self.allocate_process()
+            self.allocate_process(process)
 
         process = copy.deepcopy(self.process)
         for key, value in self.allocations.items():
@@ -338,7 +332,8 @@ class RA_PST:
                     0
                 ]
             )  # add allocation tree of task to process
-        self.ra_pst = etree.fromstring(etree.tostring(process))
+        #self.ra_pst = etree.fromstring(etree.tostring(process))
+        return etree.fromstring(etree.tostring(process))
 
     def set_branches(self):
         tasklist = self.get_tasklist()
@@ -518,7 +513,6 @@ class TaskAllocation(RA_PST):
             )
             return self.intermediate_trees[0]
         etree.SubElement(root, f"{{{self.ns[f'{self.parent.ns_key}']}}}{self.parent.rapst_branch}")
-        etree.register_namespace("ra_pst", self.ns["ra_pst"])
         res_xml = copy.deepcopy(resource_data)
         self.add_resources_as_children(root, res_xml)
 
@@ -760,7 +754,7 @@ class Branch:
                 continue
         return self.is_valid
 
-    def apply_to_process(
+    def apply_to_process_old(
         self,
         ra_pst,
         solution=None,
@@ -785,7 +779,7 @@ class Branch:
         #            exp_ready_element.text = str(earliest_possible_start)
 
         for element in new_node.xpath(
-            f'(//cpee1:manipulate | //cpee1:call)[parent::{ra_pst.ns_key}:{ra_pst.rapst_branch}]',
+            f'(//cpee1:manipulate | //cpee1:call)[parent::{self.ns_key}:{self.rapst_branch}]',
             namespaces=self.ns,
         ):
             exp_ready_element = etree.SubElement(
@@ -811,9 +805,9 @@ class Branch:
             return ra_pst
 
         # Allocate resource to anchor task
-        if self.node.xpath(f'{ra_pst.ns_key}:{ra_pst.rapst_branch}/*', namespaces=ns):
-            poop = copy.deepcopy(self.node.xpath(f'{ra_pst.ns_key}:{ra_pst.rapst_branch}/*', namespaces=ns)[0])
-            poop.xpath(f'cpee1:resource/cpee1:resprofile/{ra_pst.ns_key}:{ra_pst.rapst_branch}', namespaces=ns)
+        if self.node.xpath(f'{self.ns_key}:{self.rapst_branch}/*', namespaces=ns):
+            poop = copy.deepcopy(self.node.xpath(f'{self.ns_key}:{self.rapst_branch}/*', namespaces=ns)[0])
+            poop.xpath(f'cpee1:resource/cpee1:resprofile/{self.ns_key}:{self.rapst_branch}', namespaces=ns)
 
             change_op.add_res_allocation(task, self.node)
 
@@ -865,7 +859,7 @@ class Branch:
         # print("Checkpoint for application")
         return ra_pst
     
-    def apply_to_process_refactor(
+    def apply_to_process(
         self,
         instance,
         earliest_possible_start=None,
@@ -875,12 +869,11 @@ class Branch:
         -> Find task to allocate in process
         -> apply change operations
         """
-        ns = instance.ns
-        change_operation = ChangeOperation(copy.deepcopy(instance.ra_pst.ra_pst))
+        change_operation = ChangeOperation(copy.deepcopy(instance.ra_pst.ra_pst), self.config)
         new_node = copy.deepcopy(self.node)
 
         for element in new_node.xpath(
-            f'(//cpee1:manipulate | //cpee1:call)[parent::{instance.ra_pst.ns_key}:{instance.ra_pst.rapst_branch}]',
+            f'(//cpee1:manipulate | //cpee1:call)[parent::{self.ns_key}:{self.rapst_branch}]',
             namespaces=self.ns,
         ):
             exp_ready_element = etree.SubElement(
@@ -889,15 +882,15 @@ class Branch:
 
         tasks = copy.deepcopy(self.node).xpath(
             "//*[self::cpee1:call or self::cpee1:manipulate][not(ancestor::changepattern) and not(ancestor::cpee1:changepattern)and not(ancestor::cpee1:allocation)]",
-            namespaces=ns,
+            namespaces=self.ns,
         )
         
         if delete:
             return instance.ra_pst
 
         # Allocate resource to anchor task
-        if self.node.xpath(f'{instance.ra_pst.ns_key}:{instance.ra_pst.rapst_branch}/*', namespaces=ns):
-            task = utils.get_process_task(instance.ra_pst.ra_pst, self.node, ns=ns)
+        if self.node.xpath(f'{self.ns_key}:{self.rapst_branch}/*', namespaces=self.ns):
+            task = utils.get_process_task(instance.ra_pst.ra_pst, self.node, ns=self.ns)
             change_operation.add_res_allocation(task, self.node)
             tasks.pop(0)
 
@@ -909,7 +902,7 @@ class Branch:
                 else:
                     anchor = task.xpath(
                         "ancestor::cpee1:manipulate | ancestor::cpee1:call",
-                        namespaces=ns,
+                        namespaces=self.ns,
                     )[-1]
                     instance.ra_pst.ra_pst, invalid = (
                         change_operation.ChangeOperationFactory(
@@ -928,7 +921,7 @@ class Branch:
         for task in delay_deletes:
             try:
                 anchor = task.xpath(
-                    "ancestor::cpee1:manipulate | ancestor::cpee1:call", namespaces=ns
+                    "ancestor::cpee1:manipulate | ancestor::cpee1:call", namespaces=self.ns
                 )[-1]
                 instance.ra_pst.ra_pst, invalid = change_operation.ChangeOperationFactory(
                     instance.ra_pst.ra_pst,
@@ -943,7 +936,7 @@ class Branch:
                 instance.invalid_branches = True
 
         with open("tmp/process.xml", "wb") as f:
-            f.write(etree.tostring(instance.ra_pst.process))
+            f.write(etree.tostring(instance.ra_pst.ra_pst))
         return instance.ra_pst
 
     def get_tasklist(self, attribute=None):
