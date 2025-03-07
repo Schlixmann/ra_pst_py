@@ -103,7 +103,6 @@ class Instance():
             delete = False
         self.ra_pst = branch.apply_to_process(
             self, earliest_possible_start=current_time, delete=delete)  # build branch
-        self.change_op.ra_pst = self.ra_pst.process
         branch_no = self.ra_pst.branches[task_id].index(branch)
         self.applied_branches[task_id] = branch_no
         
@@ -166,7 +165,6 @@ class Instance():
                 #TODO add branch invalidities on branch building!
                 self.ra_pst = branch.apply_to_process(
                     self, earliest_possible_start=current_time, delete=delete)  # build branch
-                self.change_op.ra_pst = self.ra_pst.process
                 self.applied_branches[task_id] = branch_no
 
                 # gets next tasks and checks for deletes
@@ -177,11 +175,8 @@ class Instance():
                     if self.ra_pst.process.xpath(f"//*[@id='{task.attrib['id']}'][not(ancestor::cpee1:children) and not(ancestor::cpee1:allocation) and not(ancestor::RA_RPST)]", namespaces=self.ns):
                         self.ra_pst = branch.apply_to_process(
                             self, earliest_possible_start=current_time)  # apply delays
-                        #self.change_op.ra_pst = self.ra_pst.process
-
                 self.is_final = True
                 break
-        #self.ra_pst.process = self.change_op.ra_pst
         return self.ra_pst.process
 
     def check_validity(self):  
