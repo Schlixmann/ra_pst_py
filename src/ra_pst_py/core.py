@@ -42,7 +42,8 @@ class RA_PST:
         self.ns_key = self.config.get("ns_key", "cpee1")
         self.rapst_branch = self.config.get("rapst_branch", f"{self.ns_key}:children")
         self.allocation_node = self.config.get("allocation_node", f"{self.ns_key}:allocation")
-        self.ra_pst: etree._Element = self.build_ra_pst(self.process) # Will not be changed, holds all branches
+        self.process = self.build_ra_pst(self.process)
+        self.ra_pst: etree._Element = copy.deepcopy(self.process) # Will not be changed, holds all branches
         self.set_branches()
         self.transformed_items = []
         self.problem_size = None
@@ -890,7 +891,7 @@ class Branch:
 
         # Allocate resource to anchor task
         if self.node.xpath(f'{self.ns_key}:{self.rapst_branch}/*', namespaces=self.ns):
-            task = utils.get_process_task(instance.ra_pst.process, self.node, ns=self.ns)
+            task = utils.get_process_task(instance.ra_pst.process, self.node, config=self.config)
             change_operation.add_res_allocation(task, self.node)
             tasks.pop(0)
 

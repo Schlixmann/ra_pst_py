@@ -1,9 +1,14 @@
 from lxml import etree
 
-def get_label(element):
-
+def get_label(element, ns=None, ns_key=None):
     elem_etree = element if isinstance(element, etree._Element) else etree.fromstring(element)
-    ns = {"cpee1" : list(elem_etree.nsmap.values())[0]}
+    if ns is None:
+        ns = {"cpee1" : list(elem_etree.nsmap.values())[0]}
+        ns_key = "cpee1"    
+    if (ns is None) ^ (ns_key is None):
+        raise ValueError("ns and ns_key must be given together")
+    
+    # Get label of a task
     if elem_etree.tag == f"{{{ns['cpee1']}}}manipulate":
         return elem_etree.attrib["label"]
     elif elem_etree.tag == f"{{{ns['cpee1']}}}call":
@@ -11,10 +16,14 @@ def get_label(element):
     else:
         raise TypeError("Wrong Element Type: No Task element Given. Type is: ", elem_etree.tag)
     
-def get_allowed_roles(element):
-    elem_et = etree.fromstring(element)
-    ns = {"cpee1" : list(elem_et.nsmap.values())[0]}
-    return [role.text for role in elem_et.xpath("cpee1:resources/cpee1:resource", namespaces=ns)]
+def get_allowed_roles(element, ns=None, ns_key=None):
+    elem_etree = element if isinstance(element, etree._Element) else etree.fromstring(element)
+    if ns is None:
+        ns = {"cpee1" : list(elem_etree.nsmap.values())[0]}
+        ns_key = "cpee1"    
+    if (ns is None) ^ (ns_key is None):
+        raise ValueError("ns and ns_key must be given together")
+    return [role.text for role in elem_etree.xpath("cpee1:resources/cpee1:resource", namespaces=ns)]
 
 def get_next_task(tasks_iter, instance=None):
     if instance:
@@ -27,7 +36,9 @@ def get_next_task(tasks_iter, instance=None):
         
         # check that next task was not deleted:
         elif instance: 
-            if not instance.ra_pst.process.xpath(f"//*[@id='{task.attrib['id']}'][not(ancestor::cpee1:children) and not(ancestor::cpee1:allocation) and not(ancestor::RA_RPST)]", namespaces=ns):
+            branch_name = instance.ra_pst.rapst_branch
+            ns_key = instance.ra_pst.ns_key
+            if not instance.ra_pst.process.xpath(f"//*[@id='{task.attrib['id']}'][not(ancestor::{ns_key}:{branch_name}) and not(ancestor::{ns_key}:allocation) and not(ancestor::RA_RPST)]", namespaces=ns):
                 pass
             else:
                 break
@@ -36,10 +47,14 @@ def get_next_task(tasks_iter, instance=None):
     return task
 
 
-def get_process_task(ra_pst:etree._Element, task:etree._Element, ns=None):
+def get_process_task(ra_pst:etree._Element, task:etree._Element, config={}):
+    ns = config.get("ns", {"cpee1" : list(ra_pst.nsmap.values())[0]})
+    ns_key = config.get("ns_key", "cpee1")
+    branch_name = config.get("rapst_branch", "children")
+
     task_id = task.attrib["id"]
-    tasks = ra_pst.xpath(f"//cpee1:manipulate[@id='{task_id}'][not(ancestor::cpee1:children) and not(ancestor::cpee1:allocation)] |" 
-                         f"//cpee1:call[@id='{task_id}'][not(ancestor::cpee1:children) and not(ancestor::cpee1:allocation)]", 
+    tasks = ra_pst.xpath(f"//{ns_key}:manipulate[@id='{task_id}'][not(ancestor::{ns_key}:{branch_name}) and not(ancestor::{ns_key}:allocation)] |" 
+                         f"//{ns_key}:call[@id='{task_id}'][not(ancestor::{ns_key}:{branch_name}) and not(ancestor::{ns_key}:allocation)]", 
                         namespaces=ns)
     task_label = get_label(task)
     tasks = [task for task in tasks if get_label(task) == task_label]

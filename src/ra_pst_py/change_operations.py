@@ -65,9 +65,6 @@ class ChangeOperation():
         directly applies to RA-PST
         """
 
-        #self.ns = {'cpee1': list(task.nsmap.values())[
-        #    0], "allo": "http://cpee.org/ns/allocation"}
-
         branch = copy.deepcopy(branch)
         if not task.xpath(f"{self.ns_key}:allocation", namespaces=self.ns):
             allocation_element = etree.SubElement(task, f"{{{self.ns[f'{self.ns_key}']}}}allocation")

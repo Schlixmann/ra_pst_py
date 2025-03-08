@@ -24,9 +24,13 @@ class CPDirction_Enum(StrEnum):
     REPLACE = "replace"    
 
 class TaskNode():
-    def __init__(self, task, initialize:bool=True):
+    def __init__(self, task, initialize:bool=True, config:dict={}):
         self.task:etree._Element = task
-        self.ns = self.get_namespace()
+        self.config = config
+        self.ns = self.config.get("namespaces", self.get_namespace())
+        self.ns_key = self.config.get("ns_key", 'cpee1')
+        self.branch_name = self.config.get("rapst_branch", 'children')
+        self.allocation_node = self.config.get("allocation_node", 'allocation')
         self.release_time:float = None
         self.earliest_start:float = None
         self.change_patterns: list['TaskNode'] = []
@@ -42,20 +46,20 @@ class TaskNode():
         self.resource:str = self.get_resource()
     
     def get_release_time(self):
-        return float(self.task.xpath("cpee1:release_time", namespaces=self.ns)[0])
+        return float(self.task.xpath(f"{self.ns_key}:release_time", namespaces=self.ns)[0])
     
     def get_duration(self):
         attrib = "cost"
-        return float(self.task.xpath(f"cpee1:children/cpee1:resource/cpee1:resprofile/cpee1:measures/cpee1:{attrib}", namespaces=self.ns)[0].text)
+        return float(self.task.xpath(f"{self.ns_key}:children/{self.ns_key}:resource/{self.ns_key}:resprofile/{self.ns_key}:measures/{self.ns_key}:{attrib}", namespaces=self.ns)[0].text)
 
     def get_resource(self):
-        return (self.task.xpath("cpee1:children/cpee1:resource", namespaces=self.ns)[0].attrib["id"])
+        return (self.task.xpath(f"{self.ns_key}:children/{self.ns_key}:resource", namespaces=self.ns)[0].attrib["id"])
     
     def get_namespace(self):
         return {"cpee1": list(self.task.nsmap.values())[0]}
 
     def set_change_patterns(self):
-        children = self.task.xpath("cpee1:children/cpee1:resource/cpee1:resprofile/cpee1:children/*", namespaces=self.ns)
+        children = self.task.xpath(f"{self.ns_key}:children/{self.ns_key}:resource/{self.ns_key}:resprofile/{self.ns_key}:children/*", namespaces=self.ns)
         self.change_patterns = [CpTaskNode(child) for child in children]
     
     def set_release_time(self, release_time):
@@ -67,29 +71,29 @@ class TaskNode():
     
     def add_all_times_to_branch(self):
         if self.cp_type != CPType_Enum.DELETE:
-            release_time = etree.SubElement(self.task, f"{{{self.ns['cpee1']}}}release_time")
+            release_time = etree.SubElement(self.task, f"{{{self.ns[f'{self.ns_key}']}}}release_time")
             release_time.text = str(self.release_time)
-            start_element = etree.SubElement(self.task, f"{{{self.ns['cpee1']}}}expected_start")
+            start_element = etree.SubElement(self.task, f"{{{self.ns[f'{self.ns_key}']}}}expected_start")
             start_element.text = str(self.earliest_start)
-            end_element = etree.SubElement(self.task, f"{{{self.ns['cpee1']}}}expected_end")
+            end_element = etree.SubElement(self.task, f"{{{self.ns[f'{self.ns_key}']}}}expected_end")
             end_element.text = str(self.earliest_start+self.duration)
         else:
             if self.deletion_savings < 0:
-                delete_element = etree.SubElement(self.task, f"{{{self.ns['cpee1']}}}expected_delete")
+                delete_element = etree.SubElement(self.task, f"{{{self.ns[f'{self.ns_key}']}}}expected_delete")
                 delete_element.text = str(self.deletion_savings)
         for child in self.change_patterns:
             child.add_all_times_to_branch()
     
     def get_interval(self, ra_pst:RA_PST) -> tuple:
-        starts = self.task.xpath("//cpee1:expected_start/text()", namespaces=self.ns)
+        starts = self.task.xpath(f"//{self.ns_key}:expected_start/text()", namespaces=self.ns)
         starts = sorted([float(start) for start in starts])
-        ends = self.task.xpath("//cpee1:expected_end/text()", namespaces=self.ns)
+        ends = self.task.xpath(f"//{self.ns_key}:expected_end/text()", namespaces=self.ns)
         ends = sorted([float(end) for end in ends])
         
-        # Find all <cpee1:expected_delete> nodes
+        # Find all <{self.ns_key}:expected_delete> nodes
         # find self.task in ra_pst: 
         task = [task for task in ra_pst.get_tasklist() if task.attrib["id"] == self.task.attrib["id"]][0]
-        nodes_to_delete = self.task.xpath("//cpee1:expected_delete/parent::*", namespaces=self.ns)
+        nodes_to_delete = self.task.xpath(f"//{self.ns_key}:expected_delete/parent::*", namespaces=self.ns)
         nodes_to_delete_ra_pst = []
         for node in nodes_to_delete:
             nodes_to_delete_ra_pst.extend([delete_task for delete_task in ra_pst.get_tasklist() if utils.get_label(delete_task) == utils.get_label(node)])
@@ -102,7 +106,7 @@ class TaskNode():
                 warnings.warn("Previous tasks can not be deleted from the process")
                 self.backwards_delete = True
 
-        nodes_to_delete = sorted([float(delete_task.xpath("cpee1:expected_delete/text()", namespaces=self.ns)[0]) for delete_task in nodes_to_delete if utils.get_label(delete_task) in filtered_deletes])
+        nodes_to_delete = sorted([float(delete_task.xpath(f"{self.ns_key}:expected_delete/text()", namespaces=self.ns)[0]) for delete_task in nodes_to_delete if utils.get_label(delete_task) in filtered_deletes])
         return (starts[0], ends[-1] - starts[0], sum(nodes_to_delete),  ends[-1])
         
     def set_earliest_start(self, schedule_dict:dict) -> None:
@@ -208,8 +212,8 @@ class TaskNode():
         return self
 
 class CpTaskNode(TaskNode):
-    def __init__(self, task, initialize:bool=False):
-        super().__init__(task, initialize)
+    def __init__(self, task, initialize:bool=False, config:dict={}):
+        super().__init__(task, initialize, config)
         self.cp_type:CPType_Enum = self.get_cp_type()
         self.cp_direction: CPDirction_Enum = self.get_cp_direction()
         if self.cp_type != CPType_Enum.DELETE:
@@ -246,8 +250,8 @@ class TaskAllocator():
         for branch in branches:
             #TODO create etree._Element release_time for each task in branch and set time to release_time
             if branch.check_validity():
-                task_node = TaskNode(branch.node)
-                branch_release = task.xpath("cpee1:release_time", namespaces=self.ns)[0].text
+                task_node = TaskNode(branch.node, config=self.ra_pst.config)
+                branch_release = task.xpath(f"{self.ra_pst.ns_key}:release_time", namespaces=self.ns)[0].text
                 task_node.set_release_time(float(branch_release))
                 task_node.calculate_finish_time(schedule_dict, self.ra_pst)
                 task_node.add_all_times_to_branch()
@@ -264,10 +268,10 @@ class TaskAllocator():
     
     def set_release_times(self, branch, task):
         # TODO get all tasks in branch and set release_time to task.release_time
-        release_time = task.xpath("cpee1:release_time", namespaces=self.ns)[0].text
+        release_time = task.xpath(f"{self.ra_pst.ns_key}:release_time", namespaces=self.ns)[0].text
         tasks = branch.get_tasklist()
         for branch_task in tasks:
-            child = etree.SubElement(branch_task, f"{{{self.ns['cpee1']}}}release_time")
+            child = etree.SubElement(branch_task, f"{{{self.ns[f'{self.ra_pst.ns_key}']}}}release_time")
             child.text = release_time
     
     def calculate_finish_time_old(self, task_node:TaskNode, schedule_dict:dict):
@@ -317,21 +321,21 @@ class TaskAllocator():
         Propagation through branch needed.
         """
         to_del_time = float(0)
-        next_change_patterns = task.xpath("cpee1:children/cpee1:resource/cpee1:resprofile/cpee1:changepattern", namespaces=self.ns)
+        next_change_patterns = task.xpath(f"{self.ra_pst.ns_key}:{self.ra_pst.rapst_branch}/{self.ra_pst.ns_key}:resource/{self.ra_pst.ns_key}:resprofile/{self.ra_pst.ns_key}:changepattern", namespaces=self.ns)
         if not next_change_patterns:
             #release_time_element = task.xpath("cpee1:release_time", namespaces=self.ns)[0]
             #resource_element = task.xpath("cpee1:children/cpee1:resource", namespaces=self.ns)[0]
             allocated_resource, earliest_start, duration = self.find_best_resource(task, schedule_dict)
-            start_element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_start")
+            start_element = etree.SubElement(task, f"{{{self.ns[f'{self.ra_pst.ns_key}']}}}expected_start")
             start_element.text = str(earliest_start)
-            end_element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_end")
+            end_element = etree.SubElement(task, f"{{{self.ns[f'{self.ra_pst.ns_key}']}}}expected_end")
             end_element.text = str(earliest_start + duration)
 
             return start_element, earliest_start, duration, to_del_time
 
         else:
             next_children = task.xpath(
-                "cpee1:children/cpee1:resource/cpee1:resprofile/cpee1:children/*", namespaces=self.ns)
+                f"{self.ra_pst.ns_key}:{self.ra_pst.rapst_branch}/{self.ra_pst.ns_key}:resource/{self.ra_pst.ns_key}:resprofile/{self.ra_pst.ns_key}:{self.ra_pst.rapst_branch}/*", namespaces=self.ns)
             for child in next_children:
                 change_pattern_type = child.xpath("@type")[0]
                 try:
@@ -349,14 +353,14 @@ class TaskAllocator():
                             task=child, schedule_dict=schedule_dict)
                         #child.xpath("cpee1:expectedready", namespaces=self.ns)[
                         #    0].text = times_tuple[0].text
-                        task.xpath("cpee1:release_time", namespaces=self.ns)[
+                        task.xpath(f"{self.ra_pst.ns_key}:release_time", namespaces=self.ns)[
                             0].text = str(earliest_start + duration)
                        
                         # find times for tree_node
                         allocated_resource, earliest_start, duration = self.find_best_resource(task, schedule_dict)
-                        start_element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_start")
+                        start_element = etree.SubElement(task, f"{{{self.ns[f'{self.ra_pst.ns_key}']}}}expected_start")
                         start_element.text = str(earliest_start)
-                        end_element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_end")
+                        end_element = etree.SubElement(task, f"{{{self.ns[f'{self.ra_pst.ns_key}']}}}expected_end")
                         end_element.text = str(earliest_start + duration)
 
                         # return to branch
@@ -365,15 +369,15 @@ class TaskAllocator():
                     elif child_direction == "after":
 
                         allocated_resource, earliest_start, duration = self.find_best_resource(task, schedule_dict)
-                        start_element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_start")
+                        start_element = etree.SubElement(task, f"{{{self.ns[f'{self.ra_pst.ns_key}']}}}expected_start")
                         start_element.text = str(earliest_start)
-                        end_element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_end")
+                        end_element = etree.SubElement(task, f"{{{self.ns[f'{self.ra_pst.ns_key}']}}}expected_end")
                         end_element.text = str(earliest_start + duration)
                         new_release_time = earliest_start+duration
 
                         if not new_release_time:
                             raise ValueError
-                        for descendant in child.xpath("descendant-or-self::cpee1:release_time", namespaces=self.ns):
+                        for descendant in child.xpath(f"descendant-or-self::{self.ra_pst.ns_key}:release_time", namespaces=self.ns):
                             descendant.text = str(new_release_time)
                         start_element, earliest_start, duration, to_del_time = self.calculate_finish_time(
                             task=child, schedule_dict=schedule_dict)
@@ -388,19 +392,19 @@ class TaskAllocator():
 
                         # Set earliest possible starttime on both tasks Anchor and Inserted.
                         # Recurse further down if needed
-                        anchor = task.xpath("cpee1:release_time", namespaces=self.ns)[0]
+                        anchor = task.xpath(f"{self.ra_pst.ns_key}:release_time", namespaces=self.ns)[0]
                         start_element, earliest_start, duration, to_del_time = self.calculate_finish_time(
                                                     task=child,schedule_dict=schedule_dict)
-                        child_node = child.xpath("cpee1:release_time", namespaces=self.ns)[0]
+                        child_node = child.xpath(f"{self.ra_pst.ns_key}:release_time", namespaces=self.ns)[0]
                         if float(anchor.text) < float(earliest_start):
                             anchor.text = str(earliest_start)
                         else:
                             child_node.text = anchor.text
                             earliest_start = anchor.text
                         allocated_resource, earliest_start, duration = self.find_best_resource(task, schedule_dict)
-                        start_element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_start")
+                        start_element = etree.SubElement(task, f"{{{self.ns[f'{self.ra_pst.ns_key}']}}}expected_start")
                         start_element.text = str(earliest_start)
-                        end_element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_end")
+                        end_element = etree.SubElement(task, f"{{{self.ns[f'{self.ra_pst.ns_key}']}}}expected_end")
                         end_element.text = str(earliest_start + duration)
                         new_release_time = earliest_start+duration
                         return start_element, earliest_start, duration, to_del_time
@@ -415,7 +419,7 @@ class TaskAllocator():
                         new_child = task
 
                         # Identify to del task: 
-                        affected_tasks = new_child.xpath("cpee1:children/descendant::cpee1:children/cpee1:manipulate | cpee1:children/descendant::cpee1:children/cpee1:call", namespaces=self.ns)
+                        affected_tasks = new_child.xpath(f"{self.ra_pst.ns_key}:{self.ra_pst.rapst_branch}/descendant::{self.ra_pst.ns_key}:{self.ra_pst.rapst_branch}/{self.ra_pst.ns_key}:manipulate | {self.ra_pst.ns_key}:{self.ra_pst.rapst_branch}/descendant::{self.ra_pst.ns_key}:{self.ra_pst.rapst_branch}/{self.ra_pst.ns_key}:call", namespaces=self.ns)
 
                         min_deletion_savings = []
                         for affected_task in affected_tasks:
@@ -423,7 +427,7 @@ class TaskAllocator():
                                 warnings.warn("More than one task available to be deleted. Your process has multiple tasks with the same name")
                             proc_tasks = self.change_operation.get_proc_task(self.ra_pst.process, affected_task, full_rapst=True)
                             for proc_task in proc_tasks:
-                                delete_element = etree.SubElement(proc_task, f"{{{self.ns['cpee1']}}}to_delete")
+                                delete_element = etree.SubElement(proc_task, f"{{{self.ns[f'{self.ra_pst.ns_key}']}}}to_delete")
                                 self.change_operation.to_del_label.append(utils.get_label(etree.tostring(proc_task)))
                             
                             label = utils.get_label(etree.tostring(task))
@@ -435,12 +439,12 @@ class TaskAllocator():
                                 # TODO how to store this value
                             
 
-                        cp_element = new_child.xpath("cpee1:children/cpee1:resource/cpee1:resprofile/cpee1:changepattern", namespaces=self.ns)[0]
-                        new_child.xpath("cpee1:children/cpee1:resource/cpee1:resprofile", namespaces=self.ns)[0].remove(cp_element)
+                        cp_element = new_child.xpath(f"{self.ra_pst.ns_key}:{self.ra_pst.rapst_branch}/{self.ra_pst.ns_key}:resource/{self.ra_pst.ns_key}:resprofile/{self.ra_pst.ns_key}:changepattern", namespaces=self.ns)[0]
+                        new_child.xpath(f"{self.ra_pst.ns_key}:{self.ra_pst.rapst_branch}/{self.ra_pst.ns_key}:resource/{self.ra_pst.ns_key}:resprofile", namespaces=self.ns)[0].remove(cp_element)
 
                         start_element, earliest_start, duration, to_del_time = self.calculate_finish_time(
                             task=new_child, schedule_dict=schedule_dict)
-                        task.xpath("cpee1:release_time", namespaces=self.ns)[0].text = str(earliest_start)
+                        task.xpath(f"{self.ra_pst.ns_key}:release_time", namespaces=self.ns)[0].text = str(earliest_start)
                         to_del_time = 0
                         if min_deletion_savings:
                             to_del_time = -float(sorted(min_deletion_savings)[0])
@@ -454,34 +458,34 @@ class TaskAllocator():
                     start_element, earliest_start, duration, to_del_time = self.calculate_finish_time(
                         task=child, schedule_dict=schedule_dict)
                     #allocated_resource, earliest_start, duration = self.find_best_resource(child)
-                    start_element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_start")
+                    start_element = etree.SubElement(task, f"{{{self.ns[f'{self.ra_pst.ns_key}']}}}expected_start")
                     start_element.text = str(earliest_start)
-                    end_element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_end")
+                    end_element = etree.SubElement(task, f"{{{self.ns[f'{self.ra_pst.ns_key}']}}}expected_end")
                     end_element.text = str(earliest_start + duration)
                     new_release_time = earliest_start+duration
 
                     # return to branch
                     return start_element, earliest_start, duration, to_del_time
             
-            if task.xpath("descendant::cpee1:changepattern/@type", namespaces=self.ns)[0] == "delete":
+            if task.xpath(f"descendant::{self.ra_pst.ns_key}:changepattern/@type", namespaces=self.ns)[0] == "delete":
                 # set values for task and resource
                 allocated_resource, earliest_start, duration = self.find_best_resource(task, schedule_dict)
-                start_element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_start")
+                start_element = etree.SubElement(task, f"{{{self.ns[f'{self.ra_pst.ns_key}']}}}expected_start")
                 start_element.text = str(earliest_start)
-                end_element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_end")
+                end_element = etree.SubElement(task, f"{{{self.ns[f'{self.ra_pst.ns_key}']}}}expected_end")
                 end_element.text = str(earliest_start + duration)                 
                 # return to branch
                 return start_element, earliest_start, duration, to_del_time
             else:
                 print("Invalid branch, no time")
-                inval_child = task.xpath("descendant::cpee1:children[not(child::*)]", namespaces=self.ns)[0]
+                inval_child = task.xpath(f"descendant::{self.ra_pst.ns_key}:{self.ra_pst.rapst_branch}[not(child::*)]", namespaces=self.ns)[0]
                 parent = inval_child.xpath("parent::*")[0]
-                exp_ready_element = etree.SubElement(parent, f"{{{self.ns['cpee1']}}}release_time")
-                exp_ready_element.text = task.xpath("cpee1:release_time", namespaces=self.ns)[0].text
-                min_exp_ready = task.xpath("cpee1:release_time", namespaces=self.ns)[0].text
-                start_element, end_element = etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_start"), etree.SubElement(task, f"{{{self.ns['cpee1']}}}expected_end")
+                exp_ready_element = etree.SubElement(parent, f"{{{self.ns[f'{self.ra_pst.ns_key}']}}}release_time")
+                exp_ready_element.text = task.xpath(f"{self.ra_pst.ns_key}:release_time", namespaces=self.ns)[0].text
+                min_exp_ready = task.xpath(f"{self.ra_pst.ns_key}:release_time", namespaces=self.ns)[0].text
+                start_element, end_element = etree.SubElement(task, f"{{{self.ns[f'{self.ra_pst.ns_key}']}}}expected_start"), etree.SubElement(task, f"{{{self.ns[f'{self.ra_pst.ns_key}']}}}expected_end")
                 start_element.text, end_element.text = min_exp_ready, min_exp_ready
-                start_element, end_element = etree.SubElement(parent, f"{{{self.ns['cpee1']}}}expected_start"), etree.SubElement(parent, f"{{{self.ns['cpee1']}}}expected_end")
+                start_element, end_element = etree.SubElement(parent, f"{{{self.ns[f'{self.ra_pst.ns_key}']}}}expected_start"), etree.SubElement(parent, f"{{{self.ns[f'{self.ra_pst.ns_key}']}}}expected_end")
                 start_element.text, end_element.text = min_exp_ready, min_exp_ready
                 # TODO implement to deal with invalid branches
                 #raise NotImplementedError("Invalid branch, no time")    
