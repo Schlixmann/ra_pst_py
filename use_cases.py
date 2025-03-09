@@ -568,7 +568,7 @@ def get_release_times(dirpath:Path, resource_file:Path):
 
 if __name__ == "__main__":
 
-    offline=False
+    offline=True
     online =True
 
 
