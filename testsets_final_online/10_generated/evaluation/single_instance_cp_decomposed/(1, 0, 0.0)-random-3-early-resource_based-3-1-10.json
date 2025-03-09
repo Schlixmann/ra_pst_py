@@ -91,20 +91,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 2.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 2.0,
+            "res_4": 0
           },
           "resources": [
             "res_5"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "0-a1-1": {
@@ -121,10 +121,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 15.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 6.0,
             "res_1": 0,
-            "res_2": 6.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -132,10 +132,10 @@
           ],
           "release_times": {
             "res_3": 6.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "0-a1-2": {
@@ -150,20 +150,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 7.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "0-a1-3": {
@@ -178,20 +178,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 1.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 1.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "0-a1-4": {
@@ -208,10 +208,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 13.0,
             "res_1": 6.0,
-            "res_2": 13.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -219,10 +219,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 8.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "0-a2-5": {
@@ -237,20 +237,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 4.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 4.0,
+            "res_4": 0
           },
           "resources": [
             "res_5"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "0-a2-6": {
@@ -266,10 +266,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 7.0,
             "res_1": 7.0,
-            "res_2": 7.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -277,10 +277,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 7.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "0-a2-7": {
@@ -295,20 +295,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 6.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "0-a2-8": {
@@ -324,20 +324,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 5.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 5.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "0-a2-9": {
@@ -352,20 +352,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 8.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "0-a3-10": {
@@ -380,20 +380,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 5.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 5.0,
+            "res_4": 0
           },
           "resources": [
             "res_5"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "0-a3-11": {
@@ -410,10 +410,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 3.0,
-            "res_5": 0,
+            "res_2": 14.0,
             "res_1": 0,
-            "res_2": 14.0
+            "res_5": 0,
+            "res_4": 3.0
           },
           "resources": [
             "res_2",
@@ -421,10 +421,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 6.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 6.0
           }
         },
         "0-a3-12": {
@@ -442,10 +442,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 8.0,
-            "res_4": 0,
-            "res_5": 3.0,
+            "res_2": 14.0,
             "res_1": 0,
-            "res_2": 14.0
+            "res_5": 3.0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -454,10 +454,10 @@
           ],
           "release_times": {
             "res_3": 11.0,
-            "res_4": 0,
-            "res_5": 8.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 8.0,
+            "res_4": 0
           }
         },
         "0-a3-13": {
@@ -472,20 +472,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 3.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 3.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "0-a4-14": {
@@ -502,10 +502,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 17.0,
-            "res_4": 4.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 4.0
           },
           "resources": [
             "res_4",
@@ -513,10 +513,10 @@
           ],
           "release_times": {
             "res_3": 4.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "0-a4-15": {
@@ -531,20 +531,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 9.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "0-a5-16": {
@@ -562,10 +562,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 7.0,
-            "res_4": 7.0,
-            "res_5": 2.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 2.0,
+            "res_4": 7.0
           },
           "resources": [
             "res_4",
@@ -574,10 +574,10 @@
           ],
           "release_times": {
             "res_3": 3.0,
-            "res_4": 0,
-            "res_5": 10.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 10.0,
+            "res_4": 0
           }
         },
         "0-a5-17": {
@@ -594,10 +594,10 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 8.0,
-            "res_4": 6.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 6.0
           },
           "resources": [
             "res_3",
@@ -605,10 +605,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 8.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 8.0
           }
         },
         "0-a6-18": {
@@ -623,20 +623,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 7.0,
             "res_1": 0,
-            "res_2": 7.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "0-a6-19": {
@@ -651,20 +651,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 7.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "0-a7-20": {
@@ -679,20 +679,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 4.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 4.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "0-a7-21": {
@@ -707,20 +707,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 7.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "0-a8-22": {
@@ -735,20 +735,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 6.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "0-a8-23": {
@@ -765,20 +765,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 27.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "0-a9-24": {
@@ -793,20 +793,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 5.0,
             "res_1": 0,
-            "res_2": 5.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "0-a9-25": {
@@ -822,10 +822,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 3.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 7.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 3.0
           },
           "resources": [
             "res_4",
@@ -833,10 +833,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 3.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "0-a10-26": {
@@ -854,10 +854,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 6.0,
+            "res_2": 0,
             "res_1": 13.0,
-            "res_2": 0
+            "res_5": 6.0,
+            "res_4": 0
           },
           "resources": [
             "res_1",
@@ -865,10 +865,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 7.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 7.0,
+            "res_4": 0
           }
         },
         "0-a10-27": {
@@ -883,20 +883,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 8.0,
             "res_1": 0,
-            "res_2": 8.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         }
       },
@@ -2171,7 +2171,7 @@
         "objective": 61,
         "solver status": "?",
         "lower_bound": 61.0,
-        "computing time": 0.02175593376159668,
+        "computing time": 0.027552366256713867,
         "total interval length": 61.0
       }
     },
@@ -2266,20 +2266,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 2.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 2.0,
+            "res_4": 0
           },
           "resources": [
             "res_5"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "1-a1-1": {
@@ -2296,10 +2296,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 15.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 6.0,
             "res_1": 0,
-            "res_2": 6.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -2307,10 +2307,10 @@
           ],
           "release_times": {
             "res_3": 6.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "1-a1-2": {
@@ -2325,20 +2325,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 7.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "1-a1-3": {
@@ -2353,20 +2353,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 1.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 1.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "1-a1-4": {
@@ -2383,10 +2383,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 13.0,
             "res_1": 6.0,
-            "res_2": 13.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -2394,10 +2394,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 8.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "1-a2-5": {
@@ -2409,23 +2409,23 @@
           "branch_no": 0,
           "branchCost": 4.0,
           "release_time": 2,
-          "selected": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 4.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 4.0,
+            "res_4": 0
           },
           "resources": [
             "res_5"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "1-a2-6": {
@@ -2441,10 +2441,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 7.0,
             "res_1": 7.0,
-            "res_2": 7.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -2452,10 +2452,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 7.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "1-a2-7": {
@@ -2467,23 +2467,23 @@
           "branch_no": 2,
           "branchCost": 6.0,
           "release_time": 2,
-          "selected": 1,
+          "selected": 0,
           "branch_jobs": {
             "res_3": 6.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "1-a2-8": {
@@ -2499,20 +2499,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 5.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 5.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "1-a2-9": {
@@ -2527,20 +2527,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 8.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "1-a3-10": {
@@ -2552,23 +2552,23 @@
           "branch_no": 0,
           "branchCost": 5.0,
           "release_time": 2,
-          "selected": 1,
+          "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 5.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 5.0,
+            "res_4": 0
           },
           "resources": [
             "res_5"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "1-a3-11": {
@@ -2585,10 +2585,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 3.0,
-            "res_5": 0,
+            "res_2": 14.0,
             "res_1": 0,
-            "res_2": 14.0
+            "res_5": 0,
+            "res_4": 3.0
           },
           "resources": [
             "res_2",
@@ -2596,10 +2596,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 6.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 6.0
           }
         },
         "1-a3-12": {
@@ -2617,10 +2617,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 8.0,
-            "res_4": 0,
-            "res_5": 3.0,
+            "res_2": 14.0,
             "res_1": 0,
-            "res_2": 14.0
+            "res_5": 3.0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -2629,10 +2629,10 @@
           ],
           "release_times": {
             "res_3": 11.0,
-            "res_4": 0,
-            "res_5": 8.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 8.0,
+            "res_4": 0
           }
         },
         "1-a3-13": {
@@ -2644,23 +2644,23 @@
           "branch_no": 3,
           "branchCost": 3.0,
           "release_time": 2,
-          "selected": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 3.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 3.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "1-a4-14": {
@@ -2677,10 +2677,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 17.0,
-            "res_4": 4.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 4.0
           },
           "resources": [
             "res_4",
@@ -2688,10 +2688,10 @@
           ],
           "release_times": {
             "res_3": 4.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "1-a4-15": {
@@ -2706,20 +2706,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 9.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "1-a5-16": {
@@ -2734,13 +2734,13 @@
           "branch_no": 0,
           "branchCost": 16.0,
           "release_time": 2,
-          "selected": 1,
+          "selected": 0,
           "branch_jobs": {
             "res_3": 7.0,
-            "res_4": 7.0,
-            "res_5": 2.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 2.0,
+            "res_4": 7.0
           },
           "resources": [
             "res_4",
@@ -2749,10 +2749,10 @@
           ],
           "release_times": {
             "res_3": 3.0,
-            "res_4": 0,
-            "res_5": 10.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 10.0,
+            "res_4": 0
           }
         },
         "1-a5-17": {
@@ -2766,13 +2766,13 @@
           "branch_no": 1,
           "branchCost": 14.0,
           "release_time": 2,
-          "selected": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_3": 8.0,
-            "res_4": 6.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 6.0
           },
           "resources": [
             "res_3",
@@ -2780,10 +2780,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 8.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 8.0
           }
         },
         "1-a6-18": {
@@ -2795,23 +2795,23 @@
           "branch_no": 0,
           "branchCost": 7.0,
           "release_time": 2,
-          "selected": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 7.0,
             "res_1": 0,
-            "res_2": 7.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "1-a6-19": {
@@ -2823,23 +2823,23 @@
           "branch_no": 1,
           "branchCost": 7.0,
           "release_time": 2,
-          "selected": 1,
+          "selected": 0,
           "branch_jobs": {
             "res_3": 7.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "1-a7-20": {
@@ -2854,20 +2854,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 4.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 4.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "1-a7-21": {
@@ -2882,20 +2882,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 7.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "1-a8-22": {
@@ -2910,20 +2910,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 6.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "1-a8-23": {
@@ -2940,20 +2940,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 27.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "1-a9-24": {
@@ -2965,23 +2965,23 @@
           "branch_no": 0,
           "branchCost": 5.0,
           "release_time": 2,
-          "selected": 1,
+          "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 5.0,
             "res_1": 0,
-            "res_2": 5.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "1-a9-25": {
@@ -2994,13 +2994,13 @@
           "branch_no": 1,
           "branchCost": 10.0,
           "release_time": 2,
-          "selected": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 3.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 7.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 3.0
           },
           "resources": [
             "res_4",
@@ -3008,10 +3008,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 3.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "1-a10-26": {
@@ -3029,10 +3029,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 6.0,
+            "res_2": 0,
             "res_1": 13.0,
-            "res_2": 0
+            "res_5": 6.0,
+            "res_4": 0
           },
           "resources": [
             "res_1",
@@ -3040,10 +3040,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 7.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 7.0,
+            "res_4": 0
           }
         },
         "1-a10-27": {
@@ -3058,20 +3058,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 8.0,
             "res_1": 0,
-            "res_2": 8.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         }
       },
@@ -3201,8 +3201,8 @@
             "1-1-a1-4-8"
           ],
           "release_time": 2,
-          "start": 0,
-          "selected": 0
+          "start": 9,
+          "selected": 1
         },
         "1-1-a2-6-10": {
           "branch": "1-a2-6",
@@ -3251,8 +3251,8 @@
             "1-1-a2-6-11"
           ],
           "release_time": 2,
-          "start": 9,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "1-1-a2-8-13": {
           "branch": "1-a2-8",
@@ -3327,8 +3327,8 @@
             "1-1-a2-9-15"
           ],
           "release_time": 2,
-          "start": 15,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "1-1-a3-11-17": {
           "branch": "1-a3-11",
@@ -3506,8 +3506,8 @@
             "1-1-a3-12-23"
           ],
           "release_time": 2,
-          "start": 0,
-          "selected": 0
+          "start": 13,
+          "selected": 1
         },
         "1-1-a4-14-25": {
           "branch": "1-a4-14",
@@ -3605,7 +3605,7 @@
             "1-1-a4-14-27"
           ],
           "release_time": 2,
-          "start": 20,
+          "start": 17,
           "selected": 1
         },
         "1-1-a5-16-29": {
@@ -3631,8 +3631,8 @@
             "1-1-a4-15-28"
           ],
           "release_time": 2,
-          "start": 31,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "1-1-a5-16-30": {
           "branch": "1-a5-16",
@@ -3658,8 +3658,8 @@
             "1-1-a4-15-28"
           ],
           "release_time": 2,
-          "start": 34,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "1-1-a5-16-31": {
           "branch": "1-a5-16",
@@ -3685,8 +3685,8 @@
             "1-1-a4-15-28"
           ],
           "release_time": 2,
-          "start": 41,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "1-1-a5-16-32": {
           "branch": "1-a5-16",
@@ -3712,8 +3712,8 @@
             "1-1-a4-15-28"
           ],
           "release_time": 2,
-          "start": 43,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "1-1-a5-17-33": {
           "branch": "1-a5-17",
@@ -3739,8 +3739,8 @@
             "1-1-a5-16-32"
           ],
           "release_time": 2,
-          "start": 0,
-          "selected": 0
+          "start": 26,
+          "selected": 1
         },
         "1-1-a5-17-34": {
           "branch": "1-a5-17",
@@ -3767,8 +3767,8 @@
             "1-1-a5-16-32"
           ],
           "release_time": 2,
-          "start": 0,
-          "selected": 0
+          "start": 34,
+          "selected": 1
         },
         "1-1-a5-17-35": {
           "branch": "1-a5-17",
@@ -3795,8 +3795,8 @@
             "1-1-a5-16-32"
           ],
           "release_time": 2,
-          "start": 0,
-          "selected": 0
+          "start": 37,
+          "selected": 1
         },
         "1-1-a6-18-36": {
           "branch": "1-a6-18",
@@ -3823,8 +3823,8 @@
             "1-1-a5-17-35"
           ],
           "release_time": 2,
-          "start": 0,
-          "selected": 0
+          "start": 40,
+          "selected": 1
         },
         "1-1-a6-19-37": {
           "branch": "1-a6-19",
@@ -3852,8 +3852,8 @@
             "1-1-a6-18-36"
           ],
           "release_time": 2,
-          "start": 48,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "1-1-a7-20-38": {
           "branch": "1-a7-20",
@@ -3882,7 +3882,7 @@
             "1-1-a6-19-37"
           ],
           "release_time": 2,
-          "start": 55,
+          "start": 47,
           "selected": 1
         },
         "1-1-a7-21-39": {
@@ -3945,7 +3945,7 @@
             "1-1-a7-21-39"
           ],
           "release_time": 2,
-          "start": 59,
+          "start": 51,
           "selected": 1
         },
         "1-1-a8-23-41": {
@@ -4080,8 +4080,8 @@
             "1-1-a8-23-43"
           ],
           "release_time": 2,
-          "start": 65,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "1-1-a9-25-45": {
           "branch": "1-a9-25",
@@ -4115,8 +4115,8 @@
             "1-1-a9-24-44"
           ],
           "release_time": 2,
-          "start": 0,
-          "selected": 0
+          "start": 57,
+          "selected": 1
         },
         "1-1-a9-25-46": {
           "branch": "1-a9-25",
@@ -4151,8 +4151,8 @@
             "1-1-a9-24-44"
           ],
           "release_time": 2,
-          "start": 0,
-          "selected": 0
+          "start": 60,
+          "selected": 1
         },
         "1-1-a10-26-47": {
           "branch": "1-a10-26",
@@ -4335,7 +4335,7 @@
             "1-1-a10-26-50"
           ],
           "release_time": 2,
-          "start": 70,
+          "start": 67,
           "selected": 1
         }
       },
@@ -4343,11 +4343,11 @@
       "instanceId": 1,
       "fixed": true,
       "solution": {
-        "objective": 78,
+        "objective": 75,
         "solver status": "?",
-        "lower_bound": 78.0,
-        "computing time": 29.720829010009766,
-        "total interval length": 73.0
+        "lower_bound": 75.0,
+        "computing time": 14.94266152381897,
+        "total interval length": 72.0
       }
     },
     {
@@ -4438,23 +4438,23 @@
           "branch_no": 0,
           "branchCost": 2.0,
           "release_time": 17,
-          "selected": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 2.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 2.0,
+            "res_4": 0
           },
           "resources": [
             "res_5"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "2-a1-1": {
@@ -4471,10 +4471,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 15.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 6.0,
             "res_1": 0,
-            "res_2": 6.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -4482,10 +4482,10 @@
           ],
           "release_times": {
             "res_3": 6.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "2-a1-2": {
@@ -4500,20 +4500,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 7.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "2-a1-3": {
@@ -4525,23 +4525,23 @@
           "branch_no": 3,
           "branchCost": 1.0,
           "release_time": 17,
-          "selected": 1,
+          "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 1.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 1.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "2-a1-4": {
@@ -4558,10 +4558,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 13.0,
             "res_1": 6.0,
-            "res_2": 13.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -4569,10 +4569,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 8.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "2-a2-5": {
@@ -4584,23 +4584,23 @@
           "branch_no": 0,
           "branchCost": 4.0,
           "release_time": 17,
-          "selected": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 4.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 4.0,
+            "res_4": 0
           },
           "resources": [
             "res_5"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "2-a2-6": {
@@ -4616,10 +4616,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 7.0,
             "res_1": 7.0,
-            "res_2": 7.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -4627,10 +4627,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 7.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "2-a2-7": {
@@ -4645,20 +4645,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 6.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "2-a2-8": {
@@ -4671,23 +4671,23 @@
           "branch_no": 3,
           "branchCost": 5.0,
           "release_time": 17,
-          "selected": 1,
+          "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 5.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 5.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "2-a2-9": {
@@ -4702,20 +4702,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 8.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "2-a3-10": {
@@ -4727,23 +4727,23 @@
           "branch_no": 0,
           "branchCost": 5.0,
           "release_time": 17,
-          "selected": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 5.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 5.0,
+            "res_4": 0
           },
           "resources": [
             "res_5"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "2-a3-11": {
@@ -4757,13 +4757,13 @@
           "branch_no": 1,
           "branchCost": 17.0,
           "release_time": 17,
-          "selected": 1,
+          "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 3.0,
-            "res_5": 0,
+            "res_2": 14.0,
             "res_1": 0,
-            "res_2": 14.0
+            "res_5": 0,
+            "res_4": 3.0
           },
           "resources": [
             "res_2",
@@ -4771,10 +4771,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 6.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 6.0
           }
         },
         "2-a3-12": {
@@ -4792,10 +4792,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 8.0,
-            "res_4": 0,
-            "res_5": 3.0,
+            "res_2": 14.0,
             "res_1": 0,
-            "res_2": 14.0
+            "res_5": 3.0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -4804,10 +4804,10 @@
           ],
           "release_times": {
             "res_3": 11.0,
-            "res_4": 0,
-            "res_5": 8.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 8.0,
+            "res_4": 0
           }
         },
         "2-a3-13": {
@@ -4822,20 +4822,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 3.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 3.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "2-a4-14": {
@@ -4852,10 +4852,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 17.0,
-            "res_4": 4.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 4.0
           },
           "resources": [
             "res_4",
@@ -4863,10 +4863,10 @@
           ],
           "release_times": {
             "res_3": 4.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "2-a4-15": {
@@ -4881,20 +4881,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 9.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "2-a5-16": {
@@ -4909,13 +4909,13 @@
           "branch_no": 0,
           "branchCost": 16.0,
           "release_time": 17,
-          "selected": 1,
+          "selected": 0,
           "branch_jobs": {
             "res_3": 7.0,
-            "res_4": 7.0,
-            "res_5": 2.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 2.0,
+            "res_4": 7.0
           },
           "resources": [
             "res_4",
@@ -4924,10 +4924,10 @@
           ],
           "release_times": {
             "res_3": 3.0,
-            "res_4": 0,
-            "res_5": 10.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 10.0,
+            "res_4": 0
           }
         },
         "2-a5-17": {
@@ -4941,13 +4941,13 @@
           "branch_no": 1,
           "branchCost": 14.0,
           "release_time": 17,
-          "selected": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_3": 8.0,
-            "res_4": 6.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 6.0
           },
           "resources": [
             "res_3",
@@ -4955,10 +4955,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 8.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 8.0
           }
         },
         "2-a6-18": {
@@ -4970,23 +4970,23 @@
           "branch_no": 0,
           "branchCost": 7.0,
           "release_time": 17,
-          "selected": 1,
+          "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 7.0,
             "res_1": 0,
-            "res_2": 7.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "2-a6-19": {
@@ -4998,23 +4998,23 @@
           "branch_no": 1,
           "branchCost": 7.0,
           "release_time": 17,
-          "selected": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_3": 7.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "2-a7-20": {
@@ -5029,20 +5029,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 4.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 4.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "2-a7-21": {
@@ -5057,20 +5057,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 7.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "2-a8-22": {
@@ -5085,20 +5085,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 6.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "2-a8-23": {
@@ -5115,20 +5115,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 27.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "2-a9-24": {
@@ -5143,20 +5143,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 5.0,
             "res_1": 0,
-            "res_2": 5.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "2-a9-25": {
@@ -5172,10 +5172,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 3.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 7.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 3.0
           },
           "resources": [
             "res_4",
@@ -5183,10 +5183,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 3.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "2-a10-26": {
@@ -5204,10 +5204,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 6.0,
+            "res_2": 0,
             "res_1": 13.0,
-            "res_2": 0
+            "res_5": 6.0,
+            "res_4": 0
           },
           "resources": [
             "res_1",
@@ -5215,10 +5215,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 7.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 7.0,
+            "res_4": 0
           }
         },
         "2-a10-27": {
@@ -5233,20 +5233,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 8.0,
             "res_1": 0,
-            "res_2": 8.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         }
       },
@@ -5257,8 +5257,8 @@
           "cost": 2.0,
           "after": [],
           "release_time": 17,
-          "start": 0,
-          "selected": 0
+          "start": 17,
+          "selected": 1
         },
         "2-2-a1-1-1": {
           "branch": "2-a1-1",
@@ -5317,8 +5317,8 @@
             "2-2-a1-2-4"
           ],
           "release_time": 17,
-          "start": 17,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "2-2-a1-4-6": {
           "branch": "2-a1-4",
@@ -5376,8 +5376,8 @@
             "2-2-a1-4-8"
           ],
           "release_time": 17,
-          "start": 0,
-          "selected": 0
+          "start": 19,
+          "selected": 1
         },
         "2-2-a2-6-10": {
           "branch": "2-a2-6",
@@ -5444,8 +5444,8 @@
             "2-2-a2-7-12"
           ],
           "release_time": 17,
-          "start": 18,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "2-2-a2-8-14": {
           "branch": "2-a2-8",
@@ -5463,8 +5463,8 @@
             "2-2-a2-7-12"
           ],
           "release_time": 17,
-          "start": 20,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "2-2-a2-9-15": {
           "branch": "2-a2-9",
@@ -5502,8 +5502,8 @@
             "2-2-a2-9-15"
           ],
           "release_time": 17,
-          "start": 0,
-          "selected": 0
+          "start": 23,
+          "selected": 1
         },
         "2-2-a3-11-17": {
           "branch": "2-a3-11",
@@ -5523,8 +5523,8 @@
             "2-2-a3-10-16"
           ],
           "release_time": 17,
-          "start": 23,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "2-2-a3-11-18": {
           "branch": "2-a3-11",
@@ -5545,8 +5545,8 @@
             "2-2-a3-10-16"
           ],
           "release_time": 17,
-          "start": 34,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "2-2-a3-11-19": {
           "branch": "2-a3-11",
@@ -5567,8 +5567,8 @@
             "2-2-a3-10-16"
           ],
           "release_time": 17,
-          "start": 38,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "2-2-a3-12-20": {
           "branch": "2-a3-12",
@@ -5780,7 +5780,7 @@
             "2-2-a4-14-27"
           ],
           "release_time": 17,
-          "start": 46,
+          "start": 28,
           "selected": 1
         },
         "2-2-a5-16-29": {
@@ -5806,8 +5806,8 @@
             "2-2-a4-15-28"
           ],
           "release_time": 17,
-          "start": 59,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "2-2-a5-16-30": {
           "branch": "2-a5-16",
@@ -5833,8 +5833,8 @@
             "2-2-a4-15-28"
           ],
           "release_time": 17,
-          "start": 65,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "2-2-a5-16-31": {
           "branch": "2-a5-16",
@@ -5860,8 +5860,8 @@
             "2-2-a4-15-28"
           ],
           "release_time": 17,
-          "start": 72,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "2-2-a5-16-32": {
           "branch": "2-a5-16",
@@ -5887,8 +5887,8 @@
             "2-2-a4-15-28"
           ],
           "release_time": 17,
-          "start": 74,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "2-2-a5-17-33": {
           "branch": "2-a5-17",
@@ -5914,8 +5914,8 @@
             "2-2-a5-16-32"
           ],
           "release_time": 17,
-          "start": 0,
-          "selected": 0
+          "start": 37,
+          "selected": 1
         },
         "2-2-a5-17-34": {
           "branch": "2-a5-17",
@@ -5942,8 +5942,8 @@
             "2-2-a5-16-32"
           ],
           "release_time": 17,
-          "start": 0,
-          "selected": 0
+          "start": 51,
+          "selected": 1
         },
         "2-2-a5-17-35": {
           "branch": "2-a5-17",
@@ -5970,8 +5970,8 @@
             "2-2-a5-16-32"
           ],
           "release_time": 17,
-          "start": 0,
-          "selected": 0
+          "start": 54,
+          "selected": 1
         },
         "2-2-a6-18-36": {
           "branch": "2-a6-18",
@@ -5998,8 +5998,8 @@
             "2-2-a5-17-35"
           ],
           "release_time": 17,
-          "start": 78,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "2-2-a6-19-37": {
           "branch": "2-a6-19",
@@ -6027,8 +6027,8 @@
             "2-2-a6-18-36"
           ],
           "release_time": 17,
-          "start": 0,
-          "selected": 0
+          "start": 57,
+          "selected": 1
         },
         "2-2-a7-20-38": {
           "branch": "2-a7-20",
@@ -6057,7 +6057,7 @@
             "2-2-a6-19-37"
           ],
           "release_time": 17,
-          "start": 85,
+          "start": 64,
           "selected": 1
         },
         "2-2-a7-21-39": {
@@ -6120,7 +6120,7 @@
             "2-2-a7-21-39"
           ],
           "release_time": 17,
-          "start": 89,
+          "start": 68,
           "selected": 1
         },
         "2-2-a8-23-41": {
@@ -6255,7 +6255,7 @@
             "2-2-a8-23-43"
           ],
           "release_time": 17,
-          "start": 95,
+          "start": 75,
           "selected": 1
         },
         "2-2-a9-25-45": {
@@ -6510,7 +6510,7 @@
             "2-2-a10-26-50"
           ],
           "release_time": 17,
-          "start": 100,
+          "start": 80,
           "selected": 1
         }
       },
@@ -6518,11 +6518,11 @@
       "instanceId": 2,
       "fixed": true,
       "solution": {
-        "objective": 108,
+        "objective": 88,
         "solver status": "?",
-        "lower_bound": 97.0,
-        "computing time": 100.04504227638245,
-        "total interval length": 78.0
+        "lower_bound": 88.0,
+        "computing time": 9.324428796768188,
+        "total interval length": 64.0
       }
     },
     {
@@ -6616,20 +6616,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 2.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 2.0,
+            "res_4": 0
           },
           "resources": [
             "res_5"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "3-a1-1": {
@@ -6646,10 +6646,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 15.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 6.0,
             "res_1": 0,
-            "res_2": 6.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -6657,10 +6657,10 @@
           ],
           "release_times": {
             "res_3": 6.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "3-a1-2": {
@@ -6672,23 +6672,23 @@
           "branch_no": 2,
           "branchCost": 7.0,
           "release_time": 17,
-          "selected": 1,
+          "selected": 0,
           "branch_jobs": {
             "res_3": 7.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "3-a1-3": {
@@ -6700,23 +6700,23 @@
           "branch_no": 3,
           "branchCost": 1.0,
           "release_time": 17,
-          "selected": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 1.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 1.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "3-a1-4": {
@@ -6733,10 +6733,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 13.0,
             "res_1": 6.0,
-            "res_2": 13.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -6744,10 +6744,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 8.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "3-a2-5": {
@@ -6762,20 +6762,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 4.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 4.0,
+            "res_4": 0
           },
           "resources": [
             "res_5"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "3-a2-6": {
@@ -6788,13 +6788,13 @@
           "branch_no": 1,
           "branchCost": 14.0,
           "release_time": 17,
-          "selected": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 7.0,
             "res_1": 7.0,
-            "res_2": 7.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -6802,10 +6802,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 7.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "3-a2-7": {
@@ -6820,20 +6820,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 6.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "3-a2-8": {
@@ -6849,20 +6849,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 5.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 5.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "3-a2-9": {
@@ -6874,23 +6874,23 @@
           "branch_no": 4,
           "branchCost": 8.0,
           "release_time": 17,
-          "selected": 1,
+          "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 8.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "3-a3-10": {
@@ -6905,20 +6905,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 5.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 5.0,
+            "res_4": 0
           },
           "resources": [
             "res_5"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "3-a3-11": {
@@ -6935,10 +6935,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 3.0,
-            "res_5": 0,
+            "res_2": 14.0,
             "res_1": 0,
-            "res_2": 14.0
+            "res_5": 0,
+            "res_4": 3.0
           },
           "resources": [
             "res_2",
@@ -6946,10 +6946,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 6.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 6.0
           }
         },
         "3-a3-12": {
@@ -6967,10 +6967,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 8.0,
-            "res_4": 0,
-            "res_5": 3.0,
+            "res_2": 14.0,
             "res_1": 0,
-            "res_2": 14.0
+            "res_5": 3.0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -6979,10 +6979,10 @@
           ],
           "release_times": {
             "res_3": 11.0,
-            "res_4": 0,
-            "res_5": 8.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 8.0,
+            "res_4": 0
           }
         },
         "3-a3-13": {
@@ -6997,20 +6997,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 3.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 3.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "3-a4-14": {
@@ -7027,10 +7027,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 17.0,
-            "res_4": 4.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 4.0
           },
           "resources": [
             "res_4",
@@ -7038,10 +7038,10 @@
           ],
           "release_times": {
             "res_3": 4.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "3-a4-15": {
@@ -7056,20 +7056,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 9.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "3-a5-16": {
@@ -7087,10 +7087,10 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 7.0,
-            "res_4": 7.0,
-            "res_5": 2.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 2.0,
+            "res_4": 7.0
           },
           "resources": [
             "res_4",
@@ -7099,10 +7099,10 @@
           ],
           "release_times": {
             "res_3": 3.0,
-            "res_4": 0,
-            "res_5": 10.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 10.0,
+            "res_4": 0
           }
         },
         "3-a5-17": {
@@ -7119,10 +7119,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 8.0,
-            "res_4": 6.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 6.0
           },
           "resources": [
             "res_3",
@@ -7130,10 +7130,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 8.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 8.0
           }
         },
         "3-a6-18": {
@@ -7145,23 +7145,23 @@
           "branch_no": 0,
           "branchCost": 7.0,
           "release_time": 17,
-          "selected": 1,
+          "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 7.0,
             "res_1": 0,
-            "res_2": 7.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "3-a6-19": {
@@ -7173,23 +7173,23 @@
           "branch_no": 1,
           "branchCost": 7.0,
           "release_time": 17,
-          "selected": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_3": 7.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "3-a7-20": {
@@ -7204,20 +7204,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 4.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 4.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "3-a7-21": {
@@ -7232,20 +7232,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 7.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "3-a8-22": {
@@ -7260,20 +7260,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 6.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "3-a8-23": {
@@ -7290,20 +7290,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 27.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "3-a9-24": {
@@ -7315,23 +7315,23 @@
           "branch_no": 0,
           "branchCost": 5.0,
           "release_time": 17,
-          "selected": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 5.0,
             "res_1": 0,
-            "res_2": 5.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "3-a9-25": {
@@ -7344,13 +7344,13 @@
           "branch_no": 1,
           "branchCost": 10.0,
           "release_time": 17,
-          "selected": 1,
+          "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 3.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 7.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 3.0
           },
           "resources": [
             "res_4",
@@ -7358,10 +7358,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 3.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "3-a10-26": {
@@ -7379,10 +7379,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 6.0,
+            "res_2": 0,
             "res_1": 13.0,
-            "res_2": 0
+            "res_5": 6.0,
+            "res_4": 0
           },
           "resources": [
             "res_1",
@@ -7390,10 +7390,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 7.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 7.0,
+            "res_4": 0
           }
         },
         "3-a10-27": {
@@ -7408,20 +7408,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 8.0,
             "res_1": 0,
-            "res_2": 8.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         }
       },
@@ -7479,8 +7479,8 @@
             "3-3-a1-1-3"
           ],
           "release_time": 17,
-          "start": 25,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "3-3-a1-3-5": {
           "branch": "3-a1-3",
@@ -7492,8 +7492,8 @@
             "3-3-a1-2-4"
           ],
           "release_time": 17,
-          "start": 0,
-          "selected": 0
+          "start": 17,
+          "selected": 1
         },
         "3-3-a1-4-6": {
           "branch": "3-a1-4",
@@ -7567,8 +7567,8 @@
             "3-3-a2-5-9"
           ],
           "release_time": 17,
-          "start": 0,
-          "selected": 0
+          "start": 18,
+          "selected": 1
         },
         "3-3-a2-6-11": {
           "branch": "3-a2-6",
@@ -7584,8 +7584,8 @@
             "3-3-a2-5-9"
           ],
           "release_time": 17,
-          "start": 0,
-          "selected": 0
+          "start": 37,
+          "selected": 1
         },
         "3-3-a2-7-12": {
           "branch": "3-a2-7",
@@ -7657,8 +7657,8 @@
             "3-3-a2-8-14"
           ],
           "release_time": 17,
-          "start": 32,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "3-3-a3-10-16": {
           "branch": "3-a3-10",
@@ -7677,7 +7677,7 @@
             "3-3-a2-9-15"
           ],
           "release_time": 17,
-          "start": 43,
+          "start": 44,
           "selected": 1
         },
         "3-3-a3-11-17": {
@@ -7955,7 +7955,7 @@
             "3-3-a4-14-27"
           ],
           "release_time": 17,
-          "start": 55,
+          "start": 49,
           "selected": 1
         },
         "3-3-a5-16-29": {
@@ -7981,7 +7981,7 @@
             "3-3-a4-15-28"
           ],
           "release_time": 17,
-          "start": 64,
+          "start": 60,
           "selected": 1
         },
         "3-3-a5-16-30": {
@@ -8008,7 +8008,7 @@
             "3-3-a4-15-28"
           ],
           "release_time": 17,
-          "start": 72,
+          "start": 64,
           "selected": 1
         },
         "3-3-a5-16-31": {
@@ -8035,7 +8035,7 @@
             "3-3-a4-15-28"
           ],
           "release_time": 17,
-          "start": 79,
+          "start": 71,
           "selected": 1
         },
         "3-3-a5-16-32": {
@@ -8062,7 +8062,7 @@
             "3-3-a4-15-28"
           ],
           "release_time": 17,
-          "start": 81,
+          "start": 73,
           "selected": 1
         },
         "3-3-a5-17-33": {
@@ -8173,8 +8173,8 @@
             "3-3-a5-17-35"
           ],
           "release_time": 17,
-          "start": 85,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "3-3-a6-19-37": {
           "branch": "3-a6-19",
@@ -8202,8 +8202,8 @@
             "3-3-a6-18-36"
           ],
           "release_time": 17,
-          "start": 0,
-          "selected": 0
+          "start": 77,
+          "selected": 1
         },
         "3-3-a7-20-38": {
           "branch": "3-a7-20",
@@ -8232,7 +8232,7 @@
             "3-3-a6-19-37"
           ],
           "release_time": 17,
-          "start": 92,
+          "start": 84,
           "selected": 1
         },
         "3-3-a7-21-39": {
@@ -8295,7 +8295,7 @@
             "3-3-a7-21-39"
           ],
           "release_time": 17,
-          "start": 96,
+          "start": 88,
           "selected": 1
         },
         "3-3-a8-23-41": {
@@ -8430,8 +8430,8 @@
             "3-3-a8-23-43"
           ],
           "release_time": 17,
-          "start": 0,
-          "selected": 0
+          "start": 94,
+          "selected": 1
         },
         "3-3-a9-25-45": {
           "branch": "3-a9-25",
@@ -8465,8 +8465,8 @@
             "3-3-a9-24-44"
           ],
           "release_time": 17,
-          "start": 102,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "3-3-a9-25-46": {
           "branch": "3-a9-25",
@@ -8501,8 +8501,8 @@
             "3-3-a9-24-44"
           ],
           "release_time": 17,
-          "start": 105,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "3-3-a10-26-47": {
           "branch": "3-a10-26",
@@ -8685,7 +8685,7 @@
             "3-3-a10-26-50"
           ],
           "release_time": 17,
-          "start": 112,
+          "start": 99,
           "selected": 1
         }
       },
@@ -8693,11 +8693,11 @@
       "instanceId": 3,
       "fixed": true,
       "solution": {
-        "objective": 120,
+        "objective": 107,
         "solver status": "?",
-        "lower_bound": 98.0,
-        "computing time": 100.29427766799927,
-        "total interval length": 80.0
+        "lower_bound": 96.0,
+        "computing time": 100.24367594718933,
+        "total interval length": 75.0
       }
     },
     {
@@ -8788,23 +8788,23 @@
           "branch_no": 0,
           "branchCost": 2.0,
           "release_time": 21,
-          "selected": 1,
+          "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 2.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 2.0,
+            "res_4": 0
           },
           "resources": [
             "res_5"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "4-a1-1": {
@@ -8821,10 +8821,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 15.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 6.0,
             "res_1": 0,
-            "res_2": 6.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -8832,10 +8832,10 @@
           ],
           "release_times": {
             "res_3": 6.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "4-a1-2": {
@@ -8850,20 +8850,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 7.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "4-a1-3": {
@@ -8875,23 +8875,23 @@
           "branch_no": 3,
           "branchCost": 1.0,
           "release_time": 21,
-          "selected": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 1.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 1.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "4-a1-4": {
@@ -8908,10 +8908,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 13.0,
             "res_1": 6.0,
-            "res_2": 13.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -8919,10 +8919,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 8.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "4-a2-5": {
@@ -8937,20 +8937,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 4.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 4.0,
+            "res_4": 0
           },
           "resources": [
             "res_5"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "4-a2-6": {
@@ -8966,10 +8966,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 7.0,
             "res_1": 7.0,
-            "res_2": 7.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -8977,10 +8977,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 7.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "4-a2-7": {
@@ -8995,20 +8995,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 6.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "4-a2-8": {
@@ -9024,20 +9024,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 5.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 5.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "4-a2-9": {
@@ -9052,20 +9052,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 8.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "4-a3-10": {
@@ -9077,23 +9077,23 @@
           "branch_no": 0,
           "branchCost": 5.0,
           "release_time": 21,
-          "selected": 1,
+          "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 5.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 5.0,
+            "res_4": 0
           },
           "resources": [
             "res_5"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "4-a3-11": {
@@ -9107,13 +9107,13 @@
           "branch_no": 1,
           "branchCost": 17.0,
           "release_time": 21,
-          "selected": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 3.0,
-            "res_5": 0,
+            "res_2": 14.0,
             "res_1": 0,
-            "res_2": 14.0
+            "res_5": 0,
+            "res_4": 3.0
           },
           "resources": [
             "res_2",
@@ -9121,10 +9121,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 6.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 6.0
           }
         },
         "4-a3-12": {
@@ -9142,10 +9142,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 8.0,
-            "res_4": 0,
-            "res_5": 3.0,
+            "res_2": 14.0,
             "res_1": 0,
-            "res_2": 14.0
+            "res_5": 3.0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -9154,10 +9154,10 @@
           ],
           "release_times": {
             "res_3": 11.0,
-            "res_4": 0,
-            "res_5": 8.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 8.0,
+            "res_4": 0
           }
         },
         "4-a3-13": {
@@ -9172,20 +9172,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 3.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 3.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "4-a4-14": {
@@ -9202,10 +9202,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 17.0,
-            "res_4": 4.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 4.0
           },
           "resources": [
             "res_4",
@@ -9213,10 +9213,10 @@
           ],
           "release_times": {
             "res_3": 4.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "4-a4-15": {
@@ -9231,20 +9231,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 9.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "4-a5-16": {
@@ -9262,10 +9262,10 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 7.0,
-            "res_4": 7.0,
-            "res_5": 2.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 2.0,
+            "res_4": 7.0
           },
           "resources": [
             "res_4",
@@ -9274,10 +9274,10 @@
           ],
           "release_times": {
             "res_3": 3.0,
-            "res_4": 0,
-            "res_5": 10.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 10.0,
+            "res_4": 0
           }
         },
         "4-a5-17": {
@@ -9294,10 +9294,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 8.0,
-            "res_4": 6.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 6.0
           },
           "resources": [
             "res_3",
@@ -9305,10 +9305,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 8.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 8.0
           }
         },
         "4-a6-18": {
@@ -9323,20 +9323,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 7.0,
             "res_1": 0,
-            "res_2": 7.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "4-a6-19": {
@@ -9351,20 +9351,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 7.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "4-a7-20": {
@@ -9379,20 +9379,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 4.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 4.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "4-a7-21": {
@@ -9407,20 +9407,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 7.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "4-a8-22": {
@@ -9435,20 +9435,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 6.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "4-a8-23": {
@@ -9465,20 +9465,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 27.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "4-a9-24": {
@@ -9493,20 +9493,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 5.0,
             "res_1": 0,
-            "res_2": 5.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "4-a9-25": {
@@ -9522,10 +9522,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 3.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 7.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 3.0
           },
           "resources": [
             "res_4",
@@ -9533,10 +9533,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 3.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "4-a10-26": {
@@ -9554,10 +9554,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 6.0,
+            "res_2": 0,
             "res_1": 13.0,
-            "res_2": 0
+            "res_5": 6.0,
+            "res_4": 0
           },
           "resources": [
             "res_1",
@@ -9565,10 +9565,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 7.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 7.0,
+            "res_4": 0
           }
         },
         "4-a10-27": {
@@ -9583,20 +9583,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 8.0,
             "res_1": 0,
-            "res_2": 8.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         }
       },
@@ -9607,8 +9607,8 @@
           "cost": 2.0,
           "after": [],
           "release_time": 21,
-          "start": 21,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "4-4-a1-1-1": {
           "branch": "4-a1-1",
@@ -9667,8 +9667,8 @@
             "4-4-a1-2-4"
           ],
           "release_time": 21,
-          "start": 0,
-          "selected": 0
+          "start": 21,
+          "selected": 1
         },
         "4-4-a1-4-6": {
           "branch": "4-a1-4",
@@ -9794,7 +9794,7 @@
             "4-4-a2-7-12"
           ],
           "release_time": 21,
-          "start": 23,
+          "start": 22,
           "selected": 1
         },
         "4-4-a2-8-14": {
@@ -9813,7 +9813,7 @@
             "4-4-a2-7-12"
           ],
           "release_time": 21,
-          "start": 47,
+          "start": 24,
           "selected": 1
         },
         "4-4-a2-9-15": {
@@ -9852,8 +9852,8 @@
             "4-4-a2-9-15"
           ],
           "release_time": 21,
-          "start": 50,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "4-4-a3-11-17": {
           "branch": "4-a3-11",
@@ -9873,8 +9873,8 @@
             "4-4-a3-10-16"
           ],
           "release_time": 21,
-          "start": 0,
-          "selected": 0
+          "start": 27,
+          "selected": 1
         },
         "4-4-a3-11-18": {
           "branch": "4-a3-11",
@@ -9895,8 +9895,8 @@
             "4-4-a3-10-16"
           ],
           "release_time": 21,
-          "start": 0,
-          "selected": 0
+          "start": 44,
+          "selected": 1
         },
         "4-4-a3-11-19": {
           "branch": "4-a3-11",
@@ -9917,8 +9917,8 @@
             "4-4-a3-10-16"
           ],
           "release_time": 21,
-          "start": 0,
-          "selected": 0
+          "start": 64,
+          "selected": 1
         },
         "4-4-a3-12-20": {
           "branch": "4-a3-12",
@@ -10130,7 +10130,7 @@
             "4-4-a4-14-27"
           ],
           "release_time": 21,
-          "start": 64,
+          "start": 72,
           "selected": 1
         },
         "4-4-a5-16-29": {
@@ -10156,7 +10156,7 @@
             "4-4-a4-15-28"
           ],
           "release_time": 21,
-          "start": 78,
+          "start": 81,
           "selected": 1
         },
         "4-4-a5-16-30": {
@@ -10183,7 +10183,7 @@
             "4-4-a4-15-28"
           ],
           "release_time": 21,
-          "start": 81,
+          "start": 84,
           "selected": 1
         },
         "4-4-a5-16-31": {
@@ -10210,7 +10210,7 @@
             "4-4-a4-15-28"
           ],
           "release_time": 21,
-          "start": 88,
+          "start": 91,
           "selected": 1
         },
         "4-4-a5-16-32": {
@@ -10237,7 +10237,7 @@
             "4-4-a4-15-28"
           ],
           "release_time": 21,
-          "start": 96,
+          "start": 93,
           "selected": 1
         },
         "4-4-a5-17-33": {
@@ -10377,7 +10377,7 @@
             "4-4-a6-18-36"
           ],
           "release_time": 21,
-          "start": 102,
+          "start": 97,
           "selected": 1
         },
         "4-4-a7-20-38": {
@@ -10407,7 +10407,7 @@
             "4-4-a6-19-37"
           ],
           "release_time": 21,
-          "start": 109,
+          "start": 104,
           "selected": 1
         },
         "4-4-a7-21-39": {
@@ -10470,7 +10470,7 @@
             "4-4-a7-21-39"
           ],
           "release_time": 21,
-          "start": 113,
+          "start": 108,
           "selected": 1
         },
         "4-4-a8-23-41": {
@@ -10605,7 +10605,7 @@
             "4-4-a8-23-43"
           ],
           "release_time": 21,
-          "start": 120,
+          "start": 114,
           "selected": 1
         },
         "4-4-a9-25-45": {
@@ -10860,7 +10860,7 @@
             "4-4-a10-26-50"
           ],
           "release_time": 21,
-          "start": 125,
+          "start": 119,
           "selected": 1
         }
       },
@@ -10868,11 +10868,11 @@
       "instanceId": 4,
       "fixed": true,
       "solution": {
-        "objective": 133,
+        "objective": 127,
         "solver status": "?",
-        "lower_bound": 108.0,
-        "computing time": 100.25575828552246,
-        "total interval length": 67.0
+        "lower_bound": 102.0,
+        "computing time": 100.07892656326294,
+        "total interval length": 78.0
       }
     },
     {
@@ -10966,20 +10966,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 2.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 2.0,
+            "res_4": 0
           },
           "resources": [
             "res_5"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "5-a1-1": {
@@ -10996,10 +10996,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 15.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 6.0,
             "res_1": 0,
-            "res_2": 6.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -11007,10 +11007,10 @@
           ],
           "release_times": {
             "res_3": 6.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "5-a1-2": {
@@ -11025,20 +11025,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 7.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "5-a1-3": {
@@ -11053,20 +11053,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 1.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 1.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "5-a1-4": {
@@ -11083,10 +11083,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 13.0,
             "res_1": 6.0,
-            "res_2": 13.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -11094,10 +11094,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 8.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "5-a2-5": {
@@ -11109,23 +11109,23 @@
           "branch_no": 0,
           "branchCost": 4.0,
           "release_time": 21,
-          "selected": 1,
+          "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 4.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 4.0,
+            "res_4": 0
           },
           "resources": [
             "res_5"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "5-a2-6": {
@@ -11141,10 +11141,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 7.0,
             "res_1": 7.0,
-            "res_2": 7.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -11152,10 +11152,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 7.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "5-a2-7": {
@@ -11170,20 +11170,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 6.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "5-a2-8": {
@@ -11196,23 +11196,23 @@
           "branch_no": 3,
           "branchCost": 5.0,
           "release_time": 21,
-          "selected": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 5.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 5.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "5-a2-9": {
@@ -11227,20 +11227,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 8.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "5-a3-10": {
@@ -11255,20 +11255,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 5.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 5.0,
+            "res_4": 0
           },
           "resources": [
             "res_5"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "5-a3-11": {
@@ -11285,10 +11285,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 3.0,
-            "res_5": 0,
+            "res_2": 14.0,
             "res_1": 0,
-            "res_2": 14.0
+            "res_5": 0,
+            "res_4": 3.0
           },
           "resources": [
             "res_2",
@@ -11296,10 +11296,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 6.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 6.0
           }
         },
         "5-a3-12": {
@@ -11317,10 +11317,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 8.0,
-            "res_4": 0,
-            "res_5": 3.0,
+            "res_2": 14.0,
             "res_1": 0,
-            "res_2": 14.0
+            "res_5": 3.0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -11329,10 +11329,10 @@
           ],
           "release_times": {
             "res_3": 11.0,
-            "res_4": 0,
-            "res_5": 8.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 8.0,
+            "res_4": 0
           }
         },
         "5-a3-13": {
@@ -11347,20 +11347,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 3.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 3.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "5-a4-14": {
@@ -11377,10 +11377,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 17.0,
-            "res_4": 4.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 4.0
           },
           "resources": [
             "res_4",
@@ -11388,10 +11388,10 @@
           ],
           "release_times": {
             "res_3": 4.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "5-a4-15": {
@@ -11406,20 +11406,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 9.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "5-a5-16": {
@@ -11437,10 +11437,10 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 7.0,
-            "res_4": 7.0,
-            "res_5": 2.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 2.0,
+            "res_4": 7.0
           },
           "resources": [
             "res_4",
@@ -11449,10 +11449,10 @@
           ],
           "release_times": {
             "res_3": 3.0,
-            "res_4": 0,
-            "res_5": 10.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 10.0,
+            "res_4": 0
           }
         },
         "5-a5-17": {
@@ -11469,10 +11469,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 8.0,
-            "res_4": 6.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 6.0
           },
           "resources": [
             "res_3",
@@ -11480,10 +11480,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 8.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 8.0
           }
         },
         "5-a6-18": {
@@ -11498,20 +11498,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 7.0,
             "res_1": 0,
-            "res_2": 7.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "5-a6-19": {
@@ -11526,20 +11526,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 7.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "5-a7-20": {
@@ -11554,20 +11554,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 4.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 4.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "5-a7-21": {
@@ -11582,20 +11582,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 7.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "5-a8-22": {
@@ -11610,20 +11610,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 6.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "5-a8-23": {
@@ -11640,20 +11640,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 27.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "5-a9-24": {
@@ -11668,20 +11668,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 5.0,
             "res_1": 0,
-            "res_2": 5.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "5-a9-25": {
@@ -11697,10 +11697,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 3.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 7.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 3.0
           },
           "resources": [
             "res_4",
@@ -11708,10 +11708,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 3.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "5-a10-26": {
@@ -11729,10 +11729,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 6.0,
+            "res_2": 0,
             "res_1": 13.0,
-            "res_2": 0
+            "res_5": 6.0,
+            "res_4": 0
           },
           "resources": [
             "res_1",
@@ -11740,10 +11740,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 7.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 7.0,
+            "res_4": 0
           }
         },
         "5-a10-27": {
@@ -11758,20 +11758,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 8.0,
             "res_1": 0,
-            "res_2": 8.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         }
       },
@@ -11842,7 +11842,7 @@
             "5-5-a1-2-4"
           ],
           "release_time": 21,
-          "start": 37,
+          "start": 33,
           "selected": 1
         },
         "5-5-a1-4-6": {
@@ -11901,8 +11901,8 @@
             "5-5-a1-4-8"
           ],
           "release_time": 21,
-          "start": 55,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "5-5-a2-6-10": {
           "branch": "5-a2-6",
@@ -11969,8 +11969,8 @@
             "5-5-a2-7-12"
           ],
           "release_time": 21,
-          "start": 0,
-          "selected": 0
+          "start": 68,
+          "selected": 1
         },
         "5-5-a2-8-14": {
           "branch": "5-a2-8",
@@ -11988,8 +11988,8 @@
             "5-5-a2-7-12"
           ],
           "release_time": 21,
-          "start": 0,
-          "selected": 0
+          "start": 70,
+          "selected": 1
         },
         "5-5-a2-9-15": {
           "branch": "5-a2-9",
@@ -12027,7 +12027,7 @@
             "5-5-a2-9-15"
           ],
           "release_time": 21,
-          "start": 59,
+          "start": 73,
           "selected": 1
         },
         "5-5-a3-11-17": {
@@ -12305,7 +12305,7 @@
             "5-5-a4-14-27"
           ],
           "release_time": 21,
-          "start": 73,
+          "start": 81,
           "selected": 1
         },
         "5-5-a5-16-29": {
@@ -12331,7 +12331,7 @@
             "5-5-a4-15-28"
           ],
           "release_time": 21,
-          "start": 89,
+          "start": 90,
           "selected": 1
         },
         "5-5-a5-16-30": {
@@ -12358,7 +12358,7 @@
             "5-5-a4-15-28"
           ],
           "release_time": 21,
-          "start": 119,
+          "start": 104,
           "selected": 1
         },
         "5-5-a5-16-31": {
@@ -12385,7 +12385,7 @@
             "5-5-a4-15-28"
           ],
           "release_time": 21,
-          "start": 126,
+          "start": 111,
           "selected": 1
         },
         "5-5-a5-16-32": {
@@ -12412,7 +12412,7 @@
             "5-5-a4-15-28"
           ],
           "release_time": 21,
-          "start": 128,
+          "start": 113,
           "selected": 1
         },
         "5-5-a5-17-33": {
@@ -12552,7 +12552,7 @@
             "5-5-a6-18-36"
           ],
           "release_time": 21,
-          "start": 132,
+          "start": 117,
           "selected": 1
         },
         "5-5-a7-20-38": {
@@ -12582,7 +12582,7 @@
             "5-5-a6-19-37"
           ],
           "release_time": 21,
-          "start": 139,
+          "start": 124,
           "selected": 1
         },
         "5-5-a7-21-39": {
@@ -12645,7 +12645,7 @@
             "5-5-a7-21-39"
           ],
           "release_time": 21,
-          "start": 143,
+          "start": 128,
           "selected": 1
         },
         "5-5-a8-23-41": {
@@ -12780,7 +12780,7 @@
             "5-5-a8-23-43"
           ],
           "release_time": 21,
-          "start": 149,
+          "start": 134,
           "selected": 1
         },
         "5-5-a9-25-45": {
@@ -13035,7 +13035,7 @@
             "5-5-a10-26-50"
           ],
           "release_time": 21,
-          "start": 154,
+          "start": 139,
           "selected": 1
         }
       },
@@ -13043,11 +13043,11 @@
       "instanceId": 5,
       "fixed": true,
       "solution": {
-        "objective": 162,
+        "objective": 147,
         "solver status": "?",
-        "lower_bound": 120.0,
-        "computing time": 100.00539040565491,
-        "total interval length": 65.0
+        "lower_bound": 116.0,
+        "computing time": 100.19525337219238,
+        "total interval length": 66.0
       }
     },
     {
@@ -13141,20 +13141,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 2.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 2.0,
+            "res_4": 0
           },
           "resources": [
             "res_5"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "6-a1-1": {
@@ -13171,10 +13171,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 15.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 6.0,
             "res_1": 0,
-            "res_2": 6.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -13182,10 +13182,10 @@
           ],
           "release_times": {
             "res_3": 6.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "6-a1-2": {
@@ -13200,20 +13200,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 7.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "6-a1-3": {
@@ -13228,20 +13228,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 1.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 1.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "6-a1-4": {
@@ -13258,10 +13258,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 13.0,
             "res_1": 6.0,
-            "res_2": 13.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -13269,10 +13269,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 8.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "6-a2-5": {
@@ -13287,20 +13287,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 4.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 4.0,
+            "res_4": 0
           },
           "resources": [
             "res_5"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "6-a2-6": {
@@ -13316,10 +13316,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 7.0,
             "res_1": 7.0,
-            "res_2": 7.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -13327,10 +13327,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 7.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "6-a2-7": {
@@ -13345,20 +13345,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 6.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "6-a2-8": {
@@ -13371,23 +13371,23 @@
           "branch_no": 3,
           "branchCost": 5.0,
           "release_time": 32,
-          "selected": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 5.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 5.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "6-a2-9": {
@@ -13399,23 +13399,23 @@
           "branch_no": 4,
           "branchCost": 8.0,
           "release_time": 32,
-          "selected": 1,
+          "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 8.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "6-a3-10": {
@@ -13430,20 +13430,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 5.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 5.0,
+            "res_4": 0
           },
           "resources": [
             "res_5"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "6-a3-11": {
@@ -13460,10 +13460,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 3.0,
-            "res_5": 0,
+            "res_2": 14.0,
             "res_1": 0,
-            "res_2": 14.0
+            "res_5": 0,
+            "res_4": 3.0
           },
           "resources": [
             "res_2",
@@ -13471,10 +13471,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 6.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 6.0
           }
         },
         "6-a3-12": {
@@ -13492,10 +13492,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 8.0,
-            "res_4": 0,
-            "res_5": 3.0,
+            "res_2": 14.0,
             "res_1": 0,
-            "res_2": 14.0
+            "res_5": 3.0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -13504,10 +13504,10 @@
           ],
           "release_times": {
             "res_3": 11.0,
-            "res_4": 0,
-            "res_5": 8.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 8.0,
+            "res_4": 0
           }
         },
         "6-a3-13": {
@@ -13522,20 +13522,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 3.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 3.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "6-a4-14": {
@@ -13552,10 +13552,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 17.0,
-            "res_4": 4.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 4.0
           },
           "resources": [
             "res_4",
@@ -13563,10 +13563,10 @@
           ],
           "release_times": {
             "res_3": 4.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "6-a4-15": {
@@ -13581,20 +13581,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 9.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "6-a5-16": {
@@ -13612,10 +13612,10 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 7.0,
-            "res_4": 7.0,
-            "res_5": 2.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 2.0,
+            "res_4": 7.0
           },
           "resources": [
             "res_4",
@@ -13624,10 +13624,10 @@
           ],
           "release_times": {
             "res_3": 3.0,
-            "res_4": 0,
-            "res_5": 10.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 10.0,
+            "res_4": 0
           }
         },
         "6-a5-17": {
@@ -13644,10 +13644,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 8.0,
-            "res_4": 6.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 6.0
           },
           "resources": [
             "res_3",
@@ -13655,10 +13655,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 8.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 8.0
           }
         },
         "6-a6-18": {
@@ -13673,20 +13673,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 7.0,
             "res_1": 0,
-            "res_2": 7.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "6-a6-19": {
@@ -13701,20 +13701,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 7.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "6-a7-20": {
@@ -13729,20 +13729,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 4.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 4.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "6-a7-21": {
@@ -13757,20 +13757,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 7.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "6-a8-22": {
@@ -13785,20 +13785,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 6.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "6-a8-23": {
@@ -13815,20 +13815,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 27.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "6-a9-24": {
@@ -13843,20 +13843,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 5.0,
             "res_1": 0,
-            "res_2": 5.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "6-a9-25": {
@@ -13872,10 +13872,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 3.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 7.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 3.0
           },
           "resources": [
             "res_4",
@@ -13883,10 +13883,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 3.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "6-a10-26": {
@@ -13904,10 +13904,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 6.0,
+            "res_2": 0,
             "res_1": 13.0,
-            "res_2": 0
+            "res_5": 6.0,
+            "res_4": 0
           },
           "resources": [
             "res_1",
@@ -13915,10 +13915,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 7.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 7.0,
+            "res_4": 0
           }
         },
         "6-a10-27": {
@@ -13933,20 +13933,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 8.0,
             "res_1": 0,
-            "res_2": 8.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         }
       },
@@ -14144,8 +14144,8 @@
             "6-6-a2-7-12"
           ],
           "release_time": 32,
-          "start": 0,
-          "selected": 0
+          "start": 77,
+          "selected": 1
         },
         "6-6-a2-8-14": {
           "branch": "6-a2-8",
@@ -14163,8 +14163,8 @@
             "6-6-a2-7-12"
           ],
           "release_time": 32,
-          "start": 0,
-          "selected": 0
+          "start": 97,
+          "selected": 1
         },
         "6-6-a2-9-15": {
           "branch": "6-a2-9",
@@ -14182,8 +14182,8 @@
             "6-6-a2-8-14"
           ],
           "release_time": 32,
-          "start": 82,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "6-6-a3-10-16": {
           "branch": "6-a3-10",
@@ -14202,7 +14202,7 @@
             "6-6-a2-9-15"
           ],
           "release_time": 32,
-          "start": 90,
+          "start": 100,
           "selected": 1
         },
         "6-6-a3-11-17": {
@@ -14480,7 +14480,7 @@
             "6-6-a4-14-27"
           ],
           "release_time": 32,
-          "start": 95,
+          "start": 105,
           "selected": 1
         },
         "6-6-a5-16-29": {
@@ -14506,7 +14506,7 @@
             "6-6-a4-15-28"
           ],
           "release_time": 32,
-          "start": 105,
+          "start": 117,
           "selected": 1
         },
         "6-6-a5-16-30": {
@@ -14533,7 +14533,7 @@
             "6-6-a4-15-28"
           ],
           "release_time": 32,
-          "start": 149,
+          "start": 134,
           "selected": 1
         },
         "6-6-a5-16-31": {
@@ -14560,7 +14560,7 @@
             "6-6-a4-15-28"
           ],
           "release_time": 32,
-          "start": 156,
+          "start": 141,
           "selected": 1
         },
         "6-6-a5-16-32": {
@@ -14587,7 +14587,7 @@
             "6-6-a4-15-28"
           ],
           "release_time": 32,
-          "start": 158,
+          "start": 143,
           "selected": 1
         },
         "6-6-a5-17-33": {
@@ -14698,7 +14698,7 @@
             "6-6-a5-17-35"
           ],
           "release_time": 32,
-          "start": 162,
+          "start": 147,
           "selected": 1
         },
         "6-6-a6-19-37": {
@@ -14757,7 +14757,7 @@
             "6-6-a6-19-37"
           ],
           "release_time": 32,
-          "start": 169,
+          "start": 154,
           "selected": 1
         },
         "6-6-a7-21-39": {
@@ -14820,7 +14820,7 @@
             "6-6-a7-21-39"
           ],
           "release_time": 32,
-          "start": 173,
+          "start": 158,
           "selected": 1
         },
         "6-6-a8-23-41": {
@@ -14955,7 +14955,7 @@
             "6-6-a8-23-43"
           ],
           "release_time": 32,
-          "start": 179,
+          "start": 164,
           "selected": 1
         },
         "6-6-a9-25-45": {
@@ -15210,7 +15210,7 @@
             "6-6-a10-26-50"
           ],
           "release_time": 32,
-          "start": 184,
+          "start": 169,
           "selected": 1
         }
       },
@@ -15218,11 +15218,11 @@
       "instanceId": 6,
       "fixed": true,
       "solution": {
-        "objective": 192,
+        "objective": 177,
         "solver status": "?",
-        "lower_bound": 135.0,
-        "computing time": 100.01622200012207,
-        "total interval length": 70.0
+        "lower_bound": 132.0,
+        "computing time": 100.26336574554443,
+        "total interval length": 67.0
       }
     },
     {
@@ -15316,20 +15316,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 2.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 2.0,
+            "res_4": 0
           },
           "resources": [
             "res_5"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "7-a1-1": {
@@ -15346,10 +15346,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 15.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 6.0,
             "res_1": 0,
-            "res_2": 6.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -15357,10 +15357,10 @@
           ],
           "release_times": {
             "res_3": 6.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "7-a1-2": {
@@ -15375,20 +15375,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 7.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "7-a1-3": {
@@ -15403,20 +15403,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 1.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 1.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "7-a1-4": {
@@ -15433,10 +15433,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 13.0,
             "res_1": 6.0,
-            "res_2": 13.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -15444,10 +15444,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 8.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "7-a2-5": {
@@ -15462,20 +15462,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 4.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 4.0,
+            "res_4": 0
           },
           "resources": [
             "res_5"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "7-a2-6": {
@@ -15491,10 +15491,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 7.0,
             "res_1": 7.0,
-            "res_2": 7.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -15502,10 +15502,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 7.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "7-a2-7": {
@@ -15520,20 +15520,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 6.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "7-a2-8": {
@@ -15546,23 +15546,23 @@
           "branch_no": 3,
           "branchCost": 5.0,
           "release_time": 33,
-          "selected": 1,
+          "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 5.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 5.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "7-a2-9": {
@@ -15574,23 +15574,23 @@
           "branch_no": 4,
           "branchCost": 8.0,
           "release_time": 33,
-          "selected": 0,
+          "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 8.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "7-a3-10": {
@@ -15605,20 +15605,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 5.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 5.0,
+            "res_4": 0
           },
           "resources": [
             "res_5"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "7-a3-11": {
@@ -15635,10 +15635,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 3.0,
-            "res_5": 0,
+            "res_2": 14.0,
             "res_1": 0,
-            "res_2": 14.0
+            "res_5": 0,
+            "res_4": 3.0
           },
           "resources": [
             "res_2",
@@ -15646,10 +15646,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 6.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 6.0
           }
         },
         "7-a3-12": {
@@ -15667,10 +15667,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 8.0,
-            "res_4": 0,
-            "res_5": 3.0,
+            "res_2": 14.0,
             "res_1": 0,
-            "res_2": 14.0
+            "res_5": 3.0,
+            "res_4": 0
           },
           "resources": [
             "res_2",
@@ -15679,10 +15679,10 @@
           ],
           "release_times": {
             "res_3": 11.0,
-            "res_4": 0,
-            "res_5": 8.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 8.0,
+            "res_4": 0
           }
         },
         "7-a3-13": {
@@ -15697,20 +15697,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 3.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 3.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "7-a4-14": {
@@ -15727,10 +15727,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 17.0,
-            "res_4": 4.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 4.0
           },
           "resources": [
             "res_4",
@@ -15738,10 +15738,10 @@
           ],
           "release_times": {
             "res_3": 4.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "7-a4-15": {
@@ -15756,20 +15756,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 9.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "7-a5-16": {
@@ -15787,10 +15787,10 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 7.0,
-            "res_4": 7.0,
-            "res_5": 2.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 2.0,
+            "res_4": 7.0
           },
           "resources": [
             "res_4",
@@ -15799,10 +15799,10 @@
           ],
           "release_times": {
             "res_3": 3.0,
-            "res_4": 0,
-            "res_5": 10.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 10.0,
+            "res_4": 0
           }
         },
         "7-a5-17": {
@@ -15819,10 +15819,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 8.0,
-            "res_4": 6.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 6.0
           },
           "resources": [
             "res_3",
@@ -15830,10 +15830,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 8.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 8.0
           }
         },
         "7-a6-18": {
@@ -15848,20 +15848,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 7.0,
             "res_1": 0,
-            "res_2": 7.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "7-a6-19": {
@@ -15876,20 +15876,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 7.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "7-a7-20": {
@@ -15904,20 +15904,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 4.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 4.0
           },
           "resources": [
             "res_4"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "7-a7-21": {
@@ -15932,20 +15932,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 7.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "7-a8-22": {
@@ -15960,20 +15960,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 6.0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_3"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "7-a8-23": {
@@ -15990,20 +15990,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 27.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_1"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "7-a9-24": {
@@ -16018,20 +16018,20 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 5.0,
             "res_1": 0,
-            "res_2": 5.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "7-a9-25": {
@@ -16047,10 +16047,10 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 3.0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 7.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 3.0
           },
           "resources": [
             "res_4",
@@ -16058,10 +16058,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 3.0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         },
         "7-a10-26": {
@@ -16079,10 +16079,10 @@
           "selected": 0,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 6.0,
+            "res_2": 0,
             "res_1": 13.0,
-            "res_2": 0
+            "res_5": 6.0,
+            "res_4": 0
           },
           "resources": [
             "res_1",
@@ -16090,10 +16090,10 @@
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 7.0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 7.0,
+            "res_4": 0
           }
         },
         "7-a10-27": {
@@ -16108,20 +16108,20 @@
           "selected": 1,
           "branch_jobs": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 8.0,
             "res_1": 0,
-            "res_2": 8.0
+            "res_5": 0,
+            "res_4": 0
           },
           "resources": [
             "res_2"
           ],
           "release_times": {
             "res_3": 0,
-            "res_4": 0,
-            "res_5": 0,
+            "res_2": 0,
             "res_1": 0,
-            "res_2": 0
+            "res_5": 0,
+            "res_4": 0
           }
         }
       },
@@ -16319,8 +16319,8 @@
             "7-7-a2-7-12"
           ],
           "release_time": 33,
-          "start": 50,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "7-7-a2-8-14": {
           "branch": "7-a2-8",
@@ -16338,8 +16338,8 @@
             "7-7-a2-7-12"
           ],
           "release_time": 33,
-          "start": 52,
-          "selected": 1
+          "start": 0,
+          "selected": 0
         },
         "7-7-a2-9-15": {
           "branch": "7-a2-9",
@@ -16357,8 +16357,8 @@
             "7-7-a2-8-14"
           ],
           "release_time": 33,
-          "start": 0,
-          "selected": 0
+          "start": 90,
+          "selected": 1
         },
         "7-7-a3-10-16": {
           "branch": "7-a3-10",
@@ -16556,7 +16556,7 @@
             "7-7-a3-12-23"
           ],
           "release_time": 33,
-          "start": 67,
+          "start": 100,
           "selected": 1
         },
         "7-7-a4-14-25": {
@@ -16655,7 +16655,7 @@
             "7-7-a4-14-27"
           ],
           "release_time": 33,
-          "start": 112,
+          "start": 114,
           "selected": 1
         },
         "7-7-a5-16-29": {
@@ -16681,7 +16681,7 @@
             "7-7-a4-15-28"
           ],
           "release_time": 33,
-          "start": 121,
+          "start": 128,
           "selected": 1
         },
         "7-7-a5-16-30": {
@@ -16708,7 +16708,7 @@
             "7-7-a4-15-28"
           ],
           "release_time": 33,
-          "start": 156,
+          "start": 141,
           "selected": 1
         },
         "7-7-a5-16-31": {
@@ -16735,7 +16735,7 @@
             "7-7-a4-15-28"
           ],
           "release_time": 33,
-          "start": 163,
+          "start": 148,
           "selected": 1
         },
         "7-7-a5-16-32": {
@@ -16762,7 +16762,7 @@
             "7-7-a4-15-28"
           ],
           "release_time": 33,
-          "start": 165,
+          "start": 150,
           "selected": 1
         },
         "7-7-a5-17-33": {
@@ -16873,7 +16873,7 @@
             "7-7-a5-17-35"
           ],
           "release_time": 33,
-          "start": 169,
+          "start": 154,
           "selected": 1
         },
         "7-7-a6-19-37": {
@@ -16932,7 +16932,7 @@
             "7-7-a6-19-37"
           ],
           "release_time": 33,
-          "start": 176,
+          "start": 161,
           "selected": 1
         },
         "7-7-a7-21-39": {
@@ -16995,7 +16995,7 @@
             "7-7-a7-21-39"
           ],
           "release_time": 33,
-          "start": 180,
+          "start": 165,
           "selected": 1
         },
         "7-7-a8-23-41": {
@@ -17165,7 +17165,7 @@
             "7-7-a9-24-44"
           ],
           "release_time": 33,
-          "start": 186,
+          "start": 171,
           "selected": 1
         },
         "7-7-a9-25-46": {
@@ -17201,7 +17201,7 @@
             "7-7-a9-24-44"
           ],
           "release_time": 33,
-          "start": 189,
+          "start": 174,
           "selected": 1
         },
         "7-7-a10-26-47": {
@@ -17385,7 +17385,7 @@
             "7-7-a10-26-50"
           ],
           "release_time": 33,
-          "start": 196,
+          "start": 181,
           "selected": 1
         }
       },
@@ -17393,28 +17393,28 @@
       "instanceId": 7,
       "fixed": true,
       "solution": {
-        "objective": 204,
+        "objective": 189,
         "solver status": "?",
-        "lower_bound": 148.0,
-        "computing time": 100.26510572433472,
-        "total interval length": 70.0
+        "lower_bound": 144.0,
+        "computing time": 100.12705898284912,
+        "total interval length": 73.0
       }
     }
   ],
   "resources": [
     "res_3",
-    "res_4",
-    "res_5",
+    "res_2",
     "res_1",
-    "res_2"
+    "res_5",
+    "res_4"
   ],
   "objective": 0,
   "solution": {
-    "objective": 204,
+    "objective": 189,
     "solver status": "?",
-    "lower_bound": 148.0,
-    "computing time": 100.26510572433472,
-    "total interval length": 70.0
+    "lower_bound": 144.0,
+    "computing time": 100.12705898284912,
+    "total interval length": 73.0
   },
   "metadata": {
     "tasks": "10",
@@ -17472,13 +17472,13 @@
   "solution_combined": {
     "objective": [
       61,
-      78,
-      108,
-      120,
-      133,
-      162,
-      192,
-      204
+      75,
+      88,
+      107,
+      127,
+      147,
+      177,
+      189
     ],
     "solver_status": [
       "?",
@@ -17492,33 +17492,33 @@
     ],
     "lower_bound": [
       61.0,
-      78.0,
-      97.0,
-      98.0,
-      108.0,
-      120.0,
-      135.0,
-      148.0
+      75.0,
+      88.0,
+      96.0,
+      102.0,
+      116.0,
+      132.0,
+      144.0
     ],
     "optimality_gap": [
       0.0,
       0.0,
+      0.0,
       11.0,
-      22.0,
       25.0,
-      42.0,
-      57.0,
-      56.0
+      31.0,
+      45.0,
+      45.0
     ],
     "computing_time": [
-      0.02175593376159668,
-      29.720829010009766,
-      100.04504227638245,
-      100.29427766799927,
-      100.25575828552246,
-      100.00539040565491,
-      100.01622200012207,
-      100.26510572433472
+      0.027552366256713867,
+      14.94266152381897,
+      9.324428796768188,
+      100.24367594718933,
+      100.07892656326294,
+      100.19525337219238,
+      100.26336574554443,
+      100.12705898284912
     ]
   }
 }
