@@ -250,7 +250,7 @@ class Simulator():
             self.save_schedule(schedule_dict)
 
             if decomposed:
-                result = cp_solver_decomposed_strengthened_cuts(self.schedule_filepath, TimeLimit=self.time_limit)
+                result = cp_solver_decomposed_strengthened_cuts(self.schedule_filepath, TimeLimit=self.time_limit, sigma=self.sigma)
             else:
                 result = cp_solver(self.schedule_filepath, log_file=f"{self.schedule_filepath}.log", sigma=self.sigma, timeout=self.time_limit)
             self.save_schedule(result)
