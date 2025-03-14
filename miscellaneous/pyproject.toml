@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ra_pst_py"
+version = "0.0.6"
+authors = [
+  { name="Felix Schumann", email="felixschumann95@gmx.de" },
+]
+description = "A package to build RA-PSTs from CPEE Testsets"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "lxml", 
+    "graphviz"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+    "Development Status :: 3 - Alpha",
+]
+keywords = ["RA-PST", "Process", "CPEE"]
+
+[project.urls]
+Homepage = "https://github.com/Schlixmann/ra_pst_py"
+Issues = "https://github.com/Schlixmann/ra_pst_py/issues"
+Paper = "https://link.springer.com/chapter/10.1007/978-3-031-70396-6_1"
+
+[tool.setuptools]
+packages = ["ra_pst_py"]
+package-dir = { "" = "src" }
